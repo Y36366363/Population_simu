@@ -98,6 +98,10 @@ class FamilyWorldTests(unittest.TestCase):
             "internal_migrants",
             "rural_population_share",
             "gender_status_gap",
+            "chronic_illness_share",
+            "elder_dependency_ratio",
+            "mean_household_care_burden",
+            "catastrophic_medical_expense_share",
         ):
             self.assertIn(key, row)
 
@@ -111,6 +115,33 @@ class FamilyWorldTests(unittest.TestCase):
         world = FamilyWorld(family_scenario(base_divorce_rate=1.0))
         row = world.step()[0]
         self.assertGreater(row.divorces, 0)
+
+    def test_chronic_disease_creates_care_and_medical_burden(self):
+        world = FamilyWorld(
+            family_scenario(
+                chronic_disease_base_rate=1.0,
+                healthcare_access=0.0,
+                medical_cost_burden=1.0,
+                public_long_term_care=0.0,
+            )
+        )
+        world._health_and_care()
+        self.assertTrue(any(person.chronic_condition for person in world.living_people))
+        self.assertTrue(any(home.annual_medical_spending > 0 for home in world.households.values()))
+        self.assertTrue(any(home.care_burden > 0 for home in world.households.values()))
+
+    def test_public_long_term_care_reduces_household_burden(self):
+        unsupported = FamilyWorld(
+            family_scenario(seed=91, chronic_disease_base_rate=1.0, public_long_term_care=0.0)
+        )
+        supported = FamilyWorld(
+            family_scenario(seed=91, chronic_disease_base_rate=1.0, public_long_term_care=1.0)
+        )
+        unsupported._health_and_care()
+        supported._health_and_care()
+        unsupported_total = sum(home.care_burden for home in unsupported.households.values())
+        supported_total = sum(home.care_burden for home in supported.households.values())
+        self.assertLess(supported_total, unsupported_total)
 
 
 if __name__ == "__main__":

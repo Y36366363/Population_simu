@@ -324,13 +324,89 @@ class FamilyWorld:
         ageing = 0.000025 * math.exp(max(0, person.age - 30) / 10.2)
         accident = 0.0005 + (0.0005 if person.sex == "M" and 15 <= person.age <= 35 else 0)
         occupation_risk = OCCUPATIONS[person.occupation].health_risk if person.age >= 22 else 0.0
-        health_multiplier = 1.35 - 0.55 * person.health_capital
+        health_multiplier = (
+            1.35
+            - 0.55 * person.health_capital
+            + 0.55 * person.disability_level
+            + (0.18 if person.chronic_condition else 0.0)
+        )
         return min(
             0.65,
             (infant + ageing + accident + 0.0015 * occupation_risk)
             * (1.15 - 0.45 * development)
             * health_multiplier,
         )
+
+    def _health_and_care(self) -> None:
+        """把疾病转化为医疗支出、照护时间损失和家庭债务。"""
+        for household in self.households.values():
+            household.annual_medical_spending = 0.0
+            household.care_burden = 0.0
+            household.catastrophic_medical_expense = False
+            country = self.countries[household.country_id]
+            members = [
+                self.people[pid] for pid in household.member_ids if self.people[pid].alive
+            ]
+            if not members:
+                continue
+            raw_care_need = 0.0
+            for person in members:
+                if not person.chronic_condition:
+                    age_risk = 0.35 + (max(0, person.age - 35) / 45) ** 1.7
+                    poverty_risk = 1.25 - 0.45 * person.health_capital
+                    onset = min(
+                        0.65,
+                        country.chronic_disease_base_rate * age_risk * poverty_risk,
+                    )
+                    if self.rng.random() < onset:
+                        person.chronic_condition = True
+                        person.disability_level = max(
+                            person.disability_level, self.rng.uniform(0.08, 0.35)
+                        )
+                if person.chronic_condition:
+                    untreated = 1 - country.healthcare_access
+                    person.health_capital = max(
+                        0.05,
+                        person.health_capital - 0.010 - 0.018 * untreated,
+                    )
+                    if self.rng.random() < 0.045 * (0.4 + untreated):
+                        person.disability_level = min(
+                            1.0, person.disability_level + self.rng.uniform(0.03, 0.14)
+                        )
+                    medical_cost = (
+                        country.baseline_family_resources
+                        * country.medical_cost_burden
+                        * (0.04 + 0.11 * person.disability_level)
+                        * (1 - 0.72 * country.healthcare_access)
+                    )
+                    household.annual_medical_spending += medical_cost
+                    raw_care_need += 0.08 + 0.42 * person.disability_level
+                if person.age >= 80:
+                    raw_care_need += 0.10 + 0.004 * (person.age - 80)
+
+            household.care_burden = min(
+                1.0, raw_care_need * (1 - 0.78 * country.public_long_term_care)
+            )
+            household.resources = max(
+                0.1, household.resources - household.annual_medical_spending
+            )
+            reference_income = max(1.0, household.permanent_income)
+            household.catastrophic_medical_expense = (
+                household.annual_medical_spending > 0.20 * reference_income
+            )
+            if household.catastrophic_medical_expense:
+                household.capitals.debt = min(
+                    1.0,
+                    household.capitals.debt
+                    + 0.10 * household.annual_medical_spending / reference_income,
+                )
+            household.capitals.care_time = max(
+                0.02, household.capitals.care_time - 0.035 * household.care_burden
+            )
+            household.capitals.health = statistics.fmean(
+                person.health_capital for person in members
+            )
+            household.capitals.financial = household.resources
 
     def _allocate_resources(self) -> dict[str, list[float]]:
         investments: dict[str, list[float]] = defaultdict(list)
@@ -577,12 +653,18 @@ class FamilyWorld:
 
     def _earn_resources(self) -> None:
         for household in self.households.values():
+            country = self.countries[household.country_id]
             adults = [
                 self.people[pid]
                 for pid in household.member_ids
-                if self.people[pid].alive and 22 <= self.people[pid].age <= 67
+                if self.people[pid].alive
+                and 22 <= self.people[pid].age < country.retirement_age
             ]
-            country = self.countries[household.country_id]
+            retirees = [
+                self.people[pid]
+                for pid in household.member_ids
+                if self.people[pid].alive and self.people[pid].age >= country.retirement_age
+            ]
             region = self._region(household.country_id, household.region_id)
             development = country.development_at(self.year, self.scenario.simulation.start_year)
             cycle_multiplier = max(0.45, 1 + self._economic_cycle[household.country_id])
@@ -592,16 +674,32 @@ class FamilyWorld:
                 * region.housing_cost
                 * (1 - 0.55 * country.housing_reform_strength),
             )
-            if adults:
-                income = 0.0
+            if adults or retirees:
+                income = (
+                    len(retirees)
+                    * country.pension_replacement_rate
+                    * max(2.0, household.permanent_income / max(1, len(adults) + len(retirees)))
+                )
                 young_children = sum(
                     self.people[pid].alive and self.people[pid].age < 7
                     for pid in household.member_ids
                 )
                 for person in adults:
-                    gender_multiplier = 1.0
+                    caregiver_multiplier = max(
+                        0.58,
+                        1
+                        - household.care_burden
+                        * (0.30 if person.sex == "F" else 0.16),
+                    )
+                    health_productivity = max(
+                        0.48,
+                        1
+                        - 0.35 * person.disability_level
+                        - (0.08 if person.chronic_condition else 0.0),
+                    )
+                    gender_multiplier = caregiver_multiplier * health_productivity
                     if person.sex == "F":
-                        gender_multiplier = (
+                        gender_multiplier *= (
                             (0.72 + 0.28 * country.female_labor_access)
                             * (1 - country.gender_pay_gap)
                             * (1 - country.maternal_career_penalty * min(1, young_children))
@@ -628,7 +726,8 @@ class FamilyWorld:
                 consumption = (1.8 + 1.1 * country.cost_of_children * development) * living_count
                 debt_service = household.capitals.debt * 2.2 * effective_housing_pressure
                 household.resources = max(0.1, household.resources + income - consumption - debt_service)
-                household.capitals.human = statistics.fmean(p.human_capital for p in adults)
+                if adults:
+                    household.capitals.human = statistics.fmean(p.human_capital for p in adults)
                 household.capitals.social = min(
                     1.0,
                     0.985 * household.capitals.social
@@ -1116,9 +1215,14 @@ class FamilyWorld:
         rich_bonus = country.rich_fertility_rebound * max(0.0, math.log2(max(1.0, ratio)) - 1.0)
         development_penalty = 0.60 * development + 0.22 * urbanization
         cost_penalty = 0.35 * country.cost_of_children * development
+        care_penalty = 0.85 * household.care_burden
         return max(
             0.35,
-            country.initial_children_per_family * (1.0 - development_penalty) + poverty_bonus + rich_bonus - cost_penalty,
+            country.initial_children_per_family * (1.0 - development_penalty)
+            + poverty_bonus
+            + rich_bonus
+            - cost_penalty
+            - care_penalty,
         )
 
     def _births(self) -> dict[str, int]:
@@ -1149,6 +1253,7 @@ class FamilyWorld:
             )
             # “想生”与“能稳定成家并生育”分开：死线以下愿望可能仍高，但实现率下降。
             probability *= realization_gate
+            probability *= max(0.20, 1 - 0.60 * household.care_burden)
             if self.rng.random() >= probability:
                 continue
             child = self._new_person(
@@ -1267,6 +1372,7 @@ class FamilyWorld:
         self._update_economic_cycle()
         for person in self.living_people:
             person.age += 1
+        self._health_and_care()
         investments = self._allocate_resources()
         self._mature_young_adults()
         self._career_transitions()
@@ -1445,6 +1551,20 @@ class FamilyWorld:
                         (statistics.fmean(person.economic_status for person in working_men) if working_men else 0.0)
                         - (statistics.fmean(person.economic_status for person in working_women) if working_women else 0.0)
                     ),
+                    chronic_illness_share=sum(person.chronic_condition for person in people)
+                    / max(1, len(people)),
+                    elder_dependency_ratio=sum(person.age >= country.retirement_age for person in people)
+                    / max(
+                        1,
+                        sum(22 <= person.age < country.retirement_age for person in people),
+                    ),
+                    mean_household_care_burden=(
+                        statistics.fmean(home.care_burden for home in homes) if homes else 0.0
+                    ),
+                    catastrophic_medical_expense_share=sum(
+                        home.catastrophic_medical_expense for home in homes
+                    )
+                    / max(1, len(homes)),
                 )
             )
         return summaries

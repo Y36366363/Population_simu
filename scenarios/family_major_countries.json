@@ -54,6 +54,12 @@
       "female_labor_access": 0.78,
       "gender_pay_gap": 0.12,
       "maternal_career_penalty": 0.11,
+      "healthcare_access": 0.78,
+      "medical_cost_burden": 0.28,
+      "chronic_disease_base_rate": 0.006,
+      "public_long_term_care": 0.22,
+      "pension_replacement_rate": 0.48,
+      "retirement_age": 60,
       "son_preference": 0.05,
       "regions": [
         {"id": "CHN-east-urban", "name": "东部都市圈", "urban": true, "initial_share": 0.14, "wage_multiplier": 1.35, "housing_cost": 1.55, "education_quality": 0.78, "job_opportunity": 0.84},
@@ -108,6 +114,12 @@
       "female_labor_access": 0.58,
       "gender_pay_gap": 0.20,
       "maternal_career_penalty": 0.16,
+      "healthcare_access": 0.48,
+      "medical_cost_burden": 0.55,
+      "chronic_disease_base_rate": 0.007,
+      "public_long_term_care": 0.08,
+      "pension_replacement_rate": 0.18,
+      "retirement_age": 60,
       "son_preference": 0.09,
       "policies": [
         {"start_year": 1952, "end_year": null, "name": "国家家庭福利/计划生育项目（简化）", "max_children": null, "enforcement": 0.10, "fertility_multiplier": 0.90, "child_support": 0.04}
@@ -154,6 +166,12 @@
       "gender_pay_gap": 0.16,
       "maternal_career_penalty": 0.15,
       "high_welfare_strength": 0.35,
+      "healthcare_access": 0.92,
+      "medical_cost_burden": 0.18,
+      "chronic_disease_base_rate": 0.009,
+      "public_long_term_care": 0.62,
+      "pension_replacement_rate": 0.55,
+      "retirement_age": 65,
       "policies": [
         {"start_year": 1994, "end_year": null, "name": "少子化支持政策（合并简化）", "max_children": null, "enforcement": 0.0, "fertility_multiplier": 1.0, "child_support": 0.32}
       ]
@@ -198,6 +216,12 @@
       "female_labor_access": 0.83,
       "gender_pay_gap": 0.15,
       "maternal_career_penalty": 0.10,
+      "healthcare_access": 0.84,
+      "medical_cost_burden": 0.48,
+      "chronic_disease_base_rate": 0.008,
+      "public_long_term_care": 0.25,
+      "pension_replacement_rate": 0.40,
+      "retirement_age": 67,
       "policies": []
     }
   ]

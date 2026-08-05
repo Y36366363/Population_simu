@@ -54,6 +54,8 @@ class FamilyPerson:
     marriage_count: int = 0
     divorce_count: int = 0
     career_interruption: float = 0.0
+    chronic_condition: bool = False
+    disability_level: float = 0.0
     partnered: bool = False
     alive: bool = True
     mother_id: int | None = None
@@ -80,6 +82,9 @@ class FamilyBranch:
     school_quality: float = 0.5
     internal_migration_count: int = 0
     divorce_count: int = 0
+    annual_medical_spending: float = 0.0
+    care_burden: float = 0.0
+    catastrophic_medical_expense: bool = False
 
 
 @dataclass(frozen=True)
@@ -122,6 +127,10 @@ class FamilyYearStats:
     rural_population_share: float
     female_high_status_share: float
     gender_status_gap: float
+    chronic_illness_share: float
+    elder_dependency_ratio: float
+    mean_household_care_burden: float
+    catastrophic_medical_expense_share: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -163,4 +172,10 @@ class FamilyYearStats:
             "rural_population_share": round(self.rural_population_share, 5),
             "female_high_status_share": round(self.female_high_status_share, 5),
             "gender_status_gap": round(self.gender_status_gap, 5),
+            "chronic_illness_share": round(self.chronic_illness_share, 5),
+            "elder_dependency_ratio": round(self.elder_dependency_ratio, 5),
+            "mean_household_care_burden": round(self.mean_household_care_burden, 5),
+            "catastrophic_medical_expense_share": round(
+                self.catastrophic_medical_expense_share, 5
+            ),
         }

@@ -79,6 +79,12 @@ class Country:
     public_education_reform: float = 0.0
     housing_reform_strength: float = 0.0
     high_welfare_strength: float = 0.0
+    healthcare_access: float = 0.65
+    medical_cost_burden: float = 0.35
+    chronic_disease_base_rate: float = 0.006
+    public_long_term_care: float = 0.15
+    pension_replacement_rate: float = 0.30
+    retirement_age: int = 65
     regions: tuple[Region, ...] = field(default_factory=tuple)
     policies: tuple[PolicyEra, ...] = field(default_factory=tuple)
 
@@ -149,3 +155,15 @@ class FamilyScenario:
                     raise ValueError(f"{country.name} 的地区 id 必须唯一")
                 if sum(region.initial_share for region in country.regions) <= 0:
                     raise ValueError(f"{country.name} 的地区 initial_share 总和必须大于 0")
+            for name in (
+                "healthcare_access",
+                "medical_cost_burden",
+                "chronic_disease_base_rate",
+                "public_long_term_care",
+                "pension_replacement_rate",
+            ):
+                value = getattr(country, name)
+                if not 0 <= value <= 1:
+                    raise ValueError(f"{country.name} 的 {name} 必须在 0—1 之间")
+            if not 50 <= country.retirement_age <= 80:
+                raise ValueError(f"{country.name} 的 retirement_age 必须在 50—80 之间")
