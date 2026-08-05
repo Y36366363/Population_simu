@@ -15,6 +15,10 @@
 - 房地产与现金分开记账，可发生首付支持、房价变化、遗产税和多子女分割；住房所在的资源环境会影响可获得的公共学校质量。
 - 婚恋匹配同时考虑教育、收入、住房、职业与派系网络，并允许分别调整同类婚配和精英婚恋封闭程度。
 - “成家—繁衍死线”由发展程度、住房压力、养育成本、福利托底和政策支持动态生成；死线以下并非绝对不能生育，而是成家及生育实现率快速下降。
+- 经济周期由周期波动和随机冲击组成，同时作用于工资、失业、家庭债务、离婚和城乡迁移。
+- 婚姻支持离婚、财产分割、子女监护、丧偶和再婚；同类婚配仍受阶层、教育、住房和派系关系影响。
+- 性别参数包括劳动参与、工资差距、母职职业中断和家庭对子女性别不同的投入倾向。
+- 每个国家可配置任意数量的城市/乡村地区；家庭按工资、就业、教育、住房成本和衰退压力迁移。
 - 极贫、中产、富裕家庭使用不同的生育意愿函数：贫困有数量保险倾向，中产受教育与养育成本抑制，富裕家庭允许生育意愿回升。
 - 中国政策按 1971、1980、2016、2021 四个阶段切换；其他国家目前是用于对照的简化路径。
 
@@ -55,6 +59,16 @@ PYTHONPATH=src python3 -m population_simu.dynasty_experiment \
   --resources 100 --children 1 2 3 --generations 4 --trials 10000 \
   --material-deadline 58 --housing-pressure 0.75 --welfare-floor 0.08
 ```
+
+运行制度开关实验：
+
+```bash
+PYTHONPATH=src python3 -m population_simu.institution_experiment \
+  --resources 100 --children 1 2 3 --generations 4 --trials 5000 \
+  --output outputs/institution_switch_experiment.csv
+```
+
+制度实验分别只打开公共教育、住房改革、反裙带或高福利，并和基线使用相同随机种子。输出比较四代存续率、末代后代数量和职业同类继承率。
 
 也可以把福利托底提高、住房压力降低，观察资源分散何时重新获得优势：
 
@@ -139,6 +153,7 @@ src/population_simu/
   capitals.py             # 九维家庭资本与承载力
   occupations.py          # 职业门槛和代际传递渠道
   dynasty_experiment.py   # 多代繁衍死线与绝后实验
+  institution_experiment.py # 公共教育/住房/反裙带/高福利开关实验
 scenarios/    # 可复制修改的政策情景
 tests/        # 可重复性与基本不变量测试
 ```

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.venv/
+venv/
+.DS_Store
+
+# 模拟结果可由情景和随机种子重建，默认不提交大体积 CSV。
+outputs/*.csv
+

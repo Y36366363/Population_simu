@@ -27,6 +27,7 @@ class FamilyPerson:
     age: int
     sex: str
     innate_potential: float
+    region_id: str = ""
     human_capital: float = 0.0
     economic_status: float = 0.0
     cumulative_investment: float = 0.0
@@ -49,6 +50,10 @@ class FamilyPerson:
     patron_power: float = 0.0
     parent_occupation: str | None = None
     previous_occupation: str | None = None
+    spouse_id: int | None = None
+    marriage_count: int = 0
+    divorce_count: int = 0
+    career_interruption: float = 0.0
     partnered: bool = False
     alive: bool = True
     mother_id: int | None = None
@@ -65,6 +70,7 @@ class FamilyBranch:
     resources: float
     permanent_income: float
     capitals: CapitalBundle
+    region_id: str = ""
     member_ids: list[int] = field(default_factory=list)
     children_ever_born: int = 0
     parent_household_ids: tuple[int, ...] = field(default_factory=tuple)
@@ -72,6 +78,8 @@ class FamilyBranch:
     property_value: float = 0.0
     property_count: float = 0.0
     school_quality: float = 0.5
+    internal_migration_count: int = 0
+    divorce_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -106,6 +114,14 @@ class FamilyYearStats:
     political_dynasty_share: float
     faction_concentration: float
     elite_marriage_share: float
+    economic_cycle_index: float
+    unemployment_pressure: float
+    divorces: int
+    remarriages: int
+    internal_migrants: int
+    rural_population_share: float
+    female_high_status_share: float
+    gender_status_gap: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -139,4 +155,12 @@ class FamilyYearStats:
             "political_dynasty_share": round(self.political_dynasty_share, 5),
             "faction_concentration": round(self.faction_concentration, 5),
             "elite_marriage_share": round(self.elite_marriage_share, 5),
+            "economic_cycle_index": round(self.economic_cycle_index, 5),
+            "unemployment_pressure": round(self.unemployment_pressure, 5),
+            "divorces": self.divorces,
+            "remarriages": self.remarriages,
+            "internal_migrants": self.internal_migrants,
+            "rural_population_share": round(self.rural_population_share, 5),
+            "female_high_status_share": round(self.female_high_status_share, 5),
+            "gender_status_gap": round(self.gender_status_gap, 5),
         }

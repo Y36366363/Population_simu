@@ -27,6 +27,10 @@ class DynastyParameters:
     institutional_openness: float = 0.5
     occupational_inheritance: float = 0.55
     material_deadline: float = 58.0
+    public_education: float = 0.0
+    housing_reform: float = 0.0
+    anti_nepotism: float = 0.0
+    high_welfare: float = 0.0
 
     @property
     def capital_deadline(self) -> float:
@@ -35,7 +39,10 @@ class DynastyParameters:
             0.25
             + 0.18 * self.development
             + 0.18 * self.housing_pressure
-            - 0.14 * self.welfare_floor,
+            - 0.14 * self.welfare_floor
+            - 0.08 * self.public_education
+            - 0.10 * self.housing_reform
+            - 0.12 * self.high_welfare,
         )
 
 
@@ -61,7 +68,7 @@ def choose_occupation(
             inherited = 2.8
         elif occupation_id in INHERITANCE_CHANNEL[parent_occupation]:
             inherited = 1.2
-        network = 1 + parameters.occupational_inheritance * inherited * (
+        network = 1 + parameters.occupational_inheritance * (1 - parameters.anti_nepotism) * inherited * (
             1.35 - parameters.institutional_openness
         )
         merit = 0.55 + parameters.institutional_openness * (0.45 + 0.8 * potential)
@@ -89,7 +96,8 @@ def allocate_children(
             0.10
             + 0.48 * household.human
             + 0.30 * sigmoid((financial - 35) / 16)
-            + 0.14 * potential,
+            + 0.14 * potential
+            + 0.24 * parameters.public_education,
         )
         capitals = CapitalBundle(
             financial=financial,
@@ -97,7 +105,12 @@ def allocate_children(
             social=min(1.0, household.social * 0.74 / (child_count**0.22) + 0.08 * potential),
             political=min(1.0, household.political * 0.82 / (child_count**0.16)),
             cultural=min(1.0, household.cultural * 0.78 / (child_count**0.24) + 0.06 * human),
-            housing=min(1.0, household.housing * 0.62 / (child_count**0.70)),
+            housing=min(
+                1.0,
+                household.housing
+                * (0.62 + 0.25 * parameters.housing_reform)
+                / (child_count ** (0.70 - 0.22 * parameters.housing_reform)),
+            ),
             health=min(1.0, household.health * 0.88 + rng.gauss(0, 0.04)),
             care_time=min(1.0, household.care_time / (child_count**0.78)),
             debt=min(1.0, household.debt + 0.10 * max(0, child_count - 1)),
@@ -110,13 +123,19 @@ def allocate_children(
 def reproduction_probability(adult: Endowment, parameters: DynastyParameters) -> float:
     viability = adult.capitals.viability(100.0)
     # 现金/住房有一个可随社会条件改变的软阈值；不是“低于即归零”的硬切线。
-    material_gate = sigmoid((adult.capitals.financial - parameters.material_deadline) / 8.5)
+    effective_material_deadline = parameters.material_deadline * (
+        1 - 0.48 * parameters.housing_reform - 0.22 * parameters.high_welfare
+    )
+    material_gate = sigmoid((adult.capitals.financial - effective_material_deadline) / 8.5)
     capital_gate = sigmoid(15 * (viability - parameters.capital_deadline))
     occupation_security = 0.65 + 0.35 * OCCUPATIONS[adult.occupation].status
     return min(
         0.98,
-        parameters.welfare_floor
-        + (1 - parameters.welfare_floor) * material_gate * capital_gate * occupation_security,
+        min(0.85, parameters.welfare_floor + 0.55 * parameters.high_welfare)
+        + (1 - min(0.85, parameters.welfare_floor + 0.55 * parameters.high_welfare))
+        * material_gate
+        * capital_gate
+        * occupation_security,
     )
 
 
@@ -140,9 +159,18 @@ def next_generation(
         combined.social = min(1.0, adult.capitals.social * (1.25 + 0.12 * partner_factor))
         combined.political = min(1.0, adult.capitals.political * (1.20 + 0.10 * partner_factor))
         combined.cultural = min(1.0, adult.capitals.cultural * 1.18)
-        combined.housing = min(1.0, adult.capitals.housing * (1.28 + 0.12 * partner_factor))
+        combined.housing = min(
+            1.0,
+            adult.capitals.housing
+            * (1.28 + 0.12 * partner_factor + 0.30 * parameters.housing_reform),
+        )
         combined.health = min(1.0, adult.capitals.health * 0.98)
-        combined.care_time = min(1.0, 0.72 - 0.12 * parameters.development)
+        combined.care_time = min(
+            1.0,
+            0.72
+            - 0.12 * parameters.development
+            + 0.20 * parameters.high_welfare,
+        )
         combined.debt = min(1.0, adult.capitals.debt + 0.08 * parameters.housing_pressure)
         capacity = combined.viability(100.0)
         desired = max(

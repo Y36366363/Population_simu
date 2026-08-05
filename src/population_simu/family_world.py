@@ -6,7 +6,7 @@ import random
 import statistics
 
 from .capitals import CapitalBundle, sigmoid
-from .family_config import Country, FamilyScenario
+from .family_config import Country, FamilyScenario, Region
 from .family_models import Clan, FamilyBranch, FamilyPerson, FamilyYearStats
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
 
@@ -30,12 +30,68 @@ class FamilyWorld:
         self._recent_upward: dict[str, tuple[int, int]] = {}
         self._recent_occupation: dict[str, tuple[int, int, int, int]] = {}
         self._occupation_totals: dict[str, list[int]] = defaultdict(lambda: [0, 0, 0, 0])
+        self.regions: dict[str, tuple[Region, ...]] = {
+            country.id: self._regions_for(country) for country in scenario.countries
+        }
+        self._shock_residual: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
+        self._economic_cycle: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
+        self._unemployment_pressure: dict[str, float] = {
+            country.id: country.base_unemployment_rate for country in scenario.countries
+        }
         self._seed_countries()
-        self.history.extend(self._summaries({}, {}, {}, {}))
+        self.history.extend(self._summaries({}, {}, {}, {}, {}, {}, {}))
 
     @property
     def living_people(self) -> list[FamilyPerson]:
         return [person for person in self.people.values() if person.alive]
+
+    @staticmethod
+    def _regions_for(country: Country) -> tuple[Region, ...]:
+        if country.regions:
+            return country.regions
+        return (
+            Region(
+                id=f"{country.id}-urban",
+                name=f"{country.name}城市",
+                urban=True,
+                initial_share=max(0.05, country.initial_urbanization),
+                wage_multiplier=1.18,
+                housing_cost=1.0 + 0.35 * country.housing_pressure,
+                education_quality=min(1.0, country.public_education_quality + 0.12),
+                job_opportunity=0.72,
+            ),
+            Region(
+                id=f"{country.id}-rural",
+                name=f"{country.name}乡村",
+                urban=False,
+                initial_share=max(0.05, 1 - country.initial_urbanization),
+                wage_multiplier=0.72,
+                housing_cost=max(0.35, 0.62 + 0.10 * country.housing_pressure),
+                education_quality=max(0.10, country.public_education_quality - 0.18),
+                job_opportunity=0.34,
+            ),
+        )
+
+    def _update_economic_cycle(self) -> None:
+        elapsed = self.year - self.scenario.simulation.start_year
+        for index, country in enumerate(self.countries.values()):
+            phase = 1.37 * index
+            cyclical = country.cycle_amplitude * math.sin(
+                2 * math.pi * elapsed / max(2.0, country.cycle_years) + phase
+            )
+            residual = self._shock_residual[country.id] * 0.58
+            if self.rng.random() < country.shock_probability:
+                residual += country.shock_severity * self.rng.uniform(0.65, 1.25)
+            self._shock_residual[country.id] = residual
+            cycle = max(-0.55, min(0.30, cyclical - residual))
+            self._economic_cycle[country.id] = cycle
+            self._unemployment_pressure[country.id] = min(
+                0.45,
+                max(0.01, country.base_unemployment_rate + 0.42 * max(0.0, -cycle)),
+            )
+
+    def _region(self, country_id: str, region_id: str) -> Region:
+        return next(region for region in self.regions[country_id] if region.id == region_id)
 
     def _surname(self, country: Country, index: int) -> str:
         if country.id == "CHN":
@@ -59,6 +115,11 @@ class FamilyWorld:
                 base = country.baseline_family_resources
                 # 对数分布同时产生大量普通家庭、少量极贫与极富家庭。
                 resources = max(1.0, base * math.exp(self.rng.gauss(-0.15, 0.85)))
+                region = self.rng.choices(
+                    self.regions[country.id],
+                    weights=[item.initial_share for item in self.regions[country.id]],
+                    k=1,
+                )[0]
                 household = self._new_household(
                     clan_id=self.next_clan_id,
                     surname=self._surname(country, index),
@@ -67,6 +128,7 @@ class FamilyWorld:
                     resources=resources,
                     parent_ids=(),
                     capitals=self._initial_capitals(country, resources),
+                    region_id=region.id,
                 )
                 clan = Clan(
                     id=self.next_clan_id,
@@ -82,6 +144,9 @@ class FamilyWorld:
                 father_age = min(48, max(22, mother_age + self.rng.randint(-2, 6)))
                 mother = self._new_person(household, mother_age, "F", partnered=True)
                 father = self._new_person(household, father_age, "M", partnered=True)
+                mother.spouse_id = father.id
+                father.spouse_id = mother.id
+                mother.marriage_count = father.marriage_count = 1
                 initial_children = min(5, self._poisson(country.initial_children_per_family * 0.55))
                 initial_policy = country.policy_at(self.year)
                 if initial_policy.max_children is not None and initial_policy.enforcement >= 0.999:
@@ -117,6 +182,7 @@ class FamilyWorld:
         resources: float,
         parent_ids: tuple[int, ...],
         capitals: CapitalBundle,
+        region_id: str | None = None,
     ) -> FamilyBranch:
         household = FamilyBranch(
             id=self.next_household_id,
@@ -127,10 +193,16 @@ class FamilyWorld:
             resources=resources,
             permanent_income=max(1.0, resources * 0.12),
             capitals=capitals,
+            region_id=region_id or self.regions[country_id][0].id,
             parent_household_ids=parent_ids,
         )
         country = self.countries[country_id]
-        owner = capitals.housing >= (0.28 + 0.22 * country.housing_pressure)
+        region = next(item for item in self.regions[country_id] if item.id == household.region_id)
+        effective_housing_pressure = max(
+            0.05,
+            country.housing_pressure * region.housing_cost * (1 - 0.55 * country.housing_reform_strength),
+        )
+        owner = capitals.housing >= (0.28 + 0.18 * effective_housing_pressure)
         household.property_count = 1.0 if owner else 0.0
         household.property_value = resources * (0.65 + 1.4 * capitals.housing) if owner else 0.0
         neighborhood_advantage = capitals.normalized_financial(country.baseline_family_resources)
@@ -138,7 +210,12 @@ class FamilyWorld:
             1.0,
             max(
                 0.05,
-                country.public_education_quality
+                min(
+                    1.0,
+                    0.55 * country.public_education_quality
+                    + 0.35 * region.education_quality
+                    + 0.30 * country.public_education_reform,
+                )
                 * (1 - country.education_inequality * (0.55 - neighborhood_advantage)),
             ),
         )
@@ -197,6 +274,7 @@ class FamilyWorld:
             age=age,
             sex=sex,
             innate_potential=potential,
+            region_id=household.region_id,
             human_capital=adult_status if age >= 22 else 0.0,
             economic_status=(0.55 * adult_status + 0.45 * occupation_status) if age >= 22 else 0.0,
             occupation=occupation,
@@ -274,9 +352,15 @@ class FamilyWorld:
                 0.45 * country.education_access
                 + 0.35 * public_quality
                 + 0.20 * country.development_at(self.year, self.scenario.simulation.start_year)
+                + 0.18 * country.public_education_reform
             )
-            for child in children:
-                effective = per_child * min(1.0, access)
+            preference_weights = [
+                1 + country.son_preference if child.sex == "M" else max(0.2, 1 - country.son_preference)
+                for child in children
+            ]
+            mean_preference = statistics.fmean(preference_weights)
+            for child, preference_weight in zip(children, preference_weights):
+                effective = per_child * min(1.0, access) * preference_weight / mean_preference
                 child.cumulative_investment += effective
                 if 6 <= child.age <= 24:
                     private_supplement = 0.12 * math.log1p(effective)
@@ -469,18 +553,24 @@ class FamilyWorld:
         )
         return capital.viability(country.baseline_family_resources)
 
-    def _deadline(self, country: Country) -> float:
+    def _deadline(self, country: Country, region: Region | None = None) -> float:
         development = country.development_at(self.year, self.scenario.simulation.start_year)
         policy = country.policy_at(self.year)
+        housing_multiplier = region.housing_cost if region is not None else 1.0
         return min(
             0.78,
             max(
                 0.22,
                 0.18
                 + 0.10 * development
-                + 0.10 * country.housing_pressure
+                + 0.10
+                * country.housing_pressure
+                * housing_multiplier
+                * (1 - 0.55 * country.housing_reform_strength)
                 + 0.06 * country.cost_of_children
                 - 0.12 * country.welfare_floor
+                - 0.10 * country.high_welfare_strength
+                - 0.04 * country.public_education_reform
                 - 0.08 * policy.child_support,
             ),
         )
@@ -493,18 +583,50 @@ class FamilyWorld:
                 if self.people[pid].alive and 22 <= self.people[pid].age <= 67
             ]
             country = self.countries[household.country_id]
+            region = self._region(household.country_id, household.region_id)
             development = country.development_at(self.year, self.scenario.simulation.start_year)
+            cycle_multiplier = max(0.45, 1 + self._economic_cycle[household.country_id])
+            effective_housing_pressure = max(
+                0.05,
+                country.housing_pressure
+                * region.housing_cost
+                * (1 - 0.55 * country.housing_reform_strength),
+            )
             if adults:
-                income = sum(
-                    OCCUPATIONS[p.occupation].income
-                    * (0.42 + development)
-                    * (0.70 + 0.55 * p.human_capital)
-                    for p in adults
+                income = 0.0
+                young_children = sum(
+                    self.people[pid].alive and self.people[pid].age < 7
+                    for pid in household.member_ids
+                )
+                for person in adults:
+                    gender_multiplier = 1.0
+                    if person.sex == "F":
+                        gender_multiplier = (
+                            (0.72 + 0.28 * country.female_labor_access)
+                            * (1 - country.gender_pay_gap)
+                            * (1 - country.maternal_career_penalty * min(1, young_children))
+                        )
+                        person.career_interruption = min(
+                            1.0,
+                            person.career_interruption
+                            + 0.015 * young_children * (1 - country.high_welfare_strength),
+                        )
+                    income += (
+                        OCCUPATIONS[person.occupation].income
+                        * (0.42 + development)
+                        * (0.70 + 0.55 * person.human_capital)
+                        * region.wage_multiplier
+                        * cycle_multiplier
+                        * gender_multiplier
+                    )
+                unemployed = sum(person.occupation == "unemployed" for person in adults)
+                income += unemployed * 3.5 * min(
+                    1.0, country.welfare_floor + 0.55 * country.high_welfare_strength
                 )
                 household.permanent_income = 0.85 * household.permanent_income + 0.15 * income
                 living_count = len([pid for pid in household.member_ids if self.people[pid].alive])
                 consumption = (1.8 + 1.1 * country.cost_of_children * development) * living_count
-                debt_service = household.capitals.debt * 2.2 * country.housing_pressure
+                debt_service = household.capitals.debt * 2.2 * effective_housing_pressure
                 household.resources = max(0.1, household.resources + income - consumption - debt_service)
                 household.capitals.human = statistics.fmean(p.human_capital for p in adults)
                 household.capitals.social = min(
@@ -544,7 +666,7 @@ class FamilyWorld:
                     0.004
                     + 0.022
                     * development
-                    * country.housing_pressure
+                    * effective_housing_pressure
                     * (1 - country.housing_supply_elasticity)
                 )
                 household.property_value *= 1 + appreciation
@@ -558,9 +680,11 @@ class FamilyWorld:
                     ),
                 )
             elif household.resources > country.baseline_family_resources * (
-                1.2 + country.housing_pressure
+                1.2 + effective_housing_pressure
             ):
-                purchase_probability = 0.025 * country.housing_supply_elasticity
+                purchase_probability = 0.025 * (
+                    country.housing_supply_elasticity + 0.45 * country.housing_reform_strength
+                )
                 if self.rng.random() < purchase_probability:
                     down_payment = household.resources * 0.30
                     household.resources -= down_payment
@@ -575,7 +699,12 @@ class FamilyWorld:
                 1.0,
                 max(
                     0.05,
-                    country.public_education_quality
+                    min(
+                        1.0,
+                        0.55 * country.public_education_quality
+                        + 0.35 * region.education_quality
+                        + 0.30 * country.public_education_reform,
+                    )
                     * (1 - country.education_inequality * (0.55 - neighborhood_advantage)),
                 ),
             )
@@ -600,6 +729,8 @@ class FamilyWorld:
                     + 0.35 * person.human_capital
                     + 0.22 * person.social_capital
                     + 0.15 * country.welfare_floor
+                    + 0.18 * country.high_welfare_strength
+                    + 0.25 * max(0.0, self._economic_cycle[person.country_id])
                     - 0.035 * min(6, person.unemployment_years),
                 )
                 if self.rng.random() < search_probability:
@@ -675,7 +806,21 @@ class FamilyWorld:
                         person.political_rank += 1
 
             occupation = OCCUPATIONS[person.occupation]
-            job_loss = occupation.job_loss_risk * (0.35 + country.base_unemployment_rate * 3)
+            job_loss = occupation.job_loss_risk * (
+                0.35 + self._unemployment_pressure[person.country_id] * 3
+            )
+            if person.sex == "F":
+                household = self.households[person.household_id]
+                young_children = sum(
+                    self.people[pid].alive and self.people[pid].age < 7
+                    for pid in household.member_ids
+                )
+                job_loss += (
+                    0.018
+                    * (1 - country.female_labor_access)
+                    * min(1, young_children)
+                    * (1 - 0.65 * country.high_welfare_strength)
+                )
             if (
                 country.soe_reform_year is not None
                 and country.soe_reform_year <= self.year <= country.soe_reform_year + 3
@@ -700,10 +845,11 @@ class FamilyWorld:
                 household.resources = max(0.1, household.resources - uninsured_cost)
                 household.capitals.debt = min(1.0, household.capitals.debt + uninsured_cost / 100)
 
-    def _form_family_branches(self) -> None:
+    def _form_family_branches(self) -> dict[str, int]:
         pools: dict[str, dict[str, list[FamilyPerson]]] = defaultdict(lambda: {"F": [], "M": []})
+        remarriages: dict[str, int] = defaultdict(int)
         for person in self.living_people:
-            if 22 <= person.age <= 39 and not person.partnered:
+            if 22 <= person.age <= 50 and not person.partnered:
                 pools[person.country_id][person.sex].append(person)
         rate = self.scenario.simulation.adult_pairing_rate
         for country_id, sexes in pools.items():
@@ -711,9 +857,19 @@ class FamilyWorld:
             self.rng.shuffle(sexes["M"])
             men = sexes["M"]
             country = self.countries[country_id]
-            deadline = self._deadline(country)
             for woman in sexes["F"]:
-                compatible = [man for man in men if abs(man.age - woman.age) <= 9]
+                compatible = [
+                    man
+                    for man in men
+                    if abs(man.age - woman.age) <= 9
+                    and man.household_id != woman.household_id
+                    and not (
+                        man.mother_id is not None and man.mother_id == woman.mother_id
+                    )
+                    and not (
+                        man.father_id is not None and man.father_id == woman.father_id
+                    )
+                ]
                 if not compatible:
                     continue
                 # 同类婚配：教育、职业地位和资本接近者更容易进入同一配对池。
@@ -744,10 +900,16 @@ class FamilyWorld:
                     match_weights.append(max(0.002, weight))
                 man = self.rng.choices(compatible, weights=match_weights, k=1)[0]
                 viability = min(woman.adult_viability, man.adult_viability)
+                deadline = self._deadline(country, self._region(country_id, woman.region_id))
                 formation_gate = country.welfare_floor + (1 - country.welfare_floor) * sigmoid(
                     11 * (viability - deadline)
                 )
-                if self.rng.random() >= rate * formation_gate:
+                pairing_rate = (
+                    country.remarriage_rate
+                    if woman.marriage_count > 0 or man.marriage_count > 0
+                    else rate
+                )
+                if self.rng.random() >= pairing_rate * formation_gate:
                     continue
                 men.remove(man)
                 primary = man if self.scenario.simulation.surname_rule == "paternal" else self.rng.choice((woman, man))
@@ -788,15 +950,23 @@ class FamilyWorld:
                     resources=max(1.0, inheritance),
                     parent_ids=tuple(origin.id for origin in origins),
                     capitals=new_capitals,
+                    region_id=woman.region_id,
                 )
                 self.clans[primary.clan_id].branch_ids.append(new_home.id)
                 self._move_person(woman, new_home)
                 self._move_person(man, new_home)
                 woman.partnered = man.partnered = True
+                if woman.marriage_count > 0 or man.marriage_count > 0:
+                    remarriages[country_id] += 1
+                woman.marriage_count += 1
+                man.marriage_count += 1
+                woman.spouse_id = man.id
+                man.spouse_id = woman.id
                 woman.housing_security = man.housing_security = new_capitals.housing
                 woman.debt_burden = man.debt_burden = new_capitals.debt
                 woman.adult_viability = self._person_viability(woman, country)
                 man.adult_viability = self._person_viability(man, country)
+        return remarriages
 
     def _move_person(self, person: FamilyPerson, destination: FamilyBranch) -> None:
         origin = self.households[person.household_id]
@@ -805,6 +975,138 @@ class FamilyWorld:
         destination.member_ids.append(person.id)
         person.household_id = destination.id
         person.country_id = destination.country_id
+        person.region_id = destination.region_id
+
+    def _divorces(self) -> dict[str, int]:
+        divorces: dict[str, int] = defaultdict(int)
+        for household in list(self.households.values()):
+            adults = [
+                self.people[pid]
+                for pid in household.member_ids
+                if self.people[pid].alive and self.people[pid].partnered and self.people[pid].age >= 20
+            ]
+            if len(adults) != 2 or adults[0].spouse_id != adults[1].id:
+                continue
+            country = self.countries[household.country_id]
+            unemployment = sum(person.occupation == "unemployed" for person in adults)
+            status_gap = abs(adults[0].economic_status - adults[1].economic_status)
+            young_children = sum(
+                self.people[pid].alive and self.people[pid].age < 12
+                for pid in household.member_ids
+            )
+            stress = (
+                1
+                + 2.2 * unemployment
+                + 1.1 * household.capitals.debt
+                + 1.5 * max(0.0, -self._economic_cycle[household.country_id])
+                + 0.8 * status_gap
+            )
+            stabilizers = (
+                1
+                - 0.10 * min(2, young_children)
+                - 0.18 * country.high_welfare_strength
+            )
+            probability = min(0.25, country.base_divorce_rate * stress * max(0.45, stabilizers))
+            if self.rng.random() >= probability:
+                continue
+
+            woman = next((person for person in adults if person.sex == "F"), adults[0])
+            man = next((person for person in adults if person.sex == "M"), adults[1])
+            leaver = man if self.rng.random() < 0.70 else woman
+            custodian = woman if self.rng.random() < 0.70 else man
+            split_share = 0.50
+            transferred = max(0.1, household.resources * split_share)
+            household.resources = max(0.1, household.resources - transferred)
+            household.capitals.financial = household.resources
+            new_capitals = household.capitals.copy()
+            new_capitals.financial = transferred
+            new_capitals.housing *= 0.45
+            new_capitals.social *= 0.82
+            new_capitals.care_time = min(1.0, new_capitals.care_time + 0.10)
+            new_capitals.debt = min(1.0, new_capitals.debt + 0.10)
+            new_home = self._new_household(
+                clan_id=leaver.clan_id,
+                surname=leaver.surname,
+                country_id=household.country_id,
+                generation=household.generation,
+                resources=transferred,
+                parent_ids=(household.id,),
+                capitals=new_capitals,
+                region_id=household.region_id,
+            )
+            self.clans[leaver.clan_id].branch_ids.append(new_home.id)
+            self._move_person(leaver, new_home)
+            if custodian.id == leaver.id:
+                children = [
+                    self.people[pid]
+                    for pid in list(household.member_ids)
+                    if self.people[pid].alive and self.people[pid].age < 18
+                ]
+                for child in children:
+                    self._move_person(child, new_home)
+            for person in (woman, man):
+                person.partnered = False
+                person.spouse_id = None
+                person.divorce_count += 1
+            household.divorce_count += 1
+            new_home.divorce_count += 1
+            divorces[household.country_id] += 1
+        return divorces
+
+    def _internal_migration(self) -> dict[str, int]:
+        migrants: dict[str, int] = defaultdict(int)
+        for household in list(self.households.values()):
+            country = self.countries[household.country_id]
+            regions = self.regions[household.country_id]
+            if len(regions) < 2:
+                continue
+            living = [self.people[pid] for pid in household.member_ids if self.people[pid].alive]
+            if not living:
+                continue
+            origin = self._region(household.country_id, household.region_id)
+            working_age = any(18 <= person.age <= 45 for person in living)
+            base_rate = 0.008 + 0.012 * working_age
+            if not origin.urban:
+                base_rate += 0.018 * country.urbanization_at(
+                    self.year, self.scenario.simulation.start_year
+                )
+            if self.rng.random() >= base_rate:
+                continue
+            children = sum(person.age < 18 for person in living)
+            vulnerability = 1 - household.capitals.normalized_financial(
+                country.baseline_family_resources
+            )
+
+            def score(region: Region) -> float:
+                downturn = max(0.0, -self._economic_cycle[household.country_id])
+                return (
+                    0.42 * region.job_opportunity * (1 - downturn)
+                    + 0.24 * region.wage_multiplier
+                    + 0.18 * region.education_quality * min(1, children)
+                    - 0.28 * region.housing_cost * vulnerability
+                )
+
+            candidates = [region for region in regions if region.id != origin.id]
+            destination = max(candidates, key=score)
+            if score(destination) <= score(origin) + self.rng.uniform(-0.08, 0.12):
+                continue
+            household.region_id = destination.id
+            household.internal_migration_count += 1
+            household.capitals.debt = min(
+                1.0,
+                household.capitals.debt
+                + 0.04 * max(0.0, destination.housing_cost - origin.housing_cost),
+            )
+            household.school_quality = min(
+                1.0,
+                0.55 * country.public_education_quality
+                + 0.35 * destination.education_quality
+                + 0.30 * country.public_education_reform,
+            )
+            for person in living:
+                person.region_id = destination.id
+            migrants[household.country_id] += len(living)
+        return migrants
 
     def _desired_children(self, household: FamilyBranch, country: Country) -> float:
         development = country.development_at(self.year, self.scenario.simulation.start_year)
@@ -839,7 +1141,9 @@ class FamilyWorld:
                 probability *= 1.0 - policy.enforcement
             probability *= 1.0 + 0.20 * policy.child_support
             capacity = household.capitals.viability(country.baseline_family_resources)
-            deadline = self._deadline(country)
+            deadline = self._deadline(
+                country, self._region(household.country_id, household.region_id)
+            )
             realization_gate = country.welfare_floor + (1 - country.welfare_floor) * sigmoid(
                 13 * (capacity - deadline)
             )
@@ -880,10 +1184,17 @@ class FamilyWorld:
                 for country in candidates
             ]
             destination = self.rng.choices(candidates, weights=weights, k=1)[0]
+            destination_region = self.rng.choices(
+                self.regions[destination.id],
+                weights=[region.job_opportunity for region in self.regions[destination.id]],
+                k=1,
+            )[0]
             household.country_id = destination.id
+            household.region_id = destination_region.id
             household.migration_count += 1
             for person in living:
                 person.country_id = destination.id
+                person.region_id = destination_region.id
             migrants[origin_id] += len(living)
             migrants[destination.id] += len(living)
         return migrants
@@ -893,8 +1204,13 @@ class FamilyWorld:
         for person in self.living_people:
             if self.rng.random() < self._mortality_probability(person):
                 self._transfer_estate_if_last_adult(person)
+                if person.spouse_id is not None and person.spouse_id in self.people:
+                    spouse = self.people[person.spouse_id]
+                    spouse.partnered = False
+                    spouse.spouse_id = None
                 person.alive = False
                 person.partnered = False
+                person.spouse_id = None
                 deaths[person.country_id] += 1
         for household_id, household in list(self.households.items()):
             living = [self.people[pid] for pid in household.member_ids if self.people[pid].alive]
@@ -948,18 +1264,29 @@ class FamilyWorld:
 
     def step(self) -> list[FamilyYearStats]:
         self.year += 1
+        self._update_economic_cycle()
         for person in self.living_people:
             person.age += 1
         investments = self._allocate_resources()
         self._mature_young_adults()
         self._career_transitions()
         self._earn_resources()
-        self._form_family_branches()
+        divorces = self._divorces()
+        remarriages = self._form_family_branches()
         births = self._births()
+        internal_migrants = self._internal_migration()
         migrants = self._international_migration()
         deaths = self._deaths()
         self._update_clan_peaks()
-        stats = self._summaries(births, deaths, migrants, investments)
+        stats = self._summaries(
+            births,
+            deaths,
+            migrants,
+            investments,
+            divorces,
+            remarriages,
+            internal_migrants,
+        )
         self.history.extend(stats)
         return stats
 
@@ -977,6 +1304,9 @@ class FamilyWorld:
         deaths: dict[str, int],
         migrants: dict[str, int],
         investments: dict[str, list[float]],
+        divorces: dict[str, int],
+        remarriages: dict[str, int],
+        internal_migrants: dict[str, int],
     ) -> list[FamilyYearStats]:
         summaries = []
         people_by_country: dict[str, list[FamilyPerson]] = defaultdict(list)
@@ -1006,6 +1336,8 @@ class FamilyWorld:
             resources = [home.resources for home in homes]
             young_adults = [person for person in people if 22 <= person.age <= 40]
             working_adults = [person for person in people if 22 <= person.age <= 67]
+            working_women = [person for person in working_adults if person.sex == "F"]
+            working_men = [person for person in working_adults if person.sex == "M"]
             political_adults = [person for person in working_adults if person.occupation == "political"]
             faction_counts: dict[int, int] = defaultdict(int)
             for person in political_adults:
@@ -1096,6 +1428,23 @@ class FamilyWorld:
                         (count / max(1, faction_total)) ** 2 for count in faction_counts.values()
                     ),
                     elite_marriage_share=elite_paired_homes / max(1, len(paired_homes)),
+                    economic_cycle_index=self._economic_cycle[country_id],
+                    unemployment_pressure=self._unemployment_pressure[country_id],
+                    divorces=divorces.get(country_id, 0),
+                    remarriages=remarriages.get(country_id, 0),
+                    internal_migrants=internal_migrants.get(country_id, 0),
+                    rural_population_share=sum(
+                        not self._region(country_id, person.region_id).urban for person in people
+                    )
+                    / max(1, len(people)),
+                    female_high_status_share=sum(
+                        person.economic_status >= 0.75 for person in working_women
+                    )
+                    / max(1, len(working_women)),
+                    gender_status_gap=(
+                        (statistics.fmean(person.economic_status for person in working_men) if working_men else 0.0)
+                        - (statistics.fmean(person.economic_status for person in working_women) if working_women else 0.0)
+                    ),
                 )
             )
         return summaries

@@ -20,6 +20,18 @@ class PolicyEra:
 
 
 @dataclass(frozen=True)
+class Region:
+    id: str
+    name: str
+    urban: bool
+    initial_share: float = 0.5
+    wage_multiplier: float = 1.0
+    housing_cost: float = 1.0
+    education_quality: float = 0.5
+    job_opportunity: float = 0.5
+
+
+@dataclass(frozen=True)
 class Country:
     id: str
     name: str
@@ -54,6 +66,20 @@ class Country:
     elite_marriage_closure: float = 0.45
     soe_reform_year: int | None = None
     soe_reform_shock: float = 0.0
+    cycle_years: float = 9.0
+    cycle_amplitude: float = 0.10
+    shock_probability: float = 0.025
+    shock_severity: float = 0.18
+    base_divorce_rate: float = 0.012
+    remarriage_rate: float = 0.16
+    female_labor_access: float = 0.76
+    gender_pay_gap: float = 0.12
+    maternal_career_penalty: float = 0.10
+    son_preference: float = 0.0
+    public_education_reform: float = 0.0
+    housing_reform_strength: float = 0.0
+    high_welfare_strength: float = 0.0
+    regions: tuple[Region, ...] = field(default_factory=tuple)
     policies: tuple[PolicyEra, ...] = field(default_factory=tuple)
 
     def development_at(self, year: int, start_year: int) -> float:
@@ -93,6 +119,7 @@ class FamilyScenario:
         for item in data["countries"]:
             country_data = dict(item)
             country_data["policies"] = tuple(PolicyEra(**policy) for policy in item.get("policies", []))
+            country_data["regions"] = tuple(Region(**region) for region in item.get("regions", []))
             countries.append(Country(**country_data))
         return cls(
             name=data["name"],
@@ -116,3 +143,9 @@ class FamilyScenario:
         for country in self.countries:
             if country.initial_clans < 1:
                 raise ValueError(f"{country.name} 至少需要一个初始姓氏家族")
+            if country.regions:
+                region_ids = [region.id for region in country.regions]
+                if len(region_ids) != len(set(region_ids)):
+                    raise ValueError(f"{country.name} 的地区 id 必须唯一")
+                if sum(region.initial_share for region in country.regions) <= 0:
+                    raise ValueError(f"{country.name} 的地区 initial_share 总和必须大于 0")

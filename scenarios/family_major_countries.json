@@ -45,6 +45,22 @@
       "elite_marriage_closure": 0.55,
       "soe_reform_year": 1997,
       "soe_reform_shock": 0.16,
+      "cycle_years": 8.5,
+      "cycle_amplitude": 0.12,
+      "shock_probability": 0.025,
+      "shock_severity": 0.20,
+      "base_divorce_rate": 0.010,
+      "remarriage_rate": 0.16,
+      "female_labor_access": 0.78,
+      "gender_pay_gap": 0.12,
+      "maternal_career_penalty": 0.11,
+      "son_preference": 0.05,
+      "regions": [
+        {"id": "CHN-east-urban", "name": "东部都市圈", "urban": true, "initial_share": 0.14, "wage_multiplier": 1.35, "housing_cost": 1.55, "education_quality": 0.78, "job_opportunity": 0.84},
+        {"id": "CHN-central-urban", "name": "中部城市群", "urban": true, "initial_share": 0.12, "wage_multiplier": 1.05, "housing_cost": 1.05, "education_quality": 0.64, "job_opportunity": 0.66},
+        {"id": "CHN-rural", "name": "一般乡村", "urban": false, "initial_share": 0.56, "wage_multiplier": 0.68, "housing_cost": 0.52, "education_quality": 0.40, "job_opportunity": 0.34},
+        {"id": "CHN-remote", "name": "偏远地区", "urban": false, "initial_share": 0.18, "wage_multiplier": 0.52, "housing_cost": 0.40, "education_quality": 0.28, "job_opportunity": 0.22}
+      ],
       "policies": [
         {"start_year": 1971, "end_year": 1979, "name": "晚、稀、少", "max_children": 3, "enforcement": 0.55, "fertility_multiplier": 0.82},
         {"start_year": 1980, "end_year": 2015, "name": "独生子女为主（含例外）", "max_children": 1, "enforcement": 0.88, "fertility_multiplier": 0.72},
@@ -84,6 +100,15 @@
       "anti_nepotism_strength": 0.28,
       "assortative_mating_strength": 0.74,
       "elite_marriage_closure": 0.62,
+      "cycle_years": 9.5,
+      "cycle_amplitude": 0.11,
+      "shock_probability": 0.03,
+      "shock_severity": 0.22,
+      "base_divorce_rate": 0.008,
+      "female_labor_access": 0.58,
+      "gender_pay_gap": 0.20,
+      "maternal_career_penalty": 0.16,
+      "son_preference": 0.09,
       "policies": [
         {"start_year": 1952, "end_year": null, "name": "国家家庭福利/计划生育项目（简化）", "max_children": null, "enforcement": 0.10, "fertility_multiplier": 0.90, "child_support": 0.04}
       ]
@@ -120,6 +145,15 @@
       "anti_nepotism_strength": 0.72,
       "assortative_mating_strength": 0.62,
       "elite_marriage_closure": 0.38,
+      "cycle_years": 10.0,
+      "cycle_amplitude": 0.07,
+      "shock_probability": 0.018,
+      "shock_severity": 0.15,
+      "base_divorce_rate": 0.014,
+      "female_labor_access": 0.72,
+      "gender_pay_gap": 0.16,
+      "maternal_career_penalty": 0.15,
+      "high_welfare_strength": 0.35,
       "policies": [
         {"start_year": 1994, "end_year": null, "name": "少子化支持政策（合并简化）", "max_children": null, "enforcement": 0.0, "fertility_multiplier": 1.0, "child_support": 0.32}
       ]
@@ -156,6 +190,14 @@
       "anti_nepotism_strength": 0.64,
       "assortative_mating_strength": 0.68,
       "elite_marriage_closure": 0.46,
+      "cycle_years": 8.0,
+      "cycle_amplitude": 0.14,
+      "shock_probability": 0.032,
+      "shock_severity": 0.24,
+      "base_divorce_rate": 0.020,
+      "female_labor_access": 0.83,
+      "gender_pay_gap": 0.15,
+      "maternal_career_penalty": 0.10,
       "policies": []
     }
   ]

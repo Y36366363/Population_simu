@@ -1,4 +1,0 @@
-﻿initial_resources,initial_children,generations,survival_to_final_generation,extinction_before_final_generation,mean_final_generation_descendants,median_final_generation_descendants,mean_total_descendants,occupational_persistence_rate,material_deadline,capital_deadline,trials
-100.0,1,4,0.1574,0.8426,0.4961,0.0,4.2215,0.18712,58.0,0.4908,10000
-100.0,2,4,0.0281,0.9719,0.0755,0.0,3.0892,0.19188,58.0,0.4908,10000
-100.0,3,4,0.0102,0.9898,0.0242,0.0,3.6718,0.19664,58.0,0.4908,10000

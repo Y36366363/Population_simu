@@ -4,7 +4,30 @@ from population_simu.family_config import FamilyScenario
 from population_simu.family_world import FamilyWorld
 
 
-def family_scenario(max_children=2, seed=11):
+def family_scenario(max_children=2, seed=11, **country_overrides):
+    country = {
+        "id": "TST",
+        "name": "测试国",
+        "initial_clans": 30,
+        "initial_development": 0.3,
+        "annual_development_gain": 0.003,
+        "initial_urbanization": 0.4,
+        "annual_urbanization_gain": 0.002,
+        "education_access": 0.6,
+        "cost_of_children": 0.7,
+        "baseline_family_resources": 100,
+        "initial_children_per_family": 3,
+        "policies": [
+            {
+                "start_year": 2000,
+                "end_year": None,
+                "name": "hard-cap",
+                "max_children": max_children,
+                "enforcement": 1.0,
+            }
+        ],
+    }
+    country.update(country_overrides)
     return FamilyScenario.from_dict(
         {
             "name": "family-test",
@@ -14,30 +37,7 @@ def family_scenario(max_children=2, seed=11):
                 "random_seed": seed,
                 "international_migration_rate": 0.0,
             },
-            "countries": [
-                {
-                    "id": "TST",
-                    "name": "测试国",
-                    "initial_clans": 30,
-                    "initial_development": 0.3,
-                    "annual_development_gain": 0.003,
-                    "initial_urbanization": 0.4,
-                    "annual_urbanization_gain": 0.002,
-                    "education_access": 0.6,
-                    "cost_of_children": 0.7,
-                    "baseline_family_resources": 100,
-                    "initial_children_per_family": 3,
-                    "policies": [
-                        {
-                            "start_year": 2000,
-                            "end_year": None,
-                            "name": "hard-cap",
-                            "max_children": max_children,
-                            "enforcement": 1.0,
-                        }
-                    ],
-                }
-            ],
+            "countries": [country],
         }
     )
 
@@ -92,8 +92,25 @@ class FamilyWorldTests(unittest.TestCase):
             "political_dynasty_share",
             "faction_concentration",
             "elite_marriage_share",
+            "economic_cycle_index",
+            "divorces",
+            "remarriages",
+            "internal_migrants",
+            "rural_population_share",
+            "gender_status_gap",
         ):
             self.assertIn(key, row)
+
+    def test_economic_cycle_changes_over_time(self):
+        world = FamilyWorld(family_scenario(cycle_amplitude=0.2, shock_probability=0.0))
+        rows = world.run(2005)
+        values = [row.economic_cycle_index for row in rows if row.country_id == "TST"]
+        self.assertGreater(len(set(round(value, 5) for value in values)), 2)
+
+    def test_high_divorce_rate_creates_divorce_events(self):
+        world = FamilyWorld(family_scenario(base_divorce_rate=1.0))
+        row = world.step()[0]
+        self.assertGreater(row.divorces, 0)
 
 
 if __name__ == "__main__":
