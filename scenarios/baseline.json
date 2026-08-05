@@ -1,0 +1,25 @@
+{
+  "name": "基线：中等生育与迁移开放",
+  "simulation": {
+    "start_year": 2025,
+    "years": 50,
+    "initial_people": 2000,
+    "random_seed": 42,
+    "baseline_tfr": 1.8,
+    "pair_formation_rate": 0.22,
+    "household_migration_rate": 0.025
+  },
+  "policy": {
+    "fertility_multiplier": 1.0,
+    "childcare_support": 0.3,
+    "migration_openness": 0.6,
+    "education_investment": 0.6,
+    "upward_mobility": 0.5
+  },
+  "regions": [
+    {"id": "east", "name": "东部都会区", "initial_share": 0.35, "wage_index": 1.35, "housing_cost": 1.45, "education_access": 0.78, "opportunity": 0.75},
+    {"id": "central", "name": "中部城市群", "initial_share": 0.35, "wage_index": 1.0, "housing_cost": 0.9, "education_access": 0.58, "opportunity": 0.55},
+    {"id": "rural", "name": "乡村地区", "initial_share": 0.30, "wage_index": 0.68, "housing_cost": 0.45, "education_access": 0.38, "opportunity": 0.30}
+  ]
+}
+

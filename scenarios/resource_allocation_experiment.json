@@ -1,0 +1,72 @@
+{
+  "name": "固定家庭资源下的一孩/二孩/三孩对照",
+  "simulation": {
+    "start_year": 2000,
+    "end_year": 2080,
+    "random_seed": 41,
+    "adult_pairing_rate": 0.34,
+    "international_migration_rate": 0.0,
+    "resource_investment_share": 0.40,
+    "inheritance_share": 0.25,
+    "surname_rule": "paternal"
+  },
+  "countries": [
+    {
+      "id": "ONE",
+      "name": "一孩资源集中组",
+      "initial_clans": 300,
+      "initial_development": 0.35,
+      "annual_development_gain": 0.004,
+      "initial_urbanization": 0.45,
+      "annual_urbanization_gain": 0.002,
+      "education_access": 0.60,
+      "cost_of_children": 0.75,
+      "baseline_family_resources": 100.0,
+      "initial_children_per_family": 3.0,
+      "rich_fertility_rebound": 0.0,
+      "institutional_openness": 0.50,
+      "welfare_floor": 0.15,
+      "housing_pressure": 0.70,
+      "occupational_inheritance": 0.50,
+      "policies": [{"start_year": 2000, "end_year": null, "name": "严格一孩实验", "max_children": 1, "enforcement": 1.0, "fertility_multiplier": 1.0}]
+    },
+    {
+      "id": "TWO",
+      "name": "二孩平衡组",
+      "initial_clans": 300,
+      "initial_development": 0.35,
+      "annual_development_gain": 0.004,
+      "initial_urbanization": 0.45,
+      "annual_urbanization_gain": 0.002,
+      "education_access": 0.60,
+      "cost_of_children": 0.75,
+      "baseline_family_resources": 100.0,
+      "initial_children_per_family": 3.0,
+      "rich_fertility_rebound": 0.0,
+      "institutional_openness": 0.50,
+      "welfare_floor": 0.15,
+      "housing_pressure": 0.70,
+      "occupational_inheritance": 0.50,
+      "policies": [{"start_year": 2000, "end_year": null, "name": "严格二孩实验", "max_children": 2, "enforcement": 1.0, "fertility_multiplier": 1.0}]
+    },
+    {
+      "id": "THREE",
+      "name": "三孩分散组",
+      "initial_clans": 300,
+      "initial_development": 0.35,
+      "annual_development_gain": 0.004,
+      "initial_urbanization": 0.45,
+      "annual_urbanization_gain": 0.002,
+      "education_access": 0.60,
+      "cost_of_children": 0.75,
+      "baseline_family_resources": 100.0,
+      "initial_children_per_family": 3.0,
+      "rich_fertility_rebound": 0.0,
+      "institutional_openness": 0.50,
+      "welfare_floor": 0.15,
+      "housing_pressure": 0.70,
+      "occupational_inheritance": 0.50,
+      "policies": [{"start_year": 2000, "end_year": null, "name": "严格三孩实验", "max_children": 3, "enforcement": 1.0, "fertility_multiplier": 1.0}]
+    }
+  ]
+}

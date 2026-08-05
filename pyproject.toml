@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "population-simu"
+version = "0.1.0"
+description = "家庭级人口、迁移与社会流动模拟沙盘"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+population-simu = "population_simu.cli:main"
+family-simu = "population_simu.family_cli:main"
+resource-experiment = "population_simu.resource_experiment:main"
+dynasty-experiment = "population_simu.dynasty_experiment:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
