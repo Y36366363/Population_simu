@@ -3,168 +3,194 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="家庭资源、生育数量、托育与祖辈照护的交互式人口模拟沙盘">
-  <title>家庭延续实验室 · Population Simu</title>
+  <meta name="description" content="以家庭为最小单位的无战争世界人口流动与发展模拟沙盘">
+  <title>家庭迁徙与世界发展沙盘 · Population Simu</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="./" aria-label="家庭延续实验室首页">
+    <a class="brand" href="./" aria-label="家庭迁徙与世界发展沙盘首页">
       <span class="brand-mark" aria-hidden="true">家</span>
-      <span>家庭延续实验室</span>
+      <span>Population Simu</span>
     </a>
-    <a class="repo-link" href="https://github.com/Y36366363/Population_simu">查看模型与假设</a>
+    <nav class="view-nav" aria-label="实验模块">
+      <button type="button" data-view-button="world" class="active">世界流动沙盘</button>
+      <button type="button" data-view-button="family">子命题：家庭资源</button>
+      <a href="https://github.com/Y36366363/Population_simu">模型与代码</a>
+    </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <div>
-        <p class="eyebrow">Population Simu · 交互式机制实验</p>
-        <h1>资源集中，还是多子女分散？</h1>
-        <p class="hero-copy">调节托育、祖辈照护和家庭投资策略，比较一孩、二孩、三孩家庭在多代之后的存续与向上流动。结果是机制演示，不是现实预测。</p>
-      </div>
-      <div class="hero-note">
-        <span>当前实验</span>
-        <strong id="experiment-summary">四代 · 1,200 次 · 固定种子</strong>
-      </div>
+    <section id="world-view" data-view-panel="world">
+      <section class="hero world-hero">
+        <div>
+          <p class="eyebrow">Family-based world sandbox</p>
+          <h1>家庭会流向哪里，世界又会怎样变化？</h1>
+          <p class="hero-copy">在没有战争的假想世界里，让家庭随收入、住房、教育、福利和社会机会迁徙、分支与晋升。这里的最小行动单位是家庭，不是孤立人口点。</p>
+        </div>
+        <div class="hero-note">
+          <span>当前世界</span>
+          <strong id="world-summary">60 年 · 900 个初始家庭</strong>
+        </div>
+      </section>
+
+      <section class="world-shell">
+        <aside class="controls world-controls" aria-label="世界沙盘参数">
+          <div class="panel-heading">
+            <div><p class="section-kicker">世界条件</p><h2>设置迁徙环境</h2></div>
+            <button id="world-reset" class="text-button" type="button">恢复默认</button>
+          </div>
+
+          <div class="control-row">
+            <div class="control-group compact">
+              <label for="world-families"><span>初始家庭</span><output id="world-families-value">900</output></label>
+              <input id="world-families" type="range" min="300" max="1800" step="100" value="900">
+            </div>
+            <div class="control-group compact">
+              <label for="world-years"><span>模拟时间</span><output id="world-years-value">60 年</output></label>
+              <input id="world-years" type="range" min="20" max="100" step="10" value="60">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label for="migration-open"><span>跨区域迁徙开放度</span><output id="migration-open-value">65%</output></label>
+            <input id="migration-open" type="range" min="0" max="100" value="65">
+            <small>决定家庭能否响应其他区域的工资、学校与住房机会。</small>
+          </div>
+          <div class="control-group">
+            <label for="opportunity-gap"><span>区域机会差距</span><output id="opportunity-gap-value">55%</output></label>
+            <input id="opportunity-gap" type="range" min="0" max="100" value="55">
+            <small>越高越容易形成持续流向少数高机会区域的迁徙潮。</small>
+          </div>
+          <div class="control-group">
+            <label for="world-housing"><span>高机会地区住房压力</span><output id="world-housing-value">60%</output></label>
+            <input id="world-housing" type="range" min="0" max="100" value="60">
+          </div>
+          <div class="control-group">
+            <label for="education-equality"><span>公共教育均等化</span><output id="education-equality-value">45%</output></label>
+            <input id="education-equality" type="range" min="0" max="100" value="45">
+          </div>
+          <div class="control-group">
+            <label for="world-welfare"><span>家庭福利托底</span><output id="world-welfare-value">25%</output></label>
+            <input id="world-welfare" type="range" min="0" max="100" value="25">
+          </div>
+          <div class="control-group">
+            <label for="world-childcare"><span>托育与照护供给</span><output id="world-childcare-value">40%</output></label>
+            <input id="world-childcare" type="range" min="0" max="100" value="40">
+          </div>
+
+          <details>
+            <summary>更多世界条件</summary>
+            <div class="details-body">
+              <div class="control-group">
+                <label for="economic-volatility"><span>经济周期波动</span><output id="economic-volatility-value">30%</output></label>
+                <input id="economic-volatility" type="range" min="0" max="100" value="30">
+              </div>
+              <div class="control-group">
+                <label for="world-seed"><span>随机种子</span></label>
+                <input id="world-seed" type="number" min="1" max="999999" value="2026">
+              </div>
+            </div>
+          </details>
+          <button id="world-run" class="primary-button" type="button">运行世界沙盘</button>
+        </aside>
+
+        <div class="world-results" aria-live="polite">
+          <div class="world-toolbar">
+            <div><p class="section-kicker">世界终局</p><h2>家庭分布与主要流向</h2></div>
+            <label class="metric-picker" for="world-map-metric"><span>节点颜色</span>
+              <select id="world-map-metric">
+                <option value="resources">家庭资源中位数</option>
+                <option value="development">发展水平</option>
+                <option value="children">户均子女</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="world-stats" class="world-stats"></div>
+          <figure class="world-figure">
+            <svg id="world-network" role="img" aria-labelledby="world-map-title world-map-desc"></svg>
+            <figcaption><strong id="world-map-title">六区域家庭流动关系图</strong><span id="world-map-desc">节点大小表示家庭数量，连线表示累计跨区域迁徙；位置为关系示意，并非地理比例地图。</span></figcaption>
+          </figure>
+
+          <div class="timeline-toolbar">
+            <div><p class="section-kicker">时间变化</p><h2>世界发展轨迹</h2></div>
+            <label class="metric-picker" for="world-timeline-metric"><span>纵轴指标</span>
+              <select id="world-timeline-metric">
+                <option value="families">家庭总数</option>
+                <option value="migrations">年度迁徙家庭</option>
+                <option value="resources">家庭资源中位数</option>
+                <option value="children">户均未成年子女</option>
+                <option value="mobility">高状态家庭占比</option>
+              </select>
+            </label>
+          </div>
+          <figure class="chart-figure world-timeline-figure">
+            <svg id="world-timeline" role="img" aria-labelledby="world-timeline-title world-timeline-desc"></svg>
+            <figcaption><strong id="world-timeline-title">家庭总数变化</strong><span id="world-timeline-desc">包含原家庭与成年子女建立的新家庭分支。</span></figcaption>
+          </figure>
+
+          <section class="region-detail" aria-labelledby="region-detail-title">
+            <div><p class="section-kicker">选择区域</p><h2 id="region-detail-title">查看一个区域为何吸引或流失家庭</h2></div>
+            <div id="region-buttons" class="region-buttons"></div>
+            <div id="region-detail-content"></div>
+          </section>
+        </div>
+      </section>
     </section>
 
-    <section class="lab-shell">
-      <aside class="controls" aria-label="模拟参数">
-        <div class="panel-heading">
-          <div>
-            <p class="section-kicker">实验条件</p>
-            <h2>调整变量</h2>
+    <section id="family-view" data-view-panel="family" hidden>
+      <section class="hero family-hero">
+        <div>
+          <p class="eyebrow">Sub-experiment · family resource allocation</p>
+          <h1>一个家庭的资源该集中，还是分散？</h1>
+          <p class="hero-copy">这是世界沙盘中的一个独立子命题：固定家庭资源后，比较一孩、二孩、三孩的代际延续，并调节托育、祖辈照护与动态追投。</p>
+        </div>
+        <div class="hero-note"><span>当前子实验</span><strong id="experiment-summary">四代 · 1,200 次</strong></div>
+      </section>
+
+      <section class="lab-shell">
+        <aside class="controls" aria-label="家庭资源实验参数">
+          <div class="panel-heading"><div><p class="section-kicker">家庭条件</p><h2>调整变量</h2></div><button id="reset-button" class="text-button" type="button">恢复默认</button></div>
+          <div class="control-group"><label for="resources"><span>初始家庭资源</span><output id="resources-value">100</output></label><input id="resources" type="range" min="20" max="300" step="5" value="100"></div>
+          <div class="control-row">
+            <div class="control-group compact"><label for="generations"><span>模拟代数</span><output id="generations-value">4 代</output></label><input id="generations" type="range" min="2" max="6" value="4"></div>
+            <div class="control-group compact"><label for="trials"><span>重复次数</span><output id="trials-value">1,200</output></label><input id="trials" type="range" min="400" max="3000" step="200" value="1200"></div>
           </div>
-          <button id="reset-button" class="text-button" type="button">恢复默认</button>
+          <hr>
+          <div class="control-group"><label for="childcare"><span>正式托育供给</span><output id="childcare-value">45%</output></label><input id="childcare" type="range" min="0" max="100" value="45"></div>
+          <div class="control-group"><label for="grandparents"><span>祖辈照护可用度</span><output id="grandparents-value">55%</output></label><input id="grandparents" type="range" min="0" max="100" value="55"></div>
+          <div class="control-group"><label for="dynamic"><span>按表现动态追投</span><output id="dynamic-value">40%</output></label><input id="dynamic" type="range" min="0" max="100" value="40"></div>
+          <div class="control-group"><label for="need"><span>补偿弱势权重</span><output id="need-value">25%</output></label><input id="need" type="range" min="0" max="100" value="25"></div>
+          <details><summary>更多制度条件</summary><div class="details-body">
+            <div class="control-group"><label for="education"><span>公共教育</span><output id="education-value">55%</output></label><input id="education" type="range" min="0" max="100" value="55"></div>
+            <div class="control-group"><label for="welfare"><span>福利托底</span><output id="welfare-value">20%</output></label><input id="welfare" type="range" min="0" max="100" value="20"></div>
+            <div class="control-group"><label for="housing"><span>住房压力</span><output id="housing-value">65%</output></label><input id="housing" type="range" min="0" max="100" value="65"></div>
+            <div class="control-group"><label for="seed"><span>随机种子</span></label><input id="seed" type="number" min="1" max="999999" value="2026"></div>
+          </div></details>
+          <button id="run-button" class="primary-button" type="button">重新运行子实验</button>
+        </aside>
+
+        <div class="results">
+          <div class="result-toolbar"><div><p class="section-kicker">多代结果</p><h2>一孩、二孩、三孩比较</h2></div><label class="metric-picker" for="metric"><span>纵轴指标</span><select id="metric"><option value="survival">家族存续率</option><option value="mobility">至少一人向上跃迁</option><option value="descendants">平均在世后代</option></select></label></div>
+          <div class="series-toggles" aria-label="显示家庭计划"><label><input type="checkbox" name="series" value="1" checked><span class="dot one"></span>一孩</label><label><input type="checkbox" name="series" value="2" checked><span class="dot two"></span>二孩</label><label><input type="checkbox" name="series" value="3" checked><span class="dot three"></span>三孩</label></div>
+          <figure class="chart-figure"><svg id="line-chart" role="img" aria-labelledby="chart-title chart-desc"></svg><figcaption><strong id="chart-title">各代家族存续率</strong><span id="chart-desc">曲线显示在每一代仍至少有一名后代的试验比例。</span></figcaption></figure>
+          <div id="result-cards" class="result-cards"></div>
+          <section class="allocation-section">
+            <div class="allocation-heading"><div><p class="section-kicker">第一代资源分配</p><h2>家庭把资源给了谁？</h2></div><div class="plan-switch" role="group" aria-label="选择家庭子女数"><button type="button" data-plan="1">一孩</button><button type="button" data-plan="2" class="active">二孩</button><button type="button" data-plan="3">三孩</button></div></div>
+            <div id="allocation-visual" class="allocation-visual"></div><p id="allocation-note" class="allocation-note"></p>
+          </section>
         </div>
-
-        <div class="control-group">
-          <label for="resources"><span>初始家庭资源</span><output id="resources-value">100</output></label>
-          <input id="resources" type="range" min="20" max="300" step="5" value="100">
-        </div>
-        <div class="control-row">
-          <div class="control-group compact">
-            <label for="generations"><span>模拟代数</span><output id="generations-value">4 代</output></label>
-            <input id="generations" type="range" min="2" max="6" step="1" value="4">
-          </div>
-          <div class="control-group compact">
-            <label for="trials"><span>重复次数</span><output id="trials-value">1,200</output></label>
-            <input id="trials" type="range" min="400" max="3000" step="200" value="1200">
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="control-group">
-          <label for="childcare"><span>正式托育供给</span><output id="childcare-value">45%</output></label>
-          <input id="childcare" type="range" min="0" max="100" value="45">
-          <small>提高父母可工作时间，并形成早期公共投入。</small>
-        </div>
-        <div class="control-group">
-          <label for="grandparents"><span>祖辈照护可用度</span><output id="grandparents-value">55%</output></label>
-          <input id="grandparents" type="range" min="0" max="100" value="55">
-          <small>受同城居住、健康和退休时间限制。</small>
-        </div>
-        <div class="control-group">
-          <label for="dynamic"><span>按表现动态追投</span><output id="dynamic-value">40%</output></label>
-          <input id="dynamic" type="range" min="0" max="100" value="40">
-          <small>越高越倾向把新增资源投入已显现优势的孩子。</small>
-        </div>
-        <div class="control-group">
-          <label for="need"><span>补偿弱势权重</span><output id="need-value">25%</output></label>
-          <input id="need" type="range" min="0" max="100" value="25">
-          <small>把部分资源转向健康或早期表现较弱的孩子。</small>
-        </div>
-
-        <details>
-          <summary>更多制度条件</summary>
-          <div class="details-body">
-            <div class="control-group">
-              <label for="education"><span>公共教育</span><output id="education-value">55%</output></label>
-              <input id="education" type="range" min="0" max="100" value="55">
-            </div>
-            <div class="control-group">
-              <label for="welfare"><span>福利托底</span><output id="welfare-value">20%</output></label>
-              <input id="welfare" type="range" min="0" max="100" value="20">
-            </div>
-            <div class="control-group">
-              <label for="housing"><span>住房压力</span><output id="housing-value">65%</output></label>
-              <input id="housing" type="range" min="0" max="100" value="65">
-            </div>
-            <div class="control-group">
-              <label for="seed"><span>随机种子</span></label>
-              <input id="seed" type="number" min="1" max="999999" value="2026">
-            </div>
-          </div>
-        </details>
-
-        <button id="run-button" class="primary-button" type="button">重新运行实验</button>
-      </aside>
-
-      <div class="results" aria-live="polite">
-        <div class="result-toolbar">
-          <div>
-            <p class="section-kicker">多代结果</p>
-            <h2>家庭计划比较</h2>
-          </div>
-          <label class="metric-picker" for="metric">
-            <span>纵轴指标</span>
-            <select id="metric">
-              <option value="survival">家族存续率</option>
-              <option value="mobility">至少一人向上跃迁</option>
-              <option value="descendants">平均在世后代</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="series-toggles" aria-label="显示家庭计划">
-          <label><input type="checkbox" name="series" value="1" checked><span class="dot one"></span>一孩</label>
-          <label><input type="checkbox" name="series" value="2" checked><span class="dot two"></span>二孩</label>
-          <label><input type="checkbox" name="series" value="3" checked><span class="dot three"></span>三孩</label>
-        </div>
-
-        <figure class="chart-figure">
-          <svg id="line-chart" role="img" aria-labelledby="chart-title chart-desc"></svg>
-          <figcaption>
-            <strong id="chart-title">各代家族存续率</strong>
-            <span id="chart-desc">曲线显示在每一代仍至少有一名后代的试验比例。</span>
-          </figcaption>
-        </figure>
-
-        <div id="result-cards" class="result-cards"></div>
-
-        <section class="allocation-section">
-          <div class="allocation-heading">
-            <div>
-              <p class="section-kicker">第一代资源分配</p>
-              <h2>家庭把 100% 资源给了谁？</h2>
-            </div>
-            <div class="plan-switch" role="group" aria-label="选择家庭子女数">
-              <button type="button" data-plan="1">一孩</button>
-              <button type="button" data-plan="2" class="active">二孩</button>
-              <button type="button" data-plan="3">三孩</button>
-            </div>
-          </div>
-          <div id="allocation-visual" class="allocation-visual"></div>
-          <p id="allocation-note" class="allocation-note"></p>
-        </section>
-      </div>
+      </section>
     </section>
 
     <section class="model-boundary">
-      <div>
-        <p class="section-kicker">如何理解结果</p>
-        <h2>这是反事实实验，不是人口预测</h2>
-      </div>
-      <p>网页使用轻量 Monte Carlo 模型以保证即时交互；完整 Python 引擎还包含职业、婚姻、迁移、疾病、住房和政策时间线。参数尚未按真实国家数据校准，因此应比较方向和机制，不应把百分比当作现实结论。</p>
+      <div><p class="section-kicker">模型边界</p><h2>比较机制，不预测现实</h2></div>
+      <p>网页使用轻量家庭代理模型以保证即时交互；完整 Python 引擎还包含婚姻、离婚、职业、地区、疾病、住房、政策时间线和家族继承。当前参数是透明的示意值，必须经过真实人口、收入、住房和迁徙数据校准后才能用于国家判断。</p>
     </section>
   </main>
 
-  <footer>
-    <span>Population Simu</span>
-    <span>开放模型 · 参数透明 · 固定种子可复现</span>
-  </footer>
-  <script src="app.js"></script>
+  <footer><span>Population Simu</span><span>家庭为单位 · 无战争反事实 · 固定种子可复现</span></footer>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

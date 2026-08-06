@@ -274,3 +274,392 @@ window.addEventListener('resize', () => { if (state.results) renderChart(); });
 
 updateOutputs();
 runExperiment();
+
+const worldDefaults = {
+  'world-families': 900,
+  'world-years': 60,
+  'migration-open': 65,
+  'opportunity-gap': 55,
+  'world-housing': 60,
+  'education-equality': 45,
+  'world-welfare': 25,
+  'world-childcare': 40,
+  'economic-volatility': 30,
+  'world-seed': 2026
+};
+
+const regionTemplates = [
+  {id: 'NA', name: '北美', x: .18, y: .34, share: .10, development: .88, wage: 1.35, housing: 1.22, education: .80, fertility: .72},
+  {id: 'LA', name: '拉丁美洲', x: .28, y: .69, share: .11, development: .58, wage: .72, housing: .66, education: .60, fertility: .94},
+  {id: 'EU', name: '欧洲', x: .48, y: .27, share: .12, development: .86, wage: 1.17, housing: 1.02, education: .84, fertility: .64},
+  {id: 'AF', name: '非洲', x: .50, y: .66, share: .22, development: .30, wage: .40, housing: .32, education: .35, fertility: 1.46},
+  {id: 'SA', name: '南亚', x: .69, y: .57, share: .22, development: .42, wage: .55, housing: .46, education: .45, fertility: 1.23},
+  {id: 'EA', name: '东亚', x: .81, y: .37, share: .23, development: .72, wage: 1.03, housing: 1.12, education: .77, fertility: .73}
+];
+
+const worldState = {result: null, selectedRegion: 'EA'};
+
+function weightedChoice(random, items, weightKey) {
+  const total = items.reduce((sum, item) => sum + item[weightKey], 0);
+  let draw = random() * total;
+  for (const item of items) {
+    draw -= item[weightKey];
+    if (draw <= 0) return item;
+  }
+  return items[items.length - 1];
+}
+
+function median(values) {
+  if (!values.length) return 0;
+  const ordered = [...values].sort((a, b) => a - b);
+  const middle = Math.floor(ordered.length / 2);
+  return ordered.length % 2 ? ordered[middle] : (ordered[middle - 1] + ordered[middle]) / 2;
+}
+
+function worldParams() {
+  const raw = Object.fromEntries(Object.keys(worldDefaults).map(id => [id, Number(document.getElementById(id).value)]));
+  return {
+    initialFamilies: raw['world-families'], years: raw['world-years'], seed: raw['world-seed'],
+    migrationOpen: raw['migration-open'] / 100, opportunityGap: raw['opportunity-gap'] / 100,
+    housingPressure: raw['world-housing'] / 100, educationEquality: raw['education-equality'] / 100,
+    welfare: raw['world-welfare'] / 100, childcare: raw['world-childcare'] / 100,
+    volatility: raw['economic-volatility'] / 100
+  };
+}
+
+function regionConditions(template, params, year) {
+  const convergence = params.educationEquality * .34;
+  const development = clamp(template.development + year * .0014 * (1 - template.development) + params.educationEquality * .05);
+  const education = clamp(template.education * (1 - convergence) + .68 * convergence);
+  const wageSpread = .66 + params.opportunityGap * (template.wage - .66);
+  const cycle = params.volatility * .10 * Math.sin((year + regionTemplates.indexOf(template) * 3.1) / 6.5);
+  return {
+    development, education,
+    wage: Math.max(.25, wageSpread * (1 + cycle)),
+    housing: template.housing * (.55 + .75 * params.housingPressure)
+  };
+}
+
+function initialChildren(random, region) {
+  const target = Math.max(0, region.fertility * (1.35 - .58 * region.development));
+  const count = Math.min(4, Math.floor(target) + (random() < target % 1 ? 1 : 0));
+  return Array.from({length: count}, () => Math.floor(random() * 17));
+}
+
+function createInitialWorld(params, random) {
+  const families = [];
+  for (let id = 1; id <= params.initialFamilies; id += 1) {
+    const region = weightedChoice(random, regionTemplates, 'share');
+    const resources = Math.max(3, Math.exp(Math.log(42 * (.65 + region.wage)) + normal(random) * .58));
+    const human = clamp(.16 + .56 * region.education + .20 * random());
+    families.push({
+      id, clan: id, region: region.id, generation: 0, adultAge: 22 + Math.floor(random() * 20),
+      resources, human, status: clamp(.18 + .36 * human + .18 * Math.log1p(resources) / 5),
+      children: initialChildren(random, region), alive: true
+    });
+  }
+  return families;
+}
+
+function familyUtility(family, template, params, year, random) {
+  const conditions = regionConditions(template, params, year);
+  const childNeed = Math.min(1, family.children.length / 2);
+  const poverty = clamp(1 - family.resources / 100);
+  return (
+    1.05 * conditions.wage * (.55 + family.human)
+    + .72 * conditions.education * childNeed
+    + .32 * params.welfare * poverty
+    - .70 * conditions.housing * (1.08 - .45 * clamp(family.resources / 120))
+    + .08 * normal(random)
+  );
+}
+
+function summarizeWorldYear(families, year, migrations) {
+  const living = families.filter(family => family.alive);
+  return {
+    year,
+    families: living.length,
+    migrations,
+    resources: median(living.map(family => family.resources)),
+    children: living.reduce((sum, family) => sum + family.children.length, 0) / Math.max(1, living.length),
+    mobility: living.filter(family => family.status >= .72).length / Math.max(1, living.length)
+  };
+}
+
+function simulateWorld(params) {
+  const random = mulberry32(hashSeed(params.seed, 17));
+  const families = createInitialWorld(params, random);
+  const history = [summarizeWorldYear(families, 0, 0)];
+  const flows = {};
+  let nextFamilyId = families.length + 1;
+  let totalBranches = 0;
+  let totalMigrations = 0;
+
+  for (let year = 1; year <= params.years; year += 1) {
+    let migrations = 0;
+    const newBranches = [];
+    const snapshot = families.filter(family => family.alive);
+    for (const family of snapshot) {
+      const originTemplate = regionTemplates.find(region => region.id === family.region);
+      const origin = regionConditions(originTemplate, params, year);
+      family.adultAge += 1;
+      family.children = family.children.map(age => age + 1);
+      const childCount = family.children.length;
+      const careRelief = .68 + .34 * params.childcare + .18 * params.welfare;
+      const income = 9.2 * origin.wage * (.58 + family.human) * careRelief;
+      const expenses = 2.8 + childCount * (1.7 + 1.5 * origin.development) + 2.0 * origin.housing;
+      family.resources = Math.max(.5, family.resources * .985 + income - expenses);
+      family.human = clamp(family.human + .004 * origin.education * (1 - family.human));
+
+      if (family.adultAge <= 44 && childCount < 4) {
+        const richRebound = Math.max(0, Math.log2(Math.max(1, family.resources / 100))) * .12;
+        const desired = Math.max(
+          .2,
+          originTemplate.fertility * (1.30 - .72 * origin.development)
+          + .52 * params.childcare + .20 * params.welfare + richRebound
+          - .34 * origin.housing
+        );
+        const birthProbability = Math.max(0, desired - childCount) * .075;
+        if (random() < birthProbability) family.children.push(0);
+      }
+
+      const matured = family.children.filter(age => age >= 22);
+      family.children = family.children.filter(age => age < 22);
+      matured.forEach(() => {
+        if (families.length + newBranches.length >= 5200) return;
+        const transfer = family.resources * .18 / Math.max(1, matured.length);
+        family.resources = Math.max(.5, family.resources - transfer);
+        const branchHuman = clamp(.52 * family.human + .32 * origin.education + .12 * random());
+        newBranches.push({
+          id: nextFamilyId++, clan: family.clan, region: family.region, generation: family.generation + 1,
+          adultAge: 23 + Math.floor(random() * 6), resources: Math.max(2, transfer), human: branchHuman,
+          status: clamp(.20 + .40 * branchHuman + .12 * Math.log1p(transfer) / 4), children: [], alive: true
+        });
+        totalBranches += 1;
+      });
+
+      const migrationProbability = .052 * params.migrationOpen * (1 + .60 * params.opportunityGap);
+      if (random() < migrationProbability) {
+        const originScore = familyUtility(family, originTemplate, params, year, random) + .16;
+        let best = originTemplate;
+        let bestScore = originScore;
+        for (const candidate of regionTemplates) {
+          if (candidate.id === family.region) continue;
+          const score = familyUtility(family, candidate, params, year, random);
+          if (score > bestScore) { best = candidate; bestScore = score; }
+        }
+        if (best.id !== family.region) {
+          const key = `${family.region}>${best.id}`;
+          flows[key] = (flows[key] || 0) + 1;
+          family.region = best.id;
+          family.resources = Math.max(.5, family.resources - 3.5 * (1 - params.welfare));
+          migrations += 1;
+          totalMigrations += 1;
+        }
+      }
+
+      family.status = clamp(
+        .10 + .42 * family.human + .24 * sigmoid((family.resources - 48) / 25)
+        + .12 * origin.education + .07 * normal(random)
+      );
+      if (family.adultAge > 80) {
+        const mortality = Math.min(.42, .018 * (family.adultAge - 79) * (1.08 - .32 * params.welfare));
+        if (random() < mortality) family.alive = false;
+      }
+    }
+    families.push(...newBranches);
+    if (year % 2 === 0 || year === params.years) history.push(summarizeWorldYear(families, year, migrations));
+  }
+
+  const living = families.filter(family => family.alive);
+  const regions = regionTemplates.map(template => {
+    const members = living.filter(family => family.region === template.id);
+    const inflow = Object.entries(flows).filter(([key]) => key.endsWith(`>${template.id}`)).reduce((sum, [, value]) => sum + value, 0);
+    const outflow = Object.entries(flows).filter(([key]) => key.startsWith(`${template.id}>`)).reduce((sum, [, value]) => sum + value, 0);
+    const conditions = regionConditions(template, params, params.years);
+    return {
+      ...template, ...conditions, families: members.length,
+      resources: median(members.map(family => family.resources)),
+      children: members.reduce((sum, family) => sum + family.children.length, 0) / Math.max(1, members.length),
+      highStatus: members.filter(family => family.status >= .72).length / Math.max(1, members.length),
+      inflow, outflow, netFlow: inflow - outflow
+    };
+  });
+  return {families: living, regions, flows, history, totalBranches, totalMigrations};
+}
+
+function updateWorldOutputs() {
+  const percentIds = new Set(['migration-open', 'opportunity-gap', 'world-housing', 'education-equality', 'world-welfare', 'world-childcare', 'economic-volatility']);
+  Object.keys(worldDefaults).forEach(id => {
+    const output = document.getElementById(`${id}-value`);
+    if (!output) return;
+    const value = Number(document.getElementById(id).value);
+    output.textContent = percentIds.has(id) ? `${value}%` : id === 'world-years' ? `${value} 年` : numberFormat(value);
+  });
+}
+
+function worldMetricValue(region, metric) {
+  if (metric === 'development') return region.development;
+  if (metric === 'children') return region.children;
+  return region.resources;
+}
+
+function mixColor(amount) {
+  const low = [220, 232, 223], high = [36, 93, 69];
+  const value = clamp(amount);
+  return `rgb(${low.map((channel, index) => Math.round(channel + (high[index] - channel) * value)).join(',')})`;
+}
+
+function renderWorldStats() {
+  const result = worldState.result;
+  const final = result.history[result.history.length - 1];
+  const initial = result.history[0];
+  const gap = Math.max(...result.regions.map(region => region.resources)) - Math.min(...result.regions.map(region => region.resources));
+  document.getElementById('world-stats').innerHTML = [
+    ['在世家庭', numberFormat(final.families)],
+    ['新家庭分支', numberFormat(result.totalBranches)],
+    ['跨区域迁徙', numberFormat(result.totalMigrations)],
+    ['区域资源差距', gap.toFixed(1)]
+  ].map(([label, value]) => `<div class="world-stat"><span>${label}</span><strong>${value}</strong></div>`).join('');
+  document.getElementById('world-summary').textContent = `${worldParams().years} 年 · ${numberFormat(initial.families)} 个初始家庭`;
+}
+
+function renderWorldNetwork() {
+  const svg = document.getElementById('world-network');
+  const width = Math.max(320, svg.clientWidth || 820), height = width < 700 ? 350 : 450;
+  const metric = document.getElementById('world-map-metric').value;
+  const values = worldState.result.regions.map(region => worldMetricValue(region, metric));
+  const low = Math.min(...values), high = Math.max(...values);
+  const maxFamilies = Math.max(...worldState.result.regions.map(region => region.families), 1);
+  const flowEntries = Object.entries(worldState.result.flows).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  const maxFlow = Math.max(...flowEntries.map(([, value]) => value), 1);
+  let content = `<defs><marker id="flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#427c91"></path></marker></defs>`;
+  flowEntries.forEach(([key, value]) => {
+    const [fromId, toId] = key.split('>');
+    const from = worldState.result.regions.find(region => region.id === fromId);
+    const to = worldState.result.regions.find(region => region.id === toId);
+    const x1 = from.x * width, y1 = from.y * height, x2 = to.x * width, y2 = to.y * height;
+    const curve = (x1 + x2) / 2 + (y2 - y1) * .18;
+    const curveY = (y1 + y2) / 2 - (x2 - x1) * .08;
+    content += `<path class="flow-line" d="M${x1},${y1} Q${curve},${curveY} ${x2},${y2}" stroke-width="${1.2 + 6 * value / maxFlow}" marker-end="url(#flow-arrow)"><title>${from.name} → ${to.name}：${value} 个家庭</title></path>`;
+  });
+  worldState.result.regions.forEach(region => {
+    const normalized = high === low ? .5 : (worldMetricValue(region, metric) - low) / (high - low);
+    const radius = (width < 600 ? 13 : 20)
+      + (width < 600 ? 18 : 30) * Math.sqrt(region.families / maxFamilies);
+    const x = region.x * width, y = region.y * height;
+    const valueLabel = metric === 'development' ? percent(region.development, 0) : metric === 'children' ? `${region.children.toFixed(2)} 孩` : `${region.resources.toFixed(0)} 资源`;
+    content += `<g data-world-region="${region.id}" role="button" aria-label="查看${region.name}" tabindex="0">
+      <circle class="region-node ${worldState.selectedRegion === region.id ? 'selected' : ''}" cx="${x}" cy="${y}" r="${radius}" fill="${mixColor(normalized)}"><title>${region.name}：${region.families} 个家庭，${valueLabel}</title></circle>
+      <text class="region-label" x="${x}" y="${y + 3}" text-anchor="middle">${region.name}</text>
+      <text class="region-value" x="${x}" y="${y + 18}" text-anchor="middle">${numberFormat(region.families)} 户</text>
+    </g>`;
+  });
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.innerHTML = content;
+  svg.querySelectorAll('[data-world-region]').forEach(node => {
+    const select = () => { worldState.selectedRegion = node.dataset.worldRegion; renderWorldNetwork(); renderRegionDetail(); };
+    node.addEventListener('click', select);
+    node.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') select(); });
+  });
+}
+
+function timelineMeta(metric) {
+  return {
+    families: ['家庭总数变化', '包含原家庭与成年子女建立的新家庭分支。', value => numberFormat(Math.round(value))],
+    migrations: ['年度迁徙家庭', '显示每个记录年份发生跨区域迁徙的家庭数。', value => numberFormat(Math.round(value))],
+    resources: ['家庭资源中位数', '显示所有在世家庭资源中位数。', value => value.toFixed(0)],
+    children: ['户均未成年子女', '显示每个在世家庭平均未成年子女数。', value => value.toFixed(2)],
+    mobility: ['高状态家庭占比', '显示状态指标达到 0.72 的家庭比例。', value => percent(value, 0)]
+  }[metric];
+}
+
+function renderWorldTimeline() {
+  const svg = document.getElementById('world-timeline');
+  const metric = document.getElementById('world-timeline-metric').value;
+  const meta = timelineMeta(metric), data = worldState.result.history;
+  const width = Math.max(320, svg.clientWidth || 800), height = width < 660 ? 280 : 320;
+  const margin = {top: 20, right: width < 500 ? 14 : 28, bottom: 38, left: width < 500 ? 54 : 66};
+  const plotWidth = width - margin.left - margin.right, plotHeight = height - margin.top - margin.bottom;
+  const minValue = Math.min(...data.map(row => row[metric]));
+  const maxValue = Math.max(...data.map(row => row[metric]));
+  const padding = Math.max(.01, (maxValue - minValue) * .12);
+  const yLow = Math.max(0, minValue - padding), yHigh = maxValue + padding;
+  const x = year => margin.left + year / Math.max(1, worldParams().years) * plotWidth;
+  const y = value => margin.top + plotHeight - (value - yLow) / Math.max(.001, yHigh - yLow) * plotHeight;
+  let content = '';
+  for (let tick = 0; tick <= 4; tick += 1) {
+    const value = yLow + (yHigh - yLow) * tick / 4, yy = y(value);
+    content += `<line class="chart-grid" x1="${margin.left}" y1="${yy}" x2="${width - margin.right}" y2="${yy}"></line><text class="chart-axis" x="${margin.left - 10}" y="${yy + 4}" text-anchor="end">${meta[2](value)}</text>`;
+  }
+  const points = data.map(row => `${x(row.year)},${y(row[metric])}`).join(' ');
+  content += `<polyline class="chart-line" stroke="#245d45" points="${points}"></polyline>`;
+  data.filter((_, index) => index % Math.max(1, Math.floor(data.length / 12)) === 0 || index === data.length - 1).forEach(row => {
+    content += `<circle class="chart-point" fill="#245d45" cx="${x(row.year)}" cy="${y(row[metric])}" r="4"><title>第 ${row.year} 年：${meta[2](row[metric])}</title></circle>`;
+  });
+  [0, .25, .5, .75, 1].forEach(fraction => {
+    const year = Math.round(worldParams().years * fraction);
+    content += `<text class="chart-axis" x="${x(year)}" y="${height - 11}" text-anchor="middle">${year} 年</text>`;
+  });
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.innerHTML = content;
+  document.getElementById('world-timeline-title').textContent = meta[0];
+  document.getElementById('world-timeline-desc').textContent = meta[1];
+}
+
+function renderRegionDetail() {
+  const regions = worldState.result.regions;
+  document.getElementById('region-buttons').innerHTML = regions.map(region => `<button type="button" data-region-button="${region.id}" class="${worldState.selectedRegion === region.id ? 'active' : ''}">${region.name}</button>`).join('');
+  document.querySelectorAll('[data-region-button]').forEach(button => button.addEventListener('click', () => {
+    worldState.selectedRegion = button.dataset.regionButton; renderWorldNetwork(); renderRegionDetail();
+  }));
+  const region = regions.find(item => item.id === worldState.selectedRegion) || regions[0];
+  const facts = [
+    ['在世家庭', `${numberFormat(region.families)} 户`],
+    ['资源中位数', region.resources.toFixed(1)],
+    ['户均未成年子女', region.children.toFixed(2)],
+    ['高状态家庭', percent(region.highStatus)],
+    ['累计迁入', `${numberFormat(region.inflow)} 户`],
+    ['累计迁出', `${numberFormat(region.outflow)} 户`],
+    ['净迁徙', `${region.netFlow >= 0 ? '+' : ''}${numberFormat(region.netFlow)} 户`],
+    ['公共教育条件', percent(region.education)]
+  ];
+  document.getElementById('region-detail-title').textContent = `${region.name}为何吸引或流失家庭？`;
+  document.getElementById('region-detail-content').innerHTML = facts.map(([label, value]) => `<div class="region-fact"><span>${label}</span><strong>${value}</strong></div>`).join('');
+}
+
+function renderWorld() {
+  renderWorldStats(); renderWorldNetwork(); renderWorldTimeline(); renderRegionDetail();
+}
+
+function runWorldExperiment() {
+  const button = document.getElementById('world-run');
+  button.disabled = true; button.textContent = '模拟家庭迁徙中…';
+  requestAnimationFrame(() => {
+    worldState.result = simulateWorld(worldParams());
+    renderWorld();
+    button.disabled = false; button.textContent = '运行世界沙盘';
+  });
+}
+
+Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
+document.getElementById('world-run').addEventListener('click', runWorldExperiment);
+document.getElementById('world-reset').addEventListener('click', () => {
+  Object.entries(worldDefaults).forEach(([id, value]) => { document.getElementById(id).value = value; });
+  updateWorldOutputs(); runWorldExperiment();
+});
+document.getElementById('world-map-metric').addEventListener('change', renderWorldNetwork);
+document.getElementById('world-timeline-metric').addEventListener('change', renderWorldTimeline);
+document.querySelectorAll('[data-view-button]').forEach(button => button.addEventListener('click', () => {
+  const view = button.dataset.viewButton;
+  document.querySelectorAll('[data-view-button]').forEach(item => item.classList.toggle('active', item === button));
+  document.querySelectorAll('[data-view-panel]').forEach(panel => { panel.hidden = panel.dataset.viewPanel !== view; });
+  if (view === 'world' && worldState.result) { renderWorldNetwork(); renderWorldTimeline(); }
+  if (view === 'family' && state.results) renderChart();
+}));
+window.addEventListener('resize', () => {
+  if (worldState.result && !document.getElementById('world-view').hidden) { renderWorldNetwork(); renderWorldTimeline(); }
+});
+
+updateWorldOutputs();
+runWorldExperiment();
