@@ -408,6 +408,96 @@ class FamilyWorld:
             )
             household.capitals.financial = household.resources
 
+    def _update_childcare_support(self) -> None:
+        """组合正式托育与祖辈照护，并把照护的机会成本留在提供者家庭。"""
+        for household in self.households.values():
+            household.formal_childcare_coverage = 0.0
+            household.grandparent_care_coverage = 0.0
+            household.childcare_gap = 0.0
+            young_children = [
+                self.people[pid]
+                for pid in household.member_ids
+                if self.people[pid].alive and self.people[pid].age < 7
+            ]
+            if not young_children:
+                continue
+            country = self.countries[household.country_id]
+            region = self._region(household.country_id, household.region_id)
+            child_scale = len(young_children) ** 0.35
+            formal = (
+                country.childcare_capacity
+                * (0.78 + 0.22 * region.job_opportunity)
+                * (1 + 0.55 * country.childcare_subsidy + 0.25 * country.high_welfare_strength)
+                / child_scale
+            )
+            household.formal_childcare_coverage = min(0.95, formal)
+
+            grandparent_ids: set[int] = set()
+            for child in young_children:
+                for parent_id in (child.mother_id, child.father_id):
+                    if parent_id is None or parent_id not in self.people:
+                        continue
+                    parent = self.people[parent_id]
+                    grandparent_ids.update(
+                        ancestor_id
+                        for ancestor_id in (parent.mother_id, parent.father_id)
+                        if ancestor_id is not None and ancestor_id in self.people
+                    )
+            contribution_by_grandparent: dict[int, float] = {}
+            for grandparent_id in grandparent_ids:
+                grandparent = self.people[grandparent_id]
+                if (
+                    not grandparent.alive
+                    or grandparent.country_id != household.country_id
+                    or not 50 <= grandparent.age <= 84
+                ):
+                    continue
+                distance = 1.0 if grandparent.region_id == household.region_id else 0.42
+                health = max(0.0, (grandparent.health_capital - 0.25) / 0.75)
+                disability = 1 - 0.75 * grandparent.disability_level
+                retirement_time = 1.0 if grandparent.age >= country.retirement_age else 0.68
+                contribution = (
+                    country.grandparent_care_availability
+                    * distance
+                    * health
+                    * disability
+                    * retirement_time
+                )
+                if contribution > 0:
+                    contribution_by_grandparent[grandparent_id] = contribution
+            grandparent_coverage = sum(contribution_by_grandparent.values()) / (
+                len(young_children) ** 0.72
+            )
+            household.grandparent_care_coverage = min(0.90, grandparent_coverage)
+            combined = 1 - (
+                (1 - household.formal_childcare_coverage)
+                * (1 - household.grandparent_care_coverage)
+            )
+            household.childcare_gap = max(0.0, 1 - combined)
+
+            # 正式托育仍可能有家庭自付；补贴越高，自付越低。
+            childcare_fee = (
+                country.baseline_family_resources
+                * 0.012
+                * len(young_children)
+                * household.formal_childcare_coverage
+                * (1 - 0.82 * country.childcare_subsidy)
+            )
+            household.resources = max(0.1, household.resources - childcare_fee)
+            household.capitals.financial = household.resources
+            for grandparent_id, contribution in contribution_by_grandparent.items():
+                grandparent = self.people[grandparent_id]
+                origin = self.households.get(grandparent.household_id)
+                if origin is None:
+                    continue
+                origin.capitals.care_time = max(
+                    0.02, origin.capitals.care_time - 0.012 * contribution
+                )
+                if grandparent.age < country.retirement_age:
+                    grandparent.career_interruption = min(
+                        1.0, grandparent.career_interruption + 0.008 * contribution
+                    )
+
     def _allocate_resources(self) -> dict[str, list[float]]:
         investments: dict[str, list[float]] = defaultdict(list)
         share = self.scenario.simulation.resource_investment_share
@@ -430,13 +520,53 @@ class FamilyWorld:
                 + 0.20 * country.development_at(self.year, self.scenario.simulation.start_year)
                 + 0.18 * country.public_education_reform
             )
-            preference_weights = [
-                1 + country.son_preference if child.sex == "M" else max(0.2, 1 - country.son_preference)
-                for child in children
-            ]
+            achievement_signals = []
+            for child in children:
+                school_progress = (
+                    min(1.0, child.education_years / max(1.0, child.age - 5))
+                    if child.age >= 6
+                    else child.human_capital
+                )
+                inferred = 0.55 * child.human_capital + 0.45 * school_progress
+                achievement_signals.append(
+                    child.observed_achievement if child.observed_achievement > 0 else inferred
+                )
+            mean_achievement = statistics.fmean(achievement_signals)
+            preference_weights = []
+            for child, achievement in zip(children, achievement_signals):
+                gender_preference = (
+                    1 + country.son_preference
+                    if child.sex == "M"
+                    else max(0.2, 1 - country.son_preference)
+                )
+                performance_tilt = math.exp(
+                    1.8
+                    * country.dynamic_investment_strength
+                    * (achievement - mean_achievement)
+                )
+                support_need = (
+                    0.65 * (1 - child.health_capital)
+                    + 0.35 * max(0.0, mean_achievement - achievement)
+                )
+                need_tilt = 1 + country.investment_need_weight * support_need
+                preference_weights.append(gender_preference * performance_tilt * need_tilt)
             mean_preference = statistics.fmean(preference_weights)
-            for child, preference_weight in zip(children, preference_weights):
-                effective = per_child * min(1.0, access) * preference_weight / mean_preference
+            allocated = []
+            for child, preference_weight, prior_signal in zip(
+                children, preference_weights, achievement_signals
+            ):
+                early_childhood_supplement = (
+                    country.baseline_family_resources
+                    * 0.018
+                    * household.formal_childcare_coverage
+                    if child.age < 7
+                    else 0.0
+                )
+                effective = (
+                    per_child * min(1.0, access) * preference_weight / mean_preference
+                    + early_childhood_supplement
+                )
+                child.annual_investment = effective
                 child.cumulative_investment += effective
                 if 6 <= child.age <= 24:
                     private_supplement = 0.12 * math.log1p(effective)
@@ -447,7 +577,11 @@ class FamilyWorld:
                     child.education_years += yearly_progress
                 child.human_capital = min(
                     1.0,
-                    child.human_capital + 0.008 * math.log1p(effective) + 0.003 * child.innate_potential,
+                    child.human_capital
+                    + 0.008 * math.log1p(effective)
+                    + 0.003 * child.innate_potential
+                    + 0.004 * household.formal_childcare_coverage * (child.age < 7)
+                    + 0.003 * household.grandparent_care_coverage * (child.age < 10),
                 )
                 # 关系、文化与政治资本也代际传递，但不是简单用现金购买。
                 child.social_capital = min(
@@ -460,13 +594,31 @@ class FamilyWorld:
                 )
                 child.cultural_capital = min(
                     1.0,
-                    child.cultural_capital + 0.020 * household.capitals.cultural / (len(children) ** 0.30),
+                    child.cultural_capital
+                    + 0.020 * household.capitals.cultural / (len(children) ** 0.30)
+                    + 0.003 * household.grandparent_care_coverage,
                 )
                 child.health_capital = min(
                     1.0,
                     child.health_capital + 0.004 * household.capitals.health - 0.002 * household.capitals.debt,
                 )
                 investments[household.country_id].append(effective)
+                allocated.append(effective)
+                school_progress = (
+                    min(1.0, child.education_years / max(1.0, child.age - 5))
+                    if child.age >= 6
+                    else child.human_capital
+                )
+                current_signal = 0.55 * child.human_capital + 0.45 * school_progress
+                child.observed_achievement = min(
+                    1.0, max(0.0, 0.72 * prior_signal + 0.28 * current_signal)
+                )
+            total_allocated = sum(allocated)
+            household.investment_concentration = (
+                sum((amount / total_allocated) ** 2 for amount in allocated)
+                if total_allocated > 0
+                else 0.0
+            )
             household.resources = max(0.1, household.resources - total_budget * 0.08)
             household.capitals.financial = household.resources
             household.capitals.care_time = max(
@@ -702,12 +854,20 @@ class FamilyWorld:
                         gender_multiplier *= (
                             (0.72 + 0.28 * country.female_labor_access)
                             * (1 - country.gender_pay_gap)
-                            * (1 - country.maternal_career_penalty * min(1, young_children))
+                            * (
+                                1
+                                - country.maternal_career_penalty
+                                * min(1, young_children)
+                                * household.childcare_gap
+                            )
                         )
                         person.career_interruption = min(
                             1.0,
                             person.career_interruption
-                            + 0.015 * young_children * (1 - country.high_welfare_strength),
+                            + 0.015
+                            * young_children
+                            * household.childcare_gap
+                            * (1 - country.high_welfare_strength),
                         )
                     income += (
                         OCCUPATIONS[person.occupation].income
@@ -918,6 +1078,7 @@ class FamilyWorld:
                     0.018
                     * (1 - country.female_labor_access)
                     * min(1, young_children)
+                    * household.childcare_gap
                     * (1 - 0.65 * country.high_welfare_strength)
                 )
             if (
@@ -1216,13 +1377,24 @@ class FamilyWorld:
         development_penalty = 0.60 * development + 0.22 * urbanization
         cost_penalty = 0.35 * country.cost_of_children * development
         care_penalty = 0.85 * household.care_burden
+        expected_childcare = min(
+            0.95,
+            country.childcare_capacity * (1 + 0.45 * country.childcare_subsidy)
+            + 0.35 * country.grandparent_care_availability,
+        )
+        childcare_penalty = 0.48 * (
+            household.childcare_gap
+            if household.children_ever_born > 0
+            else 1 - expected_childcare
+        )
         return max(
             0.35,
             country.initial_children_per_family * (1.0 - development_penalty)
             + poverty_bonus
             + rich_bonus
             - cost_penalty
-            - care_penalty,
+            - care_penalty
+            - childcare_penalty,
         )
 
     def _births(self) -> dict[str, int]:
@@ -1254,6 +1426,11 @@ class FamilyWorld:
             # “想生”与“能稳定成家并生育”分开：死线以下愿望可能仍高，但实现率下降。
             probability *= realization_gate
             probability *= max(0.20, 1 - 0.60 * household.care_burden)
+            probability *= (
+                0.82
+                + 0.15 * household.formal_childcare_coverage
+                + 0.10 * household.grandparent_care_coverage
+            )
             if self.rng.random() >= probability:
                 continue
             child = self._new_person(
@@ -1373,6 +1550,7 @@ class FamilyWorld:
         for person in self.living_people:
             person.age += 1
         self._health_and_care()
+        self._update_childcare_support()
         investments = self._allocate_resources()
         self._mature_young_adults()
         self._career_transitions()
@@ -1463,6 +1641,23 @@ class FamilyWorld:
                 if len(paired) >= 2:
                     paired_homes.append(home)
                     elite_paired_homes += sum(person.economic_status >= 0.72 for person in paired) >= 2
+            childcare_homes = [
+                home
+                for home in homes
+                if any(
+                    self.people[pid].alive and self.people[pid].age < 7
+                    for pid in home.member_ids
+                )
+            ]
+            multi_child_homes = [
+                home
+                for home in homes
+                if sum(
+                    self.people[pid].alive and self.people[pid].age <= 21
+                    for pid in home.member_ids
+                )
+                >= 2
+            ]
             deadline = self._deadline(country)
             fertility_gaps = [
                 max(0.0, self._desired_children(home, country) - home.children_ever_born)
@@ -1565,6 +1760,32 @@ class FamilyWorld:
                         home.catastrophic_medical_expense for home in homes
                     )
                     / max(1, len(homes)),
+                    formal_childcare_coverage=(
+                        statistics.fmean(
+                            home.formal_childcare_coverage for home in childcare_homes
+                        )
+                        if childcare_homes
+                        else 0.0
+                    ),
+                    grandparent_care_coverage=(
+                        statistics.fmean(
+                            home.grandparent_care_coverage for home in childcare_homes
+                        )
+                        if childcare_homes
+                        else 0.0
+                    ),
+                    mean_childcare_gap=(
+                        statistics.fmean(home.childcare_gap for home in childcare_homes)
+                        if childcare_homes
+                        else 0.0
+                    ),
+                    sibling_investment_concentration=(
+                        statistics.fmean(
+                            home.investment_concentration for home in multi_child_homes
+                        )
+                        if multi_child_homes
+                        else 0.0
+                    ),
                 )
             )
         return summaries

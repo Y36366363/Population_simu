@@ -102,6 +102,10 @@ class FamilyWorldTests(unittest.TestCase):
             "elder_dependency_ratio",
             "mean_household_care_burden",
             "catastrophic_medical_expense_share",
+            "formal_childcare_coverage",
+            "grandparent_care_coverage",
+            "mean_childcare_gap",
+            "sibling_investment_concentration",
         ):
             self.assertIn(key, row)
 
@@ -142,6 +146,50 @@ class FamilyWorldTests(unittest.TestCase):
         unsupported_total = sum(home.care_burden for home in unsupported.households.values())
         supported_total = sum(home.care_burden for home in supported.households.values())
         self.assertLess(supported_total, unsupported_total)
+
+    def test_formal_childcare_reduces_childcare_gap(self):
+        scarce = FamilyWorld(
+            family_scenario(seed=121, childcare_capacity=0.0, grandparent_care_availability=0.0)
+        )
+        supplied = FamilyWorld(
+            family_scenario(seed=121, childcare_capacity=1.0, grandparent_care_availability=0.0)
+        )
+        scarce._update_childcare_support()
+        supplied._update_childcare_support()
+        scarce_gaps = [home.childcare_gap for home in scarce.households.values() if home.childcare_gap]
+        supplied_gaps = [home.childcare_gap for home in supplied.households.values() if home.childcare_gap]
+        self.assertTrue(scarce_gaps)
+        self.assertLess(sum(supplied_gaps), sum(scarce_gaps))
+
+    def test_grandparent_can_supply_childcare(self):
+        world = FamilyWorld(
+            family_scenario(childcare_capacity=0.0, grandparent_care_availability=1.0)
+        )
+        home = next(iter(world.households.values()))
+        grandmother = world._new_person(home, 66, "F")
+        mother = world._new_person(home, 30, "F")
+        mother.mother_id = grandmother.id
+        world._new_person(home, 2, "M", mother_id=mother.id)
+        world._update_childcare_support()
+        self.assertGreater(home.grandparent_care_coverage, 0.0)
+        self.assertLess(home.childcare_gap, 1.0)
+
+    def test_dynamic_investment_responds_to_observed_achievement(self):
+        world = FamilyWorld(
+            family_scenario(dynamic_investment_strength=1.0, investment_need_weight=0.0)
+        )
+        home = next(
+            home
+            for home in world.households.values()
+            if sum(world.people[pid].age <= 21 for pid in home.member_ids) >= 2
+        )
+        children = [world.people[pid] for pid in home.member_ids if world.people[pid].age <= 21]
+        children[0].observed_achievement = 0.9
+        children[1].observed_achievement = 0.1
+        for child in children[2:]:
+            child.observed_achievement = 0.5
+        world._allocate_resources()
+        self.assertGreater(children[0].annual_investment, children[1].annual_investment)
 
 
 if __name__ == "__main__":

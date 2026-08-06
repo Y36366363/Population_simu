@@ -31,6 +31,8 @@ class FamilyPerson:
     human_capital: float = 0.0
     economic_status: float = 0.0
     cumulative_investment: float = 0.0
+    annual_investment: float = 0.0
+    observed_achievement: float = 0.0
     occupation: str = "dependent"
     social_capital: float = 0.0
     political_capital: float = 0.0
@@ -85,6 +87,10 @@ class FamilyBranch:
     annual_medical_spending: float = 0.0
     care_burden: float = 0.0
     catastrophic_medical_expense: bool = False
+    formal_childcare_coverage: float = 0.0
+    grandparent_care_coverage: float = 0.0
+    childcare_gap: float = 0.0
+    investment_concentration: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -131,6 +137,10 @@ class FamilyYearStats:
     elder_dependency_ratio: float
     mean_household_care_burden: float
     catastrophic_medical_expense_share: float
+    formal_childcare_coverage: float
+    grandparent_care_coverage: float
+    mean_childcare_gap: float
+    sibling_investment_concentration: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -177,5 +187,11 @@ class FamilyYearStats:
             "mean_household_care_burden": round(self.mean_household_care_burden, 5),
             "catastrophic_medical_expense_share": round(
                 self.catastrophic_medical_expense_share, 5
+            ),
+            "formal_childcare_coverage": round(self.formal_childcare_coverage, 5),
+            "grandparent_care_coverage": round(self.grandparent_care_coverage, 5),
+            "mean_childcare_gap": round(self.mean_childcare_gap, 5),
+            "sibling_investment_concentration": round(
+                self.sibling_investment_concentration, 5
             ),
         }

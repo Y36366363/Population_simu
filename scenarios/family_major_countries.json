@@ -60,6 +60,11 @@
       "public_long_term_care": 0.22,
       "pension_replacement_rate": 0.48,
       "retirement_age": 60,
+      "childcare_capacity": 0.45,
+      "childcare_subsidy": 0.35,
+      "grandparent_care_availability": 0.62,
+      "dynamic_investment_strength": 0.45,
+      "investment_need_weight": 0.25,
       "son_preference": 0.05,
       "regions": [
         {"id": "CHN-east-urban", "name": "东部都市圈", "urban": true, "initial_share": 0.14, "wage_multiplier": 1.35, "housing_cost": 1.55, "education_quality": 0.78, "job_opportunity": 0.84},
@@ -120,6 +125,11 @@
       "public_long_term_care": 0.08,
       "pension_replacement_rate": 0.18,
       "retirement_age": 60,
+      "childcare_capacity": 0.28,
+      "childcare_subsidy": 0.15,
+      "grandparent_care_availability": 0.68,
+      "dynamic_investment_strength": 0.35,
+      "investment_need_weight": 0.30,
       "son_preference": 0.09,
       "policies": [
         {"start_year": 1952, "end_year": null, "name": "国家家庭福利/计划生育项目（简化）", "max_children": null, "enforcement": 0.10, "fertility_multiplier": 0.90, "child_support": 0.04}
@@ -172,6 +182,11 @@
       "public_long_term_care": 0.62,
       "pension_replacement_rate": 0.55,
       "retirement_age": 65,
+      "childcare_capacity": 0.52,
+      "childcare_subsidy": 0.55,
+      "grandparent_care_availability": 0.38,
+      "dynamic_investment_strength": 0.42,
+      "investment_need_weight": 0.28,
       "policies": [
         {"start_year": 1994, "end_year": null, "name": "少子化支持政策（合并简化）", "max_children": null, "enforcement": 0.0, "fertility_multiplier": 1.0, "child_support": 0.32}
       ]
@@ -222,6 +237,11 @@
       "public_long_term_care": 0.25,
       "pension_replacement_rate": 0.40,
       "retirement_age": 67,
+      "childcare_capacity": 0.38,
+      "childcare_subsidy": 0.25,
+      "grandparent_care_availability": 0.30,
+      "dynamic_investment_strength": 0.50,
+      "investment_need_weight": 0.22,
       "policies": []
     }
   ]

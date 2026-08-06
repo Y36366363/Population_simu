@@ -85,6 +85,11 @@ class Country:
     public_long_term_care: float = 0.15
     pension_replacement_rate: float = 0.30
     retirement_age: int = 65
+    childcare_capacity: float = 0.35
+    childcare_subsidy: float = 0.20
+    grandparent_care_availability: float = 0.45
+    dynamic_investment_strength: float = 0.35
+    investment_need_weight: float = 0.20
     regions: tuple[Region, ...] = field(default_factory=tuple)
     policies: tuple[PolicyEra, ...] = field(default_factory=tuple)
 
@@ -161,6 +166,11 @@ class FamilyScenario:
                 "chronic_disease_base_rate",
                 "public_long_term_care",
                 "pension_replacement_rate",
+                "childcare_capacity",
+                "childcare_subsidy",
+                "grandparent_care_availability",
+                "dynamic_investment_strength",
+                "investment_need_weight",
             ):
                 value = getattr(country, name)
                 if not 0 <= value <= 1:
