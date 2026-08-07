@@ -632,6 +632,64 @@ function renderWorld() {
   renderWorldStats(); renderWorldNetwork(); renderWorldTimeline(); renderRegionDetail();
 }
 
+function localApiUrl(path) {
+  return new URL(path.replace(/^\//, ''), document.baseURI).toString();
+}
+
+async function checkLocalEngine() {
+  const status = document.getElementById('engine-status');
+  const button = document.getElementById('engine-run');
+  try {
+    const response = await fetch(localApiUrl('api/health'), {headers: {'Accept': 'application/json'}});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    if (payload.ok && payload.engine === 'python') {
+      status.textContent = '本地 Python 引擎已连接：可以运行完整家庭、职业、婚姻、健康和政策模型。';
+      button.disabled = false;
+      return true;
+    }
+  } catch (error) {
+    // GitHub Pages 是静态部署，没有 API 时保留浏览器模型，不阻断页面。
+  }
+  status.textContent = '当前页面使用浏览器轻量模型；若要运行完整 Python 引擎，请在项目根目录启动 population-simu-app。';
+  button.disabled = false;
+  return false;
+}
+
+async function runLocalEngine() {
+  const button = document.getElementById('engine-run');
+  const status = document.getElementById('engine-status');
+  const output = document.getElementById('engine-output');
+  const scenario = document.getElementById('engine-scenario').value;
+  button.disabled = true; button.textContent = '运行完整引擎中…';
+  output.hidden = false; output.textContent = '正在运行 Python 年度家庭模型…';
+  try {
+    const years = worldParams().years;
+    const seed = worldParams().seed;
+    const url = `${localApiUrl('api/run')}?scenario=${encodeURIComponent(scenario)}&years=${years}&seed=${seed}`;
+    const response = await fetch(url, {headers: {'Accept': 'application/json'}});
+    const payload = await response.json();
+    if (!response.ok || payload.ok === false) throw new Error(payload.error || `HTTP ${response.status}`);
+    const snapshot = payload.snapshot;
+    output.textContent = JSON.stringify({
+      情景: payload.scenario,
+      年份: snapshot.year,
+      在世人口: snapshot.population,
+      家庭数: snapshot.households,
+      姓氏家族数: snapshot.clans,
+      国家: Object.fromEntries(Object.entries(snapshot.countries).map(([id, row]) => [id, {
+        家庭: row.households, 人口: row.population, 地区: row.regions.length
+      }]))
+    }, null, 2);
+    status.textContent = '完整 Python 情景已完成；上方网页图形仍展示浏览器即时模型，详细年度结果保存在本地 API 响应中。';
+  } catch (error) {
+    output.textContent = `无法运行本地 Python 引擎：${error.message}`;
+    status.textContent = '请确认已在项目根目录启动 population-simu-app；静态网页模式仍可继续使用。';
+  } finally {
+    button.disabled = false; button.textContent = '运行 Python 情景';
+  }
+}
+
 function runWorldExperiment() {
   const button = document.getElementById('world-run');
   button.disabled = true; button.textContent = '模拟家庭迁徙中…';
@@ -644,6 +702,7 @@ function runWorldExperiment() {
 
 Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
+document.getElementById('engine-run').addEventListener('click', runLocalEngine);
 document.getElementById('world-reset').addEventListener('click', () => {
   Object.entries(worldDefaults).forEach(([id, value]) => { document.getElementById(id).value = value; });
   updateWorldOutputs(); runWorldExperiment();
@@ -663,3 +722,4 @@ window.addEventListener('resize', () => {
 
 updateWorldOutputs();
 runWorldExperiment();
+checkLocalEngine();

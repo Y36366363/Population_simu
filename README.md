@@ -149,6 +149,22 @@ python3 -m http.server 8000 --directory docs
 
 网页使用轻量 Monte Carlo 模型以保证即时反馈；它和完整 Python 年度模型共享机制方向，但不是同一个计算引擎。
 
+### 本地应用模式
+
+如果需要更详细的家庭、职业、婚姻、健康、政策和家族分支模拟，可在项目根目录启动本地应用：
+
+```bash
+PYTHONPATH=src python3 -m population_simu.local_app --port 8000
+```
+
+然后打开 `http://127.0.0.1:8000/`。这会提供同一个网页界面，并额外开启只监听本机的 Python 接口：
+
+- `/api/health`：检查完整引擎是否连接
+- `/api/scenarios`：列出可运行的 JSON 情景
+- `/api/run?scenario=family_major_countries.json&years=60&seed=2026`：运行完整家庭引擎并返回快照与年度 CSV 同构数据
+
+网页检测到本地接口后，会出现“运行 Python 情景”按钮；在 GitHub Pages 上没有本地接口时，网页会自动退回浏览器轻量模型，不会因为 API 不存在而白屏。
+
 ### GitHub Pages 发布方式
 
 网页采用 GitHub 原生的静态目录发布，不依赖 Actions 构建。把改动合并到 `main` 后，在仓库的 **Settings → Pages → Build and deployment** 中设置：
@@ -190,6 +206,7 @@ src/population_simu/
   family_config.py       # 国家与政策时期、情景契约和参数校验
   family_models.py       # 姓氏家族、家庭分支与成员
   family_world.py        # 家族繁衍、资源投入、阶层跃迁和 snapshot 接口
+  local_app.py            # 本地网页应用与完整 Python 引擎 API
   family_cli.py          # 家族模型命令行与年度/家族输出
   resource_experiment.py # 固定资源的一孩/二孩/三孩实验
   capitals.py             # 九维家庭资本与承载力
@@ -197,5 +214,5 @@ src/population_simu/
   dynasty_experiment.py   # 多代繁衍死线与绝后实验
   institution_experiment.py # 公共教育/住房/反裙带/高福利开关实验
 scenarios/    # 可复制修改的政策情景
-tests/        # 可重复性与基本不变量测试
+  tests/        # 可重复性、参数契约、本地应用和基本不变量测试
 ```

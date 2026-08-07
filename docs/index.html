@@ -108,6 +108,22 @@
           </div>
 
           <div id="world-stats" class="world-stats"></div>
+          <section class="engine-panel" aria-labelledby="engine-panel-title">
+            <div>
+              <p class="section-kicker">完整 Python 引擎</p>
+              <h3 id="engine-panel-title">把当前情景交给本地应用运行</h3>
+              <p id="engine-status">当前页面使用浏览器轻量模型；启动本地应用后，可读取完整家庭、职业、婚姻、健康和政策引擎。</p>
+            </div>
+            <div class="engine-actions">
+              <label for="engine-scenario">情景</label>
+              <select id="engine-scenario">
+                <option value="family_major_countries.json">主要国家时间线</option>
+                <option value="resource_allocation_experiment.json">资源配置实验</option>
+              </select>
+              <button id="engine-run" class="secondary-button" type="button">运行 Python 情景</button>
+            </div>
+            <pre id="engine-output" class="engine-output" hidden></pre>
+          </section>
           <figure class="world-figure">
             <svg id="world-network" role="img" aria-labelledby="world-map-title world-map-desc"></svg>
             <figcaption><strong id="world-map-title">六区域家庭流动关系图</strong><span id="world-map-desc">节点大小表示家庭数量，连线表示累计跨区域迁徙；位置为关系示意，并非地理比例地图。</span></figcaption>
@@ -191,6 +207,6 @@
   </main>
 
   <footer><span>Population Simu</span><span>家庭为单位 · 无战争反事实 · 固定种子可复现</span></footer>
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
