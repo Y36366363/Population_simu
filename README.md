@@ -161,13 +161,15 @@ python3 -m http.server 8000 --directory docs
 
 如果页面没有立即更新，先确认改动已经合并到 `main`，再等待 GitHub Pages 完成发布；浏览器仍显示旧版本时可使用强制刷新。也可以暂时选择 `agent/dynamic-institutions` 分支和 `/docs` 文件夹进行预览，合并后再切回 `main`。
 
-本次网页改动已在本地静态服务器中验证：默认世界视图、区域节点、时间线、迁徙开放度开关和家庭资源子命题均可用，浏览器控制台无错误；Python 回归测试为 24 项全部通过。
+本次网页改动已在本地静态服务器中验证：默认世界视图、区域节点、时间线、迁徙开放度开关和家庭资源子命题均可用，浏览器控制台无错误；Python 回归测试为 28 项全部通过。
 
 ## 测试
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
+
+底层情景加载会检查比例范围、资源非负性、地区参数、姓氏规则和政策时期重叠；`FamilyWorld.snapshot()` 提供可序列化的当前年份、国家、地区、家庭数和人口分区结果，供网页/API/批量实验复用。
 
 ## 下一步路线
 
@@ -185,9 +187,9 @@ src/population_simu/
   models.py   # 个人、家庭和年度统计
   world.py    # 年度事件引擎
   cli.py      # 命令行与 CSV 导出
-  family_config.py       # 国家与政策时期
+  family_config.py       # 国家与政策时期、情景契约和参数校验
   family_models.py       # 姓氏家族、家庭分支与成员
-  family_world.py        # 家族繁衍、资源投入和阶层跃迁引擎
+  family_world.py        # 家族繁衍、资源投入、阶层跃迁和 snapshot 接口
   family_cli.py          # 家族模型命令行与年度/家族输出
   resource_experiment.py # 固定资源的一孩/二孩/三孩实验
   capitals.py             # 九维家庭资本与承载力

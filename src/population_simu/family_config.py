@@ -146,6 +146,14 @@ class FamilyScenario:
     def validate(self) -> None:
         if self.simulation.end_year <= self.simulation.start_year:
             raise ValueError("end_year 必须晚于 start_year")
+        if self.simulation.random_seed < 0:
+            raise ValueError("random_seed 必须为非负整数")
+        for name in ("adult_pairing_rate", "international_migration_rate", "resource_investment_share", "inheritance_share"):
+            value = getattr(self.simulation, name)
+            if not 0 <= value <= 1:
+                raise ValueError(f"simulation.{name} 必须在 0—1 之间")
+        if self.simulation.surname_rule not in {"paternal", "random", "maternal"}:
+            raise ValueError("surname_rule 必须是 paternal、maternal 或 random")
         if not self.countries:
             raise ValueError("至少需要一个国家")
         ids = [country.id for country in self.countries]
@@ -154,12 +162,66 @@ class FamilyScenario:
         for country in self.countries:
             if country.initial_clans < 1:
                 raise ValueError(f"{country.name} 至少需要一个初始姓氏家族")
+            for name in (
+                "initial_development",
+                "initial_urbanization",
+                "education_access",
+                "rich_fertility_rebound",
+                "institutional_openness",
+                "welfare_floor",
+                "housing_pressure",
+                "occupational_inheritance",
+                "public_education_quality",
+                "education_inequality",
+                "medical_license_pass_rate",
+                "civil_service_selectivity",
+                "state_sector_share",
+                "base_unemployment_rate",
+                "worker_compensation",
+                "property_inheritance_tax",
+                "housing_supply_elasticity",
+                "anti_nepotism_strength",
+                "assortative_mating_strength",
+                "elite_marriage_closure",
+                "shock_probability",
+                "base_divorce_rate",
+                "remarriage_rate",
+                "female_labor_access",
+                "gender_pay_gap",
+                "maternal_career_penalty",
+                "son_preference",
+                "public_education_reform",
+                "housing_reform_strength",
+                "high_welfare_strength",
+            ):
+                value = getattr(country, name)
+                if not 0 <= value <= 1:
+                    raise ValueError(f"{country.name} 的 {name} 必须在 0—1 之间")
+            for name in ("baseline_family_resources", "cost_of_children", "initial_children_per_family"):
+                if getattr(country, name) < 0:
+                    raise ValueError(f"{country.name} 的 {name} 不能为负数")
+            if country.annual_development_gain < 0 or country.annual_urbanization_gain < 0:
+                raise ValueError(f"{country.name} 的年度发展/城市化增速不能为负数")
             if country.regions:
                 region_ids = [region.id for region in country.regions]
                 if len(region_ids) != len(set(region_ids)):
                     raise ValueError(f"{country.name} 的地区 id 必须唯一")
                 if sum(region.initial_share for region in country.regions) <= 0:
                     raise ValueError(f"{country.name} 的地区 initial_share 总和必须大于 0")
+                for region in country.regions:
+                    if region.initial_share < 0 or region.wage_multiplier < 0 or region.housing_cost <= 0:
+                        raise ValueError(f"{country.name}/{region.name} 的地区基础参数无效")
+                    for name in ("education_quality", "job_opportunity"):
+                        if not 0 <= getattr(region, name) <= 1:
+                            raise ValueError(f"{country.name}/{region.name} 的 {name} 必须在 0—1 之间")
+            policies = sorted(country.policies, key=lambda policy: policy.start_year)
+            for index, policy in enumerate(policies):
+                if policy.end_year is not None and policy.end_year < policy.start_year:
+                    raise ValueError(f"{country.name} 的政策 {policy.name} 年份范围无效")
+                if not 0 <= policy.enforcement <= 1 or policy.fertility_multiplier < 0 or policy.child_support < 0:
+                    raise ValueError(f"{country.name} 的政策 {policy.name} 参数无效")
+                if index and policies[index - 1].end_year is not None and policy.start_year <= policies[index - 1].end_year:
+                    raise ValueError(f"{country.name} 的政策时期不能重叠")
             for name in (
                 "healthcare_access",
                 "medical_cost_burden",

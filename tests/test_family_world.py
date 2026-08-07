@@ -1,3 +1,4 @@
+import json
 import unittest
 
 from population_simu.family_config import FamilyScenario
@@ -66,6 +67,16 @@ class FamilyWorldTests(unittest.TestCase):
         first = FamilyWorld(family_scenario(seed=55)).run()
         second = FamilyWorld(family_scenario(seed=55)).run()
         self.assertEqual([row.flat_dict() for row in first], [row.flat_dict() for row in second])
+
+    def test_snapshot_is_serializable_and_partitioned(self):
+        world = FamilyWorld(family_scenario())
+        snapshot = world.snapshot()
+        json.dumps(snapshot, ensure_ascii=False)
+        self.assertEqual(snapshot["year"], 2000)
+        self.assertEqual(snapshot["households"], 30)
+        self.assertEqual(snapshot["population"], sum(item["population"] for item in snapshot["countries"].values()))
+        self.assertEqual(snapshot["households"], sum(item["households"] for item in snapshot["countries"].values()))
+        self.assertEqual(len(snapshot["countries"]["TST"]["regions"]), 2)
 
     def test_medical_training_can_reach_license(self):
         world = FamilyWorld(family_scenario())

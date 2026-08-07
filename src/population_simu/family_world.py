@@ -45,6 +45,50 @@ class FamilyWorld:
     def living_people(self) -> list[FamilyPerson]:
         return [person for person in self.people.values() if person.alive]
 
+    def snapshot(self) -> dict[str, object]:
+        """返回供网页、批量实验和调试共用的当前状态快照。
+
+        快照只包含基础标量和按国家/地区聚合的数据，不暴露可变的内部对象，
+        因而可以安全地序列化为 JSON 或作为 API 响应。
+        """
+        living = self.living_people
+        country_rows: dict[str, dict[str, object]] = {}
+        for country_id, country in self.countries.items():
+            homes = [home for home in self.households.values() if home.country_id == country_id]
+            people = [person for person in living if person.country_id == country_id]
+            region_rows = []
+            for region in self.regions[country_id]:
+                region_homes = [home for home in homes if home.region_id == region.id]
+                region_people = [person for person in people if person.region_id == region.id]
+                region_rows.append(
+                    {
+                        "id": region.id,
+                        "name": region.name,
+                        "urban": region.urban,
+                        "households": len(region_homes),
+                        "population": len(region_people),
+                        "median_resources": round(
+                            statistics.median(home.resources for home in region_homes), 4
+                        )
+                        if region_homes
+                        else 0.0,
+                    }
+                )
+            country_rows[country_id] = {
+                "name": country.name,
+                "households": len(homes),
+                "population": len(people),
+                "regions": region_rows,
+            }
+        return {
+            "scenario": self.scenario.name,
+            "year": self.year,
+            "population": len(living),
+            "households": len(self.households),
+            "clans": len(self.clans),
+            "countries": country_rows,
+        }
+
     @staticmethod
     def _regions_for(country: Country) -> tuple[Region, ...]:
         if country.regions:
