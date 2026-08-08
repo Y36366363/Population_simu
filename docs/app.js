@@ -298,6 +298,7 @@ const regionTemplates = [
 ];
 
 const worldState = {result: null, selectedRegion: 'EA'};
+const pythonState = {data: null, selectedCountry: null};
 
 function weightedChoice(random, items, weightKey) {
   const total = items.reduce((sum, item) => sum + item[weightKey], 0);
@@ -671,6 +672,12 @@ async function runLocalEngine() {
     const payload = await response.json();
     if (!response.ok || payload.ok === false) throw new Error(payload.error || `HTTP ${response.status}`);
     const snapshot = payload.snapshot;
+    pythonState.data = payload;
+    const countries = [...new Set(payload.history.map(row => row.country))];
+    pythonState.selectedCountry = pythonState.selectedCountry && countries.includes(pythonState.selectedCountry)
+      ? pythonState.selectedCountry : countries[0];
+    renderPythonResults();
+    document.getElementById('python-results').hidden = false;
     output.textContent = JSON.stringify({
       情景: payload.scenario,
       年份: snapshot.year,
@@ -688,6 +695,76 @@ async function runLocalEngine() {
   } finally {
     button.disabled = false; button.textContent = '运行 Python 情景';
   }
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character]));
+}
+
+function pythonMetricMeta(metric) {
+  return {
+    population: ['人口', value => numberFormat(Math.round(value))],
+    households: ['家庭/分支存量', value => numberFormat(Math.round(value))],
+    median_household_resources: ['家庭资源中位数', value => Number(value).toFixed(1)],
+    high_status_share: ['高状态家庭占比', value => percent(value)],
+    births: ['出生数', value => numberFormat(Math.round(value))],
+    migrants: ['跨国迁移数', value => numberFormat(Math.round(value))]
+  }[metric];
+}
+
+function renderPythonTimeline() {
+  if (!pythonState.data) return;
+  const svg = document.getElementById('python-timeline');
+  const country = document.getElementById('python-country').value;
+  const metric = document.getElementById('python-metric').value;
+  const rows = pythonState.data.history.filter(row => row.country === country);
+  const meta = pythonMetricMeta(metric);
+  const width = Math.max(320, svg.clientWidth || 800), height = width < 620 ? 270 : 320;
+  const margin = {top: 18, right: width < 500 ? 14 : 26, bottom: 38, left: width < 500 ? 58 : 76};
+  const plotWidth = width - margin.left - margin.right, plotHeight = height - margin.top - margin.bottom;
+  const values = rows.map(row => Number(row[metric]) || 0);
+  const low = Math.min(...values), high = Math.max(...values);
+  const padding = Math.max(.01, (high - low) * .12), yLow = Math.max(0, low - padding), yHigh = high + padding;
+  const years = rows.map(row => row.year);
+  const x = year => margin.left + (year - years[0]) / Math.max(1, years[years.length - 1] - years[0]) * plotWidth;
+  const y = value => margin.top + plotHeight - (value - yLow) / Math.max(.001, yHigh - yLow) * plotHeight;
+  let content = '';
+  for (let tick = 0; tick <= 4; tick += 1) {
+    const value = yLow + (yHigh - yLow) * tick / 4, yy = y(value);
+    content += `<line class="chart-grid" x1="${margin.left}" y1="${yy}" x2="${width - margin.right}" y2="${yy}"></line><text class="chart-axis" x="${margin.left - 10}" y="${yy + 4}" text-anchor="end">${meta[1](value)}</text>`;
+  }
+  const points = rows.map(row => `${x(row.year)},${y(Number(row[metric]) || 0)}`).join(' ');
+  content += `<polyline class="chart-line python-chart-line" points="${points}"></polyline>`;
+  rows.filter((_, index) => index % Math.max(1, Math.floor(rows.length / 12)) === 0 || index === rows.length - 1).forEach(row => {
+    content += `<circle class="chart-point python-chart-point" cx="${x(row.year)}" cy="${y(Number(row[metric]) || 0)}" r="4"><title>${row.year} 年：${meta[1](Number(row[metric]) || 0)}</title></circle>`;
+  });
+  [0, .25, .5, .75, 1].forEach(fraction => {
+    const year = Math.round(years[0] + (years[years.length - 1] - years[0]) * fraction);
+    content += `<text class="chart-axis" x="${x(year)}" y="${height - 11}" text-anchor="middle">${year}</text>`;
+  });
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`); svg.innerHTML = content;
+  document.getElementById('python-timeline-title').textContent = `${country} · ${meta[0]}`;
+  document.getElementById('python-timeline-desc').textContent = '完整 Python 家庭引擎的年度结果；曲线不是网页轻量模型的估算。';
+}
+
+function renderPythonComparisons() {
+  const data = pythonState.data;
+  const byCountry = new Map();
+  data.history.forEach(row => byCountry.set(row.country, row));
+  document.getElementById('python-country-comparison').innerHTML = `<table><thead><tr><th>国家</th><th>政策阶段</th><th>人口</th><th>家庭/分支</th><th>高状态</th></tr></thead><tbody>${[...byCountry.values()].map(row => {
+    const policies = [...new Set(data.history.filter(item => item.country === row.country).map(item => item.policy).filter(Boolean))].join(' → ');
+    return `<tr><td><strong>${escapeHtml(row.country)}</strong></td><td>${escapeHtml(policies || '无专项政策')}</td><td>${numberFormat(row.population)}</td><td>${numberFormat(row.households)}</td><td>${percent(row.high_status_share)}</td></tr>`;
+  }).join('')}</tbody></table>`;
+  const latest = data.region_history[data.region_history.length - 1];
+  document.getElementById('python-region-comparison').innerHTML = `<table><thead><tr><th>国家/地区</th><th>城乡</th><th>人口</th><th>家庭</th><th>资源中位数</th></tr></thead><tbody>${latest.regions.map(row => `<tr><td>${escapeHtml(row.country)} · ${escapeHtml(row.region_name)}</td><td>${row.urban ? '城市' : '乡村'}</td><td>${numberFormat(row.population)}</td><td>${numberFormat(row.households)}</td><td>${Number(row.median_resources).toFixed(1)}</td></tr>`).join('')}</tbody></table>`;
+}
+
+function renderPythonResults() {
+  const countries = [...new Set(pythonState.data.history.map(row => row.country))];
+  const select = document.getElementById('python-country');
+  select.innerHTML = countries.map(country => `<option value="${escapeHtml(country)}">${escapeHtml(country)}</option>`).join('');
+  select.value = pythonState.selectedCountry;
+  renderPythonTimeline(); renderPythonComparisons();
 }
 
 function runWorldExperiment() {
@@ -709,6 +786,10 @@ document.getElementById('world-reset').addEventListener('click', () => {
 });
 document.getElementById('world-map-metric').addEventListener('change', renderWorldNetwork);
 document.getElementById('world-timeline-metric').addEventListener('change', renderWorldTimeline);
+document.getElementById('python-country').addEventListener('change', event => {
+  pythonState.selectedCountry = event.target.value; renderPythonTimeline();
+});
+document.getElementById('python-metric').addEventListener('change', renderPythonTimeline);
 document.querySelectorAll('[data-view-button]').forEach(button => button.addEventListener('click', () => {
   const view = button.dataset.viewButton;
   document.querySelectorAll('[data-view-button]').forEach(item => item.classList.toggle('active', item === button));
@@ -718,6 +799,7 @@ document.querySelectorAll('[data-view-button]').forEach(button => button.addEven
 }));
 window.addEventListener('resize', () => {
   if (worldState.result && !document.getElementById('world-view').hidden) { renderWorldNetwork(); renderWorldTimeline(); }
+  if (pythonState.data && !document.getElementById('python-results').hidden) renderPythonTimeline();
 });
 
 updateWorldOutputs();

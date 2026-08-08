@@ -24,6 +24,7 @@ class FamilyWorld:
         self.households: dict[int, FamilyBranch] = {}
         self.people: dict[int, FamilyPerson] = {}
         self.history: list[FamilyYearStats] = []
+        self.region_history: list[dict[str, object]] = []
         self.next_clan_id = 1
         self.next_household_id = 1
         self.next_person_id = 1
@@ -40,6 +41,7 @@ class FamilyWorld:
         }
         self._seed_countries()
         self.history.extend(self._summaries({}, {}, {}, {}, {}, {}, {}))
+        self.region_history.append(self._region_snapshot())
 
     @property
     def living_people(self) -> list[FamilyPerson]:
@@ -87,7 +89,40 @@ class FamilyWorld:
             "households": len(self.households),
             "clans": len(self.clans),
             "countries": country_rows,
+            "region_history": self.region_history,
         }
+
+    def _region_snapshot(self) -> dict[str, object]:
+        """聚合当前地区状态，保持与年度国家结果相同的可序列化契约。"""
+        living = self.living_people
+        rows = []
+        for country_id, regions in self.regions.items():
+            for region in regions:
+                homes = [
+                    home for home in self.households.values()
+                    if home.country_id == country_id and home.region_id == region.id
+                ]
+                people = [
+                    person for person in living
+                    if person.country_id == country_id and person.region_id == region.id
+                ]
+                rows.append({
+                    "year": self.year,
+                    "country": country_id,
+                    "region": region.id,
+                    "region_name": region.name,
+                    "urban": region.urban,
+                    "population": len(people),
+                    "households": len(homes),
+                    "median_resources": round(
+                        statistics.median(home.resources for home in homes), 4
+                    ) if homes else 0.0,
+                    "high_status_share": round(
+                        sum(person.economic_status >= 0.72 for person in people) / max(1, len(people)),
+                        5,
+                    ),
+                })
+        return {"year": self.year, "regions": rows}
 
     @staticmethod
     def _regions_for(country: Country) -> tuple[Region, ...]:
@@ -1616,6 +1651,7 @@ class FamilyWorld:
             internal_migrants,
         )
         self.history.extend(stats)
+        self.region_history.append(self._region_snapshot())
         return stats
 
     def run(self, end_year: int | None = None) -> list[FamilyYearStats]:

@@ -58,6 +58,7 @@ def run_scenario(
         "scenario": filename,
         "snapshot": world.snapshot(),
         "history": [row.flat_dict() for row in history],
+        "region_history": world.region_history,
     }
 
 

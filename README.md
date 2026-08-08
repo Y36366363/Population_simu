@@ -163,7 +163,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 - `/api/scenarios`：列出可运行的 JSON 情景
 - `/api/run?scenario=family_major_countries.json&years=60&seed=2026`：运行完整家庭引擎并返回快照与年度 CSV 同构数据
 
-网页检测到本地接口后，会出现“运行 Python 情景”按钮；在 GitHub Pages 上没有本地接口时，网页会自动退回浏览器轻量模型，不会因为 API 不存在而白屏。
+网页检测到本地接口后，会出现“运行 Python 情景”按钮，并把年度国家曲线、家庭/分支存量、地区城乡分布、政策阶段和多国对比直接画在页面上；在 GitHub Pages 上没有本地接口时，网页会自动退回浏览器轻量模型，不会因为 API 不存在而白屏。
 
 ### GitHub Pages 发布方式
 

@@ -77,6 +77,8 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertEqual(snapshot["population"], sum(item["population"] for item in snapshot["countries"].values()))
         self.assertEqual(snapshot["households"], sum(item["households"] for item in snapshot["countries"].values()))
         self.assertEqual(len(snapshot["countries"]["TST"]["regions"]), 2)
+        self.assertEqual(snapshot["region_history"][0]["year"], 2000)
+        self.assertEqual(len(snapshot["region_history"][0]["regions"]), 2)
 
     def test_medical_training_can_reach_license(self):
         world = FamilyWorld(family_scenario())

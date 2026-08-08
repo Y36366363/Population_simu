@@ -6,6 +6,7 @@
   <meta name="description" content="以家庭为最小单位的无战争世界人口流动与发展模拟沙盘">
   <title>家庭迁徙与世界发展沙盘 · Population Simu</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <header class="site-header">
@@ -123,6 +124,30 @@
               <button id="engine-run" class="secondary-button" type="button">运行 Python 情景</button>
             </div>
             <pre id="engine-output" class="engine-output" hidden></pre>
+          </section>
+          <section id="python-results" class="python-results" hidden aria-live="polite">
+            <div class="timeline-toolbar">
+              <div><p class="section-kicker">完整年度结果</p><h2>Python 引擎时间线</h2></div>
+              <div class="python-pickers">
+                <label for="python-country">国家<select id="python-country"></select></label>
+                <label for="python-metric">指标<select id="python-metric">
+                  <option value="population">人口</option>
+                  <option value="households">家庭/分支存量</option>
+                  <option value="median_household_resources">家庭资源中位数</option>
+                  <option value="high_status_share">高状态家庭占比</option>
+                  <option value="births">出生数</option>
+                  <option value="migrants">跨国迁移数</option>
+                </select></label>
+              </div>
+            </div>
+            <figure class="chart-figure python-chart-figure">
+              <svg id="python-timeline" role="img" aria-labelledby="python-timeline-title python-timeline-desc"></svg>
+              <figcaption><strong id="python-timeline-title">Python 年度结果</strong><span id="python-timeline-desc">完整家庭引擎的年度国家结果。</span></figcaption>
+            </figure>
+            <div class="comparison-grid">
+              <section><p class="section-kicker">国家与政策</p><h3>国家/政策情景对比</h3><div id="python-country-comparison" class="comparison-table"></div></section>
+              <section><p class="section-kicker">地区分布</p><h3>地区与城乡分布</h3><div id="python-region-comparison" class="comparison-table"></div></section>
+            </div>
           </section>
           <figure class="world-figure">
             <svg id="world-network" role="img" aria-labelledby="world-map-title world-map-desc"></svg>

@@ -12,6 +12,8 @@ class LocalAppTests(unittest.TestCase):
         result = run_scenario("family_major_countries.json", years=1, seed=17)
         self.assertEqual(result["snapshot"]["year"], 1971)
         self.assertTrue(result["history"])
+        self.assertTrue(result["region_history"])
+        self.assertEqual(result["region_history"][-1]["year"], 1971)
         json.dumps(result, ensure_ascii=False)
 
     def test_rejects_path_traversal(self):
