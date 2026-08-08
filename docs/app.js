@@ -673,6 +673,7 @@ async function runLocalEngine() {
     if (!response.ok || payload.ok === false) throw new Error(payload.error || `HTTP ${response.status}`);
     const snapshot = payload.snapshot;
     pythonState.data = payload;
+    document.getElementById('engine-download').disabled = false;
     const countries = [...new Set(payload.history.map(row => row.country))];
     pythonState.selectedCountry = pythonState.selectedCountry && countries.includes(pythonState.selectedCountry)
       ? pythonState.selectedCountry : countries[0];
@@ -695,6 +696,19 @@ async function runLocalEngine() {
   } finally {
     button.disabled = false; button.textContent = '运行 Python 情景';
   }
+}
+
+async function downloadPythonCsv() {
+  if (!pythonState.data) return;
+  const scenario = document.getElementById('engine-scenario').value;
+  const years = worldParams().years, seed = worldParams().seed;
+  const url = `${localApiUrl('api/run.csv')}?scenario=${encodeURIComponent(scenario)}&years=${years}&seed=${seed}`;
+  const response = await fetch(url, {headers: {'Accept': 'text/csv'}});
+  if (!response.ok) throw new Error(`CSV HTTP ${response.status}`);
+  const blob = await response.blob();
+  const objectUrl = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href = objectUrl; link.download = `${scenario.replace(/\.json$/, '')}_annual.csv`;
+  document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(objectUrl);
 }
 
 function escapeHtml(value) {
@@ -780,6 +794,12 @@ function runWorldExperiment() {
 Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
 document.getElementById('engine-run').addEventListener('click', runLocalEngine);
+document.getElementById('engine-download').addEventListener('click', async () => {
+  const button = document.getElementById('engine-download');
+  button.disabled = true;
+  try { await downloadPythonCsv(); } catch (error) { document.getElementById('engine-status').textContent = `CSV 下载失败：${error.message}`; }
+  button.disabled = false;
+});
 document.getElementById('world-reset').addEventListener('click', () => {
   Object.entries(worldDefaults).forEach(([id, value]) => { document.getElementById(id).value = value; });
   updateWorldOutputs(); runWorldExperiment();

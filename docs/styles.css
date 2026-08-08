@@ -57,6 +57,7 @@ h1 { max-width: 780px; margin: 0; font-family: Georgia, "Noto Serif SC", serif; 
 .engine-actions select { min-width: 12rem; }
 .secondary-button { border: 1px solid var(--green); color: var(--green); background: transparent; padding: .58rem .85rem; border-radius: .45rem; cursor: pointer; font: inherit; }
 .secondary-button:disabled { opacity: .55; cursor: wait; }
+.engine-actions .secondary-button { white-space: nowrap; }
 .engine-output { grid-column: 1 / -1; margin: 0; padding: .75rem; overflow: auto; max-height: 9rem; background: #15231d; color: #d7f0df; font-size: .78rem; }
 .python-results { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 .python-pickers { display: flex; gap: .8rem; align-items: end; }

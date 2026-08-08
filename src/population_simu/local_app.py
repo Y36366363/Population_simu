@@ -10,7 +10,10 @@ API 只允许读取仓库 ``scenarios/`` 下的情景文件，适合本地探索
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import json
+from functools import lru_cache
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -26,10 +29,19 @@ SCENARIO_ROOT = PROJECT_ROOT / "scenarios"
 
 
 def available_scenarios() -> list[str]:
-    return sorted(path.name for path in SCENARIO_ROOT.glob("*.json"))
+    valid = []
+    for path in SCENARIO_ROOT.glob("*.json"):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if data.get("countries"):
+            valid.append(path.name)
+    return sorted(valid)
 
 
-def run_scenario(
+@lru_cache(maxsize=4)
+def _run_scenario_cached(
     filename: str,
     end_year: int | None = None,
     years: int | None = None,
@@ -62,8 +74,30 @@ def run_scenario(
     }
 
 
+def run_scenario(
+    filename: str,
+    end_year: int | None = None,
+    years: int | None = None,
+    seed: int | None = None,
+) -> dict[str, object]:
+    """运行家庭情景；相同参数会复用最近的四次完整结果。"""
+    return _run_scenario_cached(filename, end_year, years, seed)
+
+
+def result_csv(result: dict[str, object]) -> str:
+    """把年度国家结果导出为 UTF-8 CSV。"""
+    rows = result["history"]
+    if not rows:
+        return ""
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=list(rows[0].keys()))
+    writer.writeheader()
+    writer.writerows(rows)
+    return output.getvalue()
+
+
 class LocalAppHandler(SimpleHTTPRequestHandler):
-    """为 docs 静态文件增加三个只读 JSON 接口。"""
+    """为 docs 静态文件增加健康检查、情景、JSON 和 CSV 接口。"""
 
     server_version = "PopulationSimuLocal/1.0"
 
@@ -79,6 +113,16 @@ class LocalAppHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _csv(self, content: str, filename: str) -> None:
+        body = content.encode("utf-8-sig")
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/csv; charset=utf-8")
+        self.send_header("Content-Disposition", f'attachment; filename="{filename}"')
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
+
     def do_GET(self) -> None:  # noqa: N802 - stdlib handler API
         parsed = urlparse(self.path)
         if parsed.path == "/api/health":
@@ -88,13 +132,26 @@ class LocalAppHandler(SimpleHTTPRequestHandler):
             self._json({"scenarios": available_scenarios()})
             return
         if parsed.path == "/api/run":
-            params = parse_qs(parsed.query)
-            filename = params.get("scenario", ["family_major_countries.json"])[0]
-            end_year = int(params["end_year"][0]) if params.get("end_year") else None
-            years = int(params["years"][0]) if params.get("years") else None
-            seed = int(params["seed"][0]) if params.get("seed") else None
             try:
+                params = parse_qs(parsed.query)
+                filename = params.get("scenario", ["family_major_countries.json"])[0]
+                end_year = int(params["end_year"][0]) if params.get("end_year") else None
+                years = int(params["years"][0]) if params.get("years") else None
+                seed = int(params["seed"][0]) if params.get("seed") else None
                 self._json(run_scenario(filename, end_year=end_year, years=years, seed=seed))
+            except (ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
+                self._json({"ok": False, "error": str(exc)}, HTTPStatus.BAD_REQUEST)
+            return
+        if parsed.path == "/api/run.csv":
+            try:
+                params = parse_qs(parsed.query)
+                filename = params.get("scenario", ["family_major_countries.json"])[0]
+                end_year = int(params["end_year"][0]) if params.get("end_year") else None
+                years = int(params["years"][0]) if params.get("years") else None
+                seed = int(params["seed"][0]) if params.get("seed") else None
+                result = run_scenario(filename, end_year=end_year, years=years, seed=seed)
+                safe_name = Path(filename).stem.replace(" ", "_")
+                self._csv(result_csv(result), f"{safe_name}_annual.csv")
             except (ValueError, FileNotFoundError, json.JSONDecodeError) as exc:
                 self._json({"ok": False, "error": str(exc)}, HTTPStatus.BAD_REQUEST)
             return
