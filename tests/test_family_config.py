@@ -51,3 +51,15 @@ class FamilyConfigValidationTests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             scenario.validate()
+
+    def test_rejects_invalid_fertility_age_profile(self):
+        scenario = self.base()
+        country = scenario.countries[0]
+        invalid_country = country.__class__(**{**country.__dict__, "fertility_peak_age": 45})
+        scenario = FamilyScenario(
+            name=scenario.name,
+            simulation=scenario.simulation,
+            countries=(invalid_country,),
+        )
+        with self.assertRaises(ValueError):
+            scenario.validate()

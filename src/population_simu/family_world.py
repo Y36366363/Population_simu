@@ -1476,6 +1476,12 @@ class FamilyWorld:
             - childcare_penalty,
         )
 
+    @staticmethod
+    def _fertility_age_factor(age: int, country: Country) -> float:
+        """把总生育意愿映射为年龄别生育实现窗口的简化函数。"""
+        distance = (age - country.fertility_peak_age) / country.fertility_age_spread
+        return max(0.08, 1.0 - distance**2)
+
     def _births(self) -> dict[str, int]:
         births: dict[str, int] = defaultdict(int)
         for household in list(self.households.values()):
@@ -1490,7 +1496,7 @@ class FamilyWorld:
             policy = country.policy_at(self.year)
             desired = self._desired_children(household, country)
             gap = max(0.0, desired - household.children_ever_born)
-            age_factor = max(0.08, 1.0 - ((mother.age - 29) / 16) ** 2)
+            age_factor = self._fertility_age_factor(mother.age, country)
             probability = min(0.48, gap / 7.5) * age_factor * policy.fertility_multiplier
             if policy.max_children is not None and household.children_ever_born >= policy.max_children:
                 probability *= 1.0 - policy.enforcement

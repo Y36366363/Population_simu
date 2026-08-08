@@ -102,6 +102,7 @@ PYTHONPATH=src python3 -m population_simu.dynasty_experiment \
 当前概率是透明的示意参数，不代表中国、印度或任何真实地区。要回答“人口控制是否造成毁灭性影响”，后续必须用真实生命表、年龄别生育率、迁移矩阵和政策实施时间线校准，并进行不确定性分析；不能只比较一条确定性曲线。
 
 第三版研究依据和每条证据如何映射到模型，见 `docs/research_basis.md`。
+理论方向、方法边界和真实化路线见 `docs/theory_and_validation.md`。
 
 ## 政策时间线的事实边界
 

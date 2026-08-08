@@ -44,6 +44,8 @@ class Country:
     cost_of_children: float
     baseline_family_resources: float
     initial_children_per_family: float
+    fertility_peak_age: int = 29
+    fertility_age_spread: float = 16.0
     rich_fertility_rebound: float = 0.5
     institutional_openness: float = 0.5
     welfare_floor: float = 0.15
@@ -200,6 +202,10 @@ class FamilyScenario:
             for name in ("baseline_family_resources", "cost_of_children", "initial_children_per_family"):
                 if getattr(country, name) < 0:
                     raise ValueError(f"{country.name} 的 {name} 不能为负数")
+            if not 18 <= country.fertility_peak_age <= 40:
+                raise ValueError(f"{country.name} 的 fertility_peak_age 必须在 18—40 之间")
+            if not 5 <= country.fertility_age_spread <= 30:
+                raise ValueError(f"{country.name} 的 fertility_age_spread 必须在 5—30 之间")
             if country.annual_development_gain < 0 or country.annual_urbanization_gain < 0:
                 raise ValueError(f"{country.name} 的年度发展/城市化增速不能为负数")
             if country.regions:

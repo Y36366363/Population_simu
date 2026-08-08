@@ -80,6 +80,12 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertEqual(snapshot["region_history"][0]["year"], 2000)
         self.assertEqual(len(snapshot["region_history"][0]["regions"]), 2)
 
+    def test_fertility_age_profile_is_configurable(self):
+        world = FamilyWorld(family_scenario(fertility_peak_age=27, fertility_age_spread=10))
+        country = world.countries["TST"]
+        self.assertAlmostEqual(world._fertility_age_factor(27, country), 1.0)
+        self.assertLess(world._fertility_age_factor(40, country), 0.2)
+
     def test_medical_training_can_reach_license(self):
         world = FamilyWorld(family_scenario())
         country = world.countries["TST"]
