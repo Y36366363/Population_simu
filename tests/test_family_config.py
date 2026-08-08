@@ -63,3 +63,20 @@ class FamilyConfigValidationTests(unittest.TestCase):
         )
         with self.assertRaises(ValueError):
             scenario.validate()
+
+    def test_accepts_age_profiles_and_matrix(self):
+        scenario = self.base()
+        country = scenario.countries[0]
+        configured = country.__class__(
+            **{
+                **country.__dict__,
+                "fertility_age_profile": ((20, 0.25), (30, 1.0), (40, 0.2)),
+                "mortality_age_profile": ((0, 0.01), (80, 0.2)),
+                "migration_matrix": {"TST-urban": {"TST-rural": 1.0}},
+            }
+        )
+        FamilyScenario(
+            name=scenario.name,
+            simulation=scenario.simulation,
+            countries=(configured,),
+        ).validate()

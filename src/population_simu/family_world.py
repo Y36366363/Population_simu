@@ -8,6 +8,7 @@ import statistics
 from .capitals import CapitalBundle, sigmoid
 from .family_config import Country, FamilyScenario, Region
 from .family_models import Clan, FamilyBranch, FamilyPerson, FamilyYearStats
+from .hazards import AgeRateProfile, softmax_weights
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
 
 
@@ -409,9 +410,11 @@ class FamilyWorld:
             + 0.55 * person.disability_level
             + (0.18 if person.chronic_condition else 0.0)
         )
+        profile = AgeRateProfile.from_pairs(country.mortality_age_profile)
+        base_rate = profile.rate(person.age) if profile else (infant + ageing + accident + 0.0015 * occupation_risk)
         return min(
             0.65,
-            (infant + ageing + accident + 0.0015 * occupation_risk)
+            base_rate
             * (1.15 - 0.45 * development)
             * health_multiplier,
         )
@@ -1425,8 +1428,24 @@ class FamilyWorld:
                     - 0.28 * region.housing_cost * vulnerability
                 )
 
-            candidates = [region for region in regions if region.id != origin.id]
-            destination = max(candidates, key=score)
+            matrix = country.migration_matrix.get(origin.id, {})
+            candidates = [
+                region for region in regions
+                if region.id != origin.id and (not matrix or matrix.get(region.id, 0.0) > 0)
+            ]
+            if not candidates:
+                continue
+            utility_scores = [score(region) for region in candidates]
+            if matrix:
+                utility_scores = [
+                    utility + math.log(max(1e-6, matrix.get(region.id, 0.0)))
+                    for utility, region in zip(utility_scores, candidates)
+                ]
+            destination = self.rng.choices(
+                candidates,
+                weights=softmax_weights(utility_scores, country.migration_logit_temperature),
+                k=1,
+            )[0]
             if score(destination) <= score(origin) + self.rng.uniform(-0.08, 0.12):
                 continue
             household.region_id = destination.id
@@ -1466,11 +1485,25 @@ class FamilyWorld:
             if household.children_ever_born > 0
             else 1 - expected_childcare
         )
+        peer_households = [
+            other for other in self.households.values()
+            if other.country_id == household.country_id
+            and other.region_id == household.region_id
+            and other.children_ever_born > 0
+        ]
+        peer_norm = (
+            statistics.fmean(other.children_ever_born for other in peer_households)
+            if peer_households else country.initial_children_per_family
+        )
+        social_norm_effect = country.social_norm_strength * 0.18 * (
+            peer_norm - country.initial_children_per_family
+        )
         return max(
             0.35,
             country.initial_children_per_family * (1.0 - development_penalty)
             + poverty_bonus
             + rich_bonus
+            + social_norm_effect
             - cost_penalty
             - care_penalty
             - childcare_penalty,
@@ -1496,7 +1529,8 @@ class FamilyWorld:
             policy = country.policy_at(self.year)
             desired = self._desired_children(household, country)
             gap = max(0.0, desired - household.children_ever_born)
-            age_factor = self._fertility_age_factor(mother.age, country)
+            profile = AgeRateProfile.from_pairs(country.fertility_age_profile)
+            age_factor = profile.rate(mother.age) if profile else self._fertility_age_factor(mother.age, country)
             probability = min(0.48, gap / 7.5) * age_factor * policy.fertility_multiplier
             if policy.max_children is not None and household.children_ever_born >= policy.max_children:
                 probability *= 1.0 - policy.enforcement
@@ -1542,7 +1576,16 @@ class FamilyWorld:
             return migrants
         for household in list(self.households.values()):
             living = [self.people[pid] for pid in household.member_ids if self.people[pid].alive]
-            if not living or self.rng.random() >= rate:
+            if not living:
+                continue
+            origin_country = self.countries[household.country_id]
+            migration_profile = AgeRateProfile.from_pairs(origin_country.migration_age_profile)
+            eligible_ages = [person.age for person in living if 15 <= person.age <= 70]
+            age_factor = (
+                statistics.fmean(migration_profile.rate(age) for age in eligible_ages)
+                if migration_profile and eligible_ages else 1.0
+            )
+            if self.rng.random() >= rate * age_factor:
                 continue
             origin_id = household.country_id
             candidates = [country for country in countries if country.id != origin_id]

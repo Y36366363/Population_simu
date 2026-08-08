@@ -82,6 +82,17 @@ PYTHONPATH=src python3 -m population_simu.institution_experiment \
 
 制度实验分别只打开公共教育、住房改革、反裙带或高福利，并和基线使用相同随机种子。输出比较四代存续率、末代后代数量和职业同类继承率。
 
+运行共同随机数 Monte Carlo 情景比较：
+
+```bash
+PYTHONPATH=src python3 -m population_simu.family_monte_carlo \
+  scenarios/family_major_countries.json \
+  --years 30 --replicates 20 \
+  --output outputs/family_monte_carlo.csv
+```
+
+输出包含每个情景/国家/指标的均值、中位数、标准差和 95% 区间。多个情景使用同一组随机种子，适合比较政策差异而不是把随机噪声误当成政策效果。
+
 也可以把福利托底提高、住房压力降低，观察资源分散何时重新获得优势：
 
 ```bash
@@ -209,6 +220,10 @@ src/population_simu/
   family_models.py       # 姓氏家族、家庭分支与成员
   family_world.py        # 家族繁衍、资源投入、阶层跃迁和 snapshot 接口
   local_app.py            # 本地网页应用与完整 Python 引擎 API
+  hazards.py              # 年龄率、logit hazard 和迁移 softmax
+  monte_carlo.py          # 共同随机数、区间和敏感性汇总
+  family_monte_carlo.py   # 家庭情景批量比较 CLI
+  validation.py           # 历史回放误差指标
   family_cli.py          # 家族模型命令行与年度/家族输出
   resource_experiment.py # 固定资源的一孩/二孩/三孩实验
   capitals.py             # 九维家庭资本与承载力

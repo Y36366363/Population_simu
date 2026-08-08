@@ -46,6 +46,12 @@ class Country:
     initial_children_per_family: float
     fertility_peak_age: int = 29
     fertility_age_spread: float = 16.0
+    fertility_age_profile: tuple[tuple[int, float], ...] = field(default_factory=tuple)
+    mortality_age_profile: tuple[tuple[int, float], ...] = field(default_factory=tuple)
+    migration_age_profile: tuple[tuple[int, float], ...] = field(default_factory=tuple)
+    social_norm_strength: float = 0.20
+    migration_logit_temperature: float = 0.35
+    migration_matrix: dict[str, dict[str, float]] = field(default_factory=dict)
     rich_fertility_rebound: float = 0.5
     institutional_openness: float = 0.5
     welfare_floor: float = 0.15
@@ -133,6 +139,10 @@ class FamilyScenario:
             country_data = dict(item)
             country_data["policies"] = tuple(PolicyEra(**policy) for policy in item.get("policies", []))
             country_data["regions"] = tuple(Region(**region) for region in item.get("regions", []))
+            for profile_name in ("fertility_age_profile", "mortality_age_profile", "migration_age_profile"):
+                country_data[profile_name] = tuple(
+                    (int(age), float(rate)) for age, rate in item.get(profile_name, [])
+                )
             countries.append(Country(**country_data))
         return cls(
             name=data["name"],
@@ -192,6 +202,7 @@ class FamilyScenario:
                 "gender_pay_gap",
                 "maternal_career_penalty",
                 "son_preference",
+                "social_norm_strength",
                 "public_education_reform",
                 "housing_reform_strength",
                 "high_welfare_strength",
@@ -208,6 +219,17 @@ class FamilyScenario:
                 raise ValueError(f"{country.name} 的 fertility_age_spread 必须在 5—30 之间")
             if country.annual_development_gain < 0 or country.annual_urbanization_gain < 0:
                 raise ValueError(f"{country.name} 的年度发展/城市化增速不能为负数")
+            if country.migration_logit_temperature <= 0:
+                raise ValueError(f"{country.name} 的 migration_logit_temperature 必须大于 0")
+            for profile_name in ("fertility_age_profile", "mortality_age_profile", "migration_age_profile"):
+                pairs = getattr(country, profile_name)
+                ages = [age for age, _ in pairs]
+                if ages != sorted(set(ages)):
+                    raise ValueError(f"{country.name} 的 {profile_name} 年龄必须严格递增")
+                if any(rate < 0 for _, rate in pairs):
+                    raise ValueError(f"{country.name} 的 {profile_name} 不能包含负率")
+                if profile_name == "mortality_age_profile" and any(rate > 1 for _, rate in pairs):
+                    raise ValueError(f"{country.name} 的 mortality_age_profile 必须是年度概率")
             if country.regions:
                 region_ids = [region.id for region in country.regions]
                 if len(region_ids) != len(set(region_ids)):
@@ -220,6 +242,12 @@ class FamilyScenario:
                     for name in ("education_quality", "job_opportunity"):
                         if not 0 <= getattr(region, name) <= 1:
                             raise ValueError(f"{country.name}/{region.name} 的 {name} 必须在 0—1 之间")
+                region_ids = {region.id for region in country.regions}
+                for origin, destinations in country.migration_matrix.items():
+                    if origin not in region_ids or any(destination not in region_ids for destination in destinations):
+                        raise ValueError(f"{country.name} 的 migration_matrix 含未知地区")
+                    if any(weight < 0 for weight in destinations.values()):
+                        raise ValueError(f"{country.name} 的 migration_matrix 不能有负权重")
             policies = sorted(country.policies, key=lambda policy: policy.start_year)
             for index, policy in enumerate(policies):
                 if policy.end_year is not None and policy.end_year < policy.start_year:

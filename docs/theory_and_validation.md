@@ -25,6 +25,8 @@
 
 当前新增：生育高峰年龄和年龄扩散不再写死为 29 岁/16 年，而是由 `fertility_peak_age` 与 `fertility_age_spread` 控制，便于按国家、时期和年龄别生育率校准。
 
+同时新增 `fertility_age_profile`、`mortality_age_profile` 和 `migration_age_profile` 率表接口；其中死亡率是年度概率，生育率和迁移率当前作为相对年龄权重使用，未提供率表时才使用透明的默认函数。接入真实数据时必须先统一口径，不能把 TFR、年龄别生育率和年度 hazard 直接混用。
+
 参考：[Fernihough, Human capital and the quantity–quality trade-off](https://link.springer.com/article/10.1007/s10887-016-9138-3)。
 
 ### 3. 社会结构与家庭政策
@@ -39,6 +41,10 @@
 
 参考：[Simulating family life courses](https://www.demographic-research.org/articles/volume/44/1)。
 
+### 5. 迁移选择与社会规范
+
+迁移不应永远选择效用最高的地区。当前内部迁移已支持地区—地区矩阵，并用 softmax/logit 权重在可达地区之间抽样；没有矩阵时使用所有地区作为默认候选。家庭生育意愿还会受到同一地区其他家庭的平均已生子女数影响，但该效应由 `social_norm_strength` 控制，不能解释为文化常数。
+
 ## 真实化路线
 
 1. **校准层**：接入 UN WPP、人口普查、生命表、DHS/MICS/IPUMS 等数据，先校准年龄别生育率、死亡率、性别比和迁移年龄结构。
@@ -47,6 +53,8 @@
 4. **代际层**：把父母职业、住房、教育和社会网络作为不同传递通道，分别估计其对下一代教育、职业和婚姻的作用，避免把相关性解释为遗传。
 5. **验证层**：每个情景同时报告校准误差、历史回放误差、敏感性分析和随机种子区间；政策比较使用共同随机数和反事实对照，不能只看一次运行。
 6. **不确定性层**：输出中位数和 50/80/95% 区间，区分参数不确定性、随机事件不确定性和结构不确定性。
+
+项目现在提供 `family_monte_carlo` CLI、共同随机数种子和历史序列 MAE/RMSE/Bias/MAPE 计算；它们是校准和反事实比较的骨架，不代表已经完成真实数据校准。
 
 ## 当前边界
 
