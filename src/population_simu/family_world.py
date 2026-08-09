@@ -37,6 +37,8 @@ class FamilyWorld:
         }
         self._shock_residual: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
         self._economic_cycle: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
+        self._technology: dict[str, float] = {country.id: 1.0 for country in scenario.countries}
+        self._capacity_cache: dict[tuple[int, str, str], float] = {}
         self._unemployment_pressure: dict[str, float] = {
             country.id: country.base_unemployment_rate for country in scenario.countries
         }
@@ -107,6 +109,10 @@ class FamilyWorld:
                     person for person in living
                     if person.country_id == country_id and person.region_id == region.id
                 ]
+                country = self.countries[country_id]
+                tax_revenue, public_spending, fiscal_balance = self._fiscal_metrics(
+                    country, people, homes
+                )
                 rows.append({
                     "year": self.year,
                     "country": country_id,
@@ -122,6 +128,18 @@ class FamilyWorld:
                         sum(person.economic_status >= 0.72 for person in people) / max(1, len(people)),
                         5,
                     ),
+                    "service_index": round(region.service_index, 5),
+                    "school_supply": round(region.school_supply, 5),
+                    "childcare_supply": round(region.childcare_supply, 5),
+                    "medical_supply": round(region.medical_supply, 5),
+                    "transport_access": round(region.transport_access, 5),
+                    "safety_level": round(region.safety_level, 5),
+                    "capacity_pressure": round(
+                        self._region_capacity_pressure(country, region), 5
+                    ),
+                    "tax_revenue": round(tax_revenue, 4),
+                    "public_spending": round(public_spending, 4),
+                    "fiscal_balance": round(fiscal_balance, 4),
                 })
         return {"year": self.year, "regions": rows}
 
@@ -167,8 +185,61 @@ class FamilyWorld:
             self._economic_cycle[country.id] = cycle
             self._unemployment_pressure[country.id] = min(
                 0.45,
-                max(0.01, country.base_unemployment_rate + 0.42 * max(0.0, -cycle)),
+                max(
+                    0.01,
+                    country.base_unemployment_rate
+                    + 0.42 * max(0.0, -cycle)
+                    + 0.06 * self._automation_share(country),
+                ),
             )
+
+            self._technology[country.id] = min(
+                2.5,
+                1.0 + country.technology_growth * max(0, elapsed),
+            )
+
+    def _automation_share(self, country: Country) -> float:
+        technology = self._technology.get(country.id, 1.0)
+        return min(0.75, max(0.0, country.automation_rate + 0.30 * (technology - 1.0)))
+
+    def _region_capacity_pressure(self, country: Country, region: Region) -> float:
+        cache_key = (self.year, country.id, region.id)
+        if cache_key in self._capacity_cache:
+            return self._capacity_cache[cache_key]
+        people = sum(
+            person.alive and person.country_id == country.id and person.region_id == region.id
+            for person in self.people.values()
+        )
+        capacity = (
+            max(1.0, country.initial_clans * max(0.05, region.initial_share) * 8.0)
+            * country.carrying_capacity_scale
+            * (0.55 + 0.45 * region.service_index)
+            * (0.60 + 0.60 * region.job_opportunity)
+            / max(0.65, region.housing_cost)
+        )
+        pressure = people / max(1.0, capacity)
+        self._capacity_cache[cache_key] = pressure
+        return pressure
+
+    def _fiscal_metrics(
+        self,
+        country: Country,
+        people: list[FamilyPerson],
+        homes: list[FamilyBranch],
+    ) -> tuple[float, float, float]:
+        children = sum(person.age < 22 for person in people)
+        retirees = sum(person.age >= country.retirement_age for person in people)
+        taxable_base = sum(home.resources for home in homes) + 0.45 * sum(
+            person.economic_status for person in people if 22 <= person.age < country.retirement_age
+        )
+        technology = self._technology.get(country.id, 1.0)
+        tax_revenue = country.tax_rate * taxable_base * (1.0 + 0.08 * (technology - 1.0))
+        spending = (
+            country.education_budget_per_child * children * (0.7 + country.public_education_quality)
+            + country.health_budget_per_person * len(people) * (1.0 + 0.25 * (1.0 - country.healthcare_access))
+            + country.pension_budget_per_retiree * retirees * (0.6 + country.pension_replacement_rate)
+        )
+        return tax_revenue, spending, tax_revenue - spending
 
     def _region(self, country_id: str, region_id: str) -> Region:
         return next(region for region in self.regions[country_id] if region.id == region_id)
@@ -902,6 +973,8 @@ class FamilyWorld:
             region = self._region(household.country_id, household.region_id)
             development = country.development_at(self.year, self.scenario.simulation.start_year)
             cycle_multiplier = max(0.45, 1 + self._economic_cycle[household.country_id])
+            technology_multiplier = 1.0 + 0.12 * (self._technology.get(country.id, 1.0) - 1.0)
+            automation = self._automation_share(country)
             effective_housing_pressure = max(
                 0.05,
                 country.housing_pressure
@@ -951,12 +1024,19 @@ class FamilyWorld:
                             * household.childcare_gap
                             * (1 - country.high_welfare_strength),
                         )
+                    automation_multiplier = (
+                        1.0 - 0.14 * automation
+                        if person.occupation in {"routine", "precarious"}
+                        else 1.0 + 0.04 * automation
+                    )
                     income += (
                         OCCUPATIONS[person.occupation].income
                         * (0.42 + development)
                         * (0.70 + 0.55 * person.human_capital)
                         * region.wage_multiplier
                         * cycle_multiplier
+                        * technology_multiplier
+                        * automation_multiplier
                         * gender_multiplier
                     )
                 unemployed = sum(person.occupation == "unemployed" for person in adults)
@@ -1425,7 +1505,8 @@ class FamilyWorld:
                     0.42 * region.job_opportunity * (1 - downturn)
                     + 0.24 * region.wage_multiplier
                     + 0.18 * region.education_quality * min(1, children)
-                    + 0.10 * region.amenity_supply
+                    + 0.10 * region.service_index
+                    - 0.16 * max(0.0, self._region_capacity_pressure(country, region) - 1.0)
                     - 0.28 * region.housing_cost * vulnerability
                 )
 
@@ -1488,18 +1569,61 @@ class FamilyWorld:
         )
         region = self._region(household.country_id, household.region_id)
         # 类似 4X 游戏的 housing/amenities：公共服务不足会在照护紧张时放大生育压力。
-        amenity_gap = max(0.0, 0.58 - region.amenity_supply)
+        amenity_gap = max(0.0, 0.58 - region.service_index)
         amenity_penalty = 0.32 * amenity_gap * (1.0 + 0.65 * household.childcare_gap)
+        capacity_penalty = 0.22 * max(0.0, self._region_capacity_pressure(country, region) - 1.0)
         peer_households = [
             other for other in self.households.values()
             if other.country_id == household.country_id
             and other.region_id == household.region_id
             and other.children_ever_born > 0
         ]
-        peer_norm = (
+        neighbor_norm = (
             statistics.fmean(other.children_ever_born for other in peer_households)
             if peer_households else country.initial_children_per_family
         )
+        kin_households = [
+            other for other in self.households.values()
+            if other.id != household.id
+            and other.country_id == household.country_id
+            and other.clan_id == household.clan_id
+            and other.children_ever_born > 0
+        ]
+        kin_norm = (
+            statistics.fmean(other.children_ever_born for other in kin_households)
+            if kin_households else neighbor_norm
+        )
+        household_occupations = {
+            self.people[pid].occupation
+            for pid in household.member_ids
+            if self.people[pid].alive and self.people[pid].age >= 22
+        }
+        colleague_households = [
+            other for other in self.households.values()
+            if other.id != household.id
+            and other.country_id == household.country_id
+            and other.region_id == household.region_id
+            and other.children_ever_born > 0
+            and household_occupations.intersection(
+                self.people[pid].occupation
+                for pid in other.member_ids
+                if self.people[pid].alive and self.people[pid].age >= 22
+            )
+        ]
+        colleague_norm = (
+            statistics.fmean(other.children_ever_born for other in colleague_households)
+            if colleague_households else neighbor_norm
+        )
+        source_values = {
+            "neighbors": neighbor_norm,
+            "kin": kin_norm,
+            "colleagues": colleague_norm,
+            "media": country.initial_children_per_family,
+        }
+        source_weights = country.social_norm_sources
+        peer_norm = sum(
+            source_values[source] * weight for source, weight in source_weights.items()
+        ) / sum(source_weights.values())
         social_norm_effect = country.social_norm_strength * 0.18 * (
             peer_norm - country.initial_children_per_family
         )
@@ -1512,7 +1636,8 @@ class FamilyWorld:
             - cost_penalty
             - care_penalty
             - childcare_penalty
-            - amenity_penalty,
+            - amenity_penalty
+            - capacity_penalty,
         )
 
     @staticmethod
@@ -1680,6 +1805,7 @@ class FamilyWorld:
 
     def step(self) -> list[FamilyYearStats]:
         self.year += 1
+        self._capacity_cache.clear()
         self._update_economic_cycle()
         for person in self.living_people:
             person.age += 1
@@ -1696,6 +1822,7 @@ class FamilyWorld:
         migrants = self._international_migration()
         deaths = self._deaths()
         self._update_clan_peaks()
+        self._capacity_cache.clear()
         stats = self._summaries(
             births,
             deaths,
@@ -1794,6 +1921,12 @@ class FamilyWorld:
                 >= 2
             ]
             deadline = self._deadline(country)
+            tax_revenue, public_spending, fiscal_balance = self._fiscal_metrics(country, people, homes)
+            region_pressures = [
+                self._region_capacity_pressure(country, region)
+                for region in self.regions[country_id]
+            ]
+            capacity_pressure = statistics.fmean(region_pressures) if region_pressures else 0.0
             fertility_gaps = [
                 max(0.0, self._desired_children(home, country) - home.children_ever_born)
                 for home in homes
@@ -1920,6 +2053,21 @@ class FamilyWorld:
                         )
                         if multi_child_homes
                         else 0.0
+                    ),
+                    tax_revenue=tax_revenue,
+                    public_spending=public_spending,
+                    fiscal_balance=fiscal_balance,
+                    capacity_pressure=capacity_pressure,
+                    technology_index=self._technology.get(country_id, 1.0),
+                    automation_share=self._automation_share(country),
+                    labor_shortage_index=max(
+                        0.0,
+                        min(
+                            1.0,
+                            (1.0 - sum(22 <= person.age < country.retirement_age for person in people) / max(1, len(people)))
+                            * 0.65
+                            + 0.35 * self._automation_share(country),
+                        ),
                     ),
                 )
             )

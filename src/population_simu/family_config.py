@@ -30,6 +30,22 @@ class Region:
     education_quality: float = 0.5
     job_opportunity: float = 0.5
     amenity_supply: float = 0.5
+    school_supply: float = 0.5
+    childcare_supply: float = 0.5
+    medical_supply: float = 0.5
+    transport_access: float = 0.5
+    safety_level: float = 0.5
+
+    @property
+    def service_index(self) -> float:
+        dimensions = (
+            self.school_supply,
+            self.childcare_supply,
+            self.medical_supply,
+            self.transport_access,
+            self.safety_level,
+        )
+        return 0.5 * self.amenity_supply + 0.5 * sum(dimensions) / len(dimensions)
 
 
 @dataclass(frozen=True)
@@ -53,6 +69,9 @@ class Country:
     social_norm_strength: float = 0.20
     migration_logit_temperature: float = 0.35
     migration_matrix: dict[str, dict[str, float]] = field(default_factory=dict)
+    social_norm_sources: dict[str, float] = field(
+        default_factory=lambda: {"neighbors": 0.40, "kin": 0.25, "colleagues": 0.20, "media": 0.15}
+    )
     rich_fertility_rebound: float = 0.5
     institutional_openness: float = 0.5
     welfare_floor: float = 0.15
@@ -99,6 +118,14 @@ class Country:
     grandparent_care_availability: float = 0.45
     dynamic_investment_strength: float = 0.35
     investment_need_weight: float = 0.20
+    tax_rate: float = 0.18
+    education_budget_per_child: float = 0.08
+    health_budget_per_person: float = 0.035
+    pension_budget_per_retiree: float = 0.06
+    technology_growth: float = 0.012
+    automation_rate: float = 0.08
+    labor_shortage_wage_pressure: float = 0.35
+    carrying_capacity_scale: float = 1.0
     regions: tuple[Region, ...] = field(default_factory=tuple)
     policies: tuple[PolicyEra, ...] = field(default_factory=tuple)
 
@@ -207,6 +234,10 @@ class FamilyScenario:
                 "public_education_reform",
                 "housing_reform_strength",
                 "high_welfare_strength",
+                "tax_rate",
+                "technology_growth",
+                "automation_rate",
+                "labor_shortage_wage_pressure",
             ):
                 value = getattr(country, name)
                 if not 0 <= value <= 1:
@@ -214,6 +245,11 @@ class FamilyScenario:
             for name in ("baseline_family_resources", "cost_of_children", "initial_children_per_family"):
                 if getattr(country, name) < 0:
                     raise ValueError(f"{country.name} 的 {name} 不能为负数")
+            for name in ("education_budget_per_child", "health_budget_per_person", "pension_budget_per_retiree"):
+                if getattr(country, name) < 0:
+                    raise ValueError(f"{country.name} 的 {name} 不能为负数")
+            if country.carrying_capacity_scale <= 0:
+                raise ValueError(f"{country.name} 的 carrying_capacity_scale 必须大于 0")
             if not 18 <= country.fertility_peak_age <= 40:
                 raise ValueError(f"{country.name} 的 fertility_peak_age 必须在 18—40 之间")
             if not 5 <= country.fertility_age_spread <= 30:
@@ -222,6 +258,13 @@ class FamilyScenario:
                 raise ValueError(f"{country.name} 的年度发展/城市化增速不能为负数")
             if country.migration_logit_temperature <= 0:
                 raise ValueError(f"{country.name} 的 migration_logit_temperature 必须大于 0")
+            allowed_sources = {"neighbors", "kin", "colleagues", "media"}
+            if set(country.social_norm_sources) - allowed_sources:
+                raise ValueError(f"{country.name} 的 social_norm_sources 含未知来源")
+            if not country.social_norm_sources or any(weight < 0 for weight in country.social_norm_sources.values()):
+                raise ValueError(f"{country.name} 的 social_norm_sources 必须含非负权重")
+            if sum(country.social_norm_sources.values()) <= 0:
+                raise ValueError(f"{country.name} 的 social_norm_sources 权重总和必须大于 0")
             for profile_name in ("fertility_age_profile", "mortality_age_profile", "migration_age_profile"):
                 pairs = getattr(country, profile_name)
                 ages = [age for age, _ in pairs]
@@ -243,8 +286,12 @@ class FamilyScenario:
                     for name in ("education_quality", "job_opportunity"):
                         if not 0 <= getattr(region, name) <= 1:
                             raise ValueError(f"{country.name}/{region.name} 的 {name} 必须在 0—1 之间")
-                    if not 0 <= region.amenity_supply <= 1:
-                        raise ValueError(f"{country.name}/{region.name} 的 amenity_supply 必须在 0—1 之间")
+                    for service_name in (
+                        "amenity_supply", "school_supply", "childcare_supply",
+                        "medical_supply", "transport_access", "safety_level",
+                    ):
+                        if not 0 <= getattr(region, service_name) <= 1:
+                            raise ValueError(f"{country.name}/{region.name} 的 {service_name} 必须在 0—1 之间")
                 region_ids = {region.id for region in country.regions}
                 for origin, destinations in country.migration_matrix.items():
                     if origin not in region_ids or any(destination not in region_ids for destination in destinations):

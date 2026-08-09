@@ -80,12 +80,27 @@
             <input id="world-childcare" type="range" min="0" max="100" value="40">
           </div>
 
+          <div class="control-row">
+            <div class="control-group compact">
+              <label for="world-tax"><span>地区税率</span><output id="world-tax-value">18%</output></label>
+              <input id="world-tax" type="range" min="0" max="40" value="18">
+            </div>
+            <div class="control-group compact">
+              <label for="world-capacity"><span>城市承载力</span><output id="world-capacity-value">100%</output></label>
+              <input id="world-capacity" type="range" min="50" max="180" value="100">
+            </div>
+          </div>
+
           <details>
             <summary>更多世界条件</summary>
             <div class="details-body">
               <div class="control-group">
                 <label for="economic-volatility"><span>经济周期波动</span><output id="economic-volatility-value">30%</output></label>
                 <input id="economic-volatility" type="range" min="0" max="100" value="30">
+              </div>
+              <div class="control-group">
+                <label for="technology-growth"><span>技术进步速度</span><output id="technology-growth-value">12%</output></label>
+                <input id="technology-growth" type="range" min="0" max="30" value="12">
               </div>
               <div class="control-group">
                 <label for="world-seed"><span>随机种子</span></label>
@@ -109,6 +124,10 @@
           </div>
 
           <div id="world-stats" class="world-stats"></div>
+          <section class="region-detail" aria-labelledby="system-panel-title">
+            <div><p class="section-kicker">系统反馈</p><h2 id="system-panel-title">人口—公共服务—迁移—财政</h2></div>
+            <div id="system-feedback" class="comparison-table"></div>
+          </section>
           <section class="engine-panel" aria-labelledby="engine-panel-title">
             <div>
               <p class="section-kicker">完整 Python 引擎</p>
@@ -164,6 +183,10 @@
                 <option value="resources">家庭资源中位数</option>
                 <option value="children">户均未成年子女</option>
                 <option value="mobility">高状态家庭占比</option>
+                <option value="taxRevenue">税收收入</option>
+                <option value="fiscalBalance">财政结余</option>
+                <option value="capacityPressure">承载力压力</option>
+                <option value="technology">技术指数</option>
               </select>
             </label>
           </div>

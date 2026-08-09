@@ -142,6 +142,42 @@ class FamilyWorldTests(unittest.TestCase):
         ):
             self.assertIn(key, row)
 
+    def test_fiscal_capacity_and_technology_metrics_are_exported(self):
+        world = FamilyWorld(
+            family_scenario(
+                technology_growth=0.04,
+                automation_rate=0.25,
+                carrying_capacity_scale=0.7,
+            )
+        )
+        initial = world.run(2002)[0].flat_dict()
+        later = world.history[-1].flat_dict()
+        for key in (
+            "tax_revenue", "public_spending", "fiscal_balance",
+            "capacity_pressure", "technology_index", "automation_share",
+            "labor_shortage_index",
+        ):
+            self.assertIn(key, later)
+        self.assertGreater(later["technology_index"], initial["technology_index"])
+        self.assertGreaterEqual(later["automation_share"], initial["automation_share"])
+
+    def test_region_service_index_is_split_into_dimensions(self):
+        world = FamilyWorld(
+            family_scenario(
+                regions=(
+                    {
+                        "id": "service", "name": "服务地区", "urban": True,
+                        "amenity_supply": 0.2, "school_supply": 1.0,
+                        "childcare_supply": 0.8, "medical_supply": 0.6,
+                        "transport_access": 0.4, "safety_level": 0.9,
+                    },
+                )
+            )
+        )
+        region = world.regions["TST"][0]
+        self.assertGreater(region.service_index, region.amenity_supply)
+        self.assertEqual(region.school_supply, 1.0)
+
     def test_economic_cycle_changes_over_time(self):
         world = FamilyWorld(family_scenario(cycle_amplitude=0.2, shock_probability=0.0))
         rows = world.run(2005)
@@ -223,6 +259,20 @@ class FamilyWorldTests(unittest.TestCase):
             child.observed_achievement = 0.5
         world._allocate_resources()
         self.assertGreater(children[0].annual_investment, children[1].annual_investment)
+
+    def test_social_norm_sources_are_configurable(self):
+        world = FamilyWorld(
+            family_scenario(
+                social_norm_strength=1.0,
+                social_norm_sources={"neighbors": 0.0, "kin": 0.0, "colleagues": 0.0, "media": 1.0},
+            )
+        )
+        baseline = FamilyWorld(family_scenario(social_norm_strength=0.0))
+        home = next(iter(world.households.values()))
+        self.assertAlmostEqual(
+            world._desired_children(home, world.countries["TST"]),
+            baseline._desired_children(next(iter(baseline.households.values())), baseline.countries["TST"]),
+        )
 
 
 if __name__ == "__main__":

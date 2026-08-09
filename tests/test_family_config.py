@@ -73,6 +73,15 @@ class FamilyConfigValidationTests(unittest.TestCase):
                 "fertility_age_profile": ((20, 0.25), (30, 1.0), (40, 0.2)),
                 "mortality_age_profile": ((0, 0.01), (80, 0.2)),
                 "migration_matrix": {"TST-urban": {"TST-rural": 1.0}},
+                "regions": (
+                    Region(
+                        id="TST-urban", name="城市", urban=True,
+                        amenity_supply=0.5, school_supply=0.8,
+                        childcare_supply=0.7, medical_supply=0.6,
+                        transport_access=0.9, safety_level=0.8,
+                    ),
+                    Region(id="TST-rural", name="乡村", urban=False),
+                ),
             }
         )
         FamilyScenario(
@@ -91,6 +100,19 @@ class FamilyConfigValidationTests(unittest.TestCase):
                     id="r1", name="地区", urban=True, amenity_supply=1.2
                 ),),
             }
+        )
+        with self.assertRaises(ValueError):
+            FamilyScenario(
+                name=scenario.name,
+                simulation=scenario.simulation,
+                countries=(invalid,),
+            ).validate()
+
+    def test_rejects_unknown_social_norm_source(self):
+        scenario = self.base()
+        country = scenario.countries[0]
+        invalid = country.__class__(
+            **{**country.__dict__, "social_norm_sources": {"neighbors": 1.0, "telepathy": 0.1}}
         )
         with self.assertRaises(ValueError):
             FamilyScenario(

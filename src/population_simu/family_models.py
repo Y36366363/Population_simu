@@ -141,6 +141,13 @@ class FamilyYearStats:
     grandparent_care_coverage: float
     mean_childcare_gap: float
     sibling_investment_concentration: float
+    tax_revenue: float
+    public_spending: float
+    fiscal_balance: float
+    capacity_pressure: float
+    technology_index: float
+    automation_share: float
+    labor_shortage_index: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -194,4 +201,11 @@ class FamilyYearStats:
             "sibling_investment_concentration": round(
                 self.sibling_investment_concentration, 5
             ),
+            "tax_revenue": round(self.tax_revenue, 4),
+            "public_spending": round(self.public_spending, 4),
+            "fiscal_balance": round(self.fiscal_balance, 4),
+            "capacity_pressure": round(self.capacity_pressure, 5),
+            "technology_index": round(self.technology_index, 5),
+            "automation_share": round(self.automation_share, 5),
+            "labor_shortage_index": round(self.labor_shortage_index, 5),
         }
