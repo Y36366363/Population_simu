@@ -86,6 +86,20 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertAlmostEqual(world._fertility_age_factor(27, country), 1.0)
         self.assertLess(world._fertility_age_factor(40, country), 0.2)
 
+    def test_low_local_amenities_reduce_desired_children(self):
+        low = FamilyWorld(family_scenario(regions=(
+            {"id": "low", "name": "低服务地区", "urban": True, "amenity_supply": 0.1},
+        )))
+        high = FamilyWorld(family_scenario(regions=(
+            {"id": "high", "name": "高服务地区", "urban": True, "amenity_supply": 0.95},
+        )))
+        low_home = next(iter(low.households.values()))
+        high_home = next(iter(high.households.values()))
+        self.assertLess(
+            low._desired_children(low_home, low.countries["TST"]),
+            high._desired_children(high_home, high.countries["TST"]),
+        )
+
     def test_medical_training_can_reach_license(self):
         world = FamilyWorld(family_scenario())
         country = world.countries["TST"]

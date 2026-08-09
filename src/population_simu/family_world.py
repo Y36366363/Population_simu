@@ -1425,6 +1425,7 @@ class FamilyWorld:
                     0.42 * region.job_opportunity * (1 - downturn)
                     + 0.24 * region.wage_multiplier
                     + 0.18 * region.education_quality * min(1, children)
+                    + 0.10 * region.amenity_supply
                     - 0.28 * region.housing_cost * vulnerability
                 )
 
@@ -1485,6 +1486,10 @@ class FamilyWorld:
             if household.children_ever_born > 0
             else 1 - expected_childcare
         )
+        region = self._region(household.country_id, household.region_id)
+        # 类似 4X 游戏的 housing/amenities：公共服务不足会在照护紧张时放大生育压力。
+        amenity_gap = max(0.0, 0.58 - region.amenity_supply)
+        amenity_penalty = 0.32 * amenity_gap * (1.0 + 0.65 * household.childcare_gap)
         peer_households = [
             other for other in self.households.values()
             if other.country_id == household.country_id
@@ -1506,7 +1511,8 @@ class FamilyWorld:
             + social_norm_effect
             - cost_penalty
             - care_penalty
-            - childcare_penalty,
+            - childcare_penalty
+            - amenity_penalty,
         )
 
     @staticmethod

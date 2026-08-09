@@ -29,6 +29,7 @@ class Region:
     housing_cost: float = 1.0
     education_quality: float = 0.5
     job_opportunity: float = 0.5
+    amenity_supply: float = 0.5
 
 
 @dataclass(frozen=True)
@@ -242,6 +243,8 @@ class FamilyScenario:
                     for name in ("education_quality", "job_opportunity"):
                         if not 0 <= getattr(region, name) <= 1:
                             raise ValueError(f"{country.name}/{region.name} 的 {name} 必须在 0—1 之间")
+                    if not 0 <= region.amenity_supply <= 1:
+                        raise ValueError(f"{country.name}/{region.name} 的 amenity_supply 必须在 0—1 之间")
                 region_ids = {region.id for region in country.regions}
                 for origin, destinations in country.migration_matrix.items():
                     if origin not in region_ids or any(destination not in region_ids for destination in destinations):

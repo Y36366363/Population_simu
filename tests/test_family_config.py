@@ -1,6 +1,6 @@
 import unittest
 
-from population_simu.family_config import FamilyScenario, PolicyEra
+from population_simu.family_config import FamilyScenario, PolicyEra, Region
 
 
 class FamilyConfigValidationTests(unittest.TestCase):
@@ -80,3 +80,21 @@ class FamilyConfigValidationTests(unittest.TestCase):
             simulation=scenario.simulation,
             countries=(configured,),
         ).validate()
+
+    def test_rejects_invalid_region_amenity_supply(self):
+        scenario = self.base()
+        country = scenario.countries[0]
+        invalid = country.__class__(
+            **{
+                **country.__dict__,
+                "regions": (Region(
+                    id="r1", name="地区", urban=True, amenity_supply=1.2
+                ),),
+            }
+        )
+        with self.assertRaises(ValueError):
+            FamilyScenario(
+                name=scenario.name,
+                simulation=scenario.simulation,
+                countries=(invalid,),
+            ).validate()
