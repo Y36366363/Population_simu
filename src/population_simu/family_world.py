@@ -8,9 +8,10 @@ import statistics
 from .capitals import CapitalBundle, sigmoid
 from .family_config import Country, FamilyScenario, Region
 from .family_models import Clan, FamilyBranch, FamilyPerson, FamilyYearStats
-from .hazards import AgeRateProfile, softmax_weights
+from .hazards import AgeRateProfile, duration_hazard, hazard_to_probability, softmax_weights
 from .environment import EnvironmentalConfig, EnvironmentalProcess
 from .audit import audit_history, audit_snapshot
+from .networks import FamilySocialNetwork, RegionMigrationNetwork
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
 
 
@@ -51,6 +52,10 @@ class FamilyWorld:
         self._unemployment_pressure: dict[str, float] = {
             country.id: country.base_unemployment_rate for country in scenario.countries
         }
+        self._government_funds: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
+        self._regional_transfers: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
+        self._migration_network = RegionMigrationNetwork()
+        self._social_network = FamilySocialNetwork()
         self._seed_countries()
         self.history.extend(self._summaries({}, {}, {}, {}, {}, {}, {}))
         self.region_history.append(self._region_snapshot())
@@ -58,6 +63,16 @@ class FamilyWorld:
     @property
     def living_people(self) -> list[FamilyPerson]:
         return [person for person in self.people.values() if person.alive]
+
+    def age_sex_matrix(self) -> dict[str, dict[str, dict[int, int]]]:
+        """返回国家—性别—年龄人口矩阵，作为家庭明细的宏观对账视图。"""
+        matrix: dict[str, dict[str, dict[int, int]]] = {
+            country_id: {"F": {}, "M": {}} for country_id in self.countries
+        }
+        for person in self.living_people:
+            by_sex = matrix.setdefault(person.country_id, {}).setdefault(person.sex, {})
+            by_sex[person.age] = by_sex.get(person.age, 0) + 1
+        return matrix
 
     def snapshot(self) -> dict[str, object]:
         """返回供网页、批量实验和调试共用的当前状态快照。
@@ -101,6 +116,7 @@ class FamilyWorld:
             "households": len(self.households),
             "clans": len(self.clans),
             "countries": country_rows,
+            "age_sex_matrix": self.age_sex_matrix(),
             "region_history": self.region_history,
         }
 
@@ -275,6 +291,31 @@ class FamilyWorld:
                 0.01 + 0.03 * country.resource_constraint + 0.04 * recovery_cost
             )
         return tax_revenue, spending, tax_revenue - spending
+
+    def _update_government_funds(self) -> None:
+        """把年度收支转成基金余额，并在地区间做显式转移支付。"""
+        self._regional_transfers = {}
+        for country_id, country in self.countries.items():
+            local_balances: list[float] = []
+            for region in self.regions[country_id]:
+                people = [
+                    person for person in self.living_people
+                    if person.country_id == country_id and person.region_id == region.id
+                ]
+                homes = [
+                    home for home in self.households.values()
+                    if home.country_id == country_id and home.region_id == region.id
+                ]
+                local_balances.append(self._fiscal_metrics(country, people, homes)[2])
+            surplus = sum(max(0.0, balance) for balance in local_balances)
+            deficit = sum(max(0.0, -balance) for balance in local_balances)
+            transfers = min(deficit, 0.35 * surplus)
+            country_balance = sum(local_balances)
+            self._regional_transfers[country_id] = transfers
+            self._government_funds[country_id] = (
+                self._government_funds.get(country_id, 0.0)
+                + country_balance
+            )
 
     def _region(self, country_id: str, region_id: str) -> Region:
         return next(region for region in self.regions[country_id] if region.id == region_id)
@@ -1417,7 +1458,8 @@ class FamilyWorld:
                     if woman.marriage_count > 0 or man.marriage_count > 0
                     else rate
                 )
-                if self.rng.random() >= pairing_rate * formation_gate:
+                pairing_hazard = duration_hazard(pairing_rate * formation_gate, woman.marriage_count, 0.015)
+                if self.rng.random() >= hazard_to_probability(pairing_hazard):
                     continue
                 men.remove(man)
                 primary = man if self.scenario.simulation.surname_rule == "paternal" else self.rng.choice((woman, man))
@@ -1514,7 +1556,8 @@ class FamilyWorld:
                 - 0.10 * min(2, young_children)
                 - 0.18 * country.high_welfare_strength
             )
-            probability = min(0.25, country.base_divorce_rate * stress * max(0.45, stabilizers))
+            divorce_hazard = country.base_divorce_rate * stress * max(0.45, stabilizers)
+            probability = hazard_to_probability(divorce_hazard)
             if self.rng.random() >= probability:
                 continue
 
@@ -1578,7 +1621,8 @@ class FamilyWorld:
                 base_rate += 0.018 * country.urbanization_at(
                     self.year, self.scenario.simulation.start_year
                 )
-            if self.rng.random() >= base_rate:
+            migration_spacing = min(1.35, 0.70 + 0.035 * household.years_since_migration)
+            if self.rng.random() >= hazard_to_probability(base_rate * migration_spacing):
                 continue
             children = sum(person.age < 18 for person in living)
             vulnerability = 1 - household.capitals.normalized_financial(
@@ -1598,16 +1642,13 @@ class FamilyWorld:
                 )
 
             matrix = country.migration_matrix.get(origin.id, {})
-            candidates = [
-                region for region in regions
-                if region.id != origin.id and (not matrix or matrix.get(region.id, 0.0) > 0)
-            ]
+            candidates = list(self._migration_network.destinations(country, origin, regions))
             if not candidates:
                 continue
             utility_scores = [score(region) for region in candidates]
             if matrix:
                 utility_scores = [
-                    utility + math.log(max(1e-6, matrix.get(region.id, 0.0)))
+                        utility + math.log(max(1e-6, self._migration_network.edge_weight(country, origin, region)))
                     for utility, region in zip(utility_scores, candidates)
                 ]
             destination = self.rng.choices(
@@ -1619,6 +1660,7 @@ class FamilyWorld:
                 continue
             household.region_id = destination.id
             household.internal_migration_count += 1
+            household.years_since_migration = 0
             household.capitals.debt = min(
                 1.0,
                 household.capitals.debt
@@ -1661,8 +1703,7 @@ class FamilyWorld:
         capacity_penalty = 0.22 * max(0.0, self._region_capacity_pressure(country, region) - 1.0)
         peer_households = [
             other for other in self.households.values()
-            if other.country_id == household.country_id
-            and other.region_id == household.region_id
+            if self._social_network.same_region(household, other)
             and other.children_ever_born > 0
         ]
         neighbor_norm = (
@@ -1671,9 +1712,7 @@ class FamilyWorld:
         )
         kin_households = [
             other for other in self.households.values()
-            if other.id != household.id
-            and other.country_id == household.country_id
-            and other.clan_id == household.clan_id
+            if self._social_network.same_kin(household, other)
             and other.children_ever_born > 0
         ]
         kin_norm = (
@@ -1688,13 +1727,15 @@ class FamilyWorld:
         colleague_households = [
             other for other in self.households.values()
             if other.id != household.id
-            and other.country_id == household.country_id
-            and other.region_id == household.region_id
+            and self._social_network.same_region(household, other)
             and other.children_ever_born > 0
-            and household_occupations.intersection(
-                self.people[pid].occupation
-                for pid in other.member_ids
-                if self.people[pid].alive and self.people[pid].age >= 22
+            and self._social_network.shares_occupation(
+                household_occupations,
+                (
+                    self.people[pid]
+                    for pid in other.member_ids
+                    if self.people[pid].alive and self.people[pid].age >= 22
+                ),
             )
         ]
         colleague_norm = (
@@ -1768,7 +1809,8 @@ class FamilyWorld:
                 + 0.15 * household.formal_childcare_coverage
                 + 0.10 * household.grandparent_care_coverage
             )
-            if self.rng.random() >= probability:
+            birth_spacing = min(1.40, 0.55 + 0.08 * household.years_since_last_birth)
+            if self.rng.random() >= hazard_to_probability(probability * birth_spacing):
                 continue
             child = self._new_person(
                 household,
@@ -1781,6 +1823,7 @@ class FamilyWorld:
             child.clan_id = household.clan_id
             child.surname = household.surname
             household.children_ever_born += 1
+            household.years_since_last_birth = 0
             clan = self.clans[household.clan_id]
             clan.total_births += 1
             births[household.country_id] += 1
@@ -1893,6 +1936,10 @@ class FamilyWorld:
     def step(self) -> list[FamilyYearStats]:
         self.year += 1
         self._capacity_cache.clear()
+        for household in self.households.values():
+            household.years_since_last_birth += 1
+            household.years_since_migration += 1
+            household.marriage_duration += 1
         self._update_environment()
         self._update_economic_cycle()
         for person in self.living_people:
@@ -1910,6 +1957,7 @@ class FamilyWorld:
         migrants = self._international_migration()
         deaths = self._deaths()
         self._update_clan_peaks()
+        self._update_government_funds()
         self._capacity_cache.clear()
         stats = self._summaries(
             births,
@@ -2183,6 +2231,9 @@ class FamilyWorld:
                     resource_constraint=country.resource_constraint,
                     population_exposure=exposure,
                     recovery_cost=recovery_cost,
+                    government_fund_balance=self._government_funds.get(country_id, 0.0),
+                    government_deficit=max(0.0, -fiscal_balance),
+                    regional_transfers=self._regional_transfers.get(country_id, 0.0),
                 )
             )
         return summaries

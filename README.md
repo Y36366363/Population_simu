@@ -37,6 +37,11 @@ https://Y36366363.github.io/Population_simu/
 - 地区公共服务已可拆为 `school_supply`、`childcare_supply`、`medical_supply`、`transport_access` 和 `safety_level` 五个维度；旧的 `amenity_supply` 仍保留，并与五维平均值共同形成兼容的 `service_index`。
 - 地区环境参数包括 `historical_hazard_rate`（历史灾害频率）、`population_exposure`（人口暴露度）和 `recovery_cost`（资源恢复成本）。
 - 年度结果新增税收、教育/医疗/养老公共支出、财政结余、地区承载力压力、技术指数、自动化占比和劳动短缺压力。
+- 当前快照新增国家—性别—年龄人口矩阵；`FamilyWorld.audit()` 会检查年龄矩阵、国家—地区人口和家庭明细是否闭合。
+- 财政现在维护政府基金余额，并记录年度赤字和地区间转移支付，而不只输出一次性收支差额。
+- 婚姻、出生、迁移和离婚使用 hazard→年度事件概率转换；家庭分支记录出生间隔和迁移间隔。
+- 地区迁移网络和家庭社会网络分别由 `RegionMigrationNetwork` 与 `FamilySocialNetwork` 管理。
+- `calibration.replay_errors()` 提供按年份对齐的历史回放误差，不自动修改参数，避免把校准误差误当成政策效果。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -214,7 +219,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 
 如果页面没有立即更新，先确认改动已经合并到 `main`，再等待 GitHub Pages 完成发布；浏览器仍显示旧版本时可使用强制刷新。也可以暂时选择 `agent/dynamic-institutions` 分支和 `/docs` 文件夹进行预览，合并后再切回 `main`。
 
-本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板，Python 回归测试为 56 项全部通过。
+本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板，Python 回归测试为 58 项全部通过。
 
 ## 测试
 

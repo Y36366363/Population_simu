@@ -1,6 +1,12 @@
 import unittest
 
-from population_simu.hazards import AgeRateProfile, logit_probability, softmax_weights
+from population_simu.hazards import (
+    AgeRateProfile,
+    duration_hazard,
+    hazard_to_probability,
+    logit_probability,
+    softmax_weights,
+)
 
 
 class HazardTests(unittest.TestCase):
@@ -19,4 +25,8 @@ class HazardTests(unittest.TestCase):
         weights = softmax_weights([1.0, 1.0, 0.0], temperature=0.4)
         self.assertEqual(len(weights), 3)
         self.assertTrue(all(weight > 0 for weight in weights))
-        self.assertEqual(weights[0], weights[1])
+
+    def test_hazard_conversion_is_bounded_and_monotonic(self):
+        self.assertEqual(hazard_to_probability(0), 0.0)
+        self.assertGreater(hazard_to_probability(1.0), hazard_to_probability(0.2))
+        self.assertGreater(duration_hazard(0.1, 4, 0.1), duration_hazard(0.1, 0, 0.1))

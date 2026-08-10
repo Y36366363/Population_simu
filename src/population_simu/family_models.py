@@ -91,6 +91,9 @@ class FamilyBranch:
     grandparent_care_coverage: float = 0.0
     childcare_gap: float = 0.0
     investment_concentration: float = 0.0
+    years_since_last_birth: int = 99
+    years_since_migration: int = 99
+    marriage_duration: int = 0
 
 
 @dataclass(frozen=True)
@@ -153,6 +156,9 @@ class FamilyYearStats:
     resource_constraint: float
     population_exposure: float
     recovery_cost: float
+    government_fund_balance: float
+    government_deficit: float
+    regional_transfers: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -218,4 +224,7 @@ class FamilyYearStats:
             "resource_constraint": round(self.resource_constraint, 5),
             "population_exposure": round(self.population_exposure, 5),
             "recovery_cost": round(self.recovery_cost, 5),
+            "government_fund_balance": round(self.government_fund_balance, 4),
+            "government_deficit": round(self.government_deficit, 4),
+            "regional_transfers": round(self.regional_transfers, 4),
         }

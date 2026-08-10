@@ -10,6 +10,17 @@ def clamp_probability(value: float) -> float:
     return min(1.0, max(0.0, value))
 
 
+def hazard_to_probability(annual_hazard: float) -> float:
+    """把连续时间 hazard 转成一年内至少发生一次事件的概率。"""
+    hazard = max(0.0, float(annual_hazard))
+    return clamp_probability(1.0 - math.exp(-hazard))
+
+
+def duration_hazard(base_hazard: float, duration: int, dependence: float = 0.0) -> float:
+    """带事件间隔依赖的 hazard；duration 不改变随机流，只改变条件风险。"""
+    return max(0.0, float(base_hazard)) * max(0.0, 1.0 + dependence * max(0, duration))
+
+
 def logit_probability(linear_predictor: float) -> float:
     if linear_predictor >= 0:
         exponent = math.exp(-linear_predictor)

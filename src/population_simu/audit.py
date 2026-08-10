@@ -55,6 +55,19 @@ def audit_snapshot(snapshot: Mapping[str, object]) -> list[str]:
         issues.append("国家人口合计没有闭合")
     if country_households != households:
         issues.append("国家家庭合计没有闭合")
+    matrix = snapshot.get("age_sex_matrix", {})
+    if isinstance(matrix, Mapping):
+        for country_id, by_sex in matrix.items():
+            matrix_total = sum(
+                value
+                for ages in by_sex.values()
+                if isinstance(ages, Mapping)
+                for value in ages.values()
+                if isinstance(value, int) and value >= 0
+            )
+            expected = countries.get(country_id, {}).get("population", 0)
+            if matrix_total != expected:
+                issues.append(f"{country_id} 的年龄—性别矩阵没有闭合")
     return issues
 
 
@@ -79,4 +92,3 @@ def audit_history(rows: Iterable[Mapping[str, object]]) -> list[str]:
             if not _finite(value) or float(value) < 0:
                 issues.append(f"{country}/{key} 非法")
     return issues
-
