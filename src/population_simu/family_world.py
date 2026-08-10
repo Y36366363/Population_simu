@@ -10,6 +10,7 @@ from .family_config import Country, FamilyScenario, Region
 from .family_models import Clan, FamilyBranch, FamilyPerson, FamilyYearStats
 from .hazards import AgeRateProfile, softmax_weights
 from .environment import EnvironmentalConfig, EnvironmentalProcess
+from .audit import audit_history, audit_snapshot
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
 
 
@@ -102,6 +103,13 @@ class FamilyWorld:
             "countries": country_rows,
             "region_history": self.region_history,
         }
+
+    def audit(self) -> dict[str, object]:
+        """返回当前状态和年度历史的结构性审计结果。"""
+        snapshot_issues = audit_snapshot(self.snapshot())
+        history_issues = audit_history(row.flat_dict() for row in self.history)
+        issues = snapshot_issues + history_issues
+        return {"ok": not issues, "issues": issues}
 
     def _region_snapshot(self) -> dict[str, object]:
         """聚合当前地区状态，保持与年度国家结果相同的可序列化契约。"""

@@ -136,6 +136,7 @@ PYTHONPATH=src python3 -m population_simu.dynasty_experiment \
 当前概率是透明的示意参数，不代表中国、印度或任何真实地区。要回答“人口控制是否造成毁灭性影响”，后续必须用真实生命表、年龄别生育率、迁移矩阵和政策实施时间线校准，并进行不确定性分析；不能只比较一条确定性曲线。
 
 研究依据和每条证据如何映射到模型，见 `docs/research_basis.md`。
+理论框架、World3/家庭 ABM/Civilization 对照和下一阶段优先级见 `docs/theory_comparison.md`。
 理论方向、方法边界和真实化路线见 `docs/theory_and_validation.md`。
 
 ## 政策时间线的事实边界
@@ -213,7 +214,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 
 如果页面没有立即更新，先确认改动已经合并到 `main`，再等待 GitHub Pages 完成发布；浏览器仍显示旧版本时可使用强制刷新。也可以暂时选择 `agent/dynamic-institutions` 分支和 `/docs` 文件夹进行预览，合并后再切回 `main`。
 
-本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板，Python 回归测试为 54 项全部通过。
+本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板，Python 回归测试为 56 项全部通过。
 
 ## 测试
 
