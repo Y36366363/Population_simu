@@ -35,6 +35,9 @@ class Region:
     medical_supply: float = 0.5
     transport_access: float = 0.5
     safety_level: float = 0.5
+    historical_hazard_rate: float = 0.5
+    population_exposure: float = 0.5
+    recovery_cost: float = 0.2
 
     @property
     def service_index(self) -> float:
@@ -300,6 +303,7 @@ class FamilyScenario:
                     for service_name in (
                         "amenity_supply", "school_supply", "childcare_supply",
                         "medical_supply", "transport_access", "safety_level",
+                        "historical_hazard_rate", "population_exposure", "recovery_cost",
                     ):
                         if not 0 <= getattr(region, service_name) <= 1:
                             raise ValueError(f"{country.name}/{region.name} 的 {service_name} 必须在 0—1 之间")

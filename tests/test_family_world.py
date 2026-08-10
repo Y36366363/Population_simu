@@ -161,6 +161,26 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertGreater(later["technology_index"], initial["technology_index"])
         self.assertGreaterEqual(later["automation_share"], initial["automation_share"])
 
+    def test_environment_metrics_are_exported(self):
+        world = FamilyWorld(
+            family_scenario(
+                environmental_pressure=0.2,
+                climate_shock_probability=1.0,
+                climate_shock_severity=0.4,
+                regions=({
+                    "id": "exposed", "name": "暴露地区", "urban": True,
+                    "historical_hazard_rate": 1.0,
+                    "population_exposure": 1.0,
+                    "recovery_cost": 1.0,
+                },),
+            )
+        )
+        row = world.run(2001)[-1].flat_dict()
+        self.assertIn("environmental_stress", row)
+        self.assertIn("population_exposure", row)
+        self.assertIn("recovery_cost", row)
+        self.assertGreater(row["environmental_stress"], 0.2)
+
     def test_region_service_index_is_split_into_dimensions(self):
         world = FamilyWorld(
             family_scenario(

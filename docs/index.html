@@ -103,6 +103,22 @@
                 <input id="technology-growth" type="range" min="0" max="30" value="12">
               </div>
               <div class="control-group">
+                <label for="environment-history"><span>地区灾害历史频率</span><output id="environment-history-value">50%</output></label>
+                <input id="environment-history" type="range" min="0" max="100" value="50">
+              </div>
+              <div class="control-group">
+                <label for="environment-probability"><span>未来年度灾害概率</span><output id="environment-probability-value">2%</output></label>
+                <input id="environment-probability" type="range" min="0" max="15" value="2">
+              </div>
+              <div class="control-group">
+                <label for="environment-exposure"><span>人口暴露度</span><output id="environment-exposure-value">50%</output></label>
+                <input id="environment-exposure" type="range" min="0" max="100" value="50">
+              </div>
+              <div class="control-group">
+                <label for="environment-recovery"><span>资源恢复成本</span><output id="environment-recovery-value">20%</output></label>
+                <input id="environment-recovery" type="range" min="0" max="100" value="20">
+              </div>
+              <div class="control-group">
                 <label for="world-seed"><span>随机种子</span></label>
                 <input id="world-seed" type="number" min="1" max="999999" value="2026">
               </div>
@@ -187,6 +203,8 @@
                 <option value="fiscalBalance">财政结余</option>
                 <option value="capacityPressure">承载力压力</option>
                 <option value="technology">技术指数</option>
+                <option value="environmentalStress">环境压力</option>
+                <option value="climateEvents">气候事件数</option>
               </select>
             </label>
           </div>

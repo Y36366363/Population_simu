@@ -35,6 +35,7 @@ https://Y36366363.github.io/Population_simu/
 - 每个国家可配置任意数量的城市/乡村地区；家庭按工资、就业、教育、住房成本和衰退压力迁移。
 - 地区还可配置 `amenity_supply`：它是教育、托育、公共空间和基础服务的综合供给，会以小权重影响迁移吸引力，并在照护缺口较大时放大生育压力；这是借鉴 4X 游戏可读性的机制抽象，不是现实幸福指数。
 - 地区公共服务已可拆为 `school_supply`、`childcare_supply`、`medical_supply`、`transport_access` 和 `safety_level` 五个维度；旧的 `amenity_supply` 仍保留，并与五维平均值共同形成兼容的 `service_index`。
+- 地区环境参数包括 `historical_hazard_rate`（历史灾害频率）、`population_exposure`（人口暴露度）和 `recovery_cost`（资源恢复成本）。
 - 年度结果新增税收、教育/医疗/养老公共支出、财政结余、地区承载力压力、技术指数、自动化占比和劳动短缺压力。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
@@ -112,7 +113,7 @@ PYTHONPATH=src python3 -m population_simu.environment_experiment \
   --output outputs/environment_sensitivity.csv
 ```
 
-环境事件使用独立随机流；改变灾害概率时，共同随机数仍保持家庭、经济周期和其他人口事件的抽样一致。
+环境事件使用独立随机流；改变灾害概率、历史频率、暴露度或恢复成本时，共同随机数仍保持家庭、经济周期和其他人口事件的抽样一致。
 
 也可以把福利托底提高、住房压力降低，观察资源分散何时重新获得优势：
 
@@ -212,7 +213,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 
 如果页面没有立即更新，先确认改动已经合并到 `main`，再等待 GitHub Pages 完成发布；浏览器仍显示旧版本时可使用强制刷新。也可以暂时选择 `agent/dynamic-institutions` 分支和 `/docs` 文件夹进行预览，合并后再切回 `main`。
 
-本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政反馈面板，Python 回归测试为 52 项全部通过。
+本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板，Python 回归测试为 54 项全部通过。
 
 ## 测试
 

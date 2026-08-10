@@ -18,17 +18,38 @@ def run_sensitivity(
     replicates: int,
     seed: int,
     probabilities: tuple[float, ...],
+    factor: str = "climate_shock_probability",
 ) -> list[dict]:
     base = FamilyScenario.from_json(scenario_path)
     seeds = common_random_seeds(seed, replicates)
     rows: list[dict] = []
+    allowed_factors = {
+        "climate_shock_probability",
+        "historical_hazard_rate",
+        "population_exposure",
+        "recovery_cost",
+    }
+    if factor not in allowed_factors:
+        raise ValueError(f"不支持的环境敏感性因素：{factor}")
     for probability in probabilities:
         metrics = {"population": [], "environmental_stress": [], "fiscal_balance": [], "climate_events": []}
         for random_seed in seeds:
-            countries = tuple(
-                replace(country, climate_shock_probability=probability)
-                for country in base.countries
-            )
+            if factor == "climate_shock_probability":
+                countries = tuple(
+                    replace(country, climate_shock_probability=probability)
+                    for country in base.countries
+                )
+            else:
+                countries = tuple(
+                    replace(
+                        country,
+                        regions=tuple(
+                            replace(region, **{factor: probability})
+                            for region in country.regions
+                        ),
+                    )
+                    for country in base.countries
+                )
             scenario = replace(
                 base,
                 countries=countries,
@@ -42,7 +63,7 @@ def run_sensitivity(
                     metrics[metric].append(float(getattr(row, metric)))
         for metric, values in metrics.items():
             summary = summarize(values).as_dict()
-            rows.append({"shock_probability": probability, "metric": metric, **summary})
+            rows.append({"factor": factor, "factor_value": probability, "metric": metric, **summary})
     return rows
 
 
@@ -53,11 +74,19 @@ def main() -> None:
     parser.add_argument("--replicates", type=int, default=20)
     parser.add_argument("--seed", type=int, default=20260810)
     parser.add_argument("--probabilities", type=float, nargs="+", default=(0.0, 0.01, 0.03, 0.06))
+    parser.add_argument(
+        "--factor",
+        choices=("climate_shock_probability", "historical_hazard_rate", "population_exposure", "recovery_cost"),
+        default="climate_shock_probability",
+    )
     parser.add_argument("--output", type=Path, default=Path("outputs/environment_sensitivity.csv"))
     args = parser.parse_args()
     if args.years < 0 or args.replicates < 1 or any(value < 0 or value > 1 for value in args.probabilities):
         raise SystemExit("years/replicates 或 probabilities 参数无效")
-    rows = run_sensitivity(str(args.scenario), args.years, args.replicates, args.seed, tuple(args.probabilities))
+    rows = run_sensitivity(
+        str(args.scenario), args.years, args.replicates, args.seed,
+        tuple(args.probabilities), args.factor,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", encoding="utf-8-sig", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=list(rows[0]))
@@ -68,4 +97,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -288,16 +288,20 @@ const worldDefaults = {
   'world-tax': 18,
   'world-capacity': 100,
   'technology-growth': 12,
+  'environment-history': 50,
+  'environment-probability': 2,
+  'environment-exposure': 50,
+  'environment-recovery': 20,
   'world-seed': 2026
 };
 
 const regionTemplates = [
-  {id: 'NA', name: '北美', x: .18, y: .34, share: .10, development: .88, wage: 1.35, housing: 1.22, education: .80, fertility: .72, school: .82, medical: .84, transport: .78, safety: .70},
-  {id: 'LA', name: '拉丁美洲', x: .28, y: .69, share: .11, development: .58, wage: .72, housing: .66, education: .60, fertility: .94, school: .58, medical: .52, transport: .55, safety: .48},
-  {id: 'EU', name: '欧洲', x: .48, y: .27, share: .12, development: .86, wage: 1.17, housing: 1.02, education: .84, fertility: .64, school: .88, medical: .90, transport: .86, safety: .82},
-  {id: 'AF', name: '非洲', x: .50, y: .66, share: .22, development: .30, wage: .40, housing: .32, education: .35, fertility: 1.46, school: .32, medical: .28, transport: .30, safety: .36},
-  {id: 'SA', name: '南亚', x: .69, y: .57, share: .22, development: .42, wage: .55, housing: .46, education: .45, fertility: 1.23, school: .42, medical: .38, transport: .40, safety: .44},
-  {id: 'EA', name: '东亚', x: .81, y: .37, share: .23, development: .72, wage: 1.03, housing: 1.12, education: .77, fertility: .73, school: .76, medical: .72, transport: .74, safety: .68}
+  {id: 'NA', name: '北美', x: .18, y: .34, share: .10, development: .88, wage: 1.35, housing: 1.22, education: .80, fertility: .72, school: .82, medical: .84, transport: .78, safety: .70, hazard: .35, exposure: .45, recovery: .18},
+  {id: 'LA', name: '拉丁美洲', x: .28, y: .69, share: .11, development: .58, wage: .72, housing: .66, education: .60, fertility: .94, school: .58, medical: .52, transport: .55, safety: .48, hazard: .62, exposure: .58, recovery: .38},
+  {id: 'EU', name: '欧洲', x: .48, y: .27, share: .12, development: .86, wage: 1.17, housing: 1.02, education: .84, fertility: .64, school: .88, medical: .90, transport: .86, safety: .82, hazard: .30, exposure: .42, recovery: .22},
+  {id: 'AF', name: '非洲', x: .50, y: .66, share: .22, development: .30, wage: .40, housing: .32, education: .35, fertility: 1.46, school: .32, medical: .28, transport: .30, safety: .36, hazard: .76, exposure: .72, recovery: .68},
+  {id: 'SA', name: '南亚', x: .69, y: .57, share: .22, development: .42, wage: .55, housing: .46, education: .45, fertility: 1.23, school: .42, medical: .38, transport: .40, safety: .44, hazard: .70, exposure: .68, recovery: .55},
+  {id: 'EA', name: '东亚', x: .81, y: .37, share: .23, development: .72, wage: 1.03, housing: 1.12, education: .77, fertility: .73, school: .76, medical: .72, transport: .74, safety: .68, hazard: .58, exposure: .62, recovery: .35}
 ];
 
 const worldState = {result: null, selectedRegion: 'EA'};
@@ -328,7 +332,11 @@ function worldParams() {
     housingPressure: raw['world-housing'] / 100, educationEquality: raw['education-equality'] / 100,
     welfare: raw['world-welfare'] / 100, childcare: raw['world-childcare'] / 100,
     volatility: raw['economic-volatility'] / 100, taxRate: raw['world-tax'] / 100,
-    capacityScale: raw['world-capacity'] / 100, technologyGrowth: raw['technology-growth'] / 100
+    capacityScale: raw['world-capacity'] / 100, technologyGrowth: raw['technology-growth'] / 100,
+    environmentHistory: raw['environment-history'] / 100,
+    climateProbability: raw['environment-probability'] / 100,
+    exposure: raw['environment-exposure'] / 100,
+    recoveryCost: raw['environment-recovery'] / 100
   };
 }
 
@@ -344,8 +352,15 @@ function regionConditions(template, params, year) {
   const transport = clamp(template.transport * .70 + .24 * template.development);
   const safety = clamp(template.safety * .72 + .18 * template.development + .10 * params.welfare);
   const service = (school + childcare + medical + transport + safety) / 5;
+  const eventRandom = mulberry32(hashSeed(params.seed + 7001 * year, regionTemplates.indexOf(template) + 31))();
+  const hazardRate = clamp(.5 * template.hazard + .5 * params.environmentHistory);
+  const exposure = clamp(.5 * template.exposure + .5 * params.exposure);
+  const recovery = clamp(.5 * template.recovery + .5 * params.recoveryCost);
+  const event = eventRandom < params.climateProbability * (.5 + hazardRate);
+  const environmentalStress = clamp(.08 + (event ? .20 * (.6 + .8 * exposure) : 0) * (1.1 + recovery));
   return {
     development, education: school, school, childcare, medical, transport, safety, service,
+    hazardRate, exposure, recovery, event, environmentalStress,
     wage: Math.max(.25, wageSpread * (1 + cycle)),
     housing: template.housing * (.55 + .75 * params.housingPressure),
     capacity: Math.max(50, params.initialFamilies * template.share * 3.8 * params.capacityScale * (.55 + .45 * service) / Math.max(.7, template.housing))
@@ -399,6 +414,12 @@ function summarizeWorldYear(families, year, migrations, params) {
     const count = living.filter(family => family.region === template.id).length;
     return sum + count / Math.max(1, conditions.capacity);
   }, 0) / regionTemplates.length;
+  const environmental = regionTemplates.reduce((sum, template) => {
+    const conditions = regionConditions(template, params, year);
+    const count = living.filter(family => family.region === template.id).length;
+    return sum + conditions.environmentalStress * count;
+  }, 0) / Math.max(1, living.length);
+  const climateEvents = regionTemplates.filter(template => regionConditions(template, params, year).event).length;
   return {
     year,
     families: living.length,
@@ -408,7 +429,8 @@ function summarizeWorldYear(families, year, migrations, params) {
     mobility: living.filter(family => family.status >= .72).length / Math.max(1, living.length),
     taxRevenue, publicSpending, fiscalBalance: taxRevenue - publicSpending,
     capacityPressure, technology, automation,
-    laborShortage: clamp(.65 * (1 - living.filter(family => family.adultAge >= 22 && family.adultAge < 65).length / Math.max(1, living.length)) + .35 * automation)
+    laborShortage: clamp(.65 * (1 - living.filter(family => family.adultAge >= 22 && family.adultAge < 65).length / Math.max(1, living.length)) + .35 * automation),
+    environmentalStress: environmental, climateEvents
   };
 }
 
@@ -517,7 +539,7 @@ function simulateWorld(params) {
 }
 
 function updateWorldOutputs() {
-  const percentIds = new Set(['migration-open', 'opportunity-gap', 'world-housing', 'education-equality', 'world-welfare', 'world-childcare', 'economic-volatility']);
+  const percentIds = new Set(['migration-open', 'opportunity-gap', 'world-housing', 'education-equality', 'world-welfare', 'world-childcare', 'economic-volatility', 'world-tax', 'technology-growth', 'environment-history', 'environment-probability', 'environment-exposure', 'environment-recovery']);
   Object.keys(worldDefaults).forEach(id => {
     const output = document.getElementById(`${id}-value`);
     if (!output) return;
@@ -557,7 +579,9 @@ function renderWorldStats() {
     ['平均承载压力', percent(final.capacityPressure)],
     ['技术指数', final.technology.toFixed(2)],
     ['自动化占比', percent(final.automation)],
-    ['劳动短缺压力', percent(final.laborShortage)]
+    ['劳动短缺压力', percent(final.laborShortage)],
+    ['环境压力', percent(final.environmentalStress)],
+    ['气候事件数', numberFormat(final.climateEvents)]
   ].map(([label, value]) => `<div class="region-fact"><span>${label}</span><strong>${value}</strong></div>`).join('');
 }
 
@@ -611,7 +635,9 @@ function timelineMeta(metric) {
     taxRevenue: ['税收收入', '家庭资源形成的简化地区税收。', value => value.toFixed(0)],
     fiscalBalance: ['财政结余', '税收减去教育、医疗和养老支出的简化余额。', value => value.toFixed(0)],
     capacityPressure: ['承载力压力', '人口与地区公共服务、住房和就业容量的比值。', value => percent(value, 0)],
-    technology: ['技术指数', '技术进步提高生产率，同时伴随自动化替代。', value => value.toFixed(2)]
+    technology: ['技术指数', '技术进步提高生产率，同时伴随自动化替代。', value => value.toFixed(2)],
+    environmentalStress: ['环境压力', '地区历史灾害、人口暴露和恢复成本形成的压力。', value => percent(value)],
+    climateEvents: ['气候事件数', '当前年度关系区域中触发的灾害事件数量。', value => numberFormat(Math.round(value))]
   }[metric];
 }
 
@@ -669,7 +695,12 @@ function renderRegionDetail() {
     ['交通可达性', percent(region.transport)],
     ['安全水平', percent(region.safety)],
     ['承载力压力', percent(region.capacityPressure)],
-    ['公共服务综合指数', percent(region.service)]
+    ['公共服务综合指数', percent(region.service)],
+    ['历史灾害频率', percent(region.hazardRate)],
+    ['人口暴露度', percent(region.exposure)],
+    ['恢复成本', percent(region.recovery)],
+    ['当前环境压力', percent(region.environmentalStress)],
+    ['本期灾害事件', region.event ? '是' : '否']
   ];
   document.getElementById('region-detail-title').textContent = `${region.name}为何吸引或流失家庭？`;
   document.getElementById('region-detail-content').innerHTML = facts.map(([label, value]) => `<div class="region-fact"><span>${label}</span><strong>${value}</strong></div>`).join('');

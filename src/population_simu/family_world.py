@@ -145,6 +145,13 @@ class FamilyWorld:
                     "capacity_pressure": round(
                         self._region_capacity_pressure(country, region), 5
                     ),
+                    "historical_hazard_rate": round(region.historical_hazard_rate, 5),
+                    "population_exposure": round(region.population_exposure, 5),
+                    "recovery_cost": round(region.recovery_cost, 5),
+                    "environmental_stress": round(
+                        self._environmental_stress_for(country_id, region.id), 5
+                    ),
+                    "climate_event": int((country_id, region.id) in self._climate_events),
                     "tax_revenue": round(tax_revenue, 4),
                     "public_spending": round(public_spending, 4),
                     "fiscal_balance": round(fiscal_balance, 4),
@@ -252,8 +259,12 @@ class FamilyWorld:
                 self._environmental_stress_for(country.id, person.region_id)
                 for person in people
             )
+            recovery_cost = statistics.fmean(
+                self._region(country.id, person.region_id).recovery_cost
+                for person in people
+            )
             spending += environmental_cost * len(people) * (
-                0.01 + 0.03 * country.resource_constraint
+                0.01 + 0.03 * country.resource_constraint + 0.04 * recovery_cost
             )
         return tax_revenue, spending, tax_revenue - spending
 
@@ -281,12 +292,23 @@ class FamilyWorld:
                 country_id,
                 tuple(region.id for region in self.regions[country_id]),
                 config,
+                hazard_history={
+                    region.id: region.historical_hazard_rate
+                    for region in self.regions[country_id]
+                },
+                population_exposure={
+                    region.id: region.population_exposure
+                    for region in self.regions[country_id]
+                },
             )
             for region in self.regions[country_id]:
                 key = (country_id, region.id)
                 event = events.get(region.id)
                 self._environmental_stress[key] = self._environment.next_stress(
-                    self._environmental_stress.get(key, 0.0), event, config
+                    self._environmental_stress.get(key, 0.0),
+                    event,
+                    config,
+                    region.recovery_cost,
                 )
                 if event is not None:
                     self._climate_events[key] = event
@@ -1991,6 +2013,16 @@ class FamilyWorld:
             climate_events = sum(
                 key[0] == country_id for key in self._climate_events
             )
+            exposure = (
+                statistics.fmean(region.population_exposure for region in self.regions[country_id])
+                if self.regions[country_id]
+                else 0.0
+            )
+            recovery_cost = (
+                statistics.fmean(region.recovery_cost for region in self.regions[country_id])
+                if self.regions[country_id]
+                else 0.0
+            )
             region_pressures = [
                 self._region_capacity_pressure(country, region)
                 for region in self.regions[country_id]
@@ -2141,6 +2173,8 @@ class FamilyWorld:
                     environmental_stress=environmental_stress,
                     climate_events=climate_events,
                     resource_constraint=country.resource_constraint,
+                    population_exposure=exposure,
+                    recovery_cost=recovery_cost,
                 )
             )
         return summaries

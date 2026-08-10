@@ -151,6 +151,8 @@ class FamilyYearStats:
     environmental_stress: float
     climate_events: int
     resource_constraint: float
+    population_exposure: float
+    recovery_cost: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -214,4 +216,6 @@ class FamilyYearStats:
             "environmental_stress": round(self.environmental_stress, 5),
             "climate_events": self.climate_events,
             "resource_constraint": round(self.resource_constraint, 5),
+            "population_exposure": round(self.population_exposure, 5),
+            "recovery_cost": round(self.recovery_cost, 5),
         }

@@ -27,8 +27,20 @@ class EnvironmentTests(unittest.TestCase):
             seed=20260810,
             probabilities=(0.0, 1.0),
         )
-        self.assertEqual({row["shock_probability"] for row in rows}, {0.0, 1.0})
+        self.assertEqual({row["factor_value"] for row in rows}, {0.0, 1.0})
         self.assertTrue(any(row["metric"] == "environmental_stress" for row in rows))
+
+    def test_exposure_sensitivity_accepts_region_factor(self):
+        rows = run_sensitivity(
+            "scenarios/family_major_countries.json",
+            years=1,
+            replicates=1,
+            seed=20260810,
+            probabilities=(0.1, 0.9),
+            factor="population_exposure",
+        )
+        self.assertTrue(rows)
+        self.assertTrue(all(row["factor"] == "population_exposure" for row in rows))
 
 
 if __name__ == "__main__":

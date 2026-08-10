@@ -40,6 +40,9 @@ class EnvironmentalProcess:
         country_id: str,
         region_ids: tuple[str, ...],
         config: EnvironmentalConfig,
+        *,
+        hazard_history: dict[str, float] | None = None,
+        population_exposure: dict[str, float] | None = None,
     ) -> dict[str, ClimateEvent]:
         events: dict[str, ClimateEvent] = {}
         for index, region_id in enumerate(region_ids):
@@ -51,12 +54,21 @@ class EnvironmentalProcess:
                 + 7919 * sum(ord(char) for char in f"{country_id}:{region_id}")
             )
             rng = random.Random(stream_seed)
-            if rng.random() >= max(0.0, min(1.0, config.event_probability)):
+            history_multiplier = 0.5 + 1.0 * max(
+                0.0, min(1.0, (hazard_history or {}).get(region_id, 0.5))
+            )
+            probability = max(0.0, min(1.0, config.event_probability * history_multiplier))
+            if rng.random() >= probability:
                 continue
+            exposure = max(
+                0.0,
+                min(1.0, (population_exposure or {}).get(region_id, 0.5)),
+            )
             severity = max(
                 0.0,
                 min(1.0, config.event_severity * (0.70 + 0.60 * rng.random())),
             )
+            severity = min(1.0, severity * (0.60 + 0.80 * exposure))
             events[region_id] = ClimateEvent(
                 year=year,
                 region_id=region_id,
@@ -70,8 +82,9 @@ class EnvironmentalProcess:
         previous: float,
         event: ClimateEvent | None,
         config: EnvironmentalConfig,
+        recovery_cost: float = 0.0,
     ) -> float:
-        recovery = max(1.0, config.recovery_years)
+        recovery = max(1.0, config.recovery_years * (1.0 + max(0.0, recovery_cost)))
         baseline = max(0.0, min(1.0, config.baseline_pressure))
         decayed = max(0.0, previous - baseline) * (1.0 - 1.0 / recovery)
         shock = event.severity if event is not None else 0.0
