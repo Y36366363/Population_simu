@@ -126,6 +126,11 @@ class Country:
     automation_rate: float = 0.08
     labor_shortage_wage_pressure: float = 0.35
     carrying_capacity_scale: float = 1.0
+    environmental_pressure: float = 0.10
+    climate_shock_probability: float = 0.02
+    climate_shock_severity: float = 0.20
+    climate_recovery_years: float = 5.0
+    resource_constraint: float = 0.10
     regions: tuple[Region, ...] = field(default_factory=tuple)
     policies: tuple[PolicyEra, ...] = field(default_factory=tuple)
 
@@ -238,6 +243,10 @@ class FamilyScenario:
                 "technology_growth",
                 "automation_rate",
                 "labor_shortage_wage_pressure",
+                "environmental_pressure",
+                "climate_shock_probability",
+                "climate_shock_severity",
+                "resource_constraint",
             ):
                 value = getattr(country, name)
                 if not 0 <= value <= 1:
@@ -250,6 +259,8 @@ class FamilyScenario:
                     raise ValueError(f"{country.name} 的 {name} 不能为负数")
             if country.carrying_capacity_scale <= 0:
                 raise ValueError(f"{country.name} 的 carrying_capacity_scale 必须大于 0")
+            if country.climate_recovery_years <= 0:
+                raise ValueError(f"{country.name} 的 climate_recovery_years 必须大于 0")
             if not 18 <= country.fertility_peak_age <= 40:
                 raise ValueError(f"{country.name} 的 fertility_peak_age 必须在 18—40 之间")
             if not 5 <= country.fertility_age_spread <= 30:

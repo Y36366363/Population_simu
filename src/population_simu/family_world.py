@@ -9,6 +9,7 @@ from .capitals import CapitalBundle, sigmoid
 from .family_config import Country, FamilyScenario, Region
 from .family_models import Clan, FamilyBranch, FamilyPerson, FamilyYearStats
 from .hazards import AgeRateProfile, softmax_weights
+from .environment import EnvironmentalConfig, EnvironmentalProcess
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
 
 
@@ -39,6 +40,13 @@ class FamilyWorld:
         self._economic_cycle: dict[str, float] = {country.id: 0.0 for country in scenario.countries}
         self._technology: dict[str, float] = {country.id: 1.0 for country in scenario.countries}
         self._capacity_cache: dict[tuple[int, str, str], float] = {}
+        self._environment = EnvironmentalProcess(scenario.simulation.random_seed + 1_000_003)
+        self._environmental_stress: dict[tuple[str, str], float] = {
+            (country.id, region.id): country.environmental_pressure
+            for country in scenario.countries
+            for region in self.regions[country.id]
+        }
+        self._climate_events: dict[tuple[str, str], object] = {}
         self._unemployment_pressure: dict[str, float] = {
             country.id: country.base_unemployment_rate for country in scenario.countries
         }
@@ -239,10 +247,49 @@ class FamilyWorld:
             + country.health_budget_per_person * len(people) * (1.0 + 0.25 * (1.0 - country.healthcare_access))
             + country.pension_budget_per_retiree * retirees * (0.6 + country.pension_replacement_rate)
         )
+        if people:
+            environmental_cost = statistics.fmean(
+                self._environmental_stress_for(country.id, person.region_id)
+                for person in people
+            )
+            spending += environmental_cost * len(people) * (
+                0.01 + 0.03 * country.resource_constraint
+            )
         return tax_revenue, spending, tax_revenue - spending
 
     def _region(self, country_id: str, region_id: str) -> Region:
         return next(region for region in self.regions[country_id] if region.id == region_id)
+
+    def _environment_config(self, country: Country) -> EnvironmentalConfig:
+        return EnvironmentalConfig(
+            baseline_pressure=country.environmental_pressure,
+            event_probability=country.climate_shock_probability,
+            event_severity=country.climate_shock_severity,
+            recovery_years=country.climate_recovery_years,
+            resource_constraint=country.resource_constraint,
+        )
+
+    def _environmental_stress_for(self, country_id: str, region_id: str) -> float:
+        return self._environmental_stress.get((country_id, region_id), 0.0)
+
+    def _update_environment(self) -> None:
+        self._climate_events = {}
+        for country_id, country in self.countries.items():
+            config = self._environment_config(country)
+            events = self._environment.events_for_year(
+                self.year,
+                country_id,
+                tuple(region.id for region in self.regions[country_id]),
+                config,
+            )
+            for region in self.regions[country_id]:
+                key = (country_id, region.id)
+                event = events.get(region.id)
+                self._environmental_stress[key] = self._environment.next_stress(
+                    self._environmental_stress.get(key, 0.0), event, config
+                )
+                if event is not None:
+                    self._climate_events[key] = event
 
     def _surname(self, country: Country, index: int) -> str:
         if country.id == "CHN":
@@ -483,11 +530,13 @@ class FamilyWorld:
         )
         profile = AgeRateProfile.from_pairs(country.mortality_age_profile)
         base_rate = profile.rate(person.age) if profile else (infant + ageing + accident + 0.0015 * occupation_risk)
+        environmental_stress = self._environmental_stress_for(person.country_id, person.region_id)
         return min(
             0.65,
             base_rate
             * (1.15 - 0.45 * development)
-            * health_multiplier,
+            * health_multiplier
+            * (1.0 + 0.20 * environmental_stress),
         )
 
     def _health_and_care(self) -> None:
@@ -975,6 +1024,12 @@ class FamilyWorld:
             cycle_multiplier = max(0.45, 1 + self._economic_cycle[household.country_id])
             technology_multiplier = 1.0 + 0.12 * (self._technology.get(country.id, 1.0) - 1.0)
             automation = self._automation_share(country)
+            environmental_multiplier = max(
+                0.55,
+                1.0
+                - 0.25 * self._environmental_stress_for(country.id, region.id)
+                - 0.12 * country.resource_constraint,
+            )
             effective_housing_pressure = max(
                 0.05,
                 country.housing_pressure
@@ -1037,6 +1092,7 @@ class FamilyWorld:
                         * cycle_multiplier
                         * technology_multiplier
                         * automation_multiplier
+                        * environmental_multiplier
                         * gender_multiplier
                     )
                 unemployed = sum(person.occupation == "unemployed" for person in adults)
@@ -1507,6 +1563,7 @@ class FamilyWorld:
                     + 0.18 * region.education_quality * min(1, children)
                     + 0.10 * region.service_index
                     - 0.16 * max(0.0, self._region_capacity_pressure(country, region) - 1.0)
+                    - 0.30 * self._environmental_stress_for(country.id, region.id)
                     - 0.28 * region.housing_cost * vulnerability
                 )
 
@@ -1806,6 +1863,7 @@ class FamilyWorld:
     def step(self) -> list[FamilyYearStats]:
         self.year += 1
         self._capacity_cache.clear()
+        self._update_environment()
         self._update_economic_cycle()
         for person in self.living_people:
             person.age += 1
@@ -1922,6 +1980,17 @@ class FamilyWorld:
             ]
             deadline = self._deadline(country)
             tax_revenue, public_spending, fiscal_balance = self._fiscal_metrics(country, people, homes)
+            environmental_stress = (
+                statistics.fmean(
+                    self._environmental_stress_for(country_id, region.id)
+                    for region in self.regions[country_id]
+                )
+                if self.regions[country_id]
+                else 0.0
+            )
+            climate_events = sum(
+                key[0] == country_id for key in self._climate_events
+            )
             region_pressures = [
                 self._region_capacity_pressure(country, region)
                 for region in self.regions[country_id]
@@ -2069,6 +2138,9 @@ class FamilyWorld:
                             + 0.35 * self._automation_share(country),
                         ),
                     ),
+                    environmental_stress=environmental_stress,
+                    climate_events=climate_events,
+                    resource_constraint=country.resource_constraint,
                 )
             )
         return summaries

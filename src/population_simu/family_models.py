@@ -148,6 +148,9 @@ class FamilyYearStats:
     technology_index: float
     automation_share: float
     labor_shortage_index: float
+    environmental_stress: float
+    climate_events: int
+    resource_constraint: float
 
     def flat_dict(self) -> dict[str, int | float | str]:
         return {
@@ -208,4 +211,7 @@ class FamilyYearStats:
             "technology_index": round(self.technology_index, 5),
             "automation_share": round(self.automation_share, 5),
             "labor_shortage_index": round(self.labor_shortage_index, 5),
+            "environmental_stress": round(self.environmental_stress, 5),
+            "climate_events": self.climate_events,
+            "resource_constraint": round(self.resource_constraint, 5),
         }

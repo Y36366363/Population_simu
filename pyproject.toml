@@ -18,6 +18,7 @@ dynasty-experiment = "population_simu.dynasty_experiment:main"
 institution-experiment = "population_simu.institution_experiment:main"
 population-simu-app = "population_simu.local_app:main"
 family-monte-carlo = "population_simu.family_monte_carlo:main"
+environment-sensitivity = "population_simu.environment_experiment:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

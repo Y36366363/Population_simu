@@ -103,6 +103,17 @@ PYTHONPATH=src python3 -m population_simu.family_monte_carlo \
 
 输出包含每个情景/国家/指标的均值、中位数、标准差和 95% 区间。多个情景使用同一组随机种子，适合比较政策差异而不是把随机噪声误当成政策效果。
 
+运行环境冲击单因素敏感性分析：
+
+```bash
+PYTHONPATH=src python3 -m population_simu.environment_experiment \
+  scenarios/family_major_countries.json \
+  --years 30 --replicates 20 --probabilities 0 0.01 0.03 0.06 \
+  --output outputs/environment_sensitivity.csv
+```
+
+环境事件使用独立随机流；改变灾害概率时，共同随机数仍保持家庭、经济周期和其他人口事件的抽样一致。
+
 也可以把福利托底提高、住房压力降低，观察资源分散何时重新获得优势：
 
 ```bash
@@ -201,7 +212,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 
 如果页面没有立即更新，先确认改动已经合并到 `main`，再等待 GitHub Pages 完成发布；浏览器仍显示旧版本时可使用强制刷新。也可以暂时选择 `agent/dynamic-institutions` 分支和 `/docs` 文件夹进行预览，合并后再切回 `main`。
 
-本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政反馈面板，Python 回归测试为 49 项全部通过。
+本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政反馈面板，Python 回归测试为 52 项全部通过。
 
 ## 测试
 
@@ -220,7 +231,7 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 5. 用历史回放、敏感性分析、共同随机数反事实和中位数/置信区间评估政策，而不是比较单次随机曲线。
 6. 继续补充税收、养老金缴费池、医疗融资、托育容量和人口反馈，并让网页展示校准误差和不确定性。
 7. 将五维公共服务接入真实地区面板数据，估计滞后效应和异质性。
-8. 继续把社会网络、环境压力和气候灾害做成可插拔模块；先输出压力指标，再把它们接入迁移、生育和财政反馈。
+8. 使用灾害历史和地区暴露数据校准环境模块，并继续扩展资源约束与恢复成本。
 
 ## 代码结构
 
