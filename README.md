@@ -42,6 +42,7 @@ https://Y36366363.github.io/Population_simu/
 - 婚姻、出生、迁移和离婚使用 hazard→年度事件概率转换；家庭分支记录出生间隔和迁移间隔。
 - 地区迁移网络和家庭社会网络分别由 `RegionMigrationNetwork` 与 `FamilySocialNetwork` 管理。
 - `calibration` 提供按年份/实体分组的历史回放、加权目标函数、可复现网格搜索和随机搜索；它只搜索参数，不把拟合优度误当成政策因果效果。
+- `temporal_split()` 和 `evaluate_parameters()` 支持按时间留出验证期；校准参数应只在训练期搜索，再在未来年份报告外推误差。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -260,6 +261,11 @@ print(results[0])  # 最佳参数、目标值和各国误差
 网格搜索适合少量可解释参数；参数较多时使用同模块的 `random_search`
 （固定 `seed` 可复现）。下一步可在保持同一 `Simulator` 契约的前提下接入
 SciPy 或 Bayesian optimizer，而不改变历史回放和误差定义。
+
+建议的最小验证流程是：按国家分组调用 `temporal_split(..., group="entity")`，
+只用训练集调用 `grid_search`/`random_search`，再把最佳参数交给
+`evaluate_parameters` 评估验证集。这样可以发现“参数只记住历史、无法外推”
+的情况。
 
 ## 代码结构
 

@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import csv
+import math
 from pathlib import Path
 from itertools import product
 from random import Random
@@ -22,18 +23,84 @@ Simulator = Callable[[ParameterSet], Iterable[Mapping[str, object]]]
 def load_observed_csv(path: str | Path) -> list[dict[str, float | int | str]]:
     with Path(path).open(encoding="utf-8-sig", newline="") as file:
         rows = []
-        for row in csv.DictReader(file):
+        reader = csv.DictReader(file)
+        if not reader.fieldnames or "year" not in reader.fieldnames:
+            raise ValueError("观测 CSV 必须包含 year 列")
+        for line_number, row in enumerate(reader, start=2):
             parsed: dict[str, float | int | str] = dict(row)
-            if "year" in row:
+            try:
                 parsed["year"] = int(row["year"])
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"第 {line_number} 行 year 不是整数") from exc
             for key, value in row.items():
                 if key != "year" and value not in (None, ""):
                     try:
-                        parsed[key] = float(value)
+                        number = float(value)
+                        if not math.isfinite(number):
+                            raise ValueError
+                        parsed[key] = number
                     except ValueError:
                         pass
             rows.append(parsed)
         return rows
+
+
+def temporal_split(
+    rows: Iterable[Mapping[str, object]],
+    *,
+    validation_fraction: float = 0.2,
+    group: str | None = None,
+    min_train_years: int = 3,
+) -> tuple[list[Mapping[str, object]], list[Mapping[str, object]]]:
+    """按时间切分训练/验证期，防止用未来数据挑参数。
+
+    多实体数据按各实体的年份共同切分；若实体年份不齐，仍保持每个实体
+    至少 ``min_train_years`` 个训练年份。
+    """
+    if not 0 < validation_fraction < 1:
+        raise ValueError("validation_fraction 必须在 0 和 1 之间")
+    if min_train_years < 1:
+        raise ValueError("min_train_years 必须为正数")
+    source = list(rows)
+    groups: dict[str, list[Mapping[str, object]]] = {}
+    for row in source:
+        name = str(row.get(group, "all")) if group else "all"
+        groups.setdefault(name, []).append(row)
+    train: list[Mapping[str, object]] = []
+    validation: list[Mapping[str, object]] = []
+    for group_rows in groups.values():
+        years = sorted({int(row["year"]) for row in group_rows if "year" in row})
+        if len(years) <= min_train_years:
+            raise ValueError("每个实体的年份不足以进行训练/验证切分")
+        holdout = max(1, math.ceil(len(years) * validation_fraction))
+        cutoff = years[-holdout]
+        if sum(year < cutoff for year in years) < min_train_years:
+            cutoff = years[min_train_years]
+        train.extend(row for row in group_rows if int(row["year"]) < cutoff)
+        validation.extend(row for row in group_rows if int(row["year"]) >= cutoff)
+    return train, validation
+
+
+def evaluate_parameters(
+    observed_rows: Iterable[Mapping[str, object]],
+    parameters: ParameterSet,
+    simulate: Simulator,
+    *,
+    metrics: tuple[str, ...] = ("population", "births", "deaths"),
+    weights: Mapping[str, float] | None = None,
+    objective_metric: str = "rmse",
+    group: str | None = None,
+) -> dict[str, object]:
+    """在未参与搜索的观测期评估一组参数，返回可序列化报告。"""
+    observed = list(observed_rows)
+    simulated = list(simulate(parameters))
+    errors = (replay_errors_by_group(observed, simulated, group=group, metrics=metrics)
+              if group else replay_errors(observed, simulated, metrics))
+    return {
+        "parameters": dict(parameters),
+        "objective": _objective_for_errors(errors, weights, objective_metric),
+        "errors": errors,
+    }
 
 
 def replay_errors(
@@ -42,6 +109,8 @@ def replay_errors(
     metrics: tuple[str, ...] = ("population", "births", "deaths"),
 ) -> dict[str, dict[str, float]]:
     observed = list(observed_rows)
+    if not parameter_grid or any(not values for values in parameter_grid.values()):
+        raise ValueError("parameter_grid 及其每个候选值列表都不能为空")
     simulated = list(simulated_rows)
     result: dict[str, dict[str, float]] = {}
     for metric in metrics:
@@ -156,6 +225,11 @@ def random_search(
         raise ValueError("trials 必须为正数")
     observed = list(observed_rows)
     rng = Random(seed)
+    if not bounds:
+        raise ValueError("bounds 不能为空")
+    for name, (low, high) in bounds.items():
+        if not math.isfinite(float(low)) or not math.isfinite(float(high)) or low > high:
+            raise ValueError(f"参数 {name} 的边界无效")
     candidates: list[dict[str, object]] = []
     for _ in range(trials):
         parameters = {
