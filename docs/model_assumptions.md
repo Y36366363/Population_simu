@@ -147,6 +147,17 @@ OECD 的跨国研究认为，父母教育、收入和职业与子代结果存在
 - `RegionMigrationNetwork` 只处理地区可达性和矩阵边权，`FamilySocialNetwork` 只处理亲属、邻居和同事关系，二者不共享决策状态。
 - `calibration.replay_errors()` 按年份对齐观测与模拟，输出 MAE、RMSE、Bias、MAPE；它是校准入口，不是自动优化器。
 
+## v14 真实观测快照与参数搜索
+
+- `data/observed/owid_demography_sample.csv` 固定保存中国、印度、日本和美国
+  1950—2023 年的 OWID/UN WPP 人口、粗出生率、粗死亡率和总和生育率；出生、
+  死亡数量由人口与粗率推导，不能与独立登记数据重复加权。
+- `replay_errors_by_group()` 按 `entity`（或其他分组列）分别对齐年度，避免
+  多国数据在同一年份被字典覆盖；`grid_search()` 与 `random_search()` 复用
+  同一个 `simulate(parameters)` 契约，后者固定 seed 后可复现。
+- 搜索结果是拟合优度，不等于因果识别。正式研究应先留出验证年份，报告参数
+  不确定性和跨国异质性，再把校准后的参数用于共同随机数政策反事实。
+
 ## 中国政策开关
 
 | 时期 | 模型标签 | 当前实现 |

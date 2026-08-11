@@ -41,7 +41,7 @@ https://Y36366363.github.io/Population_simu/
 - 财政现在维护政府基金余额，并记录年度赤字和地区间转移支付，而不只输出一次性收支差额。
 - 婚姻、出生、迁移和离婚使用 hazard→年度事件概率转换；家庭分支记录出生间隔和迁移间隔。
 - 地区迁移网络和家庭社会网络分别由 `RegionMigrationNetwork` 与 `FamilySocialNetwork` 管理。
-- `calibration.replay_errors()` 提供按年份对齐的历史回放误差，不自动修改参数，避免把校准误差误当成政策效果。
+- `calibration` 提供按年份/实体分组的历史回放、加权目标函数、可复现网格搜索和随机搜索；它只搜索参数，不把拟合优度误当成政策因果效果。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -219,7 +219,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 
 如果页面没有立即更新，先确认改动已经合并到 `main`，再等待 GitHub Pages 完成发布；浏览器仍显示旧版本时可使用强制刷新。也可以暂时选择 `agent/dynamic-institutions` 分支和 `/docs` 文件夹进行预览，合并后再切回 `main`。
 
-本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板，Python 回归测试为 58 项全部通过。
+本次网页改动已在本地应用中验证：默认世界视图、Python 年度时间线、国家/地区/政策对比、CSV 下载、迁徙开放度开关和家庭资源子命题均可用；网页新增人口—公共服务—迁移—财政—环境反馈面板。仓库还附有 `data/observed/` 的真实观测快照，可直接用于校准测试。
 
 ## 测试
 
@@ -231,7 +231,7 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 
 ## 下一步路线
 
-1. 用联合国 WPP、生命表、人口普查、DHS/MICS/IPUMS 等数据校准年龄别生育率、死亡率、迁移年龄结构和地区人口基线。
+1. 用仓库 `data/observed/` 的 OWID/UN WPP 快照验证管线，再用生命表、人口普查、DHS/MICS/IPUMS 等更细数据校准年龄别生育率、死亡率、迁移年龄结构和地区人口基线。
 2. 把婚姻、就业、生育和迁移完全拆成可替换的 hazard/logit 模块，并保留默认示意模型。
 3. 用真实省级或城市—乡村迁移矩阵替代默认地区效用，加入迁移网络、住房约束和家庭成员生命周期。
 4. 将同一区域的生育规范从“平均子女数”升级为可配置社会网络，区分邻居、亲属、同事和媒体影响。
@@ -239,6 +239,27 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 6. 继续补充税收、养老金缴费池、医疗融资、托育容量和人口反馈，并让网页展示校准误差和不确定性。
 7. 将五维公共服务接入真实地区面板数据，估计滞后效应和异质性。
 8. 使用灾害历史和地区暴露数据校准环境模块，并继续扩展资源约束与恢复成本。
+
+### 观测 CSV 与参数搜索快速示例
+
+`data/observed/owid_demography_sample.csv` 是四国 1950—2023 年的固定快照，
+含人口、粗出生率、粗死亡率、总和生育率及由率推导的出生/死亡数量。校准
+接口不绑定具体引擎，可把任意模拟器包装成 `simulate(parameters)`：
+
+```python
+from population_simu.calibration import load_observed_csv, grid_search
+
+observed = load_observed_csv("data/observed/owid_demography_sample.csv")
+results = grid_search(
+    observed, {"fertility_scale": [0.8, 1.0, 1.2]}, simulate,
+    metrics=("population",), group="entity",
+)
+print(results[0])  # 最佳参数、目标值和各国误差
+```
+
+网格搜索适合少量可解释参数；参数较多时使用同模块的 `random_search`
+（固定 `seed` 可复现）。下一步可在保持同一 `Simulator` 契约的前提下接入
+SciPy 或 Bayesian optimizer，而不改变历史回放和误差定义。
 
 ## 代码结构
 
@@ -256,6 +277,7 @@ src/population_simu/
   monte_carlo.py          # 共同随机数、区间和敏感性汇总
   family_monte_carlo.py   # 家庭情景批量比较 CLI
   validation.py           # 历史回放误差指标
+  calibration.py          # 观测 CSV、分组回放、参数网格和随机搜索
   family_cli.py          # 家族模型命令行与年度/家族输出
   resource_experiment.py # 固定资源的一孩/二孩/三孩实验
   capitals.py             # 九维家庭资本与承载力
