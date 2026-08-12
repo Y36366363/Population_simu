@@ -5,6 +5,9 @@ from population_simu.calibration import (
     random_search,
     temporal_split,
     evaluate_parameters,
+    rolling_origin_splits,
+    leave_one_group_out,
+    interval_metrics,
     replay_errors,
     replay_errors_by_group,
 )
@@ -86,6 +89,28 @@ class CalibrationTests(unittest.TestCase):
             metrics=("population",),
         )
         self.assertEqual(result["objective"], 1)
+
+    def test_rolling_origin_uses_only_past_years(self):
+        rows = [{"year": year, "population": year} for year in range(2000, 2008)]
+        folds = rolling_origin_splits(rows, initial_train_years=3, horizon=2)
+        self.assertEqual(len(folds), 3)
+        self.assertLess(max(r["year"] for r in folds[0][0]), min(r["year"] for r in folds[0][1]))
+        self.assertEqual([r["year"] for r in folds[-1][1]], [2005, 2006])
+
+    def test_leave_one_group_out_reports_each_entity(self):
+        rows = [{"entity": entity, "year": 2000, "population": value}
+                for entity, value in (("A", 10), ("B", 20))]
+        results = leave_one_group_out(
+            rows, lambda train: {"offset": 0},
+            lambda params: rows, metrics=("population",), group="entity")
+        self.assertEqual([row["held_out"] for row in results], ["A", "B"])
+
+    def test_interval_metrics_reports_coverage_and_width(self):
+        observed = [{"year": 2000, "population": 10}]
+        replicas = [[{"year": 2000, "population": value}] for value in (8, 9, 10, 11, 12)]
+        result = interval_metrics(observed, replicas, metrics=("population",))
+        self.assertEqual(result["population"]["coverage"], 1.0)
+        self.assertGreater(result["population"]["mean_interval_width"], 0)
 
 
 if __name__ == "__main__":

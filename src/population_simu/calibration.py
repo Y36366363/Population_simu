@@ -18,6 +18,7 @@ from .validation import series_error
 
 ParameterSet = Mapping[str, float]
 Simulator = Callable[[ParameterSet], Iterable[Mapping[str, object]]]
+Fitter = Callable[[Iterable[Mapping[str, object]]], ParameterSet]
 
 
 def load_observed_csv(path: str | Path) -> list[dict[str, float | int | str]]:
@@ -81,6 +82,128 @@ def temporal_split(
     return train, validation
 
 
+def rolling_origin_splits(
+    rows: Iterable[Mapping[str, object]],
+    *,
+    initial_train_years: int,
+    horizon: int = 1,
+    step: int = 1,
+    group: str | None = None,
+) -> list[tuple[list[Mapping[str, object]], list[Mapping[str, object]]]]:
+    """生成 expanding-window 回测折叠。
+
+    每一折只使用 cutoff 之前的数据训练，并预测紧随其后的 ``horizon`` 年；
+    这是人口预测中比随机打乱更合适的时间序列交叉验证方式。
+    """
+    if initial_train_years < 1 or horizon < 1 or step < 1:
+        raise ValueError("initial_train_years、horizon 和 step 必须为正数")
+    source = list(rows)
+    groups: dict[str, list[Mapping[str, object]]] = {}
+    for row in source:
+        name = str(row.get(group, "all")) if group else "all"
+        groups.setdefault(name, []).append(row)
+    common_years = sorted(set.intersection(*[
+        {int(row["year"]) for row in group_rows if "year" in row}
+        for group_rows in groups.values()
+    ])) if groups else []
+    folds: list[tuple[list[Mapping[str, object]], list[Mapping[str, object]]]] = []
+    index = initial_train_years
+    while index + horizon < len(common_years):
+        cutoff = common_years[index]
+        end = common_years[index + horizon]
+        train = [row for row in source if int(row["year"]) < cutoff]
+        validation = [row for row in source if cutoff <= int(row["year"]) < end]
+        if train and validation:
+            folds.append((train, validation))
+        index += step
+    if not folds:
+        raise ValueError("年份不足以生成 rolling-origin 折叠")
+    return folds
+
+
+def leave_one_group_out(
+    observed_rows: Iterable[Mapping[str, object]],
+    fit: Fitter,
+    simulate: Simulator,
+    *,
+    group: str = "entity",
+    metrics: tuple[str, ...] = ("population", "births", "deaths"),
+    weights: Mapping[str, float] | None = None,
+    objective_metric: str = "rmse",
+) -> list[dict[str, object]]:
+    """跨实体留一验证：用其他国家拟合，再单独评估被留出的国家。"""
+    source = list(observed_rows)
+    names = sorted({str(row.get(group, "all")) for row in source})
+    if len(names) < 2:
+        raise ValueError("留一验证至少需要两个实体")
+    results: list[dict[str, object]] = []
+    for held_out in names:
+        train = [row for row in source if str(row.get(group, "all")) != held_out]
+        test = [row for row in source if str(row.get(group, "all")) == held_out]
+        parameters = dict(fit(train))
+        simulated = list(simulate(parameters))
+        errors = replay_errors_by_group(test, simulated, group=group, metrics=metrics)
+        results.append({
+            "held_out": held_out,
+            "parameters": parameters,
+            "objective": _objective_for_errors(errors, weights, objective_metric),
+            "errors": errors,
+        })
+    return results
+
+
+def interval_metrics(
+    observed_rows: Iterable[Mapping[str, object]],
+    simulated_replicates: Iterable[Iterable[Mapping[str, object]]],
+    *,
+    metrics: tuple[str, ...] = ("population",),
+    group: str | None = None,
+    lower: float = 0.1,
+    upper: float = 0.9,
+) -> dict[str, dict[str, float | int]]:
+    """评估 Monte Carlo 区间的覆盖率与平均宽度（校准与 sharpness）。"""
+    if not 0 <= lower < upper <= 1:
+        raise ValueError("区间分位数必须满足 0 <= lower < upper <= 1")
+    observed = list(observed_rows)
+    replicates = [list(replica) for replica in simulated_replicates]
+    if not replicates:
+        raise ValueError("至少需要一个模拟重复")
+    keys = [(str(row.get(group, "all")) if group else "all", int(row["year"]))
+            for row in observed if "year" in row]
+    result: dict[str, dict[str, float | int]] = {}
+    for metric in metrics:
+        hits = 0
+        widths: list[float] = []
+        used = 0
+        for key, observed_row in zip(keys, [row for row in observed if "year" in row]):
+            if metric not in observed_row:
+                continue
+            values = []
+            for replica in replicates:
+                for row in replica:
+                    row_key = (str(row.get(group, "all")) if group else "all", int(row["year"]))
+                    if row_key == key and metric in row:
+                        values.append(float(row[metric]))
+                        break
+            if not values:
+                continue
+            values.sort()
+            lo = values[min(len(values) - 1, int(lower * len(values)))]
+            hi = values[min(len(values) - 1, max(0, math.ceil(upper * len(values)) - 1))]
+            actual = float(observed_row[metric])
+            hits += int(lo <= actual <= hi)
+            widths.append(hi - lo)
+            used += 1
+        if not used:
+            raise ValueError(f"指标 {metric} 没有可比较的观测")
+        result[metric] = {
+            "n": used,
+            "coverage": hits / used,
+            "mean_interval_width": sum(widths) / len(widths),
+        }
+    return result
+
+
 def evaluate_parameters(
     observed_rows: Iterable[Mapping[str, object]],
     parameters: ParameterSet,
@@ -109,8 +232,6 @@ def replay_errors(
     metrics: tuple[str, ...] = ("population", "births", "deaths"),
 ) -> dict[str, dict[str, float]]:
     observed = list(observed_rows)
-    if not parameter_grid or any(not values for values in parameter_grid.values()):
-        raise ValueError("parameter_grid 及其每个候选值列表都不能为空")
     simulated = list(simulated_rows)
     result: dict[str, dict[str, float]] = {}
     for metric in metrics:
@@ -193,6 +314,8 @@ def grid_search(
 ) -> list[dict[str, object]]:
     """穷举参数网格，返回按目标值升序排列的候选结果。"""
     observed = list(observed_rows)
+    if not parameter_grid or any(not values for values in parameter_grid.values()):
+        raise ValueError("parameter_grid 及其每个候选值列表都不能为空")
     names = list(parameter_grid)
     candidates: list[dict[str, object]] = []
     for values in product(*(parameter_grid[name] for name in names)):

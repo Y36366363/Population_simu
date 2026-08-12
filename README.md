@@ -43,6 +43,7 @@ https://Y36366363.github.io/Population_simu/
 - 地区迁移网络和家庭社会网络分别由 `RegionMigrationNetwork` 与 `FamilySocialNetwork` 管理。
 - `calibration` 提供按年份/实体分组的历史回放、加权目标函数、可复现网格搜索和随机搜索；它只搜索参数，不把拟合优度误当成政策因果效果。
 - `temporal_split()` 和 `evaluate_parameters()` 支持按时间留出验证期；校准参数应只在训练期搜索，再在未来年份报告外推误差。
+- `rolling_origin_splits()` 提供 expanding-window 滚动回测，`leave_one_group_out()` 提供跨国家留一验证；Monte Carlo 结果还可用 `interval_metrics()` 检查区间覆盖率和平均宽度。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -266,6 +267,11 @@ SciPy 或 Bayesian optimizer，而不改变历史回放和误差定义。
 只用训练集调用 `grid_search`/`random_search`，再把最佳参数交给
 `evaluate_parameters` 评估验证集。这样可以发现“参数只记住历史、无法外推”
 的情况。
+
+对于更严格的横向测试，再报告三类结果：滚动回测的平均误差、留一国家后的
+外推误差，以及 Monte Carlo 区间的覆盖率/宽度。覆盖率接近名义水平并不代表
+模型正确，但覆盖率明显偏低说明不确定性被低估；区间过宽则说明模型虽安全但
+缺乏辨别力。
 
 ## 代码结构
 
