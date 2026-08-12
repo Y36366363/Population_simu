@@ -21,6 +21,76 @@ Simulator = Callable[[ParameterSet], Iterable[Mapping[str, object]]]
 Fitter = Callable[[Iterable[Mapping[str, object]]], ParameterSet]
 
 
+def empirical_crps(observed: float, samples: Iterable[float]) -> float:
+    """经验预测分布的 CRPS（样本版）。数值越低越好。"""
+    values = [float(value) for value in samples]
+    if not values:
+        raise ValueError("CRPS 至少需要一个预测样本")
+    first = sum(abs(value - float(observed)) for value in values) / len(values)
+    pairwise = sum(abs(left - right) for left in values for right in values) / (len(values) ** 2)
+    return first - 0.5 * pairwise
+
+
+def crps_metrics(
+    observed_rows: Iterable[Mapping[str, object]],
+    simulated_replicates: Iterable[Iterable[Mapping[str, object]]],
+    *,
+    metrics: tuple[str, ...] = ("population",),
+    group: str | None = None,
+) -> dict[str, dict[str, float | int]]:
+    """按年度/实体计算经验 CRPS，并返回均值和样本数。"""
+    observed = list(observed_rows)
+    replicates = [list(replica) for replica in simulated_replicates]
+    if not replicates:
+        raise ValueError("至少需要一个模拟重复")
+    result: dict[str, dict[str, float | int]] = {}
+    for metric in metrics:
+        scores: list[float] = []
+        for observed_row in observed:
+            if "year" not in observed_row or metric not in observed_row:
+                continue
+            key = (str(observed_row.get(group, "all")) if group else "all", int(observed_row["year"]))
+            samples = []
+            for replica in replicates:
+                for row in replica:
+                    row_key = (str(row.get(group, "all")) if group else "all", int(row["year"]))
+                    if row_key == key and metric in row:
+                        samples.append(float(row[metric]))
+                        break
+            if samples:
+                scores.append(empirical_crps(float(observed_row[metric]), samples))
+        if not scores:
+            raise ValueError(f"指标 {metric} 没有可比较的预测样本")
+        result[metric] = {"n": len(scores), "mean_crps": sum(scores) / len(scores)}
+    return result
+
+
+def stratified_interval_metrics(
+    observed_rows: Iterable[Mapping[str, object]],
+    simulated_replicates: Iterable[Iterable[Mapping[str, object]]],
+    *,
+    strata: tuple[str, ...] = ("entity",),
+    metrics: tuple[str, ...] = ("population",),
+    lower: float = 0.1,
+    upper: float = 0.9,
+) -> dict[str, dict[str, dict[str, float | int]]]:
+    """按国家、年份段等字段分层报告覆盖率与区间宽度。"""
+    observed = list(observed_rows)
+    replicates = [list(replica) for replica in simulated_replicates]
+    if not strata:
+        raise ValueError("至少需要一个分层字段")
+    groups: dict[tuple[str, ...], list[Mapping[str, object]]] = {}
+    for row in observed:
+        key = tuple(str(row.get(field, "")) for field in strata)
+        groups.setdefault(key, []).append(row)
+    result: dict[str, dict[str, dict[str, float | int]]] = {}
+    for key, rows in groups.items():
+        label = "|".join(key)
+        result[label] = interval_metrics(rows, replicates, metrics=metrics,
+                                         lower=lower, upper=upper)
+    return result
+
+
 def load_observed_csv(path: str | Path) -> list[dict[str, float | int | str]]:
     with Path(path).open(encoding="utf-8-sig", newline="") as file:
         rows = []

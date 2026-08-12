@@ -1,5 +1,7 @@
 import unittest
 
+from population_simu.benchmarks import compare_models, fixed_trend_runner, wpp_style_runner
+
 from population_simu.calibration import (
     grid_search,
     random_search,
@@ -8,6 +10,9 @@ from population_simu.calibration import (
     rolling_origin_splits,
     leave_one_group_out,
     interval_metrics,
+    empirical_crps,
+    crps_metrics,
+    stratified_interval_metrics,
     replay_errors,
     replay_errors_by_group,
 )
@@ -111,6 +116,31 @@ class CalibrationTests(unittest.TestCase):
         result = interval_metrics(observed, replicas, metrics=("population",))
         self.assertEqual(result["population"]["coverage"], 1.0)
         self.assertGreater(result["population"]["mean_interval_width"], 0)
+
+    def test_empirical_crps_is_zero_for_perfect_point_samples(self):
+        self.assertEqual(empirical_crps(10, [10, 10, 10]), 0.0)
+
+    def test_crps_and_stratified_intervals(self):
+        observed = [{"entity": "A", "year": 2000, "population": 10}]
+        replicas = [[{"entity": "A", "year": 2000, "population": value}]
+                    for value in (9, 10, 11)]
+        self.assertAlmostEqual(crps_metrics(observed, replicas,
+                                            metrics=("population",), group="entity")
+                               ["population"]["mean_crps"], 2 / 9)
+        result = stratified_interval_metrics(observed, replicas, strata=("entity",),
+                                             metrics=("population",))
+        self.assertIn("A", result)
+
+    def test_baseline_models_can_be_compared(self):
+        observed = [{"entity": "A", "year": year, "population": 100 + 2 * (year - 2000)}
+                    for year in range(2000, 2006)]
+        result = compare_models(
+            observed,
+            {"fixed_trend": fixed_trend_runner(), "wpp_style": wpp_style_runner()},
+            train_years=4, horizon=2, metric="population", replicates=2,
+        )
+        self.assertEqual(set(result), {"fixed_trend", "wpp_style"})
+        self.assertIn("mean_crps", result["fixed_trend"]["crps"]["population"])
 
 
 if __name__ == "__main__":

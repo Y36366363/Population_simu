@@ -177,6 +177,19 @@ OECD 的跨国研究认为，父母教育、收入和职业与子代结果存在
   和 sharpness。概率预测研究通常建议同时报告两者，而不能只看点预测 MAE；
   这与概率预测和人口预测文献中的 proper scoring / calibration-sharpness 思路一致。
 
+## v17 概率评分与模型基准
+
+- `empirical_crps()` 使用样本形式的 CRPS：
+  `平均|样本-观测| - 0.5×平均|样本-样本'|`。它对概率分布是 proper score，
+  对单点预测退化为绝对误差，因此可以公平比较确定性基准和 Monte Carlo 模型。
+- `stratified_interval_metrics()` 按实体或其他字段分层输出覆盖率，防止大国的
+  年份数量掩盖小国、低生育国家或特定政策阶段的失配。
+- `benchmarks.compare_models()` 在同一训练/预测窗口内比较多个 runner。固定趋势
+  基准用于检验模型是否至少胜过朴素外推；`wpp_style_runner` 只是阻尼趋势占位，
+  不是 UN WPP 实现。接入真实年龄—性别 cohort-component runner 后无需改评估层。
+- 交叉验证报告应同时包含点误差、CRPS、覆盖率和区间宽度；单独追求最低 MAE
+  可能选择过度自信的模型，单独追求覆盖率又可能选择极宽、没有信息量的区间。
+
 ## 中国政策开关
 
 | 时期 | 模型标签 | 当前实现 |

@@ -44,6 +44,8 @@ https://Y36366363.github.io/Population_simu/
 - `calibration` 提供按年份/实体分组的历史回放、加权目标函数、可复现网格搜索和随机搜索；它只搜索参数，不把拟合优度误当成政策因果效果。
 - `temporal_split()` 和 `evaluate_parameters()` 支持按时间留出验证期；校准参数应只在训练期搜索，再在未来年份报告外推误差。
 - `rolling_origin_splits()` 提供 expanding-window 滚动回测，`leave_one_group_out()` 提供跨国家留一验证；Monte Carlo 结果还可用 `interval_metrics()` 检查区间覆盖率和平均宽度。
+- `empirical_crps()`/`crps_metrics()` 用多次 Monte Carlo 样本评估概率预测；`stratified_interval_metrics()` 可按国家等维度分层检查覆盖率。
+- `benchmarks.compare_models()` 提供统一的模型横向比较接口，仓库内附有透明的固定趋势和阻尼趋势（WPP 风格占位）基准；完整家庭微观模型和年龄—性别 cohort-component 模型可通过 runner 接入。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -273,6 +275,23 @@ SciPy 或 Bayesian optimizer，而不改变历史回放和误差定义。
 模型正确，但覆盖率明显偏低说明不确定性被低估；区间过宽则说明模型虽安全但
 缺乏辨别力。
 
+模型比较示例：
+
+```python
+from population_simu.benchmarks import compare_models, fixed_trend_runner, wpp_style_runner
+
+report = compare_models(
+    observed, {"fixed_trend": fixed_trend_runner(),
+               "wpp_style": wpp_style_runner(),
+               "family_micro": family_runner},
+    train_years=40, horizon=10, replicates=50,
+)
+```
+
+这里的 `wpp_style_runner` 是接入真实年龄—性别矩阵前的阻尼趋势基准，不能
+冒充联合国 WPP。正式年龄结构模型应由年龄别生育率、死亡率和迁移率推进，
+再使用同一 `compare_models` 报告 CRPS、点误差和分层覆盖率。
+
 ## 代码结构
 
 ```text
@@ -290,6 +309,7 @@ src/population_simu/
   family_monte_carlo.py   # 家庭情景批量比较 CLI
   validation.py           # 历史回放误差指标
   calibration.py          # 观测 CSV、分组回放、参数网格和随机搜索
+  benchmarks.py           # 固定趋势/WPP风格基准与模型横向比较
   family_cli.py          # 家族模型命令行与年度/家族输出
   resource_experiment.py # 固定资源的一孩/二孩/三孩实验
   capitals.py             # 九维家庭资本与承载力
