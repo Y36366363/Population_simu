@@ -68,6 +68,28 @@ def _bootstrap_mean(values: list[float], seed: int, draws: int = 2000) -> dict[s
     }
 
 
+def _validate_forecast_coverage(
+    observed: list[Mapping[str, object]],
+    forecast: list[Mapping[str, object]],
+    metric: str,
+) -> None:
+    """确保模型没有静默漏掉实体/年份，避免误差只在容易预测的子集上计算。"""
+    expected = {(str(row.get("entity", "all")), int(row["year"]))
+               for row in observed if "year" in row and metric in row}
+    actual = {(str(row.get("entity", "all")), int(row["year"]))
+              for row in forecast if "year" in row and metric in row}
+    duplicates = len(actual) != sum(
+        1 for row in forecast if "year" in row and metric in row
+    )
+    missing = expected - actual
+    if duplicates or missing or actual != expected:
+        preview = sorted(missing)[:3]
+        raise ValueError(
+            f"模型 {metric} 预测覆盖不完整：missing={preview}, "
+            f"expected={len(expected)}, actual={len(actual)}"
+        )
+
+
 def fixed_trend_runner(metric: str = "population") -> Runner:
     """固定趋势基准：按实体最近两点的线性增量外推。"""
     def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
@@ -138,6 +160,8 @@ def compare_models(
     result: dict[str, dict[str, object]] = {}
     for name, runner in models.items():
         samples = [list(runner(train, forecast_years, seed + index)) for index in range(replicates)]
+        for sample in samples:
+            _validate_forecast_coverage(test, sample, metric)
         point = _median_forecast(samples, metric)
         errors = replay_errors_by_group(test, point, group="entity", metrics=(metric,))
         entry: dict[str, object] = {
@@ -184,6 +208,8 @@ def compare_models_rolling(
             # 每个模型共享同一组 replicate seeds；不同折叠使用不重叠的偏移。
             samples = [list(runner(train, years, seed + fold_index * replicates + index))
                        for index in range(replicates)]
+            for sample in samples:
+                _validate_forecast_coverage(test, sample, metric)
             point = _median_forecast(samples, metric)
             errors = replay_errors_by_group(test, point, group="entity", metrics=(metric,))
             crps = crps_metrics(test, samples, metrics=(metric,), group="entity")[metric]["mean_crps"]
@@ -204,6 +230,7 @@ def compare_models_rolling(
                 "mape": _bootstrap_mean(mape, seed + 11, bootstrap_draws),
                 "rmse": _bootstrap_mean(rmse, seed + 17, bootstrap_draws),
                 "crps": _bootstrap_mean(crps, seed + 23, bootstrap_draws),
+                "n_folds": len(scores),
             },
         }
     if baseline is not None:
@@ -220,4 +247,8 @@ def compare_models_rolling(
                 "mean_delta": sum(deltas) / len(deltas),
                 "delta_95": _bootstrap_mean(deltas, seed + 31, bootstrap_draws),
             }
+            relative = [(-delta / base) if abs(base) > 1e-12 else 0.0
+                        for delta, base in zip(deltas, baseline_mape)]
+            result[name]["vs_baseline"]["relative_improvement"] = _bootstrap_mean(
+                relative, seed + 37, bootstrap_draws)
     return result

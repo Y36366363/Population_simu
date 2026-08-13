@@ -161,7 +161,19 @@ class CalibrationTests(unittest.TestCase):
         )
         self.assertIn("lower_95", result["fixed"]["summary"]["mape"])
         self.assertIn("win_rate", result["damped"]["vs_baseline"])
+        self.assertIn("relative_improvement", result["damped"]["vs_baseline"])
         self.assertGreaterEqual(result["damped"]["vs_baseline"]["win_rate"], 0)
+
+    def test_model_comparison_rejects_incomplete_forecast(self):
+        observed = [{"entity": "A", "year": year, "population": 100 + year}
+                    for year in range(2000, 2005)]
+
+        def incomplete(train, years, seed):
+            return [{"entity": "A", "year": years[0], "population": 1}]
+
+        with self.assertRaises(ValueError):
+            compare_models(observed, {"bad": incomplete}, train_years=2,
+                           horizon=2, replicates=2)
 
     def test_rolling_comparison_rejects_unknown_baseline(self):
         with self.assertRaises(ValueError):
