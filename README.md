@@ -48,6 +48,8 @@ https://Y36366363.github.io/Population_simu/
 - `benchmarks.compare_models()` 提供统一的模型横向比较接口，仓库内附有透明的固定趋势和阻尼趋势（WPP 风格占位）基准；完整家庭微观模型和年龄—性别 cohort-component 模型可通过 runner 接入。
 - `benchmarks.compare_models_rolling()` 用多个 expanding-window 折叠汇总 MAPE、RMSE、CRPS，并用 bootstrap 给出 95% 区间；还可报告相对朴素基准的逐折胜率和误差差值区间。
 - 比较器现在要求每个模型完整覆盖测试期的实体—年份键；同时输出 `n_folds`、相对基准改善率和缺失预测错误，避免模型因只预测“容易的国家/年份”而虚假得分。
+- `mechanisms.py` 为婚姻、生育、死亡、迁移、就业、代际传递、照护和财政建立机制卡片，逐项记录目的、输入、参数、概率规则、观测对应物、验证指标和失效范围。
+- `cohort_component.py` 提供独立的年龄—性别 cohort-component 核心：按年龄推进存活、按年龄别生育率生成出生、按地区迁移 hazard 重分配，并检查人口守恒。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -302,6 +304,24 @@ report = compare_models(
 进阶分析还应做三项稳健性检查：改变训练窗口长度、改变 MAPE/CRPS 的指标权重，
 以及把高收入/低收入或高生育/低生育实体分层。若模型排名只在某一组设置下成立，
 应报告为敏感性结果，而不是单一确定结论。
+
+### 年龄—性别骨架示例
+
+```python
+from population_simu.cohort_component import CohortComponentModel
+from population_simu.hazards import AgeRateProfile
+
+model = CohortComponentModel(
+    {"urban": {"F": [100, 100, 100], "M": [105, 100, 95]}},
+    max_age=100,
+    fertility_rates={"urban": AgeRateProfile((15, 30, 45), (0.02, 0.10, 0.01))},
+)
+year = model.step()
+```
+
+该核心使用期望人口（浮点数），适合校准和宏观对账；家庭微观模型仍可使用
+整数个人。下一步应把家庭聚合后的年龄—性别矩阵与该核心逐年对账，而不是
+直接把两套人口相加。
 
 ## 代码结构
 
