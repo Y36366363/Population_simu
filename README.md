@@ -46,6 +46,7 @@ https://Y36366363.github.io/Population_simu/
 - `rolling_origin_splits()` 提供 expanding-window 滚动回测，`leave_one_group_out()` 提供跨国家留一验证；Monte Carlo 结果还可用 `interval_metrics()` 检查区间覆盖率和平均宽度。
 - `empirical_crps()`/`crps_metrics()` 用多次 Monte Carlo 样本评估概率预测；`stratified_interval_metrics()` 可按国家等维度分层检查覆盖率。
 - `benchmarks.compare_models()` 提供统一的模型横向比较接口，仓库内附有透明的固定趋势和阻尼趋势（WPP 风格占位）基准；完整家庭微观模型和年龄—性别 cohort-component 模型可通过 runner 接入。
+- `benchmarks.compare_models_rolling()` 用多个 expanding-window 折叠汇总 MAPE、RMSE、CRPS，并用 bootstrap 给出 95% 区间；还可报告相对朴素基准的逐折胜率和误差差值区间。
 - 生育社会规范可通过 `social_norm_sources` 拆分为邻居、亲属、同事和媒体四类来源；目前是可解释的网络近似，不是完整社交图。
 - 健康不再只是静态分数：慢性病和失能会产生医疗自付、债务与家庭照护负担，并降低劳动收入及生育实现率；医疗可及性和公共长期照护可以缓冲冲击。
 - 退休成员按国家养老金替代率获得收入，退休年龄、老年抚养比和灾难性医疗支出均可观察。
@@ -291,6 +292,11 @@ report = compare_models(
 这里的 `wpp_style_runner` 是接入真实年龄—性别矩阵前的阻尼趋势基准，不能
 冒充联合国 WPP。正式年龄结构模型应由年龄别生育率、死亡率和迁移率推进，
 再使用同一 `compare_models` 报告 CRPS、点误差和分层覆盖率。
+
+为提高结论可信度，优先使用 `compare_models_rolling` 而不是单个窗口：它把每个
+历史窗口视为一个配对实验，并使用相同随机种子序列比较模型。报告“平均误差 +
+95% bootstrap 区间 + 胜率”，只有当模型在多个窗口方向一致且区间不跨越零时，
+才适合表述为“相对基准更稳健”；否则应保留为探索性结果。
 
 ## 代码结构
 

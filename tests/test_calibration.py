@@ -1,6 +1,11 @@
 import unittest
 
-from population_simu.benchmarks import compare_models, fixed_trend_runner, wpp_style_runner
+from population_simu.benchmarks import (
+    compare_models,
+    compare_models_rolling,
+    fixed_trend_runner,
+    wpp_style_runner,
+)
 
 from population_simu.calibration import (
     grid_search,
@@ -141,6 +146,30 @@ class CalibrationTests(unittest.TestCase):
         )
         self.assertEqual(set(result), {"fixed_trend", "wpp_style"})
         self.assertIn("mean_crps", result["fixed_trend"]["crps"]["population"])
+
+    def test_rolling_comparison_reports_bootstrap_and_baseline_delta(self):
+        observed = [
+            {"entity": entity, "year": year, "population": 100 + 2 * (year - 2000) + offset}
+            for entity, offset in (("A", 0), ("B", 20))
+            for year in range(2000, 2010)
+        ]
+        result = compare_models_rolling(
+            observed,
+            {"fixed": fixed_trend_runner(), "damped": wpp_style_runner()},
+            initial_train_years=4, horizon=2, step=2, replicates=3,
+            bootstrap_draws=100, baseline="fixed",
+        )
+        self.assertIn("lower_95", result["fixed"]["summary"]["mape"])
+        self.assertIn("win_rate", result["damped"]["vs_baseline"])
+        self.assertGreaterEqual(result["damped"]["vs_baseline"]["win_rate"], 0)
+
+    def test_rolling_comparison_rejects_unknown_baseline(self):
+        with self.assertRaises(ValueError):
+            compare_models_rolling(
+                [{"entity": "A", "year": y, "population": y} for y in range(5)],
+                {"fixed": fixed_trend_runner()}, initial_train_years=2,
+                baseline="missing", bootstrap_draws=100,
+            )
 
 
 if __name__ == "__main__":
