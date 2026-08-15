@@ -20,3 +20,20 @@ World Population Prospects 2024：
 下载日期：2026-08-12。OWID 数据通常按 CC BY 4.0 发布；使用时请保留
 来源和底层提供者署名。该文件是固定快照，后续更新数据时应在这里记录
 新的下载日期和版本，避免校准结果因数据漂移而无法复现。
+
+## 年龄—性别与死亡率样例
+
+- `wb_age_sex_groups_sample.csv`：世界银行 WDI 的中国、印度、日本、美国
+  1990—2023 年人口年龄组—性别数据（0—14、15—64、65+），由 WDI 指标
+  `SP.POP.0014.*.IN`、`SP.POP.1564.*.IN` 和 `SP.POP.65UP.*.IN` 组成。
+  这是公开的分组观测，不是单岁年龄；回放时由模型单岁年龄聚合到同样的年龄组。
+  来源：[World Bank Indicators API](https://api.worldbank.org/)。
+- `owid_age_sex_death_rates_sample.csv`：中国、印度、日本、美国 1990—2023
+  年的若干年龄点（0、10、15、25、45、65、80）男女死亡率，来源为
+  Human Mortality Database 与 UN WPP，经 OWID Grapher 整理。它用于测试
+  年龄—性别死亡率接口，不等同于完整生命表；完整生命表应使用 HMD 的逐年
+  年龄文件或 WPP 的生命表输出。
+  来源：[OWID 年龄—性别死亡率图表](https://ourworldindata.org/grapher/annual-death-rates-in-different-age-groups-by-sex)。
+
+这些文件由 `population_simu.cohort_replay` 读取；年龄组观测与模型单岁年龄
+快照的对账结果会按国家、性别和年龄组分层输出。

@@ -12,10 +12,12 @@ import math
 from typing import Iterable, Mapping
 
 from .hazards import AgeRateProfile, hazard_to_probability
+from .fertility import FertilitySchedule, FertilityState
 
 
 Sex = str
 PopulationInput = Mapping[str, Mapping[Sex, Iterable[float]]]
+MigrationRate = float | AgeRateProfile
 
 
 @dataclass(frozen=True)
@@ -26,6 +28,7 @@ class CohortStep:
     internal_migrations: float
     population: float
     population_by_region: dict[str, float]
+    external_population_by_node: dict[str, float]
     age_sex: dict[str, dict[str, tuple[float, ...]]]
 
     def as_dict(self) -> dict[str, object]:
@@ -36,6 +39,7 @@ class CohortStep:
             "internal_migrations": self.internal_migrations,
             "population": self.population,
             "population_by_region": dict(self.population_by_region),
+            "external_population_by_node": dict(self.external_population_by_node),
             "age_sex": {
                 region: {sex: list(values) for sex, values in sexes.items()}
                 for region, sexes in self.age_sex.items()
@@ -60,8 +64,11 @@ class CohortComponentModel:
         start_year: int = 2025,
         max_age: int = 100,
         fertility_rates: Mapping[str, AgeRateProfile] | None = None,
+        fertility_schedules: Mapping[str, FertilitySchedule] | None = None,
+        fertility_state_weights: Mapping[str, Mapping[FertilityState, float]] | None = None,
         mortality_rates: Mapping[str, Mapping[Sex, AgeRateProfile]] | None = None,
         migration_hazards: Mapping[str, Mapping[str, float]] | None = None,
+        external_nodes: Iterable[str] = (),
         sex_ratio_at_birth: float = 0.512,
     ) -> None:
         if max_age < 1:
@@ -75,11 +82,20 @@ class CohortComponentModel:
         self.regions = tuple(initial_population)
         if not self.regions:
             raise ValueError("至少需要一个地区")
+        self.external_nodes = tuple(external_nodes)
+        if set(self.regions) & set(self.external_nodes) or len(set(self.external_nodes)) != len(self.external_nodes):
+            raise ValueError("external_nodes 必须是不同于地区的唯一节点")
+        self.nodes = self.regions + self.external_nodes
         self.fertility_rates = dict(fertility_rates or {})
+        self.fertility_schedules = dict(fertility_schedules or {})
+        self.fertility_state_weights = {
+            region: dict(weights)
+            for region, weights in (fertility_state_weights or {}).items()
+        }
         self.mortality_rates = {
             region: dict(profiles) for region, profiles in (mortality_rates or {}).items()
         }
-        self.migration_hazards = {
+        self.migration_hazards: dict[str, dict[str, MigrationRate]] = {
             origin: dict(destinations)
             for origin, destinations in (migration_hazards or {}).items()
         }
@@ -89,17 +105,23 @@ class CohortComponentModel:
     def _validate_rates(self) -> None:
         for profile in self.fertility_rates.values():
             self._validate_profile(profile)
+        for schedule in self.fertility_schedules.values():
+            for profile in schedule.profiles.values():
+                self._validate_profile(profile)
         for profiles in self.mortality_rates.values():
             for sex in self.sexes:
                 if sex in profiles:
                     self._validate_profile(profiles[sex])
         for origin, destinations in self.migration_hazards.items():
-            if origin not in self.regions:
+            if origin not in self.nodes:
                 raise ValueError(f"迁移矩阵包含未知起点 {origin}")
-            if any(destination not in self.regions for destination in destinations):
+            if any(destination not in self.nodes for destination in destinations):
                 raise ValueError("迁移矩阵包含未知目的地")
-            if any(not math.isfinite(float(rate)) or rate < 0 for rate in destinations.values()):
-                raise ValueError("迁移 hazard 必须为有限非负数")
+            for rate in destinations.values():
+                if isinstance(rate, AgeRateProfile):
+                    self._validate_profile(rate)
+                elif not math.isfinite(float(rate)) or rate < 0:
+                    raise ValueError("迁移 hazard 必须为有限非负数")
 
     @staticmethod
     def _validate_profile(profile: AgeRateProfile) -> None:
@@ -109,7 +131,7 @@ class CohortComponentModel:
     def _normalise_population(self, source: PopulationInput) -> dict[str, dict[str, list[float]]]:
         result: dict[str, dict[str, list[float]]] = {}
         expected = self.max_age + 1
-        for region in self.regions:
+        for region in self.nodes:
             result[region] = {}
             for sex in self.sexes:
                 values = [float(value) for value in source.get(region, {}).get(sex, ())]
@@ -122,6 +144,14 @@ class CohortComponentModel:
 
     def _profile(self, profiles: Mapping[str, AgeRateProfile], region: str, default: float = 0.0) -> AgeRateProfile | None:
         return profiles.get(region) or profiles.get("*")
+
+    def _fertility_rate(self, region: str, age: int) -> float:
+        schedule = self.fertility_schedules.get(region) or self.fertility_schedules.get("*")
+        if schedule:
+            weights = self.fertility_state_weights.get(region, self.fertility_state_weights.get("*", {}))
+            return schedule.weighted_rate(age, weights)
+        profile = self._profile(self.fertility_rates, region)
+        return profile.rate(age) if profile else 0.0
 
     def _mortality_profile(self, region: str, sex: str) -> AgeRateProfile | None:
         profiles = self.mortality_rates.get(region, self.mortality_rates.get("*", {}))
@@ -147,10 +177,11 @@ class CohortComponentModel:
         deaths = 0.0
         next_population: dict[str, dict[str, list[float]]] = {
             region: {sex: [0.0] * (self.max_age + 1) for sex in self.sexes}
-            for region in self.regions
+            for region in self.nodes
         }
-        for region in self.regions:
-            fertility = self._profile(self.fertility_rates, region)
+        for region in self.nodes:
+            fertility = (self.fertility_schedules.get(region) or self.fertility_schedules.get("*")
+                         or self._profile(self.fertility_rates, region)) if region in self.regions else None
             for sex in self.sexes:
                 mortality = self._mortality_profile(region, sex)
                 for age, count in enumerate(self.population[region][sex]):
@@ -161,7 +192,7 @@ class CohortComponentModel:
                     next_population[region][sex][next_age] += survived
             if fertility:
                 for age, women in enumerate(self.population[region]["F"]):
-                    births_by_region[region] += women * max(0.0, fertility.rate(age))
+                    births_by_region[region] += women * max(0.0, self._fertility_rate(region, age))
         births = sum(births_by_region.values())
         for region in self.regions:
             region_births = births_by_region[region]
@@ -174,23 +205,27 @@ class CohortComponentModel:
         current_total = self.total_population()
         if abs(current_total - (previous_total + births - deaths)) > 1e-6 * max(1.0, previous_total):
             raise AssertionError("人口守恒失败：出生、死亡和迁移未闭合")
-        by_region = {region: sum(sum(values) for values in sexes.values())
-                     for region, sexes in self.population.items()}
+        by_region = {region: sum(sum(values) for values in self.population[region].values())
+                     for region in self.regions}
+        external = {node: sum(sum(values) for values in self.population[node].values())
+                    for node in self.external_nodes}
         return CohortStep(self.year, births, deaths, internal_migrations, current_total,
-                          by_region, self.snapshot())
+                          by_region, external, self.snapshot())
 
     def _apply_migration(self) -> float:
         moves: list[tuple[str, str, str, int, float]] = []
         for origin, destinations in self.migration_hazards.items():
-            probabilities = {destination: hazard_to_probability(rate)
-                             for destination, rate in destinations.items()}
-            total_probability = sum(probabilities.values())
-            if total_probability > 1.0:
-                probabilities = {destination: probability / total_probability
-                                 for destination, probability in probabilities.items()}
             for sex in self.sexes:
                 for age, count in enumerate(self.population[origin][sex]):
-                    for destination, probability in probabilities.items():
+                    age_probabilities = {
+                        destination: hazard_to_probability(rate if isinstance(rate, (int, float)) else rate.rate(age))
+                        for destination, rate in destinations.items()
+                    }
+                    total_age_probability = sum(age_probabilities.values())
+                    if total_age_probability > 1.0:
+                        age_probabilities = {destination: probability / total_age_probability
+                                             for destination, probability in age_probabilities.items()}
+                    for destination, probability in age_probabilities.items():
                         moves.append((origin, destination, sex, age, count * probability))
         total = 0.0
         for origin, destination, sex, age, amount in moves:

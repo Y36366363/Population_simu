@@ -1,7 +1,9 @@
 import unittest
+import math
 
 from population_simu.cohort_component import CohortComponentModel
 from population_simu.hazards import AgeRateProfile
+from population_simu.fertility import FertilitySchedule
 
 
 class CohortComponentTests(unittest.TestCase):
@@ -40,6 +42,31 @@ class CohortComponentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             CohortComponentModel({"A": {"F": [1], "M": [1]}},
                                   migration_hazards={"A": {"missing": 0.1}})
+
+    def test_external_node_and_age_specific_migration(self):
+        model = CohortComponentModel(
+            {"A": {"F": [0, 10], "M": [0, 10]}},
+            max_age=2,
+            external_nodes=("outside",),
+            migration_hazards={"A": {"outside": AgeRateProfile((0, 1), (0.0, 1.0))}},
+        )
+        before = model.total_population()
+        result = model.step()
+        self.assertAlmostEqual(result.external_population_by_node["outside"], 20 * (1 - math.exp(-1)))
+        self.assertAlmostEqual(model.total_population(), before)
+
+    def test_parity_and_marital_fertility_schedule(self):
+        schedule = FertilitySchedule({
+            ("married", "first"): AgeRateProfile((20,), (0.2,)),
+            ("married", "second"): AgeRateProfile((20,), (0.1,)),
+        })
+        model = CohortComponentModel(
+            {"A": {"F": [0, 0, 100], "M": [0, 0, 100]}}, max_age=3,
+            fertility_schedules={"A": schedule},
+            fertility_state_weights={"A": {("married", "first"): 0.5,
+                                             ("married", "second"): 0.5}},
+        )
+        self.assertAlmostEqual(model.step().births, 15.0)
 
 
 if __name__ == "__main__":
