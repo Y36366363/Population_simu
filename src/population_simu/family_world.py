@@ -74,6 +74,15 @@ class FamilyWorld:
             by_sex[person.age] = by_sex.get(person.age, 0) + 1
         return matrix
 
+    def reconcile_with_cohort(
+        self,
+        cohort_snapshot: dict[str, dict[str, tuple[float, ...] | list[float]]],
+    ) -> dict[str, object]:
+        """将当前家庭明细与年龄—性别 cohort 快照逐年龄对账。"""
+        from .cohort_replay import reconcile_age_sex_snapshots
+
+        return reconcile_age_sex_snapshots(self.age_sex_matrix(), cohort_snapshot)
+
     def snapshot(self) -> dict[str, object]:
         """返回供网页、批量实验和调试共用的当前状态快照。
 
