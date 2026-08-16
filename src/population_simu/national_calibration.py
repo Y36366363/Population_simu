@@ -92,6 +92,8 @@ class MigrationRecord:
     sex: str
     age: int
     hazard: float
+    flow: float | None = None
+    exposure: float | None = None
 
 
 @dataclass(frozen=True)
@@ -118,6 +120,10 @@ class AgeSpecificMigrationMatrix:
                 errors.append(f"迁移矩阵性别/年龄非法 {key}")
             if not math.isfinite(record.hazard) or record.hazard < 0:
                 errors.append(f"迁移 hazard 非法 {key}")
+            if record.flow is not None and (not math.isfinite(record.flow) or record.flow < 0):
+                errors.append(f"迁移 flow 非法 {key}")
+            if record.exposure is not None and (not math.isfinite(record.exposure) or record.exposure <= 0):
+                errors.append(f"迁移 exposure 非法 {key}")
             sums[(record.origin, record.sex, record.age)] = sums.get(
                 (record.origin, record.sex, record.age), 0.0
             ) + hazard_to_probability(record.hazard)
@@ -180,8 +186,10 @@ def load_migration_od_csv(path: str | Path, *, year: int | None = None) -> AgeSp
                     selected_year = row_year
                 if row_year != selected_year:
                     continue
+                flow = float(row["flow"]) if row.get("flow") not in (None, "") else None
+                exposure = float(row["exposure"]) if row.get("exposure") not in (None, "") else None
                 record = MigrationRecord(row["origin"], row["destination"], row["sex"],
-                                         int(row["age"]), float(row["hazard"]))
+                                         int(row["age"]), float(row["hazard"]), flow, exposure)
             except (KeyError, TypeError, ValueError) as exc:
                 raise ValueError(f"第 {line} 行迁移 OD 字段无效") from exc
             records.append(record); nodes.update((record.origin, record.destination))

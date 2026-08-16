@@ -351,6 +351,11 @@ year = model.step()
 仓库样例仍是接口测试数据，不是完整国家校准。HMD 的完整死亡率/生命表下载需要注册登录，
 WPP Data Portal API 需要授权 token；正式校准应保存下载版本、口径、暴露分母和来源元数据。
 
+美国微数据接入入口是 `scripts/build_us_microdata_inputs.py`：它从已合法取得的 ACS PUMS
+行（`AGEP,SEX,ST,MIGSP,PWGTP`）计算带 flow/exposure 审计字段的年龄—性别 OD，并从
+NSFG/出生登记加权行计算婚姻状态 × 孩次 × 年龄的 births/exposure。脚本不绕过数据协议，
+没有 PUMS/NSFG 文件时会明确停在输入缺失，而不会生成合成迁移或生育率。
+
 ## 代码结构
 
 ```text

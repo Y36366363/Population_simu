@@ -24,5 +24,19 @@ year,origin,destination,sex,age,hazard
 country,year,marital,parity,age,births,exposure
 ```
 
+`scripts/build_us_microdata_inputs.py` converts local, legally obtained extracts.
+For ACS PUMS use `AGEP,SEX,ST,MIGSP,PWGTP`; `MIGSP` is the state of residence one
+year earlier and `ST` is current residence. The script aggregates person weights,
+retains `flow` and `exposure`, and calculates `hazard = flow / exposure`.
+
+For NSFG or a natality extract, prepare weighted rows with `age,marital,parity,weight`
+for births and female exposure. The output is accepted by
+`fertility_schedule_from_observations`; it is not valid to use the NSFG respondent
+count without its survey weight.
+
 The project will reject these inputs in strict mode if they are incomplete or
 duplicate keys are present.
+
+Official acquisition references: [ACS PUMS](https://www.census.gov/programs-surveys/acs/microdata.html),
+[ACS migration variables](https://www.census.gov/data/developers/data-sets/acs-migration-flows/2020.html),
+and [NSFG public-use files](https://www.cdc.gov/nchs/nsfg/nsfg_2017_2019_puf.htm).
