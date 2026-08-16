@@ -55,3 +55,12 @@ country,year,marital,parity,age,births,exposure
 如果只有 0—14/15—64/65+ 年龄组，工具可以做均匀拆分来启动回放，但会标记为
 `derived=True`，严格校准会要求真实单岁年龄覆盖。迁移 OD 也必须保留性别与年龄，
 否则只能作为兼容旧模型的平均 profile。
+
+## 美国 2021 试点
+
+`us_2021/` 已接入美国 Census 单岁人口估计和 CDC/NCHS 完整男女生命表，转换脚本为
+`scripts/build_us_pilot.py`。Census 的单岁人口文件来自其 2020—2025 national
+population estimates 页面；生命表来自 CDC 2021 United States Life Tables。美国 ACS
+2020 迁移流公开发布的是未交叉特征的 OD 计数，因此没有把它错误地扩展成年龄—性别流。
+孩次—婚姻分母需要 NSFG/出生登记的微数据或正式特别制表；在这些文件接入前，试点只能
+完成“人口 + 死亡率”的结构验证，不能称为四组件完整校准。
