@@ -8,7 +8,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import csv
 import math
+from pathlib import Path
 from typing import Iterable, Mapping
 
 from .fertility import FertilitySchedule, FertilityState
@@ -34,6 +36,32 @@ class LifeTableSchedule:
     year: int
     rates: Mapping[str, AgeRateProfile]
     max_age: int = 100
+
+    @classmethod
+    def from_rows(cls, rows: Iterable[Mapping[str, object]], *, country: str,
+                  year: int, max_age: int = 100,
+                  rate_key: str = "death_rate") -> "LifeTableSchedule":
+        """从单岁长表构造生命表；rate 可为年度 hazard 或概率。"""
+        points: dict[str, list[tuple[int, float]]] = {"F": [], "M": []}
+        for row in rows:
+            if str(row.get("country", row.get("entity", ""))) != country or int(row["year"]) != year:
+                continue
+            sex = str(row["sex"])
+            if sex not in points:
+                continue
+            age = int(row["age"])
+            rate = float(row.get(rate_key, row.get("death_rate_per_1000", 0.0)))
+            if "per_1000" in rate_key or "death_rate_per_1000" in row:
+                rate /= 1000.0
+            points[sex].append((age, rate))
+        profiles = {
+            sex: AgeRateProfile(tuple(age for age, _ in sorted(values)),
+                                tuple(rate for _, rate in sorted(values)))
+            for sex, values in points.items() if values
+        }
+        if not profiles:
+            raise ValueError(f"没有 {country}/{year} 的单岁生命表行")
+        return cls(country, year, profiles, max_age)
 
     def validate(self, *, strict: bool = True) -> ValidationReport:
         errors: list[str] = []
@@ -119,6 +147,78 @@ class AgeSpecificMigrationMatrix:
             )
         return result
 
+    def to_sex_hazards(self) -> dict[str, dict[str, dict[str, AgeRateProfile]]]:
+        """保留年龄—性别 OD 流量，不再把男女率平均掉。"""
+        grouped: dict[tuple[str, str, str], list[tuple[int, float]]] = {}
+        for record in self.records:
+            grouped.setdefault((record.origin, record.destination, record.sex), []).append(
+                (record.age, record.hazard)
+            )
+        result: dict[str, dict[str, dict[str, AgeRateProfile]]] = {}
+        for (origin, destination, sex), points in grouped.items():
+            ordered = sorted(points)
+            result.setdefault(origin, {}).setdefault(destination, {})[sex] = AgeRateProfile(
+                tuple(age for age, _ in ordered), tuple(rate for _, rate in ordered)
+            )
+        return result
+
+
+def load_migration_od_csv(path: str | Path, *, year: int | None = None) -> AgeSpecificMigrationMatrix:
+    """读取 UN DYB/国家统计口径的年龄—性别 OD hazard 长表。
+
+    必需列：year, origin, destination, sex, age, hazard。该函数不把流量
+    伪装成 hazard；若原始资料是人数，应先用对应暴露人口计算 hazard。
+    """
+    records: list[MigrationRecord] = []
+    nodes: set[str] = set()
+    selected_year: int | None = year
+    with Path(path).open(encoding="utf-8-sig", newline="") as file:
+        for line, row in enumerate(csv.DictReader(file), start=2):
+            try:
+                row_year = int(row["year"])
+                if selected_year is None:
+                    selected_year = row_year
+                if row_year != selected_year:
+                    continue
+                record = MigrationRecord(row["origin"], row["destination"], row["sex"],
+                                         int(row["age"]), float(row["hazard"]))
+            except (KeyError, TypeError, ValueError) as exc:
+                raise ValueError(f"第 {line} 行迁移 OD 字段无效") from exc
+            records.append(record); nodes.update((record.origin, record.destination))
+    if selected_year is None or not records:
+        raise ValueError("没有可用的迁移 OD 记录")
+    return AgeSpecificMigrationMatrix(selected_year, tuple(records), tuple(sorted(nodes)))
+
+
+@dataclass(frozen=True)
+class FertilityObservation:
+    country: str
+    year: int
+    marital: str
+    parity: str
+    age: int
+    births: float
+    exposure: float
+
+    @property
+    def rate(self) -> float:
+        if self.exposure <= 0:
+            raise ValueError("生育暴露人口必须为正")
+        return self.births / self.exposure
+
+
+def fertility_schedule_from_observations(observations: Iterable[FertilityObservation], *,
+                                         country: str, year: int) -> FertilitySchedule:
+    grouped: dict[FertilityState, list[tuple[int, float]]] = {}
+    for obs in observations:
+        if obs.country == country and obs.year == year:
+            grouped.setdefault((obs.marital, obs.parity), []).append((obs.age, obs.rate))
+    if not grouped:
+        raise ValueError(f"没有 {country}/{year} 的出生—暴露观测")
+    return FertilitySchedule({state: AgeRateProfile(tuple(age for age, _ in sorted(points)),
+                                                     tuple(rate for _, rate in sorted(points)))
+                              for state, points in grouped.items()})
+
 
 @dataclass(frozen=True)
 class FertilityScheduleRecord:
@@ -197,6 +297,6 @@ class NationalCalibrationBundle:
         return {
             "mortality_rates": {country: self.life_table(country, year).rates},
             "fertility_schedules": {country: self.fertility_schedule(country, year)},
-            "migration_hazards": matrix.to_hazards(),
+            "migration_hazards": matrix.to_sex_hazards(),
             "external_nodes": tuple(node for node in matrix.nodes if node not in local),
         }

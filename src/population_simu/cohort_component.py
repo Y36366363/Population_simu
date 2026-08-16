@@ -17,7 +17,7 @@ from .fertility import FertilitySchedule, FertilityState
 
 Sex = str
 PopulationInput = Mapping[str, Mapping[Sex, Iterable[float]]]
-MigrationRate = float | AgeRateProfile
+MigrationRate = float | AgeRateProfile | Mapping[str, AgeRateProfile]
 
 
 @dataclass(frozen=True)
@@ -120,6 +120,11 @@ class CohortComponentModel:
             for rate in destinations.values():
                 if isinstance(rate, AgeRateProfile):
                     self._validate_profile(rate)
+                elif isinstance(rate, Mapping):
+                    for profile in rate.values():
+                        if not isinstance(profile, AgeRateProfile):
+                            raise ValueError("性别迁移率必须是 AgeRateProfile")
+                        self._validate_profile(profile)
                 elif not math.isfinite(float(rate)) or rate < 0:
                     raise ValueError("迁移 hazard 必须为有限非负数")
 
@@ -217,8 +222,14 @@ class CohortComponentModel:
         for origin, destinations in self.migration_hazards.items():
             for sex in self.sexes:
                 for age, count in enumerate(self.population[origin][sex]):
+                    def rate_at(rate: MigrationRate) -> float:
+                        if isinstance(rate, Mapping):
+                            profile = rate.get(sex) or rate.get("*")
+                            return profile.rate(age) if profile else 0.0
+                        return rate if isinstance(rate, (int, float)) else rate.rate(age)
+
                     age_probabilities = {
-                        destination: hazard_to_probability(rate if isinstance(rate, (int, float)) else rate.rate(age))
+                        destination: hazard_to_probability(rate_at(rate))
                         for destination, rate in destinations.items()
                     }
                     total_age_probability = sum(age_probabilities.values())

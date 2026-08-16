@@ -334,6 +334,23 @@ year = model.step()
 它们用于历史回放接口和输入契约测试；年龄组人口不能被误写成单岁观测，死亡率
 年龄点也不能被误称为完整生命表。
 
+### 国家级校准包：覆盖检查与真实数据接入
+
+当前版本新增了可严格检查的国家级校准契约：
+
+- `LifeTableSchedule.from_rows()` 接受 `country, year, sex, age, death_rate` 单岁长表；
+  `validate(strict=True)` 会拒绝缺失性别或明显不完整的生命表。年龄点插值仍只适合探索性回放。
+- `AgeSpecificMigrationMatrix.to_sex_hazards()` 保留每个起点—目的地—年龄—性别的迁移率，
+  cohort 核心不再强制把男女迁移平均。`load_migration_od_csv()` 接受 `year, origin,
+  destination, sex, age, hazard`，原始人数必须先除以对应暴露人口。
+- `FertilityObservation` 和 `fertility_schedule_from_observations()` 用出生数/暴露人口构造
+  婚姻状态 × 孩次 × 年龄生育率，避免把 TFR 或出生数直接当 hazard。
+- `expand_age_groups_uniformly()` 只提供带 `derived=True` 标记的年龄组均匀拆分初始化，
+  `age_coverage_report()` 会报告缺失单岁年龄；它不能替代人口普查或登记单岁数据。
+
+仓库样例仍是接口测试数据，不是完整国家校准。HMD 的完整死亡率/生命表下载需要注册登录，
+WPP Data Portal API 需要授权 token；正式校准应保存下载版本、口径、暴露分母和来源元数据。
+
 ## 代码结构
 
 ```text

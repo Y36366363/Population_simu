@@ -8,6 +8,8 @@ from population_simu.national_calibration import (
     LifeTableSchedule,
     MigrationRecord,
     NationalCalibrationBundle,
+    FertilityObservation,
+    fertility_schedule_from_observations,
 )
 
 
@@ -35,6 +37,12 @@ class NationalCalibrationTests(unittest.TestCase):
         inputs = bundle.compile_cohort_inputs("A", 2000, local_nodes=("A", "B"))
         self.assertIn("outside", inputs["external_nodes"])
         self.assertIn("A", inputs["mortality_rates"])
+        self.assertIn("F", inputs["migration_hazards"]["A"]["B"])
+
+    def test_birth_exposure_builds_rate(self):
+        schedule = fertility_schedule_from_observations((FertilityObservation(
+            "A", 2000, "married", "first", 25, 10, 100),), country="A", year=2000)
+        self.assertAlmostEqual(schedule.rate(25, "married", "first"), 0.1)
 
     def test_strict_mode_rejects_incomplete_life_table(self):
         bundle = self._bundle()

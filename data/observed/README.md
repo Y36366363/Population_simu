@@ -37,3 +37,21 @@ World Population Prospects 2024：
 
 这些文件由 `population_simu.cohort_replay` 读取；年龄组观测与模型单岁年龄
 快照的对账结果会按国家、性别和年龄组分层输出。
+
+## 可替换的正式校准 CSV 契约
+
+正式数据可以不提交到仓库，只需按以下长表接入：
+
+```text
+# 单岁生命表
+country,year,sex,age,death_rate
+# 年龄—性别 OD（hazard，不是人数）
+year,origin,destination,sex,age,hazard
+# 婚姻—孩次生育率分母
+country,year,marital,parity,age,births,exposure
+```
+
+`exposure` 应是同口径的女性人年（或调查权重后的暴露量），不能用总人口替代。
+如果只有 0—14/15—64/65+ 年龄组，工具可以做均匀拆分来启动回放，但会标记为
+`derived=True`，严格校准会要求真实单岁年龄覆盖。迁移 OD 也必须保留性别与年龄，
+否则只能作为兼容旧模型的平均 profile。

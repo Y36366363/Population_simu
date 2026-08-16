@@ -40,6 +40,36 @@ def load_world_bank_age_sex_groups(path: str | Path) -> list[dict[str, object]]:
     return rows
 
 
+def expand_age_groups_uniformly(rows: Iterable[Mapping[str, object]]) -> list[dict[str, object]]:
+    """将年龄组均匀拆成单岁输入，并明确标记为 derived/synthetic。
+
+    这只是历史回放的可运行初始化，不是观测单岁年龄；严格校准应替换为
+    census/register 的 single-age 文件。
+    """
+    expanded: list[dict[str, object]] = []
+    for row in rows:
+        lo, hi = int(row["age_min"]), int(row["age_max"])
+        width = hi - lo + 1
+        if width <= 0:
+            raise ValueError("年龄组范围无效")
+        per_age = float(row["population"]) / width
+        for age in range(lo, hi + 1):
+            item = dict(row)
+            item.update({"age": age, "population": per_age, "derived": True,
+                         "derivation": "uniform_age_group_split"})
+            expanded.append(item)
+    return expanded
+
+
+def age_coverage_report(rows: Iterable[Mapping[str, object]], *, max_age: int = 100) -> dict[str, object]:
+    """报告输入是否覆盖完整单岁年龄，避免把年龄组资料误标为生命表级数据。"""
+    rows = list(rows)
+    ages = {int(row["age"]) for row in rows if "age" in row}
+    missing = sorted(set(range(max_age + 1)) - ages)
+    return {"single_age": not missing, "n_ages": len(ages), "missing_ages": missing,
+            "derived_rows": sum(bool(row.get("derived", False)) for row in rows)}
+
+
 def load_age_sex_death_rates(path: str | Path) -> list[dict[str, object]]:
     """读取 OWID/HMD/UN WPP 风格的年龄—性别死亡率长表。"""
     rows: list[dict[str, object]] = []
