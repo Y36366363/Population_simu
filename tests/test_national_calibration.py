@@ -11,6 +11,7 @@ from population_simu.national_calibration import (
     FertilityObservation,
     fertility_schedule_from_observations,
 )
+from population_simu.calibration_audit import audit_calibration_bundle
 
 
 class NationalCalibrationTests(unittest.TestCase):
@@ -43,6 +44,12 @@ class NationalCalibrationTests(unittest.TestCase):
         schedule = fertility_schedule_from_observations((FertilityObservation(
             "A", 2000, "married", "first", 25, 10, 100),), country="A", year=2000)
         self.assertAlmostEqual(schedule.rate(25, "married", "first"), 0.1)
+
+    def test_audit_reports_missing_real_components(self):
+        bundle = self._bundle()
+        report = audit_calibration_bundle(bundle, fertility_observations=())
+        self.assertFalse(report["ok"])
+        self.assertFalse(report["components"]["fertility_birth_exposure"])
 
     def test_strict_mode_rejects_incomplete_life_table(self):
         bundle = self._bundle()

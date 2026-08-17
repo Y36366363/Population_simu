@@ -75,6 +75,11 @@ class LifeTableSchedule:
             ages = set(profile.ages)
             if not ages & expected:
                 errors.append(f"{self.country}/{self.year}/{sex}: 没有有效年龄")
+            missing = sorted(expected - ages)
+            if missing:
+                warnings.append(f"{self.country}/{self.year}/{sex}: 缺少单岁年龄 {missing[:8]}")
+            if len(ages) != len(profile.ages):
+                errors.append(f"{self.country}/{self.year}/{sex}: 年龄键重复")
             if len(ages) < self.max_age // 2:
                 warnings.append(f"{self.country}/{self.year}/{sex}: 年龄点少于完整生命表")
             if any(not math.isfinite(rate) or rate < 0 for rate in profile.rates):
@@ -124,6 +129,10 @@ class AgeSpecificMigrationMatrix:
                 errors.append(f"迁移 flow 非法 {key}")
             if record.exposure is not None and (not math.isfinite(record.exposure) or record.exposure <= 0):
                 errors.append(f"迁移 exposure 非法 {key}")
+            if record.flow is not None and record.exposure is not None and record.exposure > 0:
+                implied = record.flow / record.exposure
+                if abs(implied - record.hazard) > 1e-8 * max(1.0, abs(record.hazard)):
+                    errors.append(f"迁移 flow/exposure 与 hazard 不一致 {key}")
             sums[(record.origin, record.sex, record.age)] = sums.get(
                 (record.origin, record.sex, record.age), 0.0
             ) + hazard_to_probability(record.hazard)

@@ -356,6 +356,10 @@ WPP Data Portal API 需要授权 token；正式校准应保存下载版本、口
 NSFG/出生登记加权行计算婚姻状态 × 孩次 × 年龄的 births/exposure。脚本不绕过数据协议，
 没有 PUMS/NSFG 文件时会明确停在输入缺失，而不会生成合成迁移或生育率。
 
+每次正式回放前可调用 `audit_calibration_bundle()`：它会报告生命表缺失单岁年龄、OD
+是否保留 flow/exposure、重复键，以及婚姻—孩次暴露是否为正。只有三个组件都通过时，
+报告的 `ok` 才会为真，避免把“可运行”误写成“已校准”。
+
 ## 代码结构
 
 ```text
