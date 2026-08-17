@@ -5,6 +5,8 @@ from population_simu.benchmarks import (
     compare_models_rolling,
     fixed_trend_runner,
     wpp_style_runner,
+    paired_model_comparison,
+    rank_models,
 )
 
 from population_simu.calibration import (
@@ -163,6 +165,21 @@ class CalibrationTests(unittest.TestCase):
         self.assertIn("win_rate", result["damped"]["vs_baseline"])
         self.assertIn("relative_improvement", result["damped"]["vs_baseline"])
         self.assertGreaterEqual(result["damped"]["vs_baseline"]["win_rate"], 0)
+
+    def test_paired_comparison_and_ranking_are_explicit(self):
+        observed = [{"entity": "A", "year": year, "population": 100 + 2 * (year - 2000)}
+                    for year in range(2000, 2010)]
+        result = compare_models_rolling(
+            observed,
+            {"fixed": fixed_trend_runner(), "damped": wpp_style_runner()},
+            initial_train_years=4, horizon=2, step=2, replicates=2,
+            bootstrap_draws=100,
+        )
+        paired = paired_model_comparison(result, "fixed", "damped", bootstrap_draws=100)
+        self.assertEqual(paired["delta_definition"], "candidate - reference")
+        ranking = rank_models(result)
+        self.assertEqual(ranking[0]["rank"], 1)
+        self.assertIn("interpretation", ranking[0])
 
     def test_model_comparison_rejects_incomplete_forecast(self):
         observed = [{"entity": "A", "year": year, "population": 100 + year}

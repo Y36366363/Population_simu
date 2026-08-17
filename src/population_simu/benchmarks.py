@@ -252,3 +252,53 @@ def compare_models_rolling(
             result[name]["vs_baseline"]["relative_improvement"] = _bootstrap_mean(
                 relative, seed + 37, bootstrap_draws)
     return result
+
+
+def paired_model_comparison(
+    report: Mapping[str, Mapping[str, object]], reference: str, candidate: str,
+    *, metric: str = "mape", seed: int = 0, bootstrap_draws: int = 2000,
+) -> dict[str, object]:
+    """对两个模型使用相同回测折叠做配对比较。
+
+    ``delta = candidate - reference``；负值表示 candidate 误差更小。配对而非
+    独立 bootstrap 保留了同一历史窗口带来的相关性，适合判断模型差异是否
+    超过窗口噪声。
+    """
+    if reference not in report or candidate not in report:
+        raise ValueError("reference 和 candidate 必须存在于比较报告")
+    left = list(report[reference].get("folds", []))
+    right = list(report[candidate].get("folds", []))
+    if not left or len(left) != len(right):
+        raise ValueError("两个模型必须拥有相同且非空的回测折叠")
+    deltas = [float(r[metric]) - float(l[metric]) for l, r in zip(left, right)]
+    interval = _bootstrap_mean(deltas, seed, bootstrap_draws)
+    return {"reference": reference, "candidate": candidate, "metric": metric,
+            "delta_definition": "candidate - reference", "deltas": deltas,
+            "bootstrap": interval,
+            "candidate_better_rate": sum(delta < 0 for delta in deltas) / len(deltas)}
+
+
+def rank_models(
+    report: Mapping[str, Mapping[str, object]], *, metric: str = "mape",
+) -> list[dict[str, object]]:
+    """按滚动回测均值排名，并标记 95% 区间是否仍跨越最佳模型。"""
+    rows = []
+    for name, entry in report.items():
+        summary = entry.get("summary", {})
+        stats = summary.get(metric, {}) if isinstance(summary, Mapping) else {}
+        if not isinstance(stats, Mapping) or "mean" not in stats:
+            raise ValueError(f"模型 {name} 缺少 {metric} 汇总")
+        rows.append({"model": name, "mean": float(stats["mean"]),
+                     "lower_95": float(stats.get("lower_95", stats["mean"])),
+                     "upper_95": float(stats.get("upper_95", stats["mean"]))})
+    rows.sort(key=lambda row: row["mean"])
+    if not rows:
+        return []
+    best = rows[0]
+    robust_best = len(rows) == 1 or rows[1]["lower_95"] > best["upper_95"]
+    for rank, row in enumerate(rows, start=1):
+        row["rank"] = rank
+        row["interval_overlaps_best"] = (rank != 1 and row["lower_95"] <= best["upper_95"] and best["lower_95"] <= row["upper_95"])
+        row["interpretation"] = "稳健领先" if rank == 1 and robust_best else (
+            "区间重叠，不能断言领先" if row["interval_overlaps_best"] else "次优")
+    return rows

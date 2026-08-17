@@ -360,6 +360,21 @@ NSFG/出生登记加权行计算婚姻状态 × 孩次 × 年龄的 births/expos
 是否保留 flow/exposure、重复键，以及婚姻—孩次暴露是否为正。只有三个组件都通过时，
 报告的 `ok` 才会为真，避免把“可运行”误写成“已校准”。
 
+### 横向模型比较
+
+当前比较层将三种架构放在同一 expanding-window 回测中：固定趋势基准、阻尼趋势
+（WPP 风格占位）和真正的年龄—性别 cohort/family runner。联合国 WPP 的正式方法是
+按单岁年龄和性别推进 cohort-component，并同时核算生育、死亡和迁移；项目的
+`CohortComponentModel` 对应这一可审计总量层，但不把阻尼趋势 runner 冒充为 WPP。
+家庭微观层则类似 EUROMOD 的“微观结果 + 宏观统计校验”思路：家庭机制保留行为细节，
+每轮必须对账到总人口和观测指标。[WPP 2024 methodology](https://population.un.org/wpp/assets/Files/WPP2024_Methodology.pdf)、
+[EUROMOD documentation](https://euromod-web.jrc.ec.europa.eu/resources/documentation)
+
+`paired_model_comparison()` 使用相同历史折叠计算配对误差差值，`rank_models()` 给出
+均值、95% bootstrap 区间和“区间重叠，不能断言领先”的提示。只有跨多个时间窗口、
+在 MAPE/RMSE/CRPS 方向一致且区间不再重叠时，才应把结果表述为相对稳健；单次留出窗口
+或单一随机种子只能作为探索性证据。
+
 ## 代码结构
 
 ```text
