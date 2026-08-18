@@ -40,3 +40,8 @@ duplicate keys are present.
 Official acquisition references: [ACS PUMS](https://www.census.gov/programs-surveys/acs/microdata.html),
 [ACS migration variables](https://www.census.gov/data/developers/data-sets/acs-migration-flows/2020.html),
 and [NSFG public-use files](https://www.cdc.gov/nchs/nsfg/nsfg_2017_2019_puf.htm).
+
+`us_housing_panel_2021.csv` is the first verified state-year slice, generated from the
+official 2021 table-based Summary File B25070 via `fetch_us_housing_ftp.py`. It is not
+yet the 2007–2021 panel; earlier years must be downloaded and version-pinned before any
+calibration claim is made.

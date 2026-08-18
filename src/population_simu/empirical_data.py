@@ -5,6 +5,21 @@ from __future__ import annotations
 VARIABLES = ("NAME", "B25070_001E", "B25070_007E", "B25070_008E",
              "B25070_009E", "B25070_010E")
 
+STATE_NAMES = {
+    "01": "Alabama", "02": "Alaska", "04": "Arizona", "05": "Arkansas",
+    "06": "California", "08": "Colorado", "09": "Connecticut", "10": "Delaware",
+    "11": "District of Columbia", "12": "Florida", "13": "Georgia", "15": "Hawaii",
+    "16": "Idaho", "17": "Illinois", "18": "Indiana", "19": "Iowa", "20": "Kansas",
+    "21": "Kentucky", "22": "Louisiana", "23": "Maine", "24": "Maryland", "25": "Massachusetts",
+    "26": "Michigan", "27": "Minnesota", "28": "Mississippi", "29": "Missouri", "30": "Montana",
+    "31": "Nebraska", "32": "Nevada", "33": "New Hampshire", "34": "New Jersey",
+    "35": "New Mexico", "36": "New York", "37": "North Carolina", "38": "North Dakota",
+    "39": "Ohio", "40": "Oklahoma", "41": "Oregon", "42": "Pennsylvania", "44": "Rhode Island",
+    "45": "South Carolina", "46": "South Dakota", "47": "Tennessee", "48": "Texas",
+    "49": "Utah", "50": "Vermont", "51": "Virginia", "53": "Washington", "54": "West Virginia",
+    "55": "Wisconsin", "56": "Wyoming", "72": "Puerto Rico",
+}
+
 
 def parse_acs_housing_response(payload: list[list[str]], year: int) -> list[dict[str, object]]:
     if not payload or len(payload) < 2:
@@ -29,3 +44,25 @@ def parse_acs_housing_response(payload: list[list[str]], year: int) -> list[dict
                        "rent_burden_share": burdened / total,
                        "median_gross_rent": None})
     return result
+
+
+def parse_acs_summary_file(path: str, year: int) -> list[dict[str, object]]:
+    """解析 ACS table-based Summary File 的 ``|`` 分隔 B25070 文件。"""
+    import csv
+    with open(path, encoding="utf-8-sig", newline="") as file:
+        rows = csv.DictReader(file, delimiter="|")
+        result = []
+        for row in rows:
+            geo = row.get("GEO_ID", "")
+            if not geo.startswith("0400000US"):
+                continue
+            state = geo[-2:]
+            payload_row = [STATE_NAMES.get(state, state), row.get("B25070_E001", ""),
+                           row.get("B25070_E007", ""), row.get("B25070_E008", ""),
+                           row.get("B25070_E009", ""), row.get("B25070_E010", ""), state]
+            result.extend(parse_acs_housing_response(
+                [["NAME", "B25070_001E", "B25070_007E", "B25070_008E",
+                  "B25070_009E", "B25070_010E", "state"], payload_row], year))
+        if not result:
+            raise ValueError(f"{path} 没有州级 B25070 行")
+        return result

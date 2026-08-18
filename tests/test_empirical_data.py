@@ -1,6 +1,6 @@
 import unittest
 
-from population_simu.empirical_data import parse_acs_housing_response
+from population_simu.empirical_data import parse_acs_housing_response, parse_acs_summary_file
 
 
 class EmpiricalDataTests(unittest.TestCase):
@@ -15,6 +15,16 @@ class EmpiricalDataTests(unittest.TestCase):
     def test_acs_housing_parser_rejects_missing_variable(self):
         with self.assertRaises(ValueError):
             parse_acs_housing_response([["NAME", "state"], ["Test", "99"]], 2017)
+
+    def test_summary_file_parser_keeps_only_state_geographies(self):
+        from tempfile import NamedTemporaryFile
+        content = ("GEO_ID|B25070_E001|B25070_E007|B25070_E008|B25070_E009|B25070_E010\n"
+                   "0400000US06|100|10|10|10|20\n0100000US|100|10|10|10|20\n")
+        with NamedTemporaryFile(mode="w", encoding="utf-8", suffix=".dat") as file:
+            file.write(content); file.flush()
+            rows = parse_acs_summary_file(file.name, 2021)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["state"], "06")
 
 
 if __name__ == "__main__":
