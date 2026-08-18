@@ -83,6 +83,10 @@ female_employment,unemployment,education,migration_rate
 - Child Care Aware、HHS ACF 或州行政托育统计：州—年托育价格/容量/覆盖率，只有定义一致时纳入；
 - 所有文件记录下载日期、版本、变量定义、权重和缺失处理。
 
+本轮已加入 `scripts/fetch_us_housing_panel.py`，读取 ACS B25070 的 30% 以上租金负担
+类别并输出州—年 housing panel。Census API 若返回认证错误，脚本会停止；不能用错误页或
+缺失值继续运行。`median_gross_rent` 仍需单独接入 B25064 等表，不能把负担比例当租金。
+
 ## 两周最小 empirical milestone
 
 只完成一件事：构造 2007—2021 美国州—年 `ASFR_15_44 + housing_cost_burden` 面板，冻结
