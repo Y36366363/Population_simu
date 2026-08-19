@@ -87,6 +87,10 @@ female_employment,unemployment,education,migration_rate
 类别并输出州—年 housing panel。Census API 若返回认证错误，脚本会停止；不能用错误页或
 缺失值继续运行。`median_gross_rent` 仍需单独接入 B25064 等表，不能把负担比例当租金。
 
+`scripts/validate_frozen_data.py` 已能对当前住房子面板输出 JSON 审计；2021 切片目前为
+52 个州/地区、无重复键、比例均在 [0,1]，但 `study_ready=false`，因为生育结果和女性分母
+尚未接入。该状态是预期的验证门槛，不是失败的模型结果。
+
 ## 两周最小 empirical milestone
 
 只完成一件事：构造 2007—2021 美国州—年 `ASFR_15_44 + housing_cost_burden` 面板，冻结

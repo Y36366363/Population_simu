@@ -1,6 +1,6 @@
 import unittest
 
-from population_simu.empirical_data import parse_acs_housing_response, parse_acs_summary_file
+from population_simu.empirical_data import parse_acs_housing_response, parse_acs_summary_file, validate_housing_panel
 
 
 class EmpiricalDataTests(unittest.TestCase):
@@ -25,6 +25,13 @@ class EmpiricalDataTests(unittest.TestCase):
             rows = parse_acs_summary_file(file.name, 2021)
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["state"], "06")
+
+    def test_housing_panel_validation_is_separate_from_study_readiness(self):
+        rows = [{"entity": "A", "state": "01", "year": 2021,
+                 "housing_cost_burden": 0.4}]
+        report = validate_housing_panel(rows, expected_min_states=1)
+        self.assertTrue(report["ok"])
+        self.assertEqual(report["years"], [2021])
 
 
 if __name__ == "__main__":

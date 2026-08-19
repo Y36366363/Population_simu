@@ -1,0 +1,18 @@
+{
+  "housing": {
+    "rows": 52,
+    "states": 52,
+    "years": [
+      2021
+    ],
+    "duplicate_keys": [],
+    "invalid_values": [],
+    "complete_state_coverage": true,
+    "ok": true
+  },
+  "fertility_panel": {
+    "available": false,
+    "reason": "等待 CDC/NVSS 年龄—孩次出生和女性分母文件"
+  },
+  "study_ready": false
+}

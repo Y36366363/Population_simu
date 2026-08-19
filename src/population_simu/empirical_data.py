@@ -66,3 +66,30 @@ def parse_acs_summary_file(path: str, year: int) -> list[dict[str, object]]:
         if not result:
             raise ValueError(f"{path} 没有州级 B25070 行")
         return result
+
+
+def validate_housing_panel(rows, *, expected_min_states: int = 50) -> dict[str, object]:
+    """验证住房子面板；不把它误当作完整 fertility panel。"""
+    rows = list(rows)
+    required = {"entity", "state", "year", "housing_cost_burden"}
+    if not rows:
+        raise ValueError("住房面板为空")
+    missing = sorted(required - set(rows[0]))
+    if missing:
+        raise ValueError(f"住房面板缺少字段：{missing}")
+    keys = [(str(row["state"]), int(row["year"])) for row in rows]
+    duplicates = sorted({key for key in keys if keys.count(key) > 1})
+    invalid = []
+    for row in rows:
+        try:
+            value = float(row["housing_cost_burden"])
+            if not 0 <= value <= 1:
+                invalid.append((row["state"], row["year"], value))
+        except (TypeError, ValueError):
+            invalid.append((row.get("state"), row.get("year"), row.get("housing_cost_burden")))
+    states = {key[0] for key in keys}
+    years = sorted({key[1] for key in keys})
+    return {"rows": len(rows), "states": len(states), "years": years,
+            "duplicate_keys": duplicates, "invalid_values": invalid,
+            "complete_state_coverage": len(states) >= expected_min_states,
+            "ok": not duplicates and not invalid and len(states) >= expected_min_states}
