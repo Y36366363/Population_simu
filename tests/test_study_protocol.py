@@ -1,6 +1,6 @@
 import unittest
 
-from population_simu.study_protocol import FERTILITY_STUDY, split_study_panel, validate_empirical_panel
+from population_simu.study_protocol import FERTILITY_STUDY, split_study_panel, validate_empirical_panel, study_readiness
 
 
 class StudyProtocolTests(unittest.TestCase):
@@ -32,6 +32,13 @@ class StudyProtocolTests(unittest.TestCase):
         report = validate_empirical_panel([row, dict(row)])
         self.assertFalse(report["ok"])
         self.assertEqual(report["duplicate_keys"], [("CA", 2010)])
+
+    def test_readiness_does_not_confuse_one_year_housing_slice_with_study_ready(self):
+        report = study_readiness([{"state": "06", "year": 2021}], [])
+        self.assertTrue(report["housing_slice_valid"])
+        self.assertFalse(report["housing_full_period"])
+        self.assertFalse(report["model_comparison_ready"])
+        self.assertIn("fertility", report["next_required"])
 
 
 if __name__ == "__main__":

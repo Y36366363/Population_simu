@@ -97,3 +97,18 @@ female_employment,unemployment,education,migration_rate
 2018—2021 test，运行 trend、cohort-component、reduced-form 和 household 四个 runner，
 输出第一份 rolling-origin RMSE/MAPE/CRPS/coverage 表，并运行 no-housing 消融。托育变量
 若尚未形成一致序列，明确标记为缺失，不用合成值填充。结果只能作为预测验证，不作政策因果结论。
+
+## 后续工作顺序（冻结期）
+
+1. **数据完成**：补齐 2007—2020 ACS B25070，并接入 CDC/NVSS 的州—母亲年龄—孩次出生数和
+   女性 15—44 岁分母；托育序列只有在定义和年份一致时加入。
+2. **面板锁定**：对所有州年键、缺失、权重、版本和变量定义做审计，生成不可再变的分析 CSV。
+3. **参数校准**：只用 2007—2017，估计基线生育 hazard、住房系数和 reduced-form 系数；保存
+   参数文件与随机种子。
+4. **历史回放**：在 2018—2021 untouched test 上运行四类模型，使用现有 rolling-origin、
+   CRPS、coverage、RMSE/MAPE。
+5. **机制消融**：只比较 no-housing、no-childcare、no-household 与 full，不添加新机制。
+6. **解释边界**：先报告预测和机制贡献；只有未来建立可信识别设计后，才讨论 causal counterfactual。
+
+`study_readiness()` 会自动报告上述阶段是否具备。当前真实状态是 housing slice 已有、完整
+住房时期和 fertility outcome 尚未具备，因此下一步唯一阻塞项是生育结果与分母数据。

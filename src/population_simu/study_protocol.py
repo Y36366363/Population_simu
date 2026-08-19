@@ -103,3 +103,34 @@ def _is_finite(value: object) -> bool:
         return float(value) == float(value) and abs(float(value)) != float("inf")
     except (TypeError, ValueError):
         return False
+
+
+def study_readiness(
+    housing_rows: Iterable[Mapping[str, object]],
+    fertility_rows: Iterable[Mapping[str, object]] = (),
+    *,
+    design: StudyDesign = FERTILITY_STUDY,
+    min_entities: int = 50,
+) -> dict[str, object]:
+    """给出进入校准、回放和模型比较前的最小就绪状态。"""
+    housing = list(housing_rows)
+    fertility = list(fertility_rows)
+    housing_years = {int(row["year"]) for row in housing if "year" in row}
+    housing_entities = {str(row.get("state", row.get("entity", ""))) for row in housing}
+    fertility_years = {int(row["year"]) for row in fertility if "year" in row}
+    fertility_entities = {str(row.get("state", row.get("entity", ""))) for row in fertility}
+    required_years = set(range(design.calibration_start, design.test_end + 1))
+    housing_full = len(housing_entities) >= min_entities and required_years <= housing_years
+    fertility_full = len(fertility_entities) >= min_entities and required_years <= fertility_years
+    return {
+        "housing_slice_valid": bool(housing),
+        "housing_full_period": housing_full,
+        "fertility_full_period": fertility_full,
+        "panel_merge_ready": housing_full and fertility_full,
+        "model_comparison_ready": housing_full and fertility_full,
+        "missing_housing_years": sorted(required_years - housing_years),
+        "missing_fertility_years": sorted(required_years - fertility_years),
+        "next_required": ("download fertility outcome and denominator data"
+                           if not fertility_full else
+                           "merge panel and run calibration-only model checks"),
+    }
