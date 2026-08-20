@@ -11,10 +11,11 @@ from population_simu.fertility_panel import (
 class FertilityPanelTests(unittest.TestCase):
     def test_merge_computes_asfr_and_parses_commas(self):
         rows = merge_wonder_births_with_denominator(
-            [{"State": "Alabama", "Year": "2021", "Births": "50"}],
-            [{"State": "Alabama", "Year": "2021", "Female15_44": "1,000"}],
+            [{"Entity": "Alabama", "State": "01", "Year": "2021", "Births": "50"}],
+            [{"State": "01", "Year": "2021", "Female15_44": "1,000"}],
         )
         self.assertEqual(rows[0]["entity"], "Alabama")
+        self.assertEqual(rows[0]["state"], "01")
         self.assertEqual(rows[0]["asfr_15_44"], 50.0)
 
     def test_duplicate_or_missing_denominator_is_rejected(self):

@@ -85,9 +85,10 @@ female_employment,unemployment,education,migration_rate
 
 ### 生育结果导入路径
 
-由于 2005 年后的 NBER 公共出生微数据不提供可用于本研究的州级细分，首个可审计路径是
-从 CDC WONDER Natality 网页按 `State × Year`（必要时再分婚姻状态和孩次）导出 TSV，再用
-Census Population Estimates 的州—年女性 15—44 岁分母计算 `ASFR_15_44`。导入器为
+由于 2005 年后的 NBER 公共出生微数据不提供可用于本研究的州级细分，当前已固定的首个
+可审计路径是使用 CDC/NCHS 每年最终出生报告中的州级表（母亲居住州），再用 Census PEP
+单岁年龄—性别估计汇总女性 15—44 岁分母计算 `ASFR_15_44`。该路径覆盖 2007—2021，
+不依赖不可批量调用州级地理字段的 WONDER API。导入器为
 `src/population_simu/fertility_panel.py`，命令行入口为：
 
 ```bash
@@ -99,15 +100,16 @@ PYTHONPATH=src python3 scripts/import_wonder_fertility.py \
 
 输入必须包含 `State,Year,Births` 与 `State,Year,Female15_44`；程序会拒绝重复键、缺失分母、
 负出生数和非正分母，并保留可选的 `Marital Status`、`Live Birth Order`。当前仓库尚未放入
-完整 WONDER 导出和分母文件，因此 `study_ready=false` 仍是正确状态；不使用合成出生数据替代。
+当前固定的 outcome 是总出生的一般生育率，尚未加入婚姻状态/孩次分层；真实文件的行数、来源
+URL 和 SHA-256 固定在 `data/observed/us_2021/us_fertility_manifest.json`，不使用合成出生数据替代。
 
 本轮已加入 `scripts/fetch_us_housing_panel.py`，读取 ACS B25070 的 30% 以上租金负担
 类别并输出州—年 housing panel。Census API 若返回认证错误，脚本会停止；不能用错误页或
 缺失值继续运行。`median_gross_rent` 仍需单独接入 B25064 等表，不能把负担比例当租金。
 
 `scripts/validate_frozen_data.py` 已能对当前住房子面板输出 JSON 审计；2021 切片目前为
-52 个州/地区、无重复键、比例均在 [0,1]，但 `study_ready=false`，因为生育结果和女性分母
-尚未接入。该状态是预期的验证门槛，不是失败的模型结果。
+52 个州/地区、无重复键、比例均在 [0,1]；生育结果和女性分母已经接入，但 `study_ready=false`
+仍是正确状态，因为住房仍只有 2021 切片。该状态是预期的验证门槛，不是失败的模型结果。
 
 ## 两周最小 empirical milestone
 
@@ -118,8 +120,8 @@ PYTHONPATH=src python3 scripts/import_wonder_fertility.py \
 
 ## 后续工作顺序（冻结期）
 
-1. **数据完成**：补齐 2007—2020 ACS B25070，并接入 CDC/NVSS 的州—母亲年龄—孩次出生数和
-   女性 15—44 岁分母；托育序列只有在定义和年份一致时加入。
+1. **数据完成**：补齐 2007—2020 ACS B25070；当前已接入 CDC/NVSS 州级总出生数和 Census PEP
+   女性 15—44 岁分母。婚姻/孩次分层和托育序列只有在定义和年份一致时加入。
 2. **面板锁定**：对所有州年键、缺失、权重、版本和变量定义做审计，生成不可再变的分析 CSV。
 3. **参数校准**：只用 2007—2017，估计基线生育 hazard、住房系数和 reduced-form 系数；保存
    参数文件与随机种子。

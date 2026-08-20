@@ -1,0 +1,53 @@
+{
+  "study": "US state-year housing burden -> fertility",
+  "retrieved_utc": "2026-08-20",
+  "period": [
+    2007,
+    2021
+  ],
+  "entities": 51,
+  "rows": {
+    "births": 765,
+    "female_denominator": 765,
+    "fertility_panel": 765
+  },
+  "births": {
+    "definition": "NCHS final live births by mother state of residence; Table 6, all races and origins",
+    "source": "CDC/NCHS National Vital Statistics Reports",
+    "files": [
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr58/nvsr58_24.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr59/nvsr59_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr60/nvsr60_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr61/nvsr61_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr62/nvsr62_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr62/nvsr62_09.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr64/nvsr64_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr64/nvsr64_12.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr66/nvsr66_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr67/nvsr67_01.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr67/nvsr67_08-508.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr68/nvsr68_13-508.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr70/nvsr70-02-508.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr70/nvsr70-17.pdf",
+      "https://www.cdc.gov/nchs/data/nvsr/nvsr72/nvsr72-01.pdf"
+    ]
+  },
+  "female_denominator": {
+    "definition": "Census PEP civilian resident female population, single ages 15-44 summed",
+    "source_files": [
+      "https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv",
+      "https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv",
+      "https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv"
+    ]
+  },
+  "checksums": {
+    "us_state_births_2007_2021.csv": "ab2b03aa4bfa32f63edf714ad1534beb853bc150322123a36b480a7f9415e8dc",
+    "us_female_15_44_2007_2021.csv": "5f2e6fb745c17b2555232df9b506e8b29702bb9214abd8b76488ca2cc35011c6",
+    "us_fertility_panel.csv": "c98796f57b6cf3cb9de6cd2038b7213d03a599377036745fa713f7a1ebe57c46"
+  },
+  "notes": [
+    "The outcome is the general fertility rate: all live births divided by female population age 15-44, times 1000.",
+    "Birth and denominator vintages are fixed to the downloaded source files; no synthetic rows are included.",
+    "This is not a marital-status or parity-stratified outcome; those remain a later data requirement under the feature freeze."
+  ]
+}

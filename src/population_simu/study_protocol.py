@@ -132,5 +132,7 @@ def study_readiness(
         "missing_fertility_years": sorted(required_years - fertility_years),
         "next_required": ("download fertility outcome and denominator data"
                            if not fertility_full else
-                           "merge panel and run calibration-only model checks"),
+                           ("complete housing burden panel"
+                            if not housing_full else
+                            "merge panel and run calibration-only model checks")),
     }

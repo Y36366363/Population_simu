@@ -1,0 +1,766 @@
+entity,state,year,female_15_44,source_url
+Alabama,01,2007,949443,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Alabama,01,2008,951104,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Alabama,01,2009,950315,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Alabama,01,2010,958387,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2011,956950,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2012,957963,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2013,959105,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2014,957755,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2015,954761,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2016,950852,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2017,948297,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2018,947147,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2019,947505,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alabama,01,2020,969497,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Alabama,01,2021,974829,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Delaware,10,2007,177317,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Delaware,10,2008,177190,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Delaware,10,2009,176795,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Delaware,10,2010,178514,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2011,178655,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2012,178459,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2013,178784,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2014,179035,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2015,178955,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2016,178218,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2017,178179,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2018,178615,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2019,179495,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Delaware,10,2020,182801,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Delaware,10,2021,185093,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+District of Columbia,11,2007,145865,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+District of Columbia,11,2008,147193,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+District of Columbia,11,2009,150841,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+District of Columbia,11,2010,162793,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2011,166682,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2012,170741,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2013,174176,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2014,176811,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2015,180590,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2016,183210,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2017,186031,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2018,187938,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2019,189607,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+District of Columbia,11,2020,185234,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+District of Columbia,11,2021,177124,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Florida,12,2007,3518042,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Florida,12,2008,3505482,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Florida,12,2009,3483271,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Florida,12,2010,3553835,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2011,3571276,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2012,3603008,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2013,3635323,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2014,3674296,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2015,3721441,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2016,3773513,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2017,3819257,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2018,3851386,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2019,3877863,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Florida,12,2020,3888427,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Florida,12,2021,3925096,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Georgia,13,2007,2072331,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Georgia,13,2008,2086290,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Georgia,13,2009,2089095,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Georgia,13,2010,2065974,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2011,2067629,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2012,2078223,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2013,2081959,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2014,2091522,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2015,2104203,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2016,2120722,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2017,2134594,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2018,2149822,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2019,2170880,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Georgia,13,2020,2188464,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Georgia,13,2021,2211968,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Hawaii,15,2007,249589,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Hawaii,15,2008,249426,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Hawaii,15,2009,249213,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Hawaii,15,2010,256943,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2011,258623,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2012,260194,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2013,260955,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2014,259973,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2015,259467,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2016,259581,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2017,258277,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2018,257143,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2019,255741,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Hawaii,15,2020,260386,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Hawaii,15,2021,257043,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Idaho,16,2007,301527,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Idaho,16,2008,305024,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Idaho,16,2009,306453,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Idaho,16,2010,305827,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2011,307549,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2012,308769,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2013,310808,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2014,313669,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2015,316630,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2016,322931,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2017,329919,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2018,336694,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2019,344225,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Idaho,16,2020,356448,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Idaho,16,2021,368813,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Illinois,17,2007,2661051,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Illinois,17,2008,2653002,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Illinois,17,2009,2646520,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Illinois,17,2010,2624134,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2011,2617791,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2012,2609351,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2013,2601261,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2014,2588205,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2015,2567845,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2016,2543194,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2017,2523054,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2018,2504925,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2019,2491212,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Illinois,17,2020,2509076,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Illinois,17,2021,2487384,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Indiana,18,2007,1289608,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Indiana,18,2008,1286928,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Indiana,18,2009,1281738,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Indiana,18,2010,1286994,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2011,1287251,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2012,1286985,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2013,1291398,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2014,1293763,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2015,1291965,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2016,1292701,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2017,1294328,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2018,1301847,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2019,1310119,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Indiana,18,2020,1318746,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Indiana,18,2021,1328051,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Iowa,19,2007,581795,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Iowa,19,2008,579635,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Iowa,19,2009,577743,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Iowa,19,2010,576835,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2011,579227,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2012,580355,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2013,584234,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2014,587004,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2015,588341,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2016,589130,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2017,590894,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2018,592377,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2019,594026,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Iowa,19,2020,602420,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Iowa,19,2021,606309,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Alaska,02,2007,143502,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Alaska,02,2008,142587,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Alaska,02,2009,144562,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Alaska,02,2010,140950,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2011,142513,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2012,143564,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2013,144566,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2014,144107,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2015,143658,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2016,144035,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2017,143412,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2018,142216,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2019,141373,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Alaska,02,2020,141056,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Alaska,02,2021,141381,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Kansas,20,2007,555066,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Kansas,20,2008,553596,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Kansas,20,2009,553980,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Kansas,20,2010,553099,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2011,553769,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2012,555894,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2013,556826,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2014,556910,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2015,558112,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2016,557336,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2017,556052,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2018,557912,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2019,558920,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kansas,20,2020,563782,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Kansas,20,2021,565732,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Kentucky,21,2007,869003,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Kentucky,21,2008,868294,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Kentucky,21,2009,863624,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Kentucky,21,2010,853956,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2011,853645,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2012,851599,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2013,852664,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2014,850503,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2015,848940,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2016,846664,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2017,846070,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2018,845381,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2019,845501,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Kentucky,21,2020,851701,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Kentucky,21,2021,855893,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Louisiana,22,2007,918635,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Louisiana,22,2008,928631,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Louisiana,22,2009,930761,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Louisiana,22,2010,926732,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2011,930158,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2012,932578,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2013,934904,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2014,936239,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2015,936902,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2016,934989,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2017,928894,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2018,924237,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2019,920124,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Louisiana,22,2020,918841,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Louisiana,22,2021,914316,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Maine,23,2007,253292,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Maine,23,2008,250005,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Maine,23,2009,245825,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Maine,23,2010,240866,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2011,238875,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2012,236436,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2013,234569,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2014,233951,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2015,232028,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2016,231251,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2017,230750,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2018,231501,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2019,232605,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maine,23,2020,236566,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Maine,23,2021,240730,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Maryland,24,2007,1191236,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Maryland,24,2008,1182788,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Maryland,24,2009,1175996,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Maryland,24,2010,1189270,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2011,1190910,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2012,1192271,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2013,1191591,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2014,1189785,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2015,1187745,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2016,1180800,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2017,1178924,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2018,1178564,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2019,1178978,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Maryland,24,2020,1203152,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Maryland,24,2021,1205457,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Massachusetts,25,2007,1362374,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Massachusetts,25,2008,1359536,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Massachusetts,25,2009,1355976,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Massachusetts,25,2010,1353520,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2011,1356419,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2012,1359120,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2013,1366099,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2014,1372590,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2015,1374213,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2016,1376100,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2017,1383819,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2018,1389869,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2019,1392795,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Massachusetts,25,2020,1419488,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Massachusetts,25,2021,1411403,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Michigan,26,2007,2028936,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Michigan,26,2008,1994996,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Michigan,26,2009,1962712,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Michigan,26,2010,1913502,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2011,1904716,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2012,1899211,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2013,1896229,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2014,1892402,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2015,1883691,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2016,1878871,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2017,1878268,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2018,1878175,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2019,1878038,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Michigan,26,2020,1891005,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Michigan,26,2021,1895250,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Minnesota,27,2007,1057962,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Minnesota,27,2008,1052247,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Minnesota,27,2009,1046457,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Minnesota,27,2010,1044566,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2011,1044775,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2012,1044844,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2013,1048069,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2014,1050877,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2015,1051518,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2016,1055396,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2017,1063072,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2018,1072317,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2019,1081343,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Minnesota,27,2020,1095954,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Minnesota,27,2021,1099940,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Mississippi,28,2007,608735,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Mississippi,28,2008,607556,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Mississippi,28,2009,605338,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Mississippi,28,2010,601799,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2011,601092,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2012,600147,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2013,600368,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2014,598941,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2015,596866,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2016,593505,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2017,590349,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2018,584641,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2019,582126,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Mississippi,28,2020,576871,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Mississippi,28,2021,576769,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Missouri,29,2007,1197985,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Missouri,29,2008,1195693,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Missouri,29,2009,1191447,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Missouri,29,2010,1173864,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2011,1172084,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2012,1170720,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2013,1170470,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2014,1170209,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2015,1169604,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2016,1166698,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2017,1168143,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2018,1169877,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2019,1173968,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Missouri,29,2020,1178136,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Missouri,29,2021,1186346,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Montana,30,2007,182317,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Montana,30,2008,182782,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Montana,30,2009,182280,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Montana,30,2010,179324,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2011,180516,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2012,181417,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2013,183478,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2014,184677,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2015,185844,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2016,187726,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2017,190608,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2018,192671,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2019,194608,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Montana,30,2020,199074,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Montana,30,2021,204547,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Nebraska,31,2007,353174,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Nebraska,31,2008,352206,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Nebraska,31,2009,352708,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Nebraska,31,2010,354218,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2011,355861,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2012,357739,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2013,359792,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2014,362002,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2015,363772,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2016,366327,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2017,368071,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2018,370674,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2019,372616,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nebraska,31,2020,378893,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Nebraska,31,2021,380948,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Nevada,32,2007,521596,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Nevada,32,2008,527925,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Nevada,32,2009,528202,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Nevada,32,2010,547651,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2011,546017,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2012,549749,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2013,552882,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2014,558514,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2015,565251,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2016,571649,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2017,579856,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2018,590202,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2019,599543,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Nevada,32,2020,606373,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Nevada,32,2021,613038,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New Hampshire,33,2007,264493,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Hampshire,33,2008,261372,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Hampshire,33,2009,257673,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Hampshire,33,2010,249484,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2011,247942,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2012,246449,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2013,245008,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2014,244535,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2015,243185,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2016,242924,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2017,243570,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2018,243878,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2019,245592,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Hampshire,33,2020,249107,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New Hampshire,33,2021,252999,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New Jersey,34,2007,1736320,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Jersey,34,2008,1722494,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Jersey,34,2009,1711165,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Jersey,34,2010,1735099,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2011,1726406,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2012,1716249,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2013,1707609,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2014,1697694,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2015,1688553,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2016,1678522,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2017,1677257,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2018,1674163,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2019,1672683,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Jersey,34,2020,1743956,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New Jersey,34,2021,1747884,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New Mexico,35,2007,395234,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Mexico,35,2008,394512,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Mexico,35,2009,395285,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New Mexico,35,2010,397629,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2011,399665,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2012,399945,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2013,400062,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2014,398213,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2015,396990,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2016,396315,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2017,395345,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2018,395497,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2019,396679,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New Mexico,35,2020,401359,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New Mexico,35,2021,402868,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New York,36,2007,4068692,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New York,36,2008,4045215,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New York,36,2009,4022533,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+New York,36,2010,4042471,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2011,4040994,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2012,4033018,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2013,4022854,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2014,4004770,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2015,3976774,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2016,3945278,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2017,3917056,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2018,3894471,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2019,3871739,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+New York,36,2020,3993250,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+New York,36,2021,3895380,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+North Carolina,37,2007,1884561,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+North Carolina,37,2008,1903290,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+North Carolina,37,2009,1912539,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+North Carolina,37,2010,1941487,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2011,1947387,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2012,1953911,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2013,1964498,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2014,1971768,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2015,1979226,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2016,1994750,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2017,2008666,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2018,2026795,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2019,2044597,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Carolina,37,2020,2035647,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+North Carolina,37,2021,2061442,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+North Dakota,38,2007,126944,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+North Dakota,38,2008,126576,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+North Dakota,38,2009,127149,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+North Dakota,38,2010,128361,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2011,130638,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2012,134086,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2013,139129,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2014,142193,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2015,145700,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2016,145246,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2017,145321,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2018,146087,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2019,147001,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+North Dakota,38,2020,150648,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+North Dakota,38,2021,150589,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Ohio,39,2007,2311157,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Ohio,39,2008,2290946,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Ohio,39,2009,2270612,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Ohio,39,2010,2231669,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2011,2221866,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2012,2212463,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2013,2213491,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2014,2211361,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2015,2206988,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2016,2201239,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2017,2203404,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2018,2206199,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2019,2210423,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Ohio,39,2020,2230583,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Ohio,39,2021,2238663,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Arizona,04,2007,1272915,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Arizona,04,2008,1290026,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Arizona,04,2009,1298072,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Arizona,04,2010,1260823,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2011,1269384,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2012,1282267,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2013,1294004,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2014,1309452,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2015,1321883,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2016,1337661,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2017,1352115,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2018,1372790,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2019,1395862,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arizona,04,2020,1377078,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Arizona,04,2021,1401970,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Oklahoma,40,2007,724287,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Oklahoma,40,2008,725097,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Oklahoma,40,2009,729110,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Oklahoma,40,2010,734697,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2011,741044,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2012,746958,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2013,754604,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2014,759515,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2015,765578,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2016,767087,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2017,765901,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2018,767348,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2019,771770,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oklahoma,40,2020,774144,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Oklahoma,40,2021,783969,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Oregon,41,2007,745016,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Oregon,41,2008,750674,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Oregon,41,2009,754824,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Oregon,41,2010,754423,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2011,761477,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2012,765859,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2013,768504,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2014,774894,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2015,783275,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2016,799921,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2017,811291,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2018,819240,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2019,827501,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Oregon,41,2020,833042,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Oregon,41,2021,835675,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Pennsylvania,42,2007,2460169,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Pennsylvania,42,2008,2450528,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Pennsylvania,42,2009,2437535,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Pennsylvania,42,2010,2439749,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2011,2434700,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2012,2426021,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2013,2416613,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2014,2407590,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2015,2393610,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2016,2380392,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2017,2376335,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2018,2379435,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2019,2382036,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Pennsylvania,42,2020,2419088,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Pennsylvania,42,2021,2425066,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Rhode Island,44,2007,218790,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Rhode Island,44,2008,215905,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Rhode Island,44,2009,213399,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Rhode Island,44,2010,214119,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2011,212494,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2012,211435,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2013,210313,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2014,209554,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2015,208469,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2016,207681,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2017,206964,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2018,207478,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2019,207887,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Rhode Island,44,2020,214732,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Rhode Island,44,2021,215916,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+South Carolina,45,2007,905744,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+South Carolina,45,2008,913249,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+South Carolina,45,2009,914438,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+South Carolina,45,2010,921992,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2011,921170,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2012,924316,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2013,929134,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2014,936159,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2015,944685,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2016,951604,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2017,959340,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2018,966916,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2019,976843,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Carolina,45,2020,972781,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+South Carolina,45,2021,987405,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+South Dakota,46,2007,153879,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+South Dakota,46,2008,153509,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+South Dakota,46,2009,153504,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+South Dakota,46,2010,152018,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2011,152741,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2012,154429,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2013,155679,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2014,156394,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2015,156437,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2016,157797,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2017,159690,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2018,160539,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2019,161553,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+South Dakota,46,2020,162609,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+South Dakota,46,2021,165248,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Tennessee,47,2007,1269971,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Tennessee,47,2008,1272175,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Tennessee,47,2009,1270018,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Tennessee,47,2010,1272096,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2011,1274725,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2012,1281016,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2013,1285302,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2014,1289982,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2015,1294231,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2016,1298980,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2017,1308167,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2018,1319969,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2019,1331276,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Tennessee,47,2020,1348585,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Tennessee,47,2021,1364959,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Texas,48,2007,5072933,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Texas,48,2008,5124911,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Texas,48,2009,5182835,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Texas,48,2010,5322420,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2011,5395961,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2012,5476739,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2013,5551574,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2014,5645777,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2015,5739945,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2016,5815068,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2017,5879401,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2018,5942241,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2019,6015513,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Texas,48,2020,6052330,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Texas,48,2021,6134162,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Utah,49,2007,590996,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Utah,49,2008,600579,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Utah,49,2009,609295,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Utah,49,2010,603344,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2011,610903,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2012,619015,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2013,628684,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2014,636682,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2015,646078,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2016,660055,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2017,674703,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2018,688130,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2019,701559,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Utah,49,2020,717920,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Utah,49,2021,733414,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Arkansas,05,2007,568678,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Arkansas,05,2008,568945,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Arkansas,05,2009,568411,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Arkansas,05,2010,569533,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2011,572242,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2012,574043,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2013,575314,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2014,575786,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2015,576090,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2016,575847,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2017,576096,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2018,576578,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2019,577597,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Arkansas,05,2020,577011,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Arkansas,05,2021,582455,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Vermont,50,2007,123121,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Vermont,50,2008,121654,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Vermont,50,2009,120186,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Vermont,50,2010,118062,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2011,117463,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2012,116546,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2013,116143,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2014,115384,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2015,115066,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2016,114128,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2017,114221,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2018,114441,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2019,114461,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Vermont,50,2020,118357,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Vermont,50,2021,119962,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Virginia,51,2007,1630761,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Virginia,51,2008,1629744,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Virginia,51,2009,1632043,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Virginia,51,2010,1632522,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2011,1638663,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2012,1648143,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2013,1652243,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2014,1654578,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2015,1653410,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2016,1650959,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2017,1655727,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2018,1658875,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2019,1663150,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Virginia,51,2020,1683238,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Virginia,51,2021,1688028,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Washington,53,2007,1327500,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Washington,53,2008,1335227,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Washington,53,2009,1345084,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Washington,53,2010,1351925,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2011,1363510,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2012,1372482,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2013,1380000,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2014,1393345,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2015,1410756,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2016,1434695,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2017,1462880,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2018,1486975,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2019,1509040,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Washington,53,2020,1533140,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Washington,53,2021,1540650,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+West Virginia,54,2007,348378,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+West Virginia,54,2008,346045,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+West Virginia,54,2009,344474,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+West Virginia,54,2010,341654,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2011,341074,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2012,339831,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2013,337937,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2014,335995,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2015,332273,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2016,327459,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2017,322183,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2018,318352,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2019,314987,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+West Virginia,54,2020,314353,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+West Virginia,54,2021,314151,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Wisconsin,55,2007,1125996,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Wisconsin,55,2008,1118511,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Wisconsin,55,2009,1111789,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Wisconsin,55,2010,1095634,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2011,1091066,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2012,1087681,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2013,1087112,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2014,1086448,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2015,1083632,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2016,1081250,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2017,1082909,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2018,1085898,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2019,1089256,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wisconsin,55,2020,1103411,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Wisconsin,55,2021,1108122,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Wyoming,56,2007,102096,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Wyoming,56,2008,103257,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Wyoming,56,2009,105064,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Wyoming,56,2010,106230,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2011,106384,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2012,108281,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2013,109661,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2014,109480,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2015,109668,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2016,108976,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2017,107470,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2018,107202,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2019,107437,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Wyoming,56,2020,107064,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Wyoming,56,2021,108025,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+California,06,2007,7671864,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+California,06,2008,7680396,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+California,06,2009,7693697,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+California,06,2010,7866929,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2011,7906241,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2012,7942767,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2013,7975692,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2014,8005164,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2015,8024367,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2016,8038052,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2017,8044837,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2018,8046097,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2019,8042104,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+California,06,2020,8017637,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+California,06,2021,7950771,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Colorado,08,2007,1008607,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Colorado,08,2008,1017978,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Colorado,08,2009,1027293,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Colorado,08,2010,1023504,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2011,1037195,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2012,1050449,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2013,1064592,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2014,1078253,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2015,1099132,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2016,1117781,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2017,1133768,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2018,1155173,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2019,1173509,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Colorado,08,2020,1182284,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Colorado,08,2021,1193792,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Connecticut,09,2007,695342,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Connecticut,09,2008,692703,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Connecticut,09,2009,688265,https://www2.census.gov/programs-surveys/popest/datasets/2000-2009/state/asrh/sc-est2009-agesex-res.csv
+Connecticut,09,2010,691424,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2011,688816,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2012,686720,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2013,683436,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2014,680830,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2015,676161,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2016,671584,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2017,669631,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2018,670000,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2019,670071,https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/sc-est2019-agesex-civ.csv
+Connecticut,09,2020,677535,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv
+Connecticut,09,2021,684477,https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv

@@ -60,6 +60,7 @@ def merge_wonder_births_with_denominator(
     for row in birth_rows:
         try:
             state = str(_field(row, "State", "state", "entity"))
+            entity = str(row.get("Entity", row.get("entity", state)))
             year = int(_field(row, "Year", "year"))
             births = _number(_field(row, "Births", "births", "Number of Births"))
         except (KeyError, TypeError, ValueError) as exc:
@@ -75,7 +76,7 @@ def merge_wonder_births_with_denominator(
         denominator = denominators.get((state, year))
         if denominator is None:
             raise ValueError(f"缺少女性分母：{state}/{year}")
-        output.append({"country": country, "entity": state, "state": state,
+        output.append({"country": country, "entity": entity, "state": state,
                        "year": year, "marital": marital, "parity": parity,
                        "births_15_44": births, "female_15_44": denominator,
                        "asfr_15_44": births / denominator * 1000.0})

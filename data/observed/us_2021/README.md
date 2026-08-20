@@ -46,6 +46,20 @@ official 2021 table-based Summary File B25070 via `fetch_us_housing_ftp.py`. It 
 yet the 2007–2021 panel; earlier years must be downloaded and version-pinned before any
 calibration claim is made.
 
+The first frozen fertility outcome is now fixed in three files:
+
+- `us_state_births_2007_2021.csv`: 765 state-year total live-birth counts extracted
+  from NCHS final Natality report tables (mother's state of residence).
+- `us_female_15_44_2007_2021.csv`: 765 Census PEP state-year female 15–44 denominators,
+  summed from single-age civilian resident estimates.
+- `us_fertility_panel.csv`: deterministic merge with `asfr_15_44 = births /
+  female_15_44 * 1000`.
+
+`us_fertility_manifest.json` records the exact source URLs, row counts and SHA-256
+checksums. The outcome is a general fertility rate (all births), not yet a
+marital-status × parity-specific rate. The housing panel remains incomplete, so the
+full study readiness gate is intentionally still false.
+
 To add the fertility outcome, export a state-by-year CDC WONDER Natality table as TSV
 and prepare a Census female-age denominator CSV with `State,Year,Female15_44`. Then run
 `PYTHONPATH=src python3 scripts/import_wonder_fertility.py births.tsv denominator.csv
