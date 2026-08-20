@@ -45,3 +45,9 @@ and [NSFG public-use files](https://www.cdc.gov/nchs/nsfg/nsfg_2017_2019_puf.htm
 official 2021 table-based Summary File B25070 via `fetch_us_housing_ftp.py`. It is not
 yet the 2007–2021 panel; earlier years must be downloaded and version-pinned before any
 calibration claim is made.
+
+To add the fertility outcome, export a state-by-year CDC WONDER Natality table as TSV
+and prepare a Census female-age denominator CSV with `State,Year,Female15_44`. Then run
+`PYTHONPATH=src python3 scripts/import_wonder_fertility.py births.tsv denominator.csv
+--output us_fertility_panel.csv`. The importer computes `asfr_15_44` and rejects missing
+or duplicate state-year denominators; no synthetic fertility rows are used.

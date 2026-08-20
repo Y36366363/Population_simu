@@ -83,6 +83,24 @@ female_employment,unemployment,education,migration_rate
 - Child Care Aware、HHS ACF 或州行政托育统计：州—年托育价格/容量/覆盖率，只有定义一致时纳入；
 - 所有文件记录下载日期、版本、变量定义、权重和缺失处理。
 
+### 生育结果导入路径
+
+由于 2005 年后的 NBER 公共出生微数据不提供可用于本研究的州级细分，首个可审计路径是
+从 CDC WONDER Natality 网页按 `State × Year`（必要时再分婚姻状态和孩次）导出 TSV，再用
+Census Population Estimates 的州—年女性 15—44 岁分母计算 `ASFR_15_44`。导入器为
+`src/population_simu/fertility_panel.py`，命令行入口为：
+
+```bash
+PYTHONPATH=src python3 scripts/import_wonder_fertility.py \
+  data/observed/us_2021/wonder_natality_2007_2021.tsv \
+  data/observed/us_2021/us_female_15_44_2007_2021.csv \
+  --output data/observed/us_2021/us_fertility_panel.csv
+```
+
+输入必须包含 `State,Year,Births` 与 `State,Year,Female15_44`；程序会拒绝重复键、缺失分母、
+负出生数和非正分母，并保留可选的 `Marital Status`、`Live Birth Order`。当前仓库尚未放入
+完整 WONDER 导出和分母文件，因此 `study_ready=false` 仍是正确状态；不使用合成出生数据替代。
+
 本轮已加入 `scripts/fetch_us_housing_panel.py`，读取 ACS B25070 的 30% 以上租金负担
 类别并输出州—年 housing panel。Census API 若返回认证错误，脚本会停止；不能用错误页或
 缺失值继续运行。`median_gross_rent` 仍需单独接入 B25064 等表，不能把负担比例当租金。
