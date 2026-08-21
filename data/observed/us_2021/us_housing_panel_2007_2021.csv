@@ -1,0 +1,151 @@
+entity,state,year,housing_cost_burden,rent_burden_share,median_gross_rent,estimate_type,source_url
+Alabama,01,2018,0.4113524936459294,0.4113524936459294,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Alaska,02,2018,0.389705293734204,0.389705293734204,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Arizona,04,2018,0.4400221320946897,0.4400221320946897,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Arkansas,05,2018,0.41012158223596146,0.41012158223596146,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+California,06,2018,0.519036620593933,0.519036620593933,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Colorado,08,2018,0.4892656067139709,0.4892656067139709,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Connecticut,09,2018,0.4968429092760757,0.4968429092760757,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Delaware,10,2018,0.4931566002666016,0.4931566002666016,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Florida,12,2018,0.5282159815656289,0.5282159815656289,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Georgia,13,2018,0.4569835178126614,0.4569835178126614,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Hawaii,15,2018,0.48510358261602043,0.48510358261602043,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Idaho,16,2018,0.4205354569424725,0.4205354569424725,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Illinois,17,2018,0.44134857752012235,0.44134857752012235,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Indiana,18,2018,0.42972059151371034,0.42972059151371034,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Iowa,19,2018,0.38962490593811966,0.38962490593811966,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Kansas,20,2018,0.419912562208834,0.419912562208834,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Kentucky,21,2018,0.3926836866176741,0.3926836866176741,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Louisiana,22,2018,0.4847305968357301,0.4847305968357301,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Maine,23,2018,0.44236687977279515,0.44236687977279515,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Maryland,24,2018,0.4725624807368677,0.4725624807368677,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Massachusetts,25,2018,0.46843107987189886,0.46843107987189886,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Michigan,26,2018,0.4470000403515143,0.4470000403515143,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Minnesota,27,2018,0.43557595772154767,0.43557595772154767,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Mississippi,28,2018,0.42652120249123954,0.42652120249123954,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Missouri,29,2018,0.4229904864565512,0.4229904864565512,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Montana,30,2018,0.39747013952693316,0.39747013952693316,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Nebraska,31,2018,0.3822472134983681,0.3822472134983681,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Nevada,32,2018,0.48259632694942645,0.48259632694942645,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New Hampshire,33,2018,0.4538073063553486,0.4538073063553486,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New Jersey,34,2018,0.4859095914212908,0.4859095914212908,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New Mexico,35,2018,0.43378828922692225,0.43378828922692225,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New York,36,2018,0.49106652642804616,0.49106652642804616,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+North Carolina,37,2018,0.437532801642835,0.437532801642835,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+North Dakota,38,2018,0.354422460963566,0.354422460963566,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Ohio,39,2018,0.41151785775699545,0.41151785775699545,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Oklahoma,40,2018,0.3900744175173381,0.3900744175173381,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Oregon,41,2018,0.46871733345038424,0.46871733345038424,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Pennsylvania,42,2018,0.4424613417438827,0.4424613417438827,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Rhode Island,44,2018,0.4431158556620001,0.4431158556620001,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+South Carolina,45,2018,0.4319912912127324,0.4319912912127324,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+South Dakota,46,2018,0.37093779852562137,0.37093779852562137,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Tennessee,47,2018,0.44094335931279544,0.44094335931279544,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Texas,48,2018,0.45176818498979554,0.45176818498979554,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Utah,49,2018,0.4190595033027249,0.4190595033027249,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Vermont,50,2018,0.4322562866000689,0.4322562866000689,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Virginia,51,2018,0.4519425418938409,0.4519425418938409,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Washington,53,2018,0.452657332849087,0.452657332849087,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+West Virginia,54,2018,0.3988090818644848,0.3988090818644848,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Wisconsin,55,2018,0.4103704844006568,0.4103704844006568,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Wyoming,56,2018,0.37153711279953244,0.37153711279953244,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Alabama,01,2019,0.4094973774084034,0.4094973774084034,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Alaska,02,2019,0.4096281219427171,0.4096281219427171,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Arizona,04,2019,0.43357682014203935,0.43357682014203935,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Arkansas,05,2019,0.38600878961173407,0.38600878961173407,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+California,06,2019,0.5068502445896547,0.5068502445896547,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Colorado,08,2019,0.47703654786285477,0.47703654786285477,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Connecticut,09,2019,0.4625642686867177,0.4625642686867177,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Delaware,10,2019,0.46622395646881937,0.46622395646881937,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Florida,12,2019,0.5241795096752143,0.5241795096752143,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Georgia,13,2019,0.4479829134777758,0.4479829134777758,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Hawaii,15,2019,0.49702976707546714,0.49702976707546714,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Idaho,16,2019,0.42654125016088207,0.42654125016088207,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Illinois,17,2019,0.42444437861630735,0.42444437861630735,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Indiana,18,2019,0.41672833451651986,0.41672833451651986,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Iowa,19,2019,0.3862276948708418,0.3862276948708418,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Kansas,20,2019,0.3953264197944798,0.3953264197944798,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Kentucky,21,2019,0.3834961553661936,0.3834961553661936,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Louisiana,22,2019,0.44374245831505044,0.44374245831505044,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Maine,23,2019,0.39827835911196935,0.39827835911196935,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Maryland,24,2019,0.47388772527447237,0.47388772527447237,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Massachusetts,25,2019,0.4626281117482424,0.4626281117482424,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Michigan,26,2019,0.442825057478393,0.442825057478393,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Minnesota,27,2019,0.41795851143595036,0.41795851143595036,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Mississippi,28,2019,0.4024523191073981,0.4024523191073981,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Missouri,29,2019,0.40666420888808613,0.40666420888808613,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Montana,30,2019,0.4107786629465105,0.4107786629465105,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Nebraska,31,2019,0.3837984573621354,0.3837984573621354,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Nevada,32,2019,0.4815810853582077,0.4815810853582077,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New Hampshire,33,2019,0.44258093239203716,0.44258093239203716,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New Jersey,34,2019,0.4660579875231015,0.4660579875231015,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New Mexico,35,2019,0.4174086703924726,0.4174086703924726,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New York,36,2019,0.47303380005639506,0.47303380005639506,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+North Carolina,37,2019,0.42596921288165973,0.42596921288165973,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+North Dakota,38,2019,0.35474150334111326,0.35474150334111326,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Ohio,39,2019,0.4040807739540535,0.4040807739540535,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Oklahoma,40,2019,0.39465466479574113,0.39465466479574113,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Oregon,41,2019,0.4549799339134014,0.4549799339134014,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Pennsylvania,42,2019,0.4362267183949797,0.4362267183949797,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Rhode Island,44,2019,0.4585394929115287,0.4585394929115287,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+South Carolina,45,2019,0.4202133726462873,0.4202133726462873,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+South Dakota,46,2019,0.35917026732708046,0.35917026732708046,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Tennessee,47,2019,0.4210020730762179,0.4210020730762179,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Texas,48,2019,0.4480370734721933,0.4480370734721933,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Utah,49,2019,0.4182228920673261,0.4182228920673261,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Vermont,50,2019,0.5062798144154741,0.5062798144154741,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Virginia,51,2019,0.42856204688780486,0.42856204688780486,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Washington,53,2019,0.45282489136809245,0.45282489136809245,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+West Virginia,54,2019,0.36271415806246676,0.36271415806246676,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Wisconsin,55,2019,0.4000091987269984,0.4000091987269984,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Wyoming,56,2019,0.39537118969883744,0.39537118969883744,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Alabama,01,2021,0.4341134310335178,0.4341134310335178,,,
+Alaska,02,2021,0.44992569261140564,0.44992569261140564,,,
+Arizona,04,2021,0.4785835600246921,0.4785835600246921,,,
+Arkansas,05,2021,0.39943220944252594,0.39943220944252594,,,
+California,06,2021,0.5271607835977482,0.5271607835977482,,,
+Colorado,08,2021,0.5045154660417392,0.5045154660417392,,,
+Connecticut,09,2021,0.4914565318154267,0.4914565318154267,,,
+Delaware,10,2021,0.4702934266893915,0.4702934266893915,,,
+Florida,12,2021,0.5489939133548156,0.5489939133548156,,,
+Georgia,13,2021,0.47584333284522323,0.47584333284522323,,,
+Hawaii,15,2021,0.5342452310728518,0.5342452310728518,,,
+Idaho,16,2021,0.4316701707604738,0.4316701707604738,,,
+Illinois,17,2021,0.4437580313722442,0.4437580313722442,,,
+Indiana,18,2021,0.43261297420774475,0.43261297420774475,,,
+Iowa,19,2021,0.4120337424320389,0.4120337424320389,,,
+Kansas,20,2021,0.3972941724258801,0.3972941724258801,,,
+Kentucky,21,2021,0.4061134278863506,0.4061134278863506,,,
+Louisiana,22,2021,0.48382028561921325,0.48382028561921325,,,
+Maine,23,2021,0.4294922855517253,0.4294922855517253,,,
+Maryland,24,2021,0.49264831019975225,0.49264831019975225,,,
+Massachusetts,25,2021,0.4854384594651489,0.4854384594651489,,,
+Michigan,26,2021,0.46129765415481677,0.46129765415481677,,,
+Minnesota,27,2021,0.4551086808284031,0.4551086808284031,,,
+Mississippi,28,2021,0.4432085898704688,0.4432085898704688,,,
+Missouri,29,2021,0.4218243389760963,0.4218243389760963,,,
+Montana,30,2021,0.3793110994397759,0.3793110994397759,,,
+Nebraska,31,2021,0.4266416732438832,0.4266416732438832,,,
+Nevada,32,2021,0.5208264863443652,0.5208264863443652,,,
+New Hampshire,33,2021,0.42559399473478293,0.42559399473478293,,,
+New Jersey,34,2021,0.48907966530947306,0.48907966530947306,,,
+New Mexico,35,2021,0.442907758190162,0.442907758190162,,,
+New York,36,2021,0.5032553332538481,0.5032553332538481,,,
+North Carolina,37,2021,0.4445861582869034,0.4445861582869034,,,
+North Dakota,38,2021,0.3845009330710647,0.3845009330710647,,,
+Ohio,39,2021,0.4062281743480355,0.4062281743480355,,,
+Oklahoma,40,2021,0.4197442570160822,0.4197442570160822,,,
+Oregon,41,2021,0.4855336547896505,0.4855336547896505,,,
+Pennsylvania,42,2021,0.44203418692466584,0.44203418692466584,,,
+Rhode Island,44,2021,0.4583758448191639,0.4583758448191639,,,
+South Carolina,45,2021,0.44868458342837786,0.44868458342837786,,,
+South Dakota,46,2021,0.3500096103682144,0.3500096103682144,,,
+Tennessee,47,2021,0.43883112978435657,0.43883112978435657,,,
+Texas,48,2021,0.47503608826725513,0.47503608826725513,,,
+Utah,49,2021,0.4530211104346548,0.4530211104346548,,,
+Vermont,50,2021,0.468404808317089,0.468404808317089,,,
+Virginia,51,2021,0.4609016474704227,0.4609016474704227,,,
+Washington,53,2021,0.46294587974133417,0.46294587974133417,,,
+West Virginia,54,2021,0.4109957858592165,0.4109957858592165,,,
+Wisconsin,55,2021,0.40585619309056237,0.40585619309056237,,,
+Wyoming,56,2021,0.44034466885321366,0.44034466885321366,,,

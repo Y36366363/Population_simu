@@ -41,10 +41,20 @@ Official acquisition references: [ACS PUMS](https://www.census.gov/programs-surv
 [ACS migration variables](https://www.census.gov/data/developers/data-sets/acs-migration-flows/2020.html),
 and [NSFG public-use files](https://www.cdc.gov/nchs/nsfg/nsfg_2017_2019_puf.htm).
 
-`us_housing_panel_2021.csv` is the first verified state-year slice, generated from the
-official 2021 table-based Summary File B25070 via `fetch_us_housing_ftp.py`. It is not
-yet the 2007–2021 panel; earlier years must be downloaded and version-pinned before any
-calibration claim is made.
+`us_housing_panel_2021.csv` is the original verified state-year slice. The historical
+ingestion path is `scripts/fetch_us_housing_historical.py`: it parses ACS sequence files
+(2007–2017) using year-specific sequence metadata and table-based files (2018 onward),
+and records the source URL and estimate type. `us_housing_panel_2007_2021.csv` is the
+current auditable research slice; its manifest explicitly lists missing years rather
+than imputing them. The present download contains 2018, 2019 and 2021 for the 50 states.
+Older sequence files and the District of Columbia require a separate FTP-layout pass.
+The 2020 standard ACS 1-year Summary File does not exist, so no 2020 value is fabricated;
+the experimental/5-year alternatives must be handled as a separately flagged sensitivity.
+
+`scripts/build_us_research_panel.py` merges the housing slice with the fixed fertility
+outcome and writes `us_research_panel_2007_2021.csv` plus a manifest with row counts,
+missing years and unmatched fertility rows. It is not model-ready until the manifest's
+missing years are resolved under a pre-specified comparability rule.
 
 The first frozen fertility outcome is now fixed in three files:
 

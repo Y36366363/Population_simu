@@ -53,19 +53,56 @@ def parse_acs_summary_file(path: str, year: int) -> list[dict[str, object]]:
         rows = csv.DictReader(file, delimiter="|")
         result = []
         for row in rows:
-            geo = row.get("GEO_ID", "")
+            geo = row.get("GEO_ID", row.get("#GEO_ID", ""))
             if not geo.startswith("0400000US"):
                 continue
             state = geo[-2:]
-            payload_row = [STATE_NAMES.get(state, state), row.get("B25070_E001", ""),
-                           row.get("B25070_E007", ""), row.get("B25070_E008", ""),
-                           row.get("B25070_E009", ""), row.get("B25070_E010", ""), state]
+            def value(cell: str) -> str:
+                return row.get(f"B25070_E{cell}", row.get(f"B25070_{cell}E", ""))
+            payload_row = [STATE_NAMES.get(state, state), value("001"),
+                           value("007"), value("008"), value("009"), value("010"), state]
             result.extend(parse_acs_housing_response(
                 [["NAME", "B25070_001E", "B25070_007E", "B25070_008E",
                   "B25070_009E", "B25070_010E", "state"], payload_row], year))
         if not result:
             raise ValueError(f"{path} 没有州级 B25070 行")
         return result
+
+
+def parse_acs_sequence_state_row(text: str, year: int, *, state: str,
+                                 start_position: int = 7,
+                                 source_url: str | None = None) -> dict[str, object]:
+    """Parse the state-total record from a pre-2018 ACS sequence file.
+
+    Sequence files are comma-delimited and contain six metadata columns followed
+    by the table estimates.  For B25070 sequence 0142, the first 11 estimates
+    correspond to B25070 E001--E011; E007--E010 are the cost-burdened bins.
+    """
+    import csv
+    records = list(csv.reader(line for line in text.splitlines() if line.strip()))
+    if not records:
+        raise ValueError("ACS sequence file 为空")
+    values = None
+    for record in records:
+        if len(record) >= 17 and record[0].strip().upper() == "ACSSF":
+            start = max(6, start_position - 1)
+            values = record[start:start + 11]
+            break
+    if values is None or len(values) < 11:
+        raise ValueError("ACS sequence file 缺少 ACSSF 州级记录")
+    try:
+        numbers = [float(value.replace(",", "")) for value in values]
+    except (TypeError, ValueError) as exc:
+        raise ValueError("ACS sequence B25070 包含非数值估计") from exc
+    total = numbers[0]
+    if total <= 0:
+        raise ValueError(f"{state} {year} 的 B25070 总数不为正")
+    burdened = sum(numbers[6:10])
+    row = {"entity": STATE_NAMES.get(state, state), "state": state, "year": year,
+           "housing_cost_burden": burdened / total,
+           "rent_burden_share": burdened / total, "median_gross_rent": None,
+           "estimate_type": "1yr_sequence", "source_url": source_url}
+    return row
 
 
 def validate_housing_panel(rows, *, expected_min_states: int = 50) -> dict[str, object]:

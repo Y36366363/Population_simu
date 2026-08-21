@@ -103,13 +103,16 @@ PYTHONPATH=src python3 scripts/import_wonder_fertility.py \
 当前固定的 outcome 是总出生的一般生育率，尚未加入婚姻状态/孩次分层；真实文件的行数、来源
 URL 和 SHA-256 固定在 `data/observed/us_2021/us_fertility_manifest.json`，不使用合成出生数据替代。
 
-本轮已加入 `scripts/fetch_us_housing_panel.py`，读取 ACS B25070 的 30% 以上租金负担
-类别并输出州—年 housing panel。Census API 若返回认证错误，脚本会停止；不能用错误页或
-缺失值继续运行。`median_gross_rent` 仍需单独接入 B25064 等表，不能把负担比例当租金。
+本轮已加入 `scripts/fetch_us_housing_panel.py` 和 `scripts/fetch_us_housing_historical.py`。
+后者按年份解析 ACS B25070 的 sequence/table-based FTP 格式，并保留 `estimate_type` 与
+`source_url`。`median_gross_rent` 仍需单独接入 B25064，不能把负担比例当租金。当前
+`us_housing_panel_2007_2021.csv` 只包含已成功下载的 2018、2019、2021 50州切片；manifest
+会列出 2007–2017 和 2020 的缺失，不允许静默插值。Census 没有标准 2020 ACS 1-year
+Summary File，因此 5-year 或 experimental 值若使用，必须作为单独敏感性规格并标记不可比。
 
-`scripts/validate_frozen_data.py` 已能对当前住房子面板输出 JSON 审计；2021 切片目前为
-52 个州/地区、无重复键、比例均在 [0,1]；生育结果和女性分母已经接入，但 `study_ready=false`
-仍是正确状态，因为住房仍只有 2021 切片。该状态是预期的验证门槛，不是失败的模型结果。
+`scripts/validate_frozen_data.py` 已能对当前住房子面板输出 JSON 审计；当前可用切片无重复键、
+比例均在 [0,1]；生育结果和女性分母已经接入，但 `study_ready=false` 仍是正确状态，因为
+住房时期不完整。该状态是预期的验证门槛，不是失败的模型结果。
 
 ## 两周最小 empirical milestone
 

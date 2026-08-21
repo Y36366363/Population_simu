@@ -1,9 +1,18 @@
 import unittest
 
-from population_simu.empirical_data import parse_acs_housing_response, parse_acs_summary_file, validate_housing_panel
+from population_simu.empirical_data import (parse_acs_housing_response,
+                                             parse_acs_sequence_state_row,
+                                             parse_acs_summary_file,
+                                             validate_housing_panel)
 
 
 class EmpiricalDataTests(unittest.TestCase):
+    def test_sequence_parser_uses_state_total_and_burden_bins(self):
+        line = "ACSSF,20091al,al,000,0142,0000001,1000,100,100,100,100,100,100,100,100,100,100"
+        row = parse_acs_sequence_state_row(line, 2009, state="01")
+        self.assertEqual(row["entity"], "Alabama")
+        self.assertAlmostEqual(row["housing_cost_burden"], 0.4)
+
     def test_acs_housing_parser_computes_burden_share(self):
         payload = [["NAME", "B25070_001E", "B25070_007E", "B25070_008E",
                     "B25070_009E", "B25070_010E", "state"],
