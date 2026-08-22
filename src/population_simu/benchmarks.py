@@ -299,6 +299,6 @@ def rank_models(
     for rank, row in enumerate(rows, start=1):
         row["rank"] = rank
         row["interval_overlaps_best"] = (rank != 1 and row["lower_95"] <= best["upper_95"] and best["lower_95"] <= row["upper_95"])
-        row["interpretation"] = "稳健领先" if rank == 1 and robust_best else (
+        row["interpretation"] = ("稳健领先" if robust_best else "点估计最佳但区间重叠") if rank == 1 else (
             "区间重叠，不能断言领先" if row["interval_overlaps_best"] else "次优")
     return rows

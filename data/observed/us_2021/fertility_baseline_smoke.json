@@ -9,7 +9,7 @@
       "upper_95": 0.022092067625375172,
       "rank": 1,
       "interval_overlaps_best": false,
-      "interpretation": "次优"
+      "interpretation": "点估计最佳但区间重叠"
     },
     {
       "model": "cohort_proxy",
