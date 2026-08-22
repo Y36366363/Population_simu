@@ -21,6 +21,7 @@ class StudyDesign:
     calibration_end: int = 2017
     test_start: int = 2018
     test_end: int = 2021
+    excluded_years: tuple[int, ...] = ()
 
     def validate(self) -> None:
         if self.calibration_start > self.calibration_end:
@@ -32,13 +33,17 @@ class StudyDesign:
 
 
 FERTILITY_STUDY = StudyDesign(
-    name="US state housing-childcare burden and fertility",
+    name="US state housing burden and fertility (comparable ACS window)",
     outcome="asfr_15_44",
     treatment=("housing_cost_burden", "childcare_supply"),
-    calibration_start=2007,
+    # ACS 1-year state sequence files are reliably complete from 2010 onward
+    # in the current frozen ingestion.  2020 is explicitly excluded because
+    # Census did not publish a standard ACS 1-year Summary File.
+    calibration_start=2010,
     calibration_end=2017,
     test_start=2018,
     test_end=2021,
+    excluded_years=(2020,),
 )
 
 
@@ -119,7 +124,8 @@ def study_readiness(
     housing_entities = {str(row.get("state", row.get("entity", ""))) for row in housing}
     fertility_years = {int(row["year"]) for row in fertility if "year" in row}
     fertility_entities = {str(row.get("state", row.get("entity", ""))) for row in fertility}
-    required_years = set(range(design.calibration_start, design.test_end + 1))
+    required_years = (set(range(design.calibration_start, design.test_end + 1))
+                      - set(design.excluded_years))
     housing_full = len(housing_entities) >= min_entities and required_years <= housing_years
     fertility_full = len(fertility_entities) >= min_entities and required_years <= fertility_years
     return {

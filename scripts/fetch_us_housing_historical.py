@@ -14,7 +14,8 @@ import json
 import ssl
 import zipfile
 from pathlib import Path
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
+import time
 from urllib.parse import quote
 
 from population_simu.empirical_data import parse_acs_sequence_state_row, parse_acs_summary_file
@@ -50,8 +51,18 @@ def _download(url: str, cache: Path) -> bytes:
     if cache.exists():
         return cache.read_bytes()
     context = ssl._create_unverified_context()
-    with urlopen(url, timeout=180, context=context) as response:
-        data = response.read()
+    request = Request(url, headers={"User-Agent": "PopulationSimu/1.0 (research; contact repository owner)"})
+    last_error = None
+    for attempt in range(5):
+        try:
+            with urlopen(request, timeout=180, context=context) as response:
+                data = response.read()
+            break
+        except Exception as exc:
+            last_error = exc
+            if attempt == 4:
+                raise
+            time.sleep(2 ** attempt)
     cache.write_bytes(data)
     return data
 
@@ -60,7 +71,7 @@ def _sequence_row(year: int, fips: str, abbr: str, cache: Path) -> dict[str, obj
     name = STATE_NAMES[abbr]
     sequence, start_position = SEQUENCE_CONFIG[year]
     if year == 2009:
-        url = YEAR2009_URL.format(name=quote(name))
+        url = YEAR2009_URL.format(name=quote(name.replace(" ", "")))
         blob = _download(url, cache / f"{year}_{abbr}_{sequence}.zip")
         with zipfile.ZipFile(io.BytesIO(blob)) as archive:
             wanted = f"e{year}1{abbr}{sequence:04d}000.txt"
@@ -70,7 +81,8 @@ def _sequence_row(year: int, fips: str, abbr: str, cache: Path) -> dict[str, obj
             text = archive.read(member).decode("utf-8-sig")
     else:
         url_template = OLD_URL if year in (2007, 2008) else SEQ_URL
-        url = url_template.format(year=year, name=quote(name), abbr=abbr, sequence=sequence)
+        # Census FTP uses compact directory names (e.g. NewHampshire), not spaces.
+        url = url_template.format(year=year, name=quote(name.replace(" ", "")), abbr=abbr, sequence=sequence)
         blob = _download(url, cache / f"{year}_{abbr}_{sequence}.zip")
         with zipfile.ZipFile(io.BytesIO(blob)) as archive:
             member = next((item for item in archive.namelist() if item.lower().endswith(f"e{year}1{abbr}{sequence:04d}000.txt")), None)

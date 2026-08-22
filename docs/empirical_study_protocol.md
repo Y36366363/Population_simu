@@ -39,8 +39,8 @@ cohort-component 和 reduced-form 模型更能复现 2018—2021 的州级生育
 
 ## 时间设计
 
-- calibration：2007—2017；
-- untouched historical test：2018—2021；
+- primary comparable calibration：2010—2017；
+- untouched historical test：2018—2019 和 2021；2020 保留为疫情期间数据缺口，不做插值；
 - 主报告使用 expanding-window rolling-origin；test 变量、阈值和参数在回测期间不重新调参；
 - 另做 2015—2017 的预注册式敏感性窗口，但不能替代主 test。
 
@@ -106,25 +106,27 @@ URL 和 SHA-256 固定在 `data/observed/us_2021/us_fertility_manifest.json`，�
 本轮已加入 `scripts/fetch_us_housing_panel.py` 和 `scripts/fetch_us_housing_historical.py`。
 后者按年份解析 ACS B25070 的 sequence/table-based FTP 格式，并保留 `estimate_type` 与
 `source_url`。`median_gross_rent` 仍需单独接入 B25064，不能把负担比例当租金。当前
-`us_housing_panel_2007_2021.csv` 只包含已成功下载的 2018、2019、2021 50州切片；manifest
-会列出 2007–2017 和 2020 的缺失，不允许静默插值。Census 没有标准 2020 ACS 1-year
+`us_housing_panel_2010_2021_comparable.csv` 已覆盖 50 州的 2010–2019 和 2021，共 550 行；
+manifest 会列出 2007–2009 和 2020 的缺失，不允许静默插值。Census 没有标准 2020 ACS 1-year
 Summary File，因此 5-year 或 experimental 值若使用，必须作为单独敏感性规格并标记不可比。
 
-`scripts/validate_frozen_data.py` 已能对当前住房子面板输出 JSON 审计；当前可用切片无重复键、
-比例均在 [0,1]；生育结果和女性分母已经接入，但 `study_ready=false` 仍是正确状态，因为
-住房时期不完整。该状态是预期的验证门槛，不是失败的模型结果。
+`scripts/validate_frozen_data.py` 已能对当前住房子面板输出 JSON 审计；comparable 切片无重复键、
+比例均在 [0,1]；生育结果和女性分母已经接入，`study_readiness()` 已按 2010–2019、2021
+主规格通过。2007–2009 与 2020 仍被显式标记为敏感性/缺口，不会进入主规格。
 
 ## 两周最小 empirical milestone
 
-只完成一件事：构造 2007—2021 美国州—年 `ASFR_15_44 + housing_cost_burden` 面板，冻结
-2018—2021 test，运行 trend、cohort-component、reduced-form 和 household 四个 runner，
+只完成一件事：构造 2010—2019、2021 美国州—年 `ASFR_15_44 + housing_cost_burden` 面板，
+冻结 2018—2019、2021 test，运行 trend、cohort-component、reduced-form 和 household 四个 runner，
 输出第一份 rolling-origin RMSE/MAPE/CRPS/coverage 表，并运行 no-housing 消融。托育变量
 若尚未形成一致序列，明确标记为缺失，不用合成值填充。结果只能作为预测验证，不作政策因果结论。
 
 ## 后续工作顺序（冻结期）
 
-1. **数据完成**：补齐 2007—2020 ACS B25070；当前已接入 CDC/NVSS 州级总出生数和 Census PEP
-   女性 15—44 岁分母。婚姻/孩次分层和托育序列只有在定义和年份一致时加入。
+1. **数据完成**：主规格使用 2010—2019、2021 的 ACS B25070 1-year sequence/table 数据；
+   2007—2009 的 ACS 3-year 数据只作为敏感性分析，不能复制成年度值。2020 没有标准 ACS
+   1-year Summary File，因此保持缺口。当前已接入 CDC/NVSS 州级总出生数和 Census PEP 女性
+   15—44 岁分母。婚姻/孩次分层和托育序列只有在定义和年份一致时加入。
 2. **面板锁定**：对所有州年键、缺失、权重、版本和变量定义做审计，生成不可再变的分析 CSV。
 3. **参数校准**：只用 2007—2017，估计基线生育 hazard、住房系数和 reduced-form 系数；保存
    参数文件与随机种子。

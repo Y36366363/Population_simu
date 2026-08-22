@@ -1,0 +1,130 @@
+{
+  "scope": "fertility-only smoke test",
+  "rows": 550,
+  "models": [
+    {
+      "model": "cohort_proxy",
+      "mean": 0.013811695063817991,
+      "lower_95": 0.012882810433432828,
+      "upper_95": 0.014740579694203157,
+      "rank": 1,
+      "interval_overlaps_best": false,
+      "interpretation": "点估计最佳但区间重叠"
+    },
+    {
+      "model": "naive_trend",
+      "mean": 0.013815402355614532,
+      "lower_95": 0.012815141842375553,
+      "upper_95": 0.014815662868853512,
+      "rank": 2,
+      "interval_overlaps_best": true,
+      "interpretation": "区间重叠，不能断言领先"
+    }
+  ],
+  "report": {
+    "naive_trend": {
+      "folds": [
+        {
+          "origin_year": 2018,
+          "mape": 0.012815141842375553,
+          "rmse": 0.7900895390021,
+          "crps": 0.7900895390021
+        },
+        {
+          "origin_year": 2019,
+          "mape": 0.014815662868853512,
+          "rmse": 0.869562271759648,
+          "crps": 0.869562271759648
+        }
+      ],
+      "summary": {
+        "mape": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": 0.013815402355614532,
+          "lower_95": 0.012815141842375553,
+          "upper_95": 0.014815662868853512
+        },
+        "rmse": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": 0.829825905380874,
+          "lower_95": 0.7900895390021,
+          "upper_95": 0.869562271759648
+        },
+        "crps": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": 0.829825905380874,
+          "lower_95": 0.7900895390021,
+          "upper_95": 0.869562271759648
+        },
+        "n_folds": 2
+      },
+      "vs_baseline": {
+        "win_rate": 0.5,
+        "mean_delta": 0.0
+      }
+    },
+    "cohort_proxy": {
+      "folds": [
+        {
+          "origin_year": 2018,
+          "mape": 0.014740579694203157,
+          "rmse": 0.8815024591047772,
+          "crps": 0.8815024591047772
+        },
+        {
+          "origin_year": 2019,
+          "mape": 0.012882810433432828,
+          "rmse": 0.7603748765547269,
+          "crps": 0.7603748765547269
+        }
+      ],
+      "summary": {
+        "mape": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": 0.013811695063817991,
+          "lower_95": 0.012882810433432828,
+          "upper_95": 0.014740579694203157
+        },
+        "rmse": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": 0.8209386678297521,
+          "lower_95": 0.7603748765547269,
+          "upper_95": 0.8815024591047772
+        },
+        "crps": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": 0.8209386678297521,
+          "lower_95": 0.7603748765547269,
+          "upper_95": 0.8815024591047772
+        },
+        "n_folds": 2
+      },
+      "vs_baseline": {
+        "win_rate": 0.5,
+        "mean_delta": -3.7072917965404184e-06,
+        "delta_95": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": -3.7072917965404184e-06,
+          "lower_95": -0.0019328524354206844,
+          "upper_95": 0.0019254378518276036
+        },
+        "relative_improvement": {
+          "n_folds": 2,
+          "draws": 1000,
+          "mean": -0.00989351251193428,
+          "lower_95": -0.1502470964044112,
+          "upper_95": 0.13046007138054264
+        }
+      }
+    }
+  },
+  "final_four_model_ready": false,
+  "reason": "housing panel is missing 2007-2017 and 2020; reduced-form and household runners require the complete merged panel"
+}

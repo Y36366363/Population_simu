@@ -56,6 +56,12 @@ outcome and writes `us_research_panel_2007_2021.csv` plus a manifest with row co
 missing years and unmatched fertility rows. It is not model-ready until the manifest's
 missing years are resolved under a pre-specified comparability rule.
 
+The current primary alternative is `us_housing_panel_2010_2021_comparable.csv`: 50 states,
+2010–2019 and 2021 (550 rows). Its manifest explicitly treats 2020 as a pandemic data gap
+and moves the calibration start to 2010. The 2007–2009 ACS 3-year release is not copied into
+individual years; it is reserved for a sensitivity analysis because a rolling three-year
+estimate is not an annual observation.
+
 The first frozen fertility outcome is now fixed in three files:
 
 - `us_state_births_2007_2021.csv`: 765 state-year total live-birth counts extracted

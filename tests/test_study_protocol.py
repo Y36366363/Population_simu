@@ -9,7 +9,7 @@ class StudyProtocolTests(unittest.TestCase):
                  "housing_cost_burden": 0.3, "childcare_supply": 0.4}
                 for year in range(2007, 2022)]
         calibration, test = split_study_panel(rows)
-        self.assertEqual(min(int(row["year"]) for row in calibration), 2007)
+        self.assertEqual(min(int(row["year"]) for row in calibration), 2010)
         self.assertEqual(max(int(row["year"]) for row in calibration), 2017)
         self.assertEqual(min(int(row["year"]) for row in test), 2018)
         self.assertEqual(max(int(row["year"]) for row in test), 2021)

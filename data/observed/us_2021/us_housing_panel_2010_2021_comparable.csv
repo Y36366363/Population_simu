@@ -1,0 +1,551 @@
+entity,state,year,housing_cost_burden,rent_burden_share,median_gross_rent,estimate_type,source_url
+Alabama,01,2010,0.46679734319738303,0.46679734319738303,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Alabama/20101al0148000.zip
+Alabama,01,2011,0.46752465655494313,0.46752465655494313,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Alabama/20111al0155000.zip
+Alabama,01,2012,0.426018549992716,0.426018549992716,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Alabama/20121al0155000.zip
+Alabama,01,2013,0.43555188505928694,0.43555188505928694,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Alabama/20131al0146000.zip
+Alabama,01,2014,0.4469962378410349,0.4469962378410349,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Alabama/20141al0141000.zip
+Alabama,01,2015,0.42743444192343055,0.42743444192343055,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Alabama/20151al0141000.zip
+Alabama,01,2016,0.4184178103288956,0.4184178103288956,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Alabama/20161al0142000.zip
+Alabama,01,2017,0.4082920678509888,0.4082920678509888,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Alabama/20171al0142000.zip
+Alabama,01,2018,0.4113524936459294,0.4113524936459294,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Alabama,01,2019,0.4094973774084034,0.4094973774084034,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Alabama,01,2021,0.4341134310335178,0.4341134310335178,,,
+Alaska,02,2010,0.4152463925946093,0.4152463925946093,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Alaska/20101ak0148000.zip
+Alaska,02,2011,0.40598623418720664,0.40598623418720664,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Alaska/20111ak0155000.zip
+Alaska,02,2012,0.44312760235947257,0.44312760235947257,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Alaska/20121ak0155000.zip
+Alaska,02,2013,0.3984406281977132,0.3984406281977132,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Alaska/20131ak0146000.zip
+Alaska,02,2014,0.46836727066938594,0.46836727066938594,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Alaska/20141ak0141000.zip
+Alaska,02,2015,0.4387401260760223,0.4387401260760223,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Alaska/20151ak0141000.zip
+Alaska,02,2016,0.38211732179076063,0.38211732179076063,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Alaska/20161ak0142000.zip
+Alaska,02,2017,0.4201231987920829,0.4201231987920829,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Alaska/20171ak0142000.zip
+Alaska,02,2018,0.389705293734204,0.389705293734204,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Alaska,02,2019,0.4096281219427171,0.4096281219427171,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Alaska,02,2021,0.44992569261140564,0.44992569261140564,,,
+Arizona,04,2010,0.49090754421091043,0.49090754421091043,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Arizona/20101az0148000.zip
+Arizona,04,2011,0.47445896969902646,0.47445896969902646,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Arizona/20111az0155000.zip
+Arizona,04,2012,0.47744433947726345,0.47744433947726345,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Arizona/20121az0155000.zip
+Arizona,04,2013,0.4580468566434411,0.4580468566434411,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Arizona/20131az0146000.zip
+Arizona,04,2014,0.4560264692981991,0.4560264692981991,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Arizona/20141az0141000.zip
+Arizona,04,2015,0.44912063783069345,0.44912063783069345,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Arizona/20151az0141000.zip
+Arizona,04,2016,0.44323775050267916,0.44323775050267916,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Arizona/20161az0142000.zip
+Arizona,04,2017,0.44833015230094675,0.44833015230094675,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Arizona/20171az0142000.zip
+Arizona,04,2018,0.4400221320946897,0.4400221320946897,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Arizona,04,2019,0.43357682014203935,0.43357682014203935,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Arizona,04,2021,0.4785835600246921,0.4785835600246921,,,
+Arkansas,05,2010,0.4334937000115596,0.4334937000115596,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Arkansas/20101ar0148000.zip
+Arkansas,05,2011,0.45607043386603013,0.45607043386603013,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Arkansas/20111ar0155000.zip
+Arkansas,05,2012,0.4254992399070796,0.4254992399070796,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Arkansas/20121ar0155000.zip
+Arkansas,05,2013,0.42218433217935697,0.42218433217935697,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Arkansas/20131ar0146000.zip
+Arkansas,05,2014,0.4179574644029253,0.4179574644029253,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Arkansas/20141ar0141000.zip
+Arkansas,05,2015,0.4180924740946614,0.4180924740946614,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Arkansas/20151ar0141000.zip
+Arkansas,05,2016,0.3921364845983322,0.3921364845983322,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Arkansas/20161ar0142000.zip
+Arkansas,05,2017,0.3951028618633683,0.3951028618633683,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Arkansas/20171ar0142000.zip
+Arkansas,05,2018,0.41012158223596146,0.41012158223596146,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Arkansas,05,2019,0.38600878961173407,0.38600878961173407,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Arkansas,05,2021,0.39943220944252594,0.39943220944252594,,,
+California,06,2010,0.5440435738556866,0.5440435738556866,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/California/20101ca0148000.zip
+California,06,2011,0.545280722668395,0.545280722668395,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/California/20111ca0155000.zip
+California,06,2012,0.5464045881700779,0.5464045881700779,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/California/20121ca0155000.zip
+California,06,2013,0.5412905303891428,0.5412905303891428,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/California/20131ca0146000.zip
+California,06,2014,0.5380480301408107,0.5380480301408107,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/California/20141ca0141000.zip
+California,06,2015,0.5290999934174628,0.5290999934174628,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/California/20151ca0141000.zip
+California,06,2016,0.5257449485480982,0.5257449485480982,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/California/20161ca0142000.zip
+California,06,2017,0.5249243750900296,0.5249243750900296,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/California/20171ca0142000.zip
+California,06,2018,0.519036620593933,0.519036620593933,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+California,06,2019,0.5068502445896547,0.5068502445896547,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+California,06,2021,0.5271607835977482,0.5271607835977482,,,
+Colorado,08,2010,0.4900455680128423,0.4900455680128423,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Colorado/20101co0148000.zip
+Colorado,08,2011,0.48779392368217583,0.48779392368217583,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Colorado/20111co0155000.zip
+Colorado,08,2012,0.48584959536445055,0.48584959536445055,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Colorado/20121co0155000.zip
+Colorado,08,2013,0.48979468386661135,0.48979468386661135,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Colorado/20131co0146000.zip
+Colorado,08,2014,0.4814879134506193,0.4814879134506193,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Colorado/20141co0141000.zip
+Colorado,08,2015,0.4795756511287473,0.4795756511287473,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Colorado/20151co0141000.zip
+Colorado,08,2016,0.49701544754830723,0.49701544754830723,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Colorado/20161co0142000.zip
+Colorado,08,2017,0.4924843796808901,0.4924843796808901,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Colorado/20171co0142000.zip
+Colorado,08,2018,0.4892656067139709,0.4892656067139709,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Colorado,08,2019,0.47703654786285477,0.47703654786285477,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Colorado,08,2021,0.5045154660417392,0.5045154660417392,,,
+Connecticut,09,2010,0.5051310685858196,0.5051310685858196,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Connecticut/20101ct0148000.zip
+Connecticut,09,2011,0.5198032611261416,0.5198032611261416,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Connecticut/20111ct0155000.zip
+Connecticut,09,2012,0.4961055723695923,0.4961055723695923,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Connecticut/20121ct0155000.zip
+Connecticut,09,2013,0.4932739896584268,0.4932739896584268,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Connecticut/20131ct0146000.zip
+Connecticut,09,2014,0.4973122879998596,0.4973122879998596,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Connecticut/20141ct0141000.zip
+Connecticut,09,2015,0.4913409344840631,0.4913409344840631,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Connecticut/20151ct0141000.zip
+Connecticut,09,2016,0.4812064509113418,0.4812064509113418,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Connecticut/20161ct0142000.zip
+Connecticut,09,2017,0.48284292344197083,0.48284292344197083,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Connecticut/20171ct0142000.zip
+Connecticut,09,2018,0.4968429092760757,0.4968429092760757,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Connecticut,09,2019,0.4625642686867177,0.4625642686867177,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Connecticut,09,2021,0.4914565318154267,0.4914565318154267,,,
+Delaware,10,2010,0.5092651972862592,0.5092651972862592,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Delaware/20101de0148000.zip
+Delaware,10,2011,0.49766463775467074,0.49766463775467074,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Delaware/20111de0155000.zip
+Delaware,10,2012,0.4563460879727579,0.4563460879727579,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Delaware/20121de0155000.zip
+Delaware,10,2013,0.4671957010747313,0.4671957010747313,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Delaware/20131de0146000.zip
+Delaware,10,2014,0.462779621879059,0.462779621879059,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Delaware/20141de0141000.zip
+Delaware,10,2015,0.4396389218182172,0.4396389218182172,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Delaware/20151de0141000.zip
+Delaware,10,2016,0.45551470588235293,0.45551470588235293,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Delaware/20161de0142000.zip
+Delaware,10,2017,0.4360653530661897,0.4360653530661897,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Delaware/20171de0142000.zip
+Delaware,10,2018,0.4931566002666016,0.4931566002666016,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Delaware,10,2019,0.46622395646881937,0.46622395646881937,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Delaware,10,2021,0.4702934266893915,0.4702934266893915,,,
+Florida,12,2010,0.5563888871535044,0.5563888871535044,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Florida/20101fl0148000.zip
+Florida,12,2011,0.5619238649807156,0.5619238649807156,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Florida/20111fl0155000.zip
+Florida,12,2012,0.5421151680907534,0.5421151680907534,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Florida/20121fl0155000.zip
+Florida,12,2013,0.534349151786734,0.534349151786734,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Florida/20131fl0146000.zip
+Florida,12,2014,0.5363057445738311,0.5363057445738311,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Florida/20141fl0141000.zip
+Florida,12,2015,0.5294062808325068,0.5294062808325068,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Florida/20151fl0141000.zip
+Florida,12,2016,0.5214397656250288,0.5214397656250288,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Florida/20161fl0142000.zip
+Florida,12,2017,0.524495508394915,0.524495508394915,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Florida/20171fl0142000.zip
+Florida,12,2018,0.5282159815656289,0.5282159815656289,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Florida,12,2019,0.5241795096752143,0.5241795096752143,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Florida,12,2021,0.5489939133548156,0.5489939133548156,,,
+Georgia,13,2010,0.48959605518330074,0.48959605518330074,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Georgia/20101ga0148000.zip
+Georgia,13,2011,0.4960354294863872,0.4960354294863872,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Georgia/20111ga0155000.zip
+Georgia,13,2012,0.4774919288649952,0.4774919288649952,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Georgia/20121ga0155000.zip
+Georgia,13,2013,0.47762096591543934,0.47762096591543934,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Georgia/20131ga0146000.zip
+Georgia,13,2014,0.47507616416033444,0.47507616416033444,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Georgia/20141ga0141000.zip
+Georgia,13,2015,0.4578843368278312,0.4578843368278312,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Georgia/20151ga0141000.zip
+Georgia,13,2016,0.44987368865116695,0.44987368865116695,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Georgia/20161ga0142000.zip
+Georgia,13,2017,0.44366874989209815,0.44366874989209815,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Georgia/20171ga0142000.zip
+Georgia,13,2018,0.4569835178126614,0.4569835178126614,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Georgia,13,2019,0.4479829134777758,0.4479829134777758,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Georgia,13,2021,0.47584333284522323,0.47584333284522323,,,
+Hawaii,15,2010,0.5132823220969783,0.5132823220969783,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Hawaii/20101hi0148000.zip
+Hawaii,15,2011,0.5345579094515199,0.5345579094515199,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Hawaii/20111hi0155000.zip
+Hawaii,15,2012,0.5026946076754863,0.5026946076754863,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Hawaii/20121hi0155000.zip
+Hawaii,15,2013,0.5079063113519108,0.5079063113519108,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Hawaii/20131hi0146000.zip
+Hawaii,15,2014,0.525901511817149,0.525901511817149,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Hawaii/20141hi0141000.zip
+Hawaii,15,2015,0.5235425139921758,0.5235425139921758,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Hawaii/20151hi0141000.zip
+Hawaii,15,2016,0.5145819034838816,0.5145819034838816,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Hawaii/20161hi0142000.zip
+Hawaii,15,2017,0.517,0.517,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Hawaii/20171hi0142000.zip
+Hawaii,15,2018,0.48510358261602043,0.48510358261602043,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Hawaii,15,2019,0.49702976707546714,0.49702976707546714,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Hawaii,15,2021,0.5342452310728518,0.5342452310728518,,,
+Idaho,16,2010,0.4689200066218739,0.4689200066218739,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Idaho/20101id0148000.zip
+Idaho,16,2011,0.4639728300721701,0.4639728300721701,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Idaho/20111id0155000.zip
+Idaho,16,2012,0.45829696098896633,0.45829696098896633,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Idaho/20121id0155000.zip
+Idaho,16,2013,0.4307018273576796,0.4307018273576796,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Idaho/20131id0146000.zip
+Idaho,16,2014,0.41926498337676343,0.41926498337676343,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Idaho/20141id0141000.zip
+Idaho,16,2015,0.42549726899705065,0.42549726899705065,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Idaho/20151id0141000.zip
+Idaho,16,2016,0.4128831330616906,0.4128831330616906,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Idaho/20161id0142000.zip
+Idaho,16,2017,0.41738644393119667,0.41738644393119667,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Idaho/20171id0142000.zip
+Idaho,16,2018,0.4205354569424725,0.4205354569424725,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Idaho,16,2019,0.42654125016088207,0.42654125016088207,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Idaho,16,2021,0.4316701707604738,0.4316701707604738,,,
+Illinois,17,2010,0.48812958952579005,0.48812958952579005,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Illinois/20101il0148000.zip
+Illinois,17,2011,0.49210110890889414,0.49210110890889414,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Illinois/20111il0155000.zip
+Illinois,17,2012,0.4697411947849776,0.4697411947849776,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Illinois/20121il0155000.zip
+Illinois,17,2013,0.45777387175845746,0.45777387175845746,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Illinois/20131il0146000.zip
+Illinois,17,2014,0.46312105059249464,0.46312105059249464,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Illinois/20141il0141000.zip
+Illinois,17,2015,0.4560329200507904,0.4560329200507904,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Illinois/20151il0141000.zip
+Illinois,17,2016,0.4527127701487833,0.4527127701487833,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Illinois/20161il0142000.zip
+Illinois,17,2017,0.45167543838075797,0.45167543838075797,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Illinois/20171il0142000.zip
+Illinois,17,2018,0.44134857752012235,0.44134857752012235,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Illinois,17,2019,0.42444437861630735,0.42444437861630735,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Illinois,17,2021,0.4437580313722442,0.4437580313722442,,,
+Indiana,18,2010,0.4669769557885675,0.4669769557885675,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Indiana/20101in0148000.zip
+Indiana,18,2011,0.47535569955919893,0.47535569955919893,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Indiana/20111in0155000.zip
+Indiana,18,2012,0.4535656008123303,0.4535656008123303,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Indiana/20121in0155000.zip
+Indiana,18,2013,0.45234652678429504,0.45234652678429504,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Indiana/20131in0146000.zip
+Indiana,18,2014,0.45377531478971206,0.45377531478971206,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Indiana/20141in0141000.zip
+Indiana,18,2015,0.43941429255132375,0.43941429255132375,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Indiana/20151in0141000.zip
+Indiana,18,2016,0.42340141348308724,0.42340141348308724,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Indiana/20161in0142000.zip
+Indiana,18,2017,0.4170831233684306,0.4170831233684306,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Indiana/20171in0142000.zip
+Indiana,18,2018,0.42972059151371034,0.42972059151371034,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Indiana,18,2019,0.41672833451651986,0.41672833451651986,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Indiana,18,2021,0.43261297420774475,0.43261297420774475,,,
+Iowa,19,2010,0.42261684730375126,0.42261684730375126,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Iowa/20101ia0148000.zip
+Iowa,19,2011,0.4338772343391885,0.4338772343391885,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Iowa/20111ia0155000.zip
+Iowa,19,2012,0.41470226206512145,0.41470226206512145,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Iowa/20121ia0155000.zip
+Iowa,19,2013,0.3961291073502066,0.3961291073502066,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Iowa/20131ia0146000.zip
+Iowa,19,2014,0.40189937305202256,0.40189937305202256,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Iowa/20141ia0141000.zip
+Iowa,19,2015,0.4007037228414655,0.4007037228414655,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Iowa/20151ia0141000.zip
+Iowa,19,2016,0.4052584332204629,0.4052584332204629,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Iowa/20161ia0142000.zip
+Iowa,19,2017,0.3881274447490221,0.3881274447490221,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Iowa/20171ia0142000.zip
+Iowa,19,2018,0.38962490593811966,0.38962490593811966,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Iowa,19,2019,0.3862276948708418,0.3862276948708418,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Iowa,19,2021,0.4120337424320389,0.4120337424320389,,,
+Kansas,20,2010,0.41808836364360014,0.41808836364360014,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Kansas/20101ks0148000.zip
+Kansas,20,2011,0.4282024239894874,0.4282024239894874,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Kansas/20111ks0155000.zip
+Kansas,20,2012,0.4092869342442357,0.4092869342442357,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Kansas/20121ks0155000.zip
+Kansas,20,2013,0.4128288429384749,0.4128288429384749,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Kansas/20131ks0146000.zip
+Kansas,20,2014,0.4201728125540377,0.4201728125540377,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Kansas/20141ks0141000.zip
+Kansas,20,2015,0.388818634359109,0.388818634359109,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Kansas/20151ks0141000.zip
+Kansas,20,2016,0.40593939871133683,0.40593939871133683,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Kansas/20161ks0142000.zip
+Kansas,20,2017,0.40964264868019973,0.40964264868019973,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Kansas/20171ks0142000.zip
+Kansas,20,2018,0.419912562208834,0.419912562208834,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Kansas,20,2019,0.3953264197944798,0.3953264197944798,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Kansas,20,2021,0.3972941724258801,0.3972941724258801,,,
+Kentucky,21,2010,0.4368854818428349,0.4368854818428349,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Kentucky/20101ky0148000.zip
+Kentucky,21,2011,0.4493589805149283,0.4493589805149283,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Kentucky/20111ky0155000.zip
+Kentucky,21,2012,0.42662365935364627,0.42662365935364627,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Kentucky/20121ky0155000.zip
+Kentucky,21,2013,0.4008322622974394,0.4008322622974394,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Kentucky/20131ky0146000.zip
+Kentucky,21,2014,0.43159114266384574,0.43159114266384574,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Kentucky/20141ky0141000.zip
+Kentucky,21,2015,0.4063919434518917,0.4063919434518917,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Kentucky/20151ky0141000.zip
+Kentucky,21,2016,0.4016427551792615,0.4016427551792615,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Kentucky/20161ky0142000.zip
+Kentucky,21,2017,0.3837466241099926,0.3837466241099926,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Kentucky/20171ky0142000.zip
+Kentucky,21,2018,0.3926836866176741,0.3926836866176741,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Kentucky,21,2019,0.3834961553661936,0.3834961553661936,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Kentucky,21,2021,0.4061134278863506,0.4061134278863506,,,
+Louisiana,22,2010,0.4641558365765851,0.4641558365765851,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Louisiana/20101la0148000.zip
+Louisiana,22,2011,0.4792206337426663,0.4792206337426663,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Louisiana/20111la0155000.zip
+Louisiana,22,2012,0.45691528984167007,0.45691528984167007,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Louisiana/20121la0155000.zip
+Louisiana,22,2013,0.45512219922903874,0.45512219922903874,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Louisiana/20131la0146000.zip
+Louisiana,22,2014,0.45354909724914094,0.45354909724914094,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Louisiana/20141la0141000.zip
+Louisiana,22,2015,0.46027543233259804,0.46027543233259804,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Louisiana/20151la0141000.zip
+Louisiana,22,2016,0.474463128220052,0.474463128220052,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Louisiana/20161la0142000.zip
+Louisiana,22,2017,0.4753692382467011,0.4753692382467011,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Louisiana/20171la0142000.zip
+Louisiana,22,2018,0.4847305968357301,0.4847305968357301,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Louisiana,22,2019,0.44374245831505044,0.44374245831505044,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Louisiana,22,2021,0.48382028561921325,0.48382028561921325,,,
+Maine,23,2010,0.45075223792460173,0.45075223792460173,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Maine/20101me0148000.zip
+Maine,23,2011,0.496464073237961,0.496464073237961,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Maine/20111me0155000.zip
+Maine,23,2012,0.4721092039942219,0.4721092039942219,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Maine/20121me0155000.zip
+Maine,23,2013,0.47818585613861203,0.47818585613861203,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Maine/20131me0146000.zip
+Maine,23,2014,0.4664557202825582,0.4664557202825582,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Maine/20141me0141000.zip
+Maine,23,2015,0.44788616600790515,0.44788616600790515,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Maine/20151me0141000.zip
+Maine,23,2016,0.4276132776975338,0.4276132776975338,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Maine/20161me0142000.zip
+Maine,23,2017,0.4035480537375129,0.4035480537375129,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Maine/20171me0142000.zip
+Maine,23,2018,0.44236687977279515,0.44236687977279515,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Maine,23,2019,0.39827835911196935,0.39827835911196935,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Maine,23,2021,0.4294922855517253,0.4294922855517253,,,
+Maryland,24,2010,0.4870773504931743,0.4870773504931743,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Maryland/20101md0148000.zip
+Maryland,24,2011,0.5062188876296498,0.5062188876296498,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Maryland/20111md0155000.zip
+Maryland,24,2012,0.4796719997789384,0.4796719997789384,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Maryland/20121md0155000.zip
+Maryland,24,2013,0.4844178798051252,0.4844178798051252,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Maryland/20131md0146000.zip
+Maryland,24,2014,0.48807077393764636,0.48807077393764636,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Maryland/20141md0141000.zip
+Maryland,24,2015,0.4772201813218294,0.4772201813218294,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Maryland/20151md0141000.zip
+Maryland,24,2016,0.46323914390733856,0.46323914390733856,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Maryland/20161md0142000.zip
+Maryland,24,2017,0.47544577549218,0.47544577549218,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Maryland/20171md0142000.zip
+Maryland,24,2018,0.4725624807368677,0.4725624807368677,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Maryland,24,2019,0.47388772527447237,0.47388772527447237,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Maryland,24,2021,0.49264831019975225,0.49264831019975225,,,
+Massachusetts,25,2010,0.47804339537223867,0.47804339537223867,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Massachusetts/20101ma0148000.zip
+Massachusetts,25,2011,0.4894564804732642,0.4894564804732642,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Massachusetts/20111ma0155000.zip
+Massachusetts,25,2012,0.4678323580153706,0.4678323580153706,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Massachusetts/20121ma0155000.zip
+Massachusetts,25,2013,0.47513203322972963,0.47513203322972963,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Massachusetts/20131ma0146000.zip
+Massachusetts,25,2014,0.4777661786877275,0.4777661786877275,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Massachusetts/20141ma0141000.zip
+Massachusetts,25,2015,0.4810366959932571,0.4810366959932571,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Massachusetts/20151ma0141000.zip
+Massachusetts,25,2016,0.46771847729859617,0.46771847729859617,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Massachusetts/20161ma0142000.zip
+Massachusetts,25,2017,0.4653065549667376,0.4653065549667376,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Massachusetts/20171ma0142000.zip
+Massachusetts,25,2018,0.46843107987189886,0.46843107987189886,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Massachusetts,25,2019,0.4626281117482424,0.4626281117482424,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Massachusetts,25,2021,0.4854384594651489,0.4854384594651489,,,
+Michigan,26,2010,0.5117789474394662,0.5117789474394662,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Michigan/20101mi0148000.zip
+Michigan,26,2011,0.509691385757954,0.509691385757954,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Michigan/20111mi0155000.zip
+Michigan,26,2012,0.49754412254412256,0.49754412254412256,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Michigan/20121mi0155000.zip
+Michigan,26,2013,0.4816576562526307,0.4816576562526307,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Michigan/20131mi0146000.zip
+Michigan,26,2014,0.47975098353617396,0.47975098353617396,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Michigan/20141mi0141000.zip
+Michigan,26,2015,0.4606721194411709,0.4606721194411709,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Michigan/20151mi0141000.zip
+Michigan,26,2016,0.45754421573984927,0.45754421573984927,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Michigan/20161mi0142000.zip
+Michigan,26,2017,0.4464609526514563,0.4464609526514563,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Michigan/20171mi0142000.zip
+Michigan,26,2018,0.4470000403515143,0.4470000403515143,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Michigan,26,2019,0.442825057478393,0.442825057478393,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Michigan,26,2021,0.46129765415481677,0.46129765415481677,,,
+Minnesota,27,2010,0.4748147885576548,0.4748147885576548,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Minnesota/20101mn0148000.zip
+Minnesota,27,2011,0.47268785418578424,0.47268785418578424,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Minnesota/20111mn0155000.zip
+Minnesota,27,2012,0.45326652662016503,0.45326652662016503,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Minnesota/20121mn0155000.zip
+Minnesota,27,2013,0.44835288382134936,0.44835288382134936,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Minnesota/20131mn0146000.zip
+Minnesota,27,2014,0.45464001499695583,0.45464001499695583,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Minnesota/20141mn0141000.zip
+Minnesota,27,2015,0.43956383846510116,0.43956383846510116,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Minnesota/20151mn0141000.zip
+Minnesota,27,2016,0.43310458671561586,0.43310458671561586,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Minnesota/20161mn0142000.zip
+Minnesota,27,2017,0.4367663113776547,0.4367663113776547,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Minnesota/20171mn0142000.zip
+Minnesota,27,2018,0.43557595772154767,0.43557595772154767,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Minnesota,27,2019,0.41795851143595036,0.41795851143595036,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Minnesota,27,2021,0.4551086808284031,0.4551086808284031,,,
+Mississippi,28,2010,0.4702487562189055,0.4702487562189055,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Mississippi/20101ms0148000.zip
+Mississippi,28,2011,0.46274913583878796,0.46274913583878796,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Mississippi/20111ms0155000.zip
+Mississippi,28,2012,0.45227292381309275,0.45227292381309275,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Mississippi/20121ms0155000.zip
+Mississippi,28,2013,0.4354667910958617,0.4354667910958617,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Mississippi/20131ms0146000.zip
+Mississippi,28,2014,0.4354014320428766,0.4354014320428766,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Mississippi/20141ms0141000.zip
+Mississippi,28,2015,0.43607705293085447,0.43607705293085447,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Mississippi/20151ms0141000.zip
+Mississippi,28,2016,0.4084215595957786,0.4084215595957786,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Mississippi/20161ms0142000.zip
+Mississippi,28,2017,0.4023551646434542,0.4023551646434542,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Mississippi/20171ms0142000.zip
+Mississippi,28,2018,0.42652120249123954,0.42652120249123954,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Mississippi,28,2019,0.4024523191073981,0.4024523191073981,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Mississippi,28,2021,0.4432085898704688,0.4432085898704688,,,
+Missouri,29,2010,0.4575300614186768,0.4575300614186768,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Missouri/20101mo0148000.zip
+Missouri,29,2011,0.4535688456412265,0.4535688456412265,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Missouri/20111mo0155000.zip
+Missouri,29,2012,0.46407774327675194,0.46407774327675194,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Missouri/20121mo0155000.zip
+Missouri,29,2013,0.446537278282407,0.446537278282407,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Missouri/20131mo0146000.zip
+Missouri,29,2014,0.4361196278666244,0.4361196278666244,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Missouri/20141mo0141000.zip
+Missouri,29,2015,0.4192313097682587,0.4192313097682587,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Missouri/20151mo0141000.zip
+Missouri,29,2016,0.40172857581410726,0.40172857581410726,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Missouri/20161mo0142000.zip
+Missouri,29,2017,0.41046729209085775,0.41046729209085775,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Missouri/20171mo0142000.zip
+Missouri,29,2018,0.4229904864565512,0.4229904864565512,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Missouri,29,2019,0.40666420888808613,0.40666420888808613,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Missouri,29,2021,0.4218243389760963,0.4218243389760963,,,
+Montana,30,2010,0.39907791080465793,0.39907791080465793,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Montana/20101mt0148000.zip
+Montana,30,2011,0.4156230721776681,0.4156230721776681,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Montana/20111mt0155000.zip
+Montana,30,2012,0.4233646524468985,0.4233646524468985,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Montana/20121mt0155000.zip
+Montana,30,2013,0.42455543252903716,0.42455543252903716,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Montana/20131mt0146000.zip
+Montana,30,2014,0.4113434608199499,0.4113434608199499,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Montana/20141mt0141000.zip
+Montana,30,2015,0.4049047818731293,0.4049047818731293,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Montana/20151mt0141000.zip
+Montana,30,2016,0.39030271163524377,0.39030271163524377,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Montana/20161mt0142000.zip
+Montana,30,2017,0.4024412670681808,0.4024412670681808,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Montana/20171mt0142000.zip
+Montana,30,2018,0.39747013952693316,0.39747013952693316,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Montana,30,2019,0.4107786629465105,0.4107786629465105,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Montana,30,2021,0.3793110994397759,0.3793110994397759,,,
+Nebraska,31,2010,0.4098016236602672,0.4098016236602672,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Nebraska/20101ne0148000.zip
+Nebraska,31,2011,0.40280259883419905,0.40280259883419905,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Nebraska/20111ne0155000.zip
+Nebraska,31,2012,0.39421612777813775,0.39421612777813775,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Nebraska/20121ne0155000.zip
+Nebraska,31,2013,0.41330850733696856,0.41330850733696856,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Nebraska/20131ne0146000.zip
+Nebraska,31,2014,0.38757247539898626,0.38757247539898626,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Nebraska/20141ne0141000.zip
+Nebraska,31,2015,0.3974464563671113,0.3974464563671113,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Nebraska/20151ne0141000.zip
+Nebraska,31,2016,0.4070935063632471,0.4070935063632471,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Nebraska/20161ne0142000.zip
+Nebraska,31,2017,0.36846511847297997,0.36846511847297997,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Nebraska/20171ne0142000.zip
+Nebraska,31,2018,0.3822472134983681,0.3822472134983681,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Nebraska,31,2019,0.3837984573621354,0.3837984573621354,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Nebraska,31,2021,0.4266416732438832,0.4266416732438832,,,
+Nevada,32,2010,0.5025451594793627,0.5025451594793627,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Nevada/20101nv0148000.zip
+Nevada,32,2011,0.4934542261639972,0.4934542261639972,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Nevada/20111nv0155000.zip
+Nevada,32,2012,0.4855364851270469,0.4855364851270469,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Nevada/20121nv0155000.zip
+Nevada,32,2013,0.46670930506683894,0.46670930506683894,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Nevada/20131nv0146000.zip
+Nevada,32,2014,0.46870658384253844,0.46870658384253844,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Nevada/20141nv0141000.zip
+Nevada,32,2015,0.46793917825946296,0.46793917825946296,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Nevada/20151nv0141000.zip
+Nevada,32,2016,0.47255854373252504,0.47255854373252504,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Nevada/20161nv0142000.zip
+Nevada,32,2017,0.4545680238331678,0.4545680238331678,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Nevada/20171nv0142000.zip
+Nevada,32,2018,0.48259632694942645,0.48259632694942645,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Nevada,32,2019,0.4815810853582077,0.4815810853582077,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Nevada,32,2021,0.5208264863443652,0.5208264863443652,,,
+New Hampshire,33,2010,0.47734325229650026,0.47734325229650026,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/NewHampshire/20101nh0148000.zip
+New Hampshire,33,2011,0.4704241980133529,0.4704241980133529,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/NewHampshire/20111nh0155000.zip
+New Hampshire,33,2012,0.4609714822110872,0.4609714822110872,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/NewHampshire/20121nh0155000.zip
+New Hampshire,33,2013,0.45305211270331824,0.45305211270331824,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/NewHampshire/20131nh0146000.zip
+New Hampshire,33,2014,0.4693525458774877,0.4693525458774877,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/NewHampshire/20141nh0141000.zip
+New Hampshire,33,2015,0.4395795222566876,0.4395795222566876,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/NewHampshire/20151nh0141000.zip
+New Hampshire,33,2016,0.4181285422369588,0.4181285422369588,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/NewHampshire/20161nh0142000.zip
+New Hampshire,33,2017,0.445012307171981,0.445012307171981,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/NewHampshire/20171nh0142000.zip
+New Hampshire,33,2018,0.4538073063553486,0.4538073063553486,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New Hampshire,33,2019,0.44258093239203716,0.44258093239203716,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New Hampshire,33,2021,0.42559399473478293,0.42559399473478293,,,
+New Jersey,34,2010,0.5146031737095017,0.5146031737095017,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/NewJersey/20101nj0148000.zip
+New Jersey,34,2011,0.5137492785523899,0.5137492785523899,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/NewJersey/20111nj0155000.zip
+New Jersey,34,2012,0.5134124752308653,0.5134124752308653,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/NewJersey/20121nj0155000.zip
+New Jersey,34,2013,0.510757358684877,0.510757358684877,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/NewJersey/20131nj0146000.zip
+New Jersey,34,2014,0.5001133089449319,0.5001133089449319,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/NewJersey/20141nj0141000.zip
+New Jersey,34,2015,0.5045121461937063,0.5045121461937063,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/NewJersey/20151nj0141000.zip
+New Jersey,34,2016,0.4910164550754645,0.4910164550754645,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/NewJersey/20161nj0142000.zip
+New Jersey,34,2017,0.49031264459780455,0.49031264459780455,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/NewJersey/20171nj0142000.zip
+New Jersey,34,2018,0.4859095914212908,0.4859095914212908,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New Jersey,34,2019,0.4660579875231015,0.4660579875231015,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New Jersey,34,2021,0.48907966530947306,0.48907966530947306,,,
+New Mexico,35,2010,0.4244595811983581,0.4244595811983581,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/NewMexico/20101nm0148000.zip
+New Mexico,35,2011,0.47571034996581807,0.47571034996581807,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/NewMexico/20111nm0155000.zip
+New Mexico,35,2012,0.4597270039288752,0.4597270039288752,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/NewMexico/20121nm0155000.zip
+New Mexico,35,2013,0.4600974302563127,0.4600974302563127,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/NewMexico/20131nm0146000.zip
+New Mexico,35,2014,0.45790320338410817,0.45790320338410817,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/NewMexico/20141nm0141000.zip
+New Mexico,35,2015,0.4533945812529743,0.4533945812529743,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/NewMexico/20151nm0141000.zip
+New Mexico,35,2016,0.4241320041251289,0.4241320041251289,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/NewMexico/20161nm0142000.zip
+New Mexico,35,2017,0.43262065744857975,0.43262065744857975,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/NewMexico/20171nm0142000.zip
+New Mexico,35,2018,0.43378828922692225,0.43378828922692225,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New Mexico,35,2019,0.4174086703924726,0.4174086703924726,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New Mexico,35,2021,0.442907758190162,0.442907758190162,,,
+New York,36,2010,0.5018042076308871,0.5018042076308871,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/NewYork/20101ny0148000.zip
+New York,36,2011,0.513086395478038,0.513086395478038,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/NewYork/20111ny0155000.zip
+New York,36,2012,0.5038165094847168,0.5038165094847168,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/NewYork/20121ny0155000.zip
+New York,36,2013,0.5081195568395876,0.5081195568395876,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/NewYork/20131ny0146000.zip
+New York,36,2014,0.5138972437371733,0.5138972437371733,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/NewYork/20141ny0141000.zip
+New York,36,2015,0.5023509540496148,0.5023509540496148,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/NewYork/20151ny0141000.zip
+New York,36,2016,0.4976608458011024,0.4976608458011024,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/NewYork/20161ny0142000.zip
+New York,36,2017,0.49724905824883925,0.49724905824883925,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/NewYork/20171ny0142000.zip
+New York,36,2018,0.49106652642804616,0.49106652642804616,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+New York,36,2019,0.47303380005639506,0.47303380005639506,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+New York,36,2021,0.5032553332538481,0.5032553332538481,,,
+North Carolina,37,2010,0.4717773382405161,0.4717773382405161,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/NorthCarolina/20101nc0148000.zip
+North Carolina,37,2011,0.4785019724969233,0.4785019724969233,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/NorthCarolina/20111nc0155000.zip
+North Carolina,37,2012,0.4484883682161497,0.4484883682161497,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/NorthCarolina/20121nc0155000.zip
+North Carolina,37,2013,0.45148622653439213,0.45148622653439213,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/NorthCarolina/20131nc0146000.zip
+North Carolina,37,2014,0.46319607802626256,0.46319607802626256,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/NorthCarolina/20141nc0141000.zip
+North Carolina,37,2015,0.4488349450239233,0.4488349450239233,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/NorthCarolina/20151nc0141000.zip
+North Carolina,37,2016,0.4261980439657748,0.4261980439657748,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/NorthCarolina/20161nc0142000.zip
+North Carolina,37,2017,0.42353665050973616,0.42353665050973616,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/NorthCarolina/20171nc0142000.zip
+North Carolina,37,2018,0.437532801642835,0.437532801642835,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+North Carolina,37,2019,0.42596921288165973,0.42596921288165973,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+North Carolina,37,2021,0.4445861582869034,0.4445861582869034,,,
+North Dakota,38,2010,0.3619081508319046,0.3619081508319046,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/NorthDakota/20101nd0148000.zip
+North Dakota,38,2011,0.37975634350626636,0.37975634350626636,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/NorthDakota/20111nd0155000.zip
+North Dakota,38,2012,0.31700916944305213,0.31700916944305213,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/NorthDakota/20121nd0155000.zip
+North Dakota,38,2013,0.38556272579092354,0.38556272579092354,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/NorthDakota/20131nd0146000.zip
+North Dakota,38,2014,0.36418875476550544,0.36418875476550544,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/NorthDakota/20141nd0141000.zip
+North Dakota,38,2015,0.3616991168121998,0.3616991168121998,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/NorthDakota/20151nd0141000.zip
+North Dakota,38,2016,0.3634473715991236,0.3634473715991236,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/NorthDakota/20161nd0142000.zip
+North Dakota,38,2017,0.3663608404174442,0.3663608404174442,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/NorthDakota/20171nd0142000.zip
+North Dakota,38,2018,0.354422460963566,0.354422460963566,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+North Dakota,38,2019,0.35474150334111326,0.35474150334111326,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+North Dakota,38,2021,0.3845009330710647,0.3845009330710647,,,
+Ohio,39,2010,0.47879001502934887,0.47879001502934887,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Ohio/20101oh0148000.zip
+Ohio,39,2011,0.474775860297483,0.474775860297483,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Ohio/20111oh0155000.zip
+Ohio,39,2012,0.454335662969211,0.454335662969211,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Ohio/20121oh0155000.zip
+Ohio,39,2013,0.44573808063526904,0.44573808063526904,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Ohio/20131oh0146000.zip
+Ohio,39,2014,0.4430660427122425,0.4430660427122425,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Ohio/20141oh0141000.zip
+Ohio,39,2015,0.43262201282410095,0.43262201282410095,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Ohio/20151oh0141000.zip
+Ohio,39,2016,0.42025520332613336,0.42025520332613336,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Ohio/20161oh0142000.zip
+Ohio,39,2017,0.4114981048972111,0.4114981048972111,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Ohio/20171oh0142000.zip
+Ohio,39,2018,0.41151785775699545,0.41151785775699545,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Ohio,39,2019,0.4040807739540535,0.4040807739540535,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Ohio,39,2021,0.4062281743480355,0.4062281743480355,,,
+Oklahoma,40,2010,0.4178356561470251,0.4178356561470251,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Oklahoma/20101ok0148000.zip
+Oklahoma,40,2011,0.42967168558834473,0.42967168558834473,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Oklahoma/20111ok0155000.zip
+Oklahoma,40,2012,0.4236969923791585,0.4236969923791585,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Oklahoma/20121ok0155000.zip
+Oklahoma,40,2013,0.4036095176415626,0.4036095176415626,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Oklahoma/20131ok0146000.zip
+Oklahoma,40,2014,0.39857586915601384,0.39857586915601384,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Oklahoma/20141ok0141000.zip
+Oklahoma,40,2015,0.3973996886396782,0.3973996886396782,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Oklahoma/20151ok0141000.zip
+Oklahoma,40,2016,0.39423214874270535,0.39423214874270535,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Oklahoma/20161ok0142000.zip
+Oklahoma,40,2017,0.40486649431658206,0.40486649431658206,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Oklahoma/20171ok0142000.zip
+Oklahoma,40,2018,0.3900744175173381,0.3900744175173381,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Oklahoma,40,2019,0.39465466479574113,0.39465466479574113,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Oklahoma,40,2021,0.4197442570160822,0.4197442570160822,,,
+Oregon,41,2010,0.5117465626622117,0.5117465626622117,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Oregon/20101or0148000.zip
+Oregon,41,2011,0.518484218452452,0.518484218452452,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Oregon/20111or0155000.zip
+Oregon,41,2012,0.49986282155484907,0.49986282155484907,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Oregon/20121or0155000.zip
+Oregon,41,2013,0.5022509126793316,0.5022509126793316,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Oregon/20131or0146000.zip
+Oregon,41,2014,0.5192557356011003,0.5192557356011003,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Oregon/20141or0141000.zip
+Oregon,41,2015,0.4819348881541715,0.4819348881541715,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Oregon/20151or0141000.zip
+Oregon,41,2016,0.48380581930878475,0.48380581930878475,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Oregon/20161or0142000.zip
+Oregon,41,2017,0.48625758439207534,0.48625758439207534,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Oregon/20171or0142000.zip
+Oregon,41,2018,0.46871733345038424,0.46871733345038424,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Oregon,41,2019,0.4549799339134014,0.4549799339134014,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Oregon,41,2021,0.4855336547896505,0.4855336547896505,,,
+Pennsylvania,42,2010,0.4629287985501427,0.4629287985501427,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Pennsylvania/20101pa0148000.zip
+Pennsylvania,42,2011,0.47140628423100156,0.47140628423100156,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Pennsylvania/20111pa0155000.zip
+Pennsylvania,42,2012,0.4594376520188098,0.4594376520188098,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Pennsylvania/20121pa0155000.zip
+Pennsylvania,42,2013,0.46082541578536945,0.46082541578536945,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Pennsylvania/20131pa0146000.zip
+Pennsylvania,42,2014,0.4658543735666179,0.4658543735666179,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Pennsylvania/20141pa0141000.zip
+Pennsylvania,42,2015,0.45210513448852174,0.45210513448852174,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Pennsylvania/20151pa0141000.zip
+Pennsylvania,42,2016,0.43130106471149143,0.43130106471149143,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Pennsylvania/20161pa0142000.zip
+Pennsylvania,42,2017,0.4254295744753214,0.4254295744753214,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Pennsylvania/20171pa0142000.zip
+Pennsylvania,42,2018,0.4424613417438827,0.4424613417438827,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Pennsylvania,42,2019,0.4362267183949797,0.4362267183949797,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Pennsylvania,42,2021,0.44203418692466584,0.44203418692466584,,,
+Rhode Island,44,2010,0.4814455662667402,0.4814455662667402,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/RhodeIsland/20101ri0148000.zip
+Rhode Island,44,2011,0.478680655979816,0.478680655979816,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/RhodeIsland/20111ri0155000.zip
+Rhode Island,44,2012,0.47786052645907573,0.47786052645907573,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/RhodeIsland/20121ri0155000.zip
+Rhode Island,44,2013,0.49252284771709215,0.49252284771709215,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/RhodeIsland/20131ri0146000.zip
+Rhode Island,44,2014,0.49335806038773283,0.49335806038773283,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/RhodeIsland/20141ri0141000.zip
+Rhode Island,44,2015,0.44588472187264033,0.44588472187264033,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/RhodeIsland/20151ri0141000.zip
+Rhode Island,44,2016,0.4572033824121571,0.4572033824121571,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/RhodeIsland/20161ri0142000.zip
+Rhode Island,44,2017,0.4301390407748789,0.4301390407748789,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/RhodeIsland/20171ri0142000.zip
+Rhode Island,44,2018,0.4431158556620001,0.4431158556620001,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Rhode Island,44,2019,0.4585394929115287,0.4585394929115287,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Rhode Island,44,2021,0.4583758448191639,0.4583758448191639,,,
+South Carolina,45,2010,0.4718494720018577,0.4718494720018577,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/SouthCarolina/20101sc0148000.zip
+South Carolina,45,2011,0.473285536159601,0.473285536159601,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/SouthCarolina/20111sc0155000.zip
+South Carolina,45,2012,0.4625312473667949,0.4625312473667949,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/SouthCarolina/20121sc0155000.zip
+South Carolina,45,2013,0.4520673813169985,0.4520673813169985,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/SouthCarolina/20131sc0146000.zip
+South Carolina,45,2014,0.4626758283267979,0.4626758283267979,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/SouthCarolina/20141sc0141000.zip
+South Carolina,45,2015,0.4377876215293317,0.4377876215293317,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/SouthCarolina/20151sc0141000.zip
+South Carolina,45,2016,0.43141612451953765,0.43141612451953765,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/SouthCarolina/20161sc0142000.zip
+South Carolina,45,2017,0.4484960448751323,0.4484960448751323,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/SouthCarolina/20171sc0142000.zip
+South Carolina,45,2018,0.4319912912127324,0.4319912912127324,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+South Carolina,45,2019,0.4202133726462873,0.4202133726462873,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+South Carolina,45,2021,0.44868458342837786,0.44868458342837786,,,
+South Dakota,46,2010,0.37231480212270157,0.37231480212270157,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/SouthDakota/20101sd0148000.zip
+South Dakota,46,2011,0.3560829986350201,0.3560829986350201,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/SouthDakota/20111sd0155000.zip
+South Dakota,46,2012,0.3669685168676395,0.3669685168676395,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/SouthDakota/20121sd0155000.zip
+South Dakota,46,2013,0.3642918312660571,0.3642918312660571,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/SouthDakota/20131sd0146000.zip
+South Dakota,46,2014,0.3586436857183112,0.3586436857183112,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/SouthDakota/20141sd0141000.zip
+South Dakota,46,2015,0.3723017085706348,0.3723017085706348,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/SouthDakota/20151sd0141000.zip
+South Dakota,46,2016,0.3722613744248886,0.3722613744248886,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/SouthDakota/20161sd0142000.zip
+South Dakota,46,2017,0.37794149395509496,0.37794149395509496,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/SouthDakota/20171sd0142000.zip
+South Dakota,46,2018,0.37093779852562137,0.37093779852562137,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+South Dakota,46,2019,0.35917026732708046,0.35917026732708046,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+South Dakota,46,2021,0.3500096103682144,0.3500096103682144,,,
+Tennessee,47,2010,0.4669254848019334,0.4669254848019334,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Tennessee/20101tn0148000.zip
+Tennessee,47,2011,0.46994495585568624,0.46994495585568624,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Tennessee/20111tn0155000.zip
+Tennessee,47,2012,0.452945142714647,0.452945142714647,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Tennessee/20121tn0155000.zip
+Tennessee,47,2013,0.4461734703018012,0.4461734703018012,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Tennessee/20131tn0146000.zip
+Tennessee,47,2014,0.4563085090861169,0.4563085090861169,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Tennessee/20141tn0141000.zip
+Tennessee,47,2015,0.4348121217167267,0.4348121217167267,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Tennessee/20151tn0141000.zip
+Tennessee,47,2016,0.4215802957254957,0.4215802957254957,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Tennessee/20161tn0142000.zip
+Tennessee,47,2017,0.4091175763942047,0.4091175763942047,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Tennessee/20171tn0142000.zip
+Tennessee,47,2018,0.44094335931279544,0.44094335931279544,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Tennessee,47,2019,0.4210020730762179,0.4210020730762179,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Tennessee,47,2021,0.43883112978435657,0.43883112978435657,,,
+Texas,48,2010,0.46305330497640257,0.46305330497640257,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Texas/20101tx0148000.zip
+Texas,48,2011,0.4605523343499682,0.4605523343499682,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Texas/20111tx0155000.zip
+Texas,48,2012,0.4448744615633744,0.4448744615633744,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Texas/20121tx0155000.zip
+Texas,48,2013,0.44163356858666214,0.44163356858666214,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Texas/20131tx0146000.zip
+Texas,48,2014,0.45301247087114027,0.45301247087114027,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Texas/20141tx0141000.zip
+Texas,48,2015,0.4391980997583265,0.4391980997583265,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Texas/20151tx0141000.zip
+Texas,48,2016,0.4387242964620482,0.4387242964620482,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Texas/20161tx0142000.zip
+Texas,48,2017,0.44545891989241715,0.44545891989241715,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Texas/20171tx0142000.zip
+Texas,48,2018,0.45176818498979554,0.45176818498979554,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Texas,48,2019,0.4480370734721933,0.4480370734721933,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Texas,48,2021,0.47503608826725513,0.47503608826725513,,,
+Utah,49,2010,0.45797956078721547,0.45797956078721547,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Utah/20101ut0148000.zip
+Utah,49,2011,0.4780797328940662,0.4780797328940662,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Utah/20111ut0155000.zip
+Utah,49,2012,0.4636533358813974,0.4636533358813974,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Utah/20121ut0155000.zip
+Utah,49,2013,0.4356399172273323,0.4356399172273323,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Utah/20131ut0146000.zip
+Utah,49,2014,0.4367547412316786,0.4367547412316786,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Utah/20141ut0141000.zip
+Utah,49,2015,0.41528479975152277,0.41528479975152277,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Utah/20151ut0141000.zip
+Utah,49,2016,0.4247096494657973,0.4247096494657973,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Utah/20161ut0142000.zip
+Utah,49,2017,0.41729928373343317,0.41729928373343317,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Utah/20171ut0142000.zip
+Utah,49,2018,0.4190595033027249,0.4190595033027249,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Utah,49,2019,0.4182228920673261,0.4182228920673261,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Utah,49,2021,0.4530211104346548,0.4530211104346548,,,
+Vermont,50,2010,0.49862635557016105,0.49862635557016105,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Vermont/20101vt0148000.zip
+Vermont,50,2011,0.4921657240278191,0.4921657240278191,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Vermont/20111vt0155000.zip
+Vermont,50,2012,0.46946916231972996,0.46946916231972996,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Vermont/20121vt0155000.zip
+Vermont,50,2013,0.5032474163637106,0.5032474163637106,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Vermont/20131vt0146000.zip
+Vermont,50,2014,0.47217859692387565,0.47217859692387565,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Vermont/20141vt0141000.zip
+Vermont,50,2015,0.46288829651855923,0.46288829651855923,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Vermont/20151vt0141000.zip
+Vermont,50,2016,0.46723491482764434,0.46723491482764434,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Vermont/20161vt0142000.zip
+Vermont,50,2017,0.4693316629167519,0.4693316629167519,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Vermont/20171vt0142000.zip
+Vermont,50,2018,0.4322562866000689,0.4322562866000689,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Vermont,50,2019,0.5062798144154741,0.5062798144154741,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Vermont,50,2021,0.468404808317089,0.468404808317089,,,
+Virginia,51,2010,0.46567516837348527,0.46567516837348527,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Virginia/20101va0148000.zip
+Virginia,51,2011,0.465249141552932,0.465249141552932,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Virginia/20111va0155000.zip
+Virginia,51,2012,0.46401983422862836,0.46401983422862836,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Virginia/20121va0155000.zip
+Virginia,51,2013,0.45640167093219475,0.45640167093219475,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Virginia/20131va0146000.zip
+Virginia,51,2014,0.46610595991798004,0.46610595991798004,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Virginia/20141va0141000.zip
+Virginia,51,2015,0.4600754719758313,0.4600754719758313,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Virginia/20151va0141000.zip
+Virginia,51,2016,0.4561521110270892,0.4561521110270892,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Virginia/20161va0142000.zip
+Virginia,51,2017,0.43716835192048015,0.43716835192048015,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Virginia/20171va0142000.zip
+Virginia,51,2018,0.4519425418938409,0.4519425418938409,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Virginia,51,2019,0.42856204688780486,0.42856204688780486,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Virginia,51,2021,0.4609016474704227,0.4609016474704227,,,
+Washington,53,2010,0.48435947122641704,0.48435947122641704,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Washington/20101wa0148000.zip
+Washington,53,2011,0.48022441309662084,0.48022441309662084,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Washington/20111wa0155000.zip
+Washington,53,2012,0.4770464568356189,0.4770464568356189,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Washington/20121wa0155000.zip
+Washington,53,2013,0.4797705778969111,0.4797705778969111,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Washington/20131wa0146000.zip
+Washington,53,2014,0.47099019396457104,0.47099019396457104,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Washington/20141wa0141000.zip
+Washington,53,2015,0.45365667158228196,0.45365667158228196,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Washington/20151wa0141000.zip
+Washington,53,2016,0.4492421704423368,0.4492421704423368,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Washington/20161wa0142000.zip
+Washington,53,2017,0.4520262521432059,0.4520262521432059,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Washington/20171wa0142000.zip
+Washington,53,2018,0.452657332849087,0.452657332849087,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Washington,53,2019,0.45282489136809245,0.45282489136809245,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Washington,53,2021,0.46294587974133417,0.46294587974133417,,,
+West Virginia,54,2010,0.4022736073756969,0.4022736073756969,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/WestVirginia/20101wv0148000.zip
+West Virginia,54,2011,0.3872147282566073,0.3872147282566073,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/WestVirginia/20111wv0155000.zip
+West Virginia,54,2012,0.3891166873610349,0.3891166873610349,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/WestVirginia/20121wv0155000.zip
+West Virginia,54,2013,0.3837719620132396,0.3837719620132396,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/WestVirginia/20131wv0146000.zip
+West Virginia,54,2014,0.37876551656729546,0.37876551656729546,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/WestVirginia/20141wv0141000.zip
+West Virginia,54,2015,0.38709344346928237,0.38709344346928237,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/WestVirginia/20151wv0141000.zip
+West Virginia,54,2016,0.4001215793254859,0.4001215793254859,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/WestVirginia/20161wv0142000.zip
+West Virginia,54,2017,0.3964648264486371,0.3964648264486371,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/WestVirginia/20171wv0142000.zip
+West Virginia,54,2018,0.3988090818644848,0.3988090818644848,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+West Virginia,54,2019,0.36271415806246676,0.36271415806246676,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+West Virginia,54,2021,0.4109957858592165,0.4109957858592165,,,
+Wisconsin,55,2010,0.4651902681596035,0.4651902681596035,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Wisconsin/20101wi0148000.zip
+Wisconsin,55,2011,0.45980826966931165,0.45980826966931165,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Wisconsin/20111wi0155000.zip
+Wisconsin,55,2012,0.45915889198807347,0.45915889198807347,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Wisconsin/20121wi0155000.zip
+Wisconsin,55,2013,0.4430963222789681,0.4430963222789681,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Wisconsin/20131wi0146000.zip
+Wisconsin,55,2014,0.4455702705788332,0.4455702705788332,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Wisconsin/20141wi0141000.zip
+Wisconsin,55,2015,0.4301533628852731,0.4301533628852731,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Wisconsin/20151wi0141000.zip
+Wisconsin,55,2016,0.41754472353776784,0.41754472353776784,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Wisconsin/20161wi0142000.zip
+Wisconsin,55,2017,0.4096042533777498,0.4096042533777498,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Wisconsin/20171wi0142000.zip
+Wisconsin,55,2018,0.4103704844006568,0.4103704844006568,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Wisconsin,55,2019,0.4000091987269984,0.4000091987269984,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Wisconsin,55,2021,0.40585619309056237,0.40585619309056237,,,
+Wyoming,56,2010,0.3430581266197705,0.3430581266197705,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2010/data/1_year_seq_by_state/Wyoming/20101wy0148000.zip
+Wyoming,56,2011,0.3330424398309756,0.3330424398309756,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2011/data/1_year_seq_by_state/Wyoming/20111wy0155000.zip
+Wyoming,56,2012,0.3881099676225717,0.3881099676225717,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2012/data/1_year_seq_by_state/Wyoming/20121wy0155000.zip
+Wyoming,56,2013,0.37406210319750666,0.37406210319750666,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2013/data/1_year_seq_by_state/Wyoming/20131wy0146000.zip
+Wyoming,56,2014,0.36208218039154555,0.36208218039154555,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2014/data/1_year_seq_by_state/Wyoming/20141wy0141000.zip
+Wyoming,56,2015,0.358782475941223,0.358782475941223,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_seq_by_state/Wyoming/20151wy0141000.zip
+Wyoming,56,2016,0.37474363571172464,0.37474363571172464,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2016/data/1_year_seq_by_state/Wyoming/20161wy0142000.zip
+Wyoming,56,2017,0.38044663959760017,0.38044663959760017,,1yr_sequence,https://www2.census.gov/programs-surveys/acs/summary_file/2017/data/1_year_seq_by_state/Wyoming/20171wy0142000.zip
+Wyoming,56,2018,0.37153711279953244,0.37153711279953244,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2018/prototype/1YRData/acsdt1y2018-b25070.dat
+Wyoming,56,2019,0.39537118969883744,0.39537118969883744,,1yr_table,https://www2.census.gov/programs-surveys/acs/summary_file/2019/prototype/1YRData/acsdt1y2019-b25070.dat
+Wyoming,56,2021,0.44034466885321366,0.44034466885321366,,,
