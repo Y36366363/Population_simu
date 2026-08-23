@@ -25,9 +25,19 @@ from population_simu.calibration import (
     replay_errors,
     replay_errors_by_group,
 )
+from population_simu.household_calibration import calibrate_household_parameters
 
 
 class CalibrationTests(unittest.TestCase):
+    def test_household_calibration_marks_unidentified_hazards_as_priors(self):
+        rows = [{"entity": "A", "year": year, "asfr_15_44": 60 + year - 2010,
+                 "housing_cost_burden": 0.3 + 0.01 * (year - 2010)}
+                for year in range(2010, 2014)]
+        calibrated = calibrate_household_parameters(rows)
+        self.assertIn("housing_elasticity", calibrated.identified)
+        self.assertIn("partnership_exposure", calibrated.prior_only)
+        self.assertAlmostEqual(calibrated.female_exposure_scale, 1.0)
+
     def test_reduced_form_and_household_runners_cover_comparable_contract(self):
         rows = []
         for entity in ("A", "B"):

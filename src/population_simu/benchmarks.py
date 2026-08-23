@@ -173,7 +173,7 @@ def reduced_form_runner(metric: str = "asfr_15_44",
     return run
 
 
-def household_simulator_runner(metric: str = "asfr_15_44") -> Runner:
+def household_simulator_runner(metric: str = "asfr_15_44", calibration=None) -> Runner:
     """Adapt the frozen household World to the state-year forecast contract.
 
     The adapter uses only existing World mechanisms.  It calibrates a scale
@@ -182,9 +182,12 @@ def household_simulator_runner(metric: str = "asfr_15_44") -> Runner:
     hazard calibration.
     """
     from .config import PolicyConfig, RegionConfig, Scenario, SimulationConfig
+    from .household_calibration import HouseholdCalibration, calibrate_household_parameters
     from .world import World
+    fixed_calibration = calibration
 
     def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
+        calibration = fixed_calibration or calibrate_household_parameters(train)
         output = []
         for entity in sorted({str(r.get("entity", "all")) for r in train}):
             rows = sorted((r for r in train if str(r.get("entity", "all")) == entity), key=lambda r: int(r["year"]))
@@ -199,20 +202,29 @@ def household_simulator_runner(metric: str = "asfr_15_44") -> Runner:
                 name=f"household_adapter_{entity}",
                 simulation=SimulationConfig(start_year=start, years=max(1, max(years) - start),
                                              initial_people=initial_people, random_seed=seed,
-                                             baseline_tfr=max(0.2, min(4.0, float(last[metric]) / 38.0))),
+                                             baseline_tfr=max(0.2, min(4.0, float(last[metric]) * calibration.tfr_conversion_years /
+                                                                      (1000.0 * max(0.1, calibration.partnership_exposure)))),
+                ),
                 policy=PolicyConfig(childcare_support=max(0.0, min(1.0, 1.0 - housing)),
-                                    fertility_multiplier=1.0),
+                                    fertility_multiplier=calibration.housing_multiplier(housing)),
                 regions=(RegionConfig("state", entity, 1.0),),
             )
             world = World(scenario)
             history = {stat.year: stat for stat in world.run()}
-            baseline_stat = history.get(start)
-            simulated_rate = ((baseline_stat.births / initial_people) if baseline_stat else 0.0)
-            scale = observed_birth_rate / simulated_rate if simulated_rate > 1e-9 else 1.0
+            future_stats = [history[y] for y in sorted(history) if y > start]
+            baseline_stat = future_stats[0] if future_stats else None
+            # World does not expose an age-sex denominator yet; use its seeded
+            # female share as an explicit exposure approximation and calibrate
+            # the scale only on the last training observation.
+            simulated_asfr = ((baseline_stat.births / (initial_people * 0.5)) * 1000.0
+                               if baseline_stat else 0.0)
+            scale = (float(last[metric]) / simulated_asfr
+                     if simulated_asfr > 1e-9 else 1.0)
             for year in years:
                 stat = history.get(year)
-                rate = (stat.births / initial_people) * scale if stat else observed_birth_rate
-                output.append({"entity": entity, "year": year, metric: max(0.0, rate * 1000.0)})
+                rate = ((stat.births / (initial_people * 0.5)) * 1000.0 * scale
+                        if stat else float(last[metric]))
+                output.append({"entity": entity, "year": year, metric: max(0.0, rate)})
         return output
     return run
 
