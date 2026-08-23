@@ -64,6 +64,19 @@ RMSE/MAPE。`paired_model_comparison()` 和 `rank_models()` 用于差值区间�
 
 消融只能回答“该机制是否改善预测/解释”，不能回答政策造成了多少真实因果变化。
 
+## 当前四类 Runner 接入状态
+
+`benchmarks.py` 现在提供四个可比较 runner：`fixed_trend_runner`、`wpp_style_runner`
+（cohort proxy）、`reduced_form_runner` 和 `household_simulator_runner`。后两个只消费
+校准期传入的数据；reduced-form 使用州内去均值的住房负担斜率，未来处理变量按校准期均值
+保持；household adapter 调用现有 `World`，再把出生事件聚合成 ASFR 预测。它们都遵循同一
+预测覆盖、CRPS、区间和 rolling-origin 契约，但后两个仍是预测适配器，不是识别后的因果模型。
+
+在 2010–2019、2021 可比面板上的四模型 smoke test 中，trend/cohort proxy 的 MAPE 约 1.38%，
+reduced-form 约 2.32%，household adapter 约 88%。这说明接口和评估链路已经打通，但家庭
+adapter 尚未经过年龄别、孩次和家庭暴露校准，不能把较高误差解释成“家庭机制无效”。下一步
+只能校准现有机制和暴露分母，不新增社会机制。
+
 ## 数据契约
 
 最小 state-year CSV：

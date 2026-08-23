@@ -7,6 +7,8 @@ from population_simu.benchmarks import (
     wpp_style_runner,
     paired_model_comparison,
     rank_models,
+    reduced_form_runner,
+    household_simulator_runner,
 )
 
 from population_simu.calibration import (
@@ -26,6 +28,21 @@ from population_simu.calibration import (
 
 
 class CalibrationTests(unittest.TestCase):
+    def test_reduced_form_and_household_runners_cover_comparable_contract(self):
+        rows = []
+        for entity in ("A", "B"):
+            for year in range(2010, 2015):
+                rows.append({"entity": entity, "year": year,
+                             "asfr_15_44": 60 + (year - 2010),
+                             "housing_cost_burden": 0.35,
+                             "births_15_44": 60000,
+                             "female_15_44": 1000000})
+        models = {"reduced": reduced_form_runner(), "household": household_simulator_runner()}
+        for runner in models.values():
+            forecast = runner(rows[:-2], [2013, 2014], 7)
+            self.assertEqual({(r["entity"], r["year"]) for r in forecast},
+                             {(entity, year) for entity in ("A", "B") for year in (2013, 2014)})
+
     def test_replay_errors_aligns_by_year(self):
         observed = [{"year": 2000, "population": 10}, {"year": 2001, "population": 12}]
         simulated = [{"year": 2000, "population": 9}, {"year": 2001, "population": 13}]

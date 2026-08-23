@@ -62,6 +62,10 @@ and moves the calibration start to 2010. The 2007–2009 ACS 3-year release is n
 individual years; it is reserved for a sensitivity analysis because a rolling three-year
 estimate is not an annual observation.
 
+`scripts/run_fertility_baseline_smoke.py` runs the two baselines on the fertility-only panel,
+or all four runners when passed the merged comparable panel. The output is a forecast-pipeline
+diagnostic, not a causal estimate.
+
 The first frozen fertility outcome is now fixed in three files:
 
 - `us_state_births_2007_2021.csv`: 765 state-year total live-birth counts extracted

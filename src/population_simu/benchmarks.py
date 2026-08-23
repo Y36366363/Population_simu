@@ -136,6 +136,87 @@ def wpp_style_runner(metric: str = "population", damping: float = 0.85) -> Runne
     return run
 
 
+def reduced_form_runner(metric: str = "asfr_15_44",
+                        treatment: str = "housing_cost_burden") -> Runner:
+    """A transparent pooled reduced-form forecast adapter.
+
+    The slope is estimated only on the supplied calibration rows using
+    within-entity de-meaning.  Because the runner contract does not expose
+    future covariates, forecasts hold treatment at the training-period mean;
+    this is a predictive benchmark, not a causal intervention.
+    """
+    def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
+        rows = [r for r in train if metric in r and treatment in r]
+        if not rows:
+            return []
+        by_entity: dict[str, list[Mapping[str, object]]] = {}
+        for row in rows:
+            by_entity.setdefault(str(row.get("entity", "all")), []).append(row)
+        means = {e: sum(float(r[metric]) for r in rs) / len(rs) for e, rs in by_entity.items()}
+        xbar = sum(float(r[treatment]) for r in rows) / len(rows)
+        pairs = [(float(r[treatment]) - sum(float(q[treatment]) for q in by_entity[str(r.get("entity", "all"))]) / len(by_entity[str(r.get("entity", "all"))]),
+                  float(r[metric]) - means[str(r.get("entity", "all"))]) for r in rows]
+        denom = sum(x * x for x, _ in pairs)
+        beta = sum(x * y for x, y in pairs) / denom if denom > 1e-12 else 0.0
+        output = []
+        for entity, entity_rows in by_entity.items():
+            ordered = sorted(entity_rows, key=lambda r: int(r["year"]))
+            last = float(ordered[-1][metric])
+            previous = float(ordered[-2][metric]) if len(ordered) > 1 else last
+            trend = last - previous
+            entity_x = float(ordered[-1][treatment])
+            level = last + beta * (xbar - entity_x)
+            for offset, year in enumerate(years, start=1):
+                output.append({"entity": entity, "year": year,
+                               metric: max(0.0, level + trend * offset)})
+        return output
+    return run
+
+
+def household_simulator_runner(metric: str = "asfr_15_44") -> Runner:
+    """Adapt the frozen household World to the state-year forecast contract.
+
+    The adapter uses only existing World mechanisms.  It calibrates a scale
+    from the last observed birth rate and runs a seeded household simulation;
+    it is deliberately a predictive adapter, not a replacement for age/parity
+    hazard calibration.
+    """
+    from .config import PolicyConfig, RegionConfig, Scenario, SimulationConfig
+    from .world import World
+
+    def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
+        output = []
+        for entity in sorted({str(r.get("entity", "all")) for r in train}):
+            rows = sorted((r for r in train if str(r.get("entity", "all")) == entity), key=lambda r: int(r["year"]))
+            if not rows or metric not in rows[-1]:
+                continue
+            last = rows[-1]
+            start = int(last["year"])
+            initial_people = 1200
+            housing = float(last.get("housing_cost_burden", 0.35) or 0.35)
+            observed_birth_rate = float(last.get("births_15_44", 0.0) or 0.0) / max(1.0, float(last.get("female_15_44", 1.0)))
+            scenario = Scenario(
+                name=f"household_adapter_{entity}",
+                simulation=SimulationConfig(start_year=start, years=max(1, max(years) - start),
+                                             initial_people=initial_people, random_seed=seed,
+                                             baseline_tfr=max(0.2, min(4.0, float(last[metric]) / 38.0))),
+                policy=PolicyConfig(childcare_support=max(0.0, min(1.0, 1.0 - housing)),
+                                    fertility_multiplier=1.0),
+                regions=(RegionConfig("state", entity, 1.0),),
+            )
+            world = World(scenario)
+            history = {stat.year: stat for stat in world.run()}
+            baseline_stat = history.get(start)
+            simulated_rate = ((baseline_stat.births / initial_people) if baseline_stat else 0.0)
+            scale = observed_birth_rate / simulated_rate if simulated_rate > 1e-9 else 1.0
+            for year in years:
+                stat = history.get(year)
+                rate = (stat.births / initial_people) * scale if stat else observed_birth_rate
+                output.append({"entity": entity, "year": year, metric: max(0.0, rate * 1000.0)})
+        return output
+    return run
+
+
 def compare_models(
     observed_rows: Rows,
     models: Mapping[str, Runner],
