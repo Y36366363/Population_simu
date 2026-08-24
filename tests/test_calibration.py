@@ -25,7 +25,8 @@ from population_simu.calibration import (
     replay_errors,
     replay_errors_by_group,
 )
-from population_simu.household_calibration import calibrate_household_parameters
+from population_simu.household_calibration import calibrate_household_parameters, calibrate_fertility_observations
+from population_simu.national_calibration import FertilityObservation
 
 
 class CalibrationTests(unittest.TestCase):
@@ -35,6 +36,31 @@ class CalibrationTests(unittest.TestCase):
                 for year in range(2010, 2014)]
         calibrated = calibrate_household_parameters(rows)
         self.assertIn("housing_elasticity", calibrated.identified)
+        self.assertIn("partnership_exposure", calibrated.prior_only)
+
+    def test_weighted_fertility_observations_identify_age_marriage_and_parity(self):
+        rows = []
+        for age, rate in ((18, .02), (22, .05), (26, .08), (30, .07), (34, .04)):
+            rows.append(FertilityObservation("US", 2015, "married", "all", age,
+                                             rate * 1000, 1000))
+            rows.append(FertilityObservation("US", 2015, "unmarried", "all", age,
+                                             0, 1000))
+        for parity, rate in (("first", .08), ("second", .04), ("third_plus", .02)):
+            rows.append(FertilityObservation("US", 2015, "married", parity, 30,
+                                             rate * 1000, 1000))
+        calibrated = calibrate_fertility_observations(rows)
+        self.assertIn("age_profile", calibrated.identified)
+        self.assertIn("partnership_exposure", calibrated.identified)
+        self.assertIn("parity_progression", calibrated.identified)
+        self.assertAlmostEqual(calibrated.partnership_exposure, .5)
+        self.assertAlmostEqual(calibrated.parity_progression[1], .5)
+
+    def test_sparse_observations_do_not_claim_identification(self):
+        calibrated = calibrate_fertility_observations([
+            {"age": 30, "marital": "married", "parity": "first",
+             "births": 3, "exposure": 100}
+        ])
+        self.assertIn("age_profile", calibrated.prior_only)
         self.assertIn("partnership_exposure", calibrated.prior_only)
         self.assertAlmostEqual(calibrated.female_exposure_scale, 1.0)
 

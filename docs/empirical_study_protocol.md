@@ -89,6 +89,22 @@ household adapter 的 MAPE 降至约 1.98%，但仍不能把预测改善解释�
 真实暴露数据才能正式识别。下一步只能接入这些观测分母或做预先登记的敏感性分析，不新增
 社会机制。
 
+### 本轮校准通路
+
+`microdata.fertility_observations_from_weighted_rows()` 现在可以把出生登记或 NSFG 的加权
+出生行，与 ACS PUMS/登记构造的女性暴露行，按 `year × age × marital × parity` 合并为
+`births / exposure`。`scripts/calibrate_household_fertility.py` 按年份执行这一汇总，再由
+`calibrate_fertility_observations()` 估计年龄 profile、已婚女性暴露占比和孩次递进率。
+
+只有满足以下条件才会把参数从 `prior_only` 移出：年龄 profile 至少有三个有效年龄格；婚配
+暴露必须有 `parity=all` 的不重复分母；孩次递进至少有已婚首胎和一个后续孩次的出生—暴露
+率。缺任何条件都保留先验并在输出 JSON 中明确标记，避免把重复分母或模拟数据当成正式估计。
+
+推荐的真实数据组合是：ACS PUMS 的 `AGEP`、`MAR`、`PWGTP`（可构造婚姻/年龄女性暴露），
+CDC WONDER Natality 的母亲年龄和婚姻状态出生导出，以及 NSFG 2011–2019 公共使用文件的
+出生历史/孩次变量作为全国交叉校验。NSFG 是全国调查，不能直接替代州—年分母；州级估计
+必须保留 survey weight、抽样方差和可比年份定义。
+
 ## 数据契约
 
 最小 state-year CSV：

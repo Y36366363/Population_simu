@@ -8,10 +8,10 @@ remain explicit priors until a marriage/parity exposure file is added.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import math
 from statistics import median
-from typing import Iterable, Mapping
+from typing import Iterable, Mapping, Any
 
 
 @dataclass(frozen=True)
@@ -79,6 +79,111 @@ def calibrate_household_parameters(rows: Iterable[Mapping[str, object]]) -> Hous
         housing_elasticity=elasticity,
         reference_housing_burden=reference,
     )
+
+
+def calibrate_fertility_observations(
+    observations: Iterable[Any], *, prior: HouseholdCalibration | None = None,
+    min_age_cells: int = 3,
+) -> HouseholdCalibration:
+    """Identify age, partnership and parity inputs from weighted observations.
+
+    The observations must contain ``age``, ``marital``, ``parity``, ``births``
+    and ``exposure`` (either :class:`FertilityObservation` objects or mappings).
+    This is deliberately a separate calibration step: the state-year housing
+    panel cannot identify these denominators.  Partnership exposure is only
+    identified when rows with ``parity=all`` are supplied, preventing accidental
+    double-counting of parity-specific denominators.
+    """
+    base = prior or HouseholdCalibration()
+    records = [_observation_dict(obs) for obs in observations]
+    valid = [r for r in records if _number(r.get("age")) is not None
+             and _number(r.get("births")) is not None
+             and _number(r.get("exposure")) is not None
+             and float(r["exposure"]) > 0]
+    if not valid:
+        return base
+
+    identified = set(base.identified)
+    prior_only = set(base.prior_only)
+    # Prefer an explicit all-parity exposure table for age and partnership.
+    all_rows = [r for r in valid if _norm_parity(r.get("parity")) == "all"]
+    age_rows = all_rows or valid
+    by_age: dict[int, list[float]] = {}
+    for row in age_rows:
+        age = int(float(row["age"]))
+        if 15 <= age <= 44:
+            by_age.setdefault(age, [0.0, 0.0])
+            by_age[age][0] += float(row["births"])
+            by_age[age][1] += float(row["exposure"])
+    age_rates = {age: b / e for age, (b, e) in by_age.items() if e > 0}
+    if len(age_rates) >= min_age_cells and max(age_rates.values(), default=0) > 0:
+        peak = max(age_rates.values())
+        ages = base.age_profile_ages
+        profile = tuple(_linear_profile(age_rates, age) / peak for age in ages)
+        base = replace(base, age_profile=profile)
+        identified.add("age_profile"); prior_only.discard("age_profile")
+
+    if all_rows:
+        married = sum(float(r["exposure"]) for r in all_rows
+                      if _norm_marital(r.get("marital")) == "married")
+        total = sum(float(r["exposure"]) for r in all_rows)
+        if total > 0 and married >= 0:
+            base = replace(base, partnership_exposure=max(0.0, min(1.0, married / total)))
+            identified.add("partnership_exposure"); prior_only.discard("partnership_exposure")
+
+    rates: dict[str, float] = {}
+    for parity in ("first", "second", "third_plus"):
+        subset = [r for r in valid if _norm_marital(r.get("marital")) == "married"
+                  and _norm_parity(r.get("parity")) == parity]
+        exposure = sum(float(r["exposure"]) for r in subset)
+        births = sum(float(r["births"]) for r in subset)
+        if exposure > 0:
+            rates[parity] = births / exposure
+    if "first" in rates and rates["first"] > 0 and len(rates) >= 2:
+        first = rates["first"]
+        progression = tuple(max(0.0, min(1.0, rates.get(p, first) / first))
+                            for p in ("first", "second", "third_plus"))
+        base = replace(base, parity_progression=progression)
+        identified.add("parity_progression"); prior_only.discard("parity_progression")
+    return replace(base, identified=tuple(sorted(identified)), prior_only=tuple(sorted(prior_only)))
+
+
+def _observation_dict(obs: Any) -> dict[str, object]:
+    if isinstance(obs, Mapping):
+        return dict(obs)
+    return {name: getattr(obs, name, None)
+            for name in ("age", "marital", "parity", "births", "exposure")}
+
+
+def _norm_marital(value: object) -> str:
+    text = str(value).strip().lower()
+    return "married" if text in {"married", "1", "m", "spouse"} else "unmarried"
+
+
+def _norm_parity(value: object) -> str:
+    text = str(value).strip().lower().replace(" ", "_")
+    if text in {"all", "total", "any"}:
+        return "all"
+    if text in {"first", "1", "0"}:
+        return "first"
+    if text in {"second", "2"}:
+        return "second"
+    if text in {"third", "third_plus", "3", "3+", "fourth_plus"}:
+        return "third_plus"
+    return text
+
+
+def _linear_profile(points: Mapping[int, float], age: int) -> float:
+    ordered = sorted(points.items())
+    if age <= ordered[0][0]:
+        return ordered[0][1]
+    if age >= ordered[-1][0]:
+        return ordered[-1][1]
+    for (left_age, left), (right_age, right) in zip(ordered, ordered[1:]):
+        if left_age <= age <= right_age:
+            fraction = (age - left_age) / (right_age - left_age)
+            return left + fraction * (right - left)
+    return ordered[-1][1]
 
 
 def _number(value: object) -> float | None:
