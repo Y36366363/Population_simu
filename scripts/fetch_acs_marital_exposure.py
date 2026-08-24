@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 from pathlib import Path
 import subprocess
 
@@ -24,6 +25,9 @@ AGE_BANDS = {
 def _get_json(url: str):
     # curl uses the platform certificate store; this also works on macOS
     # installations where Python's bundled urllib lacks the system CA chain.
+    api_key = os.environ.get("CENSUS_API_KEY")
+    if api_key:
+        url += ("&" if "?" in url else "?") + f"key={api_key}"
     completed = subprocess.run(["curl", "--fail", "--silent", "--show-error",
                                 "--location", "--max-time", "120", url],
                                check=True, capture_output=True, text=True)
@@ -90,7 +94,11 @@ def main() -> int:
     parser.add_argument("--end", type=int, default=2017)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    rows = [row for year in range(args.start, args.end + 1) for row in fetch(year)]
+    try:
+        rows = [row for year in range(args.start, args.end + 1) for row in fetch(year)]
+    except Exception as exc:
+        raise SystemExit("Census API 下载失败；请设置 CENSUS_API_KEY，或提供本地 ACS 导出。"
+                         f" 原始错误: {exc}") from exc
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", newline="", encoding="utf-8") as handle:
         fields = tuple(rows[0])
