@@ -1,0 +1,51 @@
+{
+  "calibration": {
+    "female_exposure_scale": 1.0,
+    "age_profile": [
+      0.15527350590199,
+      0.314423891726168,
+      0.3868854873326139,
+      0.9682344894690034,
+      0.3252299295061585,
+      0.06469652015949487,
+      0.3832963711974094
+    ],
+    "age_profile_ages": [
+      18,
+      22,
+      26,
+      30,
+      34,
+      38,
+      42
+    ],
+    "partnership_exposure": 0.35387970674208225,
+    "parity_progression": [
+      0.72,
+      0.48,
+      0.24
+    ],
+    "housing_elasticity": 0.0,
+    "tfr_conversion_years": 30.0,
+    "reference_housing_burden": 0.35,
+    "identified": [
+      "age_profile",
+      "female_exposure_scale",
+      "housing_elasticity",
+      "partnership_exposure"
+    ],
+    "prior_only": [
+      "parity_progression"
+    ]
+  },
+  "source_files": {
+    "births": "data/observed/us_2021/nsfg_birth_rows_2018.csv",
+    "exposure": "data/observed/us_2021/nsfg_exposure_snapshot_2018.csv",
+    "panel": null
+  },
+  "years": [
+    2018
+  ],
+  "observation_rows": 57,
+  "interpretation": "预测校准，不是因果估计；所有 prior_only 参数仍需敏感性分析"
+}

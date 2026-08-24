@@ -107,7 +107,10 @@ def calibrate_fertility_observations(
     prior_only = set(base.prior_only)
     # Prefer an explicit all-parity exposure table for age and partnership.
     all_rows = [r for r in valid if _norm_parity(r.get("parity")) == "all"]
-    age_rows = all_rows or valid
+    # A separate all-parity exposure table may be paired with parity-specific
+    # births. If its births are all zero after the key join, fall back to the
+    # detailed rows rather than incorrectly concluding the age profile is flat.
+    age_rows = all_rows if any(float(r["births"]) > 0 for r in all_rows) else valid
     by_age: dict[int, list[float]] = {}
     for row in age_rows:
         age = int(float(row["age"]))

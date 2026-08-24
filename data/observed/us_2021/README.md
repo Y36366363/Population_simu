@@ -41,6 +41,22 @@ Official acquisition references: [ACS PUMS](https://www.census.gov/programs-surv
 [ACS migration variables](https://www.census.gov/data/developers/data-sets/acs-migration-flows/2020.html),
 and [NSFG public-use files](https://www.cdc.gov/nchs/nsfg/nsfg_2017_2019_puf.htm).
 
+This update includes an actual, aggregated NSFG 2017–2019 public-use extract:
+`nsfg_birth_rows_2010_2017.csv` contains weighted live births by outcome year,
+mother age, formal marital status and birth order, parsed from the CDC fixed-width
+file and its Stata dictionary. `nsfg_exposure_snapshot_2018.csv` contains the
+weighted female respondent age/marital snapshot. The resulting
+`nsfg_2018_calibration.json` is an external national validation, not a state-year
+calibration: its exposure is a survey snapshot and its window overlaps the frozen
+test period. It must not be fed into the primary 2010–2017 calibration.
+
+For the primary denominator, `scripts/fetch_acs_marital_exposure.py` provides a
+reproducible Census ACS B12002 downloader. It preserves age bands and labels its
+uniform-within-band allocation; it cannot claim single-year observed exposure.
+If the Census API is unavailable without a key, the script fails rather than using
+synthetic values. State-level age/marital birth rows still require a CDC WONDER
+export or public natality extract with the same year and geography definitions.
+
 `us_housing_panel_2021.csv` is the original verified state-year slice. The historical
 ingestion path is `scripts/fetch_us_housing_historical.py`: it parses ACS sequence files
 (2007–2017) using year-specific sequence metadata and table-based files (2018 onward),

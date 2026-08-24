@@ -105,6 +105,12 @@ CDC WONDER Natality 的母亲年龄和婚姻状态出生导出，以及 NSFG 201
 出生历史/孩次变量作为全国交叉校验。NSFG 是全国调查，不能直接替代州—年分母；州级估计
 必须保留 survey weight、抽样方差和可比年份定义。
 
+本轮已用 CDC 官方 NSFG 2017–2019 fixed-width 文件实际解析出 944 个 2010—2017
+年龄×婚姻×孩次加权出生格，并用 2018 respondent weighted snapshot 运行了校准脚本。
+该结果仅是外部 national validation：由于 NSFG 无公开州标识且暴露快照与主测试期重叠，
+`nsfg_2018_calibration.json` 不进入 primary calibration。主研究仍须使用 2010—2017
+同口径州级出生导出和女性暴露分母；否则不能声称完成州级孩次 hazard 估计。
+
 ## 数据契约
 
 最小 state-year CSV：
