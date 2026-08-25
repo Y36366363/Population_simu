@@ -25,7 +25,7 @@ from population_simu.calibration import (
     replay_errors,
     replay_errors_by_group,
 )
-from population_simu.household_calibration import calibrate_household_parameters, calibrate_fertility_observations
+from population_simu.household_calibration import calibrate_household_parameters, calibrate_fertility_observations, HouseholdCalibration
 from population_simu.national_calibration import FertilityObservation
 
 
@@ -63,6 +63,13 @@ class CalibrationTests(unittest.TestCase):
         self.assertIn("age_profile", calibrated.prior_only)
         self.assertIn("partnership_exposure", calibrated.prior_only)
         self.assertAlmostEqual(calibrated.female_exposure_scale, 1.0)
+
+    def test_household_calibration_artifact_round_trip(self):
+        original = HouseholdCalibration(housing_elasticity=-0.4,
+                                        identified=("housing_elasticity",),
+                                        prior_only=("age_profile",))
+        restored = HouseholdCalibration.from_dict({"calibration": original.as_dict()})
+        self.assertEqual(restored.as_dict(), original.as_dict())
 
     def test_reduced_form_and_household_runners_cover_comparable_contract(self):
         rows = []

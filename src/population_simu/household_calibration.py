@@ -45,6 +45,28 @@ class HouseholdCalibration:
             "prior_only": list(self.prior_only),
         }
 
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, object]) -> "HouseholdCalibration":
+        """Load a frozen calibration artifact without silently filling fields."""
+        values = dict(payload.get("calibration", payload))
+        required = {"age_profile", "age_profile_ages", "parity_progression",
+                    "partnership_exposure", "housing_elasticity"}
+        missing = sorted(required - set(values))
+        if missing:
+            raise ValueError(f"校准 artifact 缺少字段：{missing}")
+        return cls(
+            female_exposure_scale=float(values.get("female_exposure_scale", 1.0)),
+            age_profile=tuple(float(x) for x in values["age_profile"]),
+            age_profile_ages=tuple(int(x) for x in values["age_profile_ages"]),
+            partnership_exposure=float(values["partnership_exposure"]),
+            parity_progression=tuple(float(x) for x in values["parity_progression"]),
+            housing_elasticity=float(values["housing_elasticity"]),
+            tfr_conversion_years=float(values.get("tfr_conversion_years", 30.0)),
+            reference_housing_burden=float(values.get("reference_housing_burden", 0.35)),
+            identified=tuple(str(x) for x in values.get("identified", ())),
+            prior_only=tuple(str(x) for x in values.get("prior_only", ())),
+        )
+
 
 def calibrate_household_parameters(rows: Iterable[Mapping[str, object]]) -> HouseholdCalibration:
     """Estimate identifiable parameters from calibration rows only.
