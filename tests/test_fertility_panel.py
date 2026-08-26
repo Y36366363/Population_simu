@@ -5,6 +5,7 @@ from pathlib import Path
 from population_simu.fertility_panel import (
     merge_wonder_births_with_denominator,
     merge_stratified_wonder_births,
+    aggregate_wonder_to_age_marital,
     read_wonder_tsv,
 )
 
@@ -49,6 +50,15 @@ class FertilityPanelTests(unittest.TestCase):
         self.assertAlmostEqual(row["rate_per_1000"], 50.0)
         with self.assertRaises(ValueError):
             merge_stratified_wonder_births(births, [{**exposure[0], "Live Birth Order": "all"}])
+
+    def test_aggregate_parity_is_explicit_age_marital_estimand(self):
+        rows = aggregate_wonder_to_age_marital([
+            {"State": "01", "Year": 2010, "Age": "25-29", "Marital Status": "Married", "Live Birth Order": "01", "Births": 7},
+            {"State": "01", "Year": 2010, "Age": "25-29", "Marital Status": "Married", "Live Birth Order": "02", "Births": 3},
+        ])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["Live Birth Order"], "all")
+        self.assertEqual(rows[0]["Births"], 10.0)
 
 
 if __name__ == "__main__":

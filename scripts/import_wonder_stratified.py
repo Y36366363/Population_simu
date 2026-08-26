@@ -10,7 +10,9 @@ import argparse
 import csv
 from pathlib import Path
 
-from population_simu.fertility_panel import merge_stratified_wonder_births, read_wonder_tsv
+from population_simu.fertility_panel import (aggregate_wonder_to_age_marital,
+                                              merge_stratified_wonder_births,
+                                              read_wonder_tsv)
 
 
 def main() -> int:
@@ -20,9 +22,14 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--allow-all-parity-denominator", action="store_true",
                         help="仅作敏感性分析；将输出 denominator_scope=all_parity")
+    parser.add_argument("--aggregate-parity", action="store_true",
+                        help="先将孩次计数聚合为年龄×婚姻总出生；用于没有孩次暴露分母的正式可识别 estimand")
     args = parser.parse_args()
+    birth_rows = read_wonder_tsv(args.births_tsv)
+    if args.aggregate_parity:
+        birth_rows = aggregate_wonder_to_age_marital(birth_rows)
     rows = merge_stratified_wonder_births(
-        read_wonder_tsv(args.births_tsv), read_wonder_tsv(args.exposure_tsv),
+        birth_rows, read_wonder_tsv(args.exposure_tsv),
         strict_parity=not args.allow_all_parity_denominator)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fields = ("country", "entity", "state", "year", "age", "marital", "parity",

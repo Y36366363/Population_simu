@@ -131,3 +131,32 @@ def merge_stratified_wonder_births(
                        "denominator_scope": "parity" if key in denominators else "all_parity"})
     if not output: raise ValueError("没有可合并的分层出生观测")
     return output
+
+
+def aggregate_wonder_to_age_marital(
+    birth_rows: Iterable[Mapping[str, object]],
+) -> list[dict[str, object]]:
+    """Collapse live-birth-order rows to age×marital total births.
+
+    This is the estimable bridge when the female exposure source (ACS/PUMS or
+    registration tables) has age×marital counts but no parity-specific risk
+    sets. It deliberately labels parity as ``all``; the resulting rate is an
+    age-marital total fertility rate, not a first/second/third-birth hazard.
+    """
+    totals: dict[tuple[str, int, str, str], dict[str, object]] = {}
+    for row in birth_rows:
+        state = str(_field(row, "State", "state"))
+        year = int(_field(row, "Year", "year"))
+        age = str(_field(row, "Age", "age", "Age of Mother", "age_group"))
+        marital = str(row.get("Marital Status", row.get("marital", "all")))
+        births = _number(_field(row, "Births", "births", "Number of Births"))
+        if births < 0:
+            raise ValueError("出生数不能为负")
+        key = (state, year, age, marital)
+        item = totals.setdefault(key, {"State": state, "Year": year,
+                                       "Age": age, "Marital Status": marital,
+                                       "Live Birth Order": "all", "Births": 0.0})
+        item["Births"] = float(item["Births"]) + births
+    if not totals:
+        raise ValueError("没有可聚合的出生观测")
+    return list(totals.values())

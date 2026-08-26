@@ -118,6 +118,11 @@ CDC WONDER Natality 的母亲年龄和婚姻状态出生导出，以及 NSFG 201
 hazard。当前仓库尚未下载这种 WONDER 分层导出，因此研究结果仍只使用总 ASFR；正式接入
 前不能声称年龄—婚姻—孩次州级参数已估计。
 
+当 ACS/PUMS 只能提供年龄×婚姻女性暴露（没有孩次风险集）时，可使用
+`scripts/import_wonder_stratified.py --aggregate-parity`：先把 WONDER 的
+live-birth-order 分子求和为 `parity=all`，再合并同口径暴露。该桥接只识别年龄×婚姻总出生率；
+孩次递进仍是描述性分解或外部校准，不能解释为首胎/二胎/三胎 hazard。
+
 ## 数据契约
 
 最小 state-year CSV：
