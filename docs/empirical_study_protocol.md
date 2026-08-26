@@ -111,6 +111,13 @@ CDC WONDER Natality 的母亲年龄和婚姻状态出生导出，以及 NSFG 201
 `nsfg_2018_calibration.json` 不进入 primary calibration。主研究仍须使用 2010—2017
 同口径州级出生导出和女性暴露分母；否则不能声称完成州级孩次 hazard 估计。
 
+新的可行替代路径是 CDC WONDER Natality 2007–2024：官方字段同时支持母亲居住州、年龄、
+婚姻状态和 live birth order。这样可以获得州—年—年龄组—婚姻—孩次出生分子；分母仍须由
+同口径 ACS/PUMS 或登记女性暴露提供。`merge_stratified_wonder_births()` 和
+`scripts/import_wonder_stratified.py` 会严格检查五维键，禁止把 all-parity 分母误用于孩次
+hazard。当前仓库尚未下载这种 WONDER 分层导出，因此研究结果仍只使用总 ASFR；正式接入
+前不能声称年龄—婚姻—孩次州级参数已估计。
+
 ## 数据契约
 
 最小 state-year CSV：

@@ -83,3 +83,51 @@ def merge_wonder_births_with_denominator(
     if not output:
         raise ValueError("没有可合并的出生观测")
     return output
+
+
+def merge_stratified_wonder_births(
+    birth_rows: Iterable[Mapping[str, object]],
+    exposure_rows: Iterable[Mapping[str, object]], *,
+    country: str = "United States", strict_parity: bool = True,
+) -> list[dict[str, object]]:
+    """Merge WONDER births with age×marital (and optionally parity) exposures.
+
+    WONDER supplies state/year/mother-age/marital/live-birth-order counts for
+    2007 onward. A valid hazard denominator must use the identical state, year,
+    age-group and marital key; if parity-specific exposure is absent, strict
+    mode rejects parity-specific births instead of silently reusing an all-parity
+    denominator.
+    """
+    denominators: dict[tuple[str, int, str, str, str], float] = {}
+    for row in exposure_rows:
+        state = str(_field(row, "State", "state")); year = int(_field(row, "Year", "year"))
+        age = str(_field(row, "Age", "age", "Age of Mother", "age_group"))
+        marital = str(row.get("Marital Status", row.get("marital", "all")))
+        parity = str(row.get("Live Birth Order", row.get("parity", "all")))
+        exposure = _number(_field(row, "Exposure", "exposure", "FemaleExposure"))
+        if exposure <= 0: raise ValueError(f"分层暴露必须为正：{state}/{year}/{age}/{marital}/{parity}")
+        key = (state, year, age, marital, parity)
+        if key in denominators: raise ValueError(f"分层暴露重复键：{key}")
+        denominators[key] = exposure
+    output = []; seen: set[tuple[str, int, str, str, str]] = set()
+    for row in birth_rows:
+        state = str(_field(row, "State", "state")); year = int(_field(row, "Year", "year"))
+        age = str(_field(row, "Age", "age", "Age of Mother", "age_group"))
+        marital = str(row.get("Marital Status", row.get("marital", "all")))
+        parity = str(row.get("Live Birth Order", row.get("parity", "all")))
+        births = _number(_field(row, "Births", "births", "Number of Births"))
+        key = (state, year, age, marital, parity)
+        if key in seen: raise ValueError(f"出生分层重复键：{key}")
+        seen.add(key)
+        denominator = denominators.get(key)
+        if denominator is None and not strict_parity and parity != "all":
+            denominator = denominators.get((state, year, age, marital, "all"))
+        if denominator is None:
+            raise ValueError(f"缺少同口径年龄—婚姻—孩次暴露：{key}")
+        output.append({"country": country, "entity": str(row.get("Entity", row.get("entity", state))),
+                       "state": state, "year": year, "age": age, "marital": marital,
+                       "parity": parity, "births": births, "exposure": denominator,
+                       "rate_per_1000": births / denominator * 1000.0,
+                       "denominator_scope": "parity" if key in denominators else "all_parity"})
+    if not output: raise ValueError("没有可合并的分层出生观测")
+    return output

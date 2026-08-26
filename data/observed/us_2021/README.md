@@ -57,6 +57,13 @@ If the Census API is unavailable without a key, the script fails rather than usi
 synthetic values. State-level age/marital birth rows still require a CDC WONDER
 export or public natality extract with the same year and geography definitions.
 
+CDC WONDER's Natality 2007–2024 database is a viable replacement for the missing
+public NSFG geography: it exposes mother's state of residence, age, marital status
+and live-birth order (2003 onward). Use `scripts/import_wonder_stratified.py` with
+a matching female-exposure export. Strict mode requires the denominator to carry
+the same birth-order key; `--allow-all-parity-denominator` is sensitivity-only and
+does not create a formal parity hazard.
+
 `us_housing_panel_2021.csv` is the original verified state-year slice. The historical
 ingestion path is `scripts/fetch_us_housing_historical.py`: it parses ACS sequence files
 (2007–2017) using year-specific sequence metadata and table-based files (2018 onward),

@@ -4,6 +4,7 @@ from pathlib import Path
 
 from population_simu.fertility_panel import (
     merge_wonder_births_with_denominator,
+    merge_stratified_wonder_births,
     read_wonder_tsv,
 )
 
@@ -38,6 +39,16 @@ class FertilityPanelTests(unittest.TestCase):
             path = Path(directory) / "births.tsv"
             path.write_text("State\tYear\tBirths\nAlabama\t2021\t50\n", encoding="utf-8")
             self.assertEqual(read_wonder_tsv(path)[0]["State"], "Alabama")
+
+    def test_stratified_merge_requires_matching_parity_exposure(self):
+        births = [{"State": "01", "Year": 2021, "Age": "30-34",
+                   "Marital Status": "Married", "Live Birth Order": "01", "Births": 20}]
+        exposure = [{"State": "01", "Year": 2021, "Age": "30-34",
+                     "Marital Status": "Married", "Live Birth Order": "01", "Exposure": 400}]
+        row = merge_stratified_wonder_births(births, exposure)[0]
+        self.assertAlmostEqual(row["rate_per_1000"], 50.0)
+        with self.assertRaises(ValueError):
+            merge_stratified_wonder_births(births, [{**exposure[0], "Live Birth Order": "all"}])
 
 
 if __name__ == "__main__":
