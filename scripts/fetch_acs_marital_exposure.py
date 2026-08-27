@@ -13,6 +13,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+from datetime import date
 
 
 AGE_BANDS = {
@@ -103,6 +104,15 @@ def main() -> int:
     with args.output.open("w", newline="", encoding="utf-8") as handle:
         fields = tuple(rows[0])
         writer = csv.DictWriter(handle, fieldnames=fields); writer.writeheader(); writer.writerows(rows)
+    metadata = {
+        "source": "https://api.census.gov/data/{}/acs/acs1/groups/B12002.json".format(args.start),
+        "years": [args.start, args.end], "table": "B12002",
+        "weighting": "published ACS table estimates (not PUMS microdata)",
+        "age_allocation": "uniform_within_band", "retrieved": date.today().isoformat(),
+        "rows": len(rows),
+    }
+    args.output.with_suffix(args.output.suffix + ".metadata.json").write_text(
+        json.dumps(metadata, indent=2), encoding="utf-8")
     print(f"wrote {args.output} ({len(rows)} rows)")
     return 0
 

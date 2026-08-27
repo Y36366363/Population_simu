@@ -1,0 +1,1134 @@
+{
+  "source": "CDC WONDER Natality 2007-2024",
+  "estimand": "state-year-age-marital-parity birth counts",
+  "batches": [
+    {
+      "id": "2010-00",
+      "year": 2010,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2010-01",
+      "year": 2010,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2010-02",
+      "year": 2010,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2010-03",
+      "year": 2010,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2010-04",
+      "year": 2010,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2010-05",
+      "year": 2010,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2011-00",
+      "year": 2011,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2011-01",
+      "year": 2011,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2011-02",
+      "year": 2011,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2011-03",
+      "year": 2011,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2011-04",
+      "year": 2011,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2011-05",
+      "year": 2011,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2012-00",
+      "year": 2012,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2012-01",
+      "year": 2012,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2012-02",
+      "year": 2012,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2012-03",
+      "year": 2012,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2012-04",
+      "year": 2012,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2012-05",
+      "year": 2012,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2013-00",
+      "year": 2013,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2013-01",
+      "year": 2013,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2013-02",
+      "year": 2013,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2013-03",
+      "year": 2013,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2013-04",
+      "year": 2013,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2013-05",
+      "year": 2013,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2014-00",
+      "year": 2014,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2014-01",
+      "year": 2014,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2014-02",
+      "year": 2014,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2014-03",
+      "year": 2014,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2014-04",
+      "year": 2014,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2014-05",
+      "year": 2014,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2015-00",
+      "year": 2015,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2015-01",
+      "year": 2015,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2015-02",
+      "year": 2015,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2015-03",
+      "year": 2015,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2015-04",
+      "year": 2015,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2015-05",
+      "year": 2015,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2016-00",
+      "year": 2016,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2016-01",
+      "year": 2016,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2016-02",
+      "year": 2016,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2016-03",
+      "year": 2016,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2016-04",
+      "year": 2016,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2016-05",
+      "year": 2016,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2017-00",
+      "year": 2017,
+      "state_fips": [
+        "01",
+        "02",
+        "04",
+        "05",
+        "06",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2017-01",
+      "year": 2017,
+      "state_fips": [
+        "13",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2017-02",
+      "year": 2017,
+      "state_fips": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2017-03",
+      "year": 2017,
+      "state_fips": [
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "44"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2017-04",
+      "year": 2017,
+      "state_fips": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    },
+    {
+      "id": "2017-05",
+      "year": 2017,
+      "state_fips": [
+        "56"
+      ],
+      "group_by": [
+        "State",
+        "Year",
+        "Age of Mother 9",
+        "Marital Status",
+        "Live Birth Order"
+      ],
+      "export": "TSV",
+      "status": "pending"
+    }
+  ]
+}
