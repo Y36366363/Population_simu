@@ -31,3 +31,23 @@ It is an audit, not a claim that every source has already been downloaded.
 - Run duplicate-key, positive-exposure, year-coverage, and suppression checks before
   merging. Never silently impute a missing state-year cell.
 - Keep national NSFG calibration separate from the primary state panel.
+
+## Batch collection workflow
+
+`data/observed/us_2021/wonder_batches_2010_2017.json` contains 48 one-year/state-
+chunk requests. Save each successful browser export as `<id>.tsv` in a local
+directory (raw files may remain outside Git), then run:
+
+```bash
+PYTHONPATH=src python3 scripts/collect_wonder_batches.py \
+  data/observed/us_2021/wonder_batches_2010_2017.json \
+  --input-dir /path/to/wonder_tsv \
+  --output /path/to/wonder_births_2010_2017.csv
+```
+
+The command marks every batch `success` or `failed`, records row counts/errors,
+and merges only successful files. It exits nonzero when no batch succeeded.
+
+The Census API key must be requested by the project owner from the Census API
+portal and supplied at runtime as `CENSUS_API_KEY`; it is never committed,
+printed, or embedded in the repository.
