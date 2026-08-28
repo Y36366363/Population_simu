@@ -1,0 +1,12 @@
+{
+  "source": "https://api.census.gov/data/2010/acs/acs1/groups/B12002.json",
+  "years": [
+    2010,
+    2017
+  ],
+  "table": "B12002",
+  "weighting": "published ACS table estimates (not PUMS microdata)",
+  "age_allocation": "uniform_within_band",
+  "retrieved": "2026-08-28",
+  "rows": 24902
+}

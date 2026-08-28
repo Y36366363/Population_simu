@@ -86,7 +86,7 @@ def fetch(year: int) -> list[dict[str, object]]:
                     unmarried += value
             divisor = len(ages)
             for age in ages:
-                rows.extend((
+                candidates = (
                     {"country": "United States", "state": state, "entity": name,
                      "year": year, "age": age, "age_band": band,
                      "marital": "married", "parity": "all", "exposure": married / divisor,
@@ -95,7 +95,10 @@ def fetch(year: int) -> list[dict[str, object]]:
                      "year": year, "age": age, "age_band": band,
                      "marital": "unmarried", "parity": "all", "exposure": unmarried / divisor,
                      "source": "Census ACS1 B12002", "allocation": "uniform_within_band"},
-                ))
+                )
+                # Zero cells are valid published counts but are not usable risk
+                # sets; omit them so strict merging cannot divide by zero.
+                rows.extend(row for row in candidates if row["exposure"] > 0)
     return rows
 
 
