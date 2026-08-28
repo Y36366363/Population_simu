@@ -5,3 +5,6 @@
 
 # Local raw downloads
 /tmp/
+outputs/
+__pycache__/
+*.pyc
