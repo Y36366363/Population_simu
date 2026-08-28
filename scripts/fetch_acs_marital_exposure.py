@@ -32,7 +32,17 @@ def _get_json(url: str):
     completed = subprocess.run(["curl", "--fail", "--silent", "--show-error",
                                 "--location", "--max-time", "120", url],
                                check=True, capture_output=True, text=True)
-    return json.loads(completed.stdout)
+    payload = completed.stdout.lstrip()
+    if payload.startswith("<"):
+        if "Invalid Key" in payload:
+            raise RuntimeError("Census API 返回 Invalid Key；请重新申请/确认邮箱验证后的 key")
+        if "Missing Key" in payload:
+            raise RuntimeError("Census API 返回 Missing Key；请检查 CENSUS_API_KEY 是否已导出")
+        raise RuntimeError("Census API 返回 HTML 错误页，而非 JSON")
+    try:
+        return json.loads(payload)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError("Census API 返回不可解析响应") from exc
 
 
 def _variables(year: int) -> tuple[dict[str, str], dict[str, list[str]]]:
