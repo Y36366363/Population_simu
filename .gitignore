@@ -1,11 +1,7 @@
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.coverage
-.venv/
-venv/
-.DS_Store
+# Local credentials and generated secrets
+.env
+.env.*
+!.env.example
 
-# 模拟结果可由情景和随机种子重建，默认不提交大体积 CSV。
-outputs/*.csv
-
+# Local raw downloads
+/tmp/
