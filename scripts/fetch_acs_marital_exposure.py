@@ -29,9 +29,12 @@ def _get_json(url: str):
     api_key = os.environ.get("CENSUS_API_KEY")
     if api_key:
         url += ("&" if "?" in url else "?") + f"key={api_key}"
-    completed = subprocess.run(["curl", "--fail", "--silent", "--show-error",
-                                "--location", "--max-time", "120", url],
-                               check=True, capture_output=True, text=True)
+    try:
+        completed = subprocess.run(["curl", "--fail", "--silent", "--show-error",
+                                    "--location", "--max-time", "120", url],
+                                   check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError("Census API 请求失败（具体响应未记录，以避免泄露 API key）") from exc
     payload = completed.stdout.lstrip()
     if payload.startswith("<"):
         if "Invalid Key" in payload:
@@ -45,8 +48,8 @@ def _get_json(url: str):
         raise RuntimeError("Census API 返回不可解析响应") from exc
 
 
-def _variables(year: int) -> tuple[dict[str, str], dict[str, list[str]]]:
-    metadata = _get_json(f"https://api.census.gov/data/{year}/acs/acs1/groups/B12002.json")["variables"]
+def _variables(year: int, dataset: str) -> tuple[dict[str, str], dict[str, list[str]]]:
+    metadata = _get_json(f"https://api.census.gov/data/{year}/acs/{dataset}/groups/B12002.json")["variables"]
     selected: dict[str, list[str]] = {band: [] for band in AGE_BANDS}
     labels: dict[str, str] = {}
     for name, item in metadata.items():
@@ -66,9 +69,12 @@ def _variables(year: int) -> tuple[dict[str, str], dict[str, list[str]]]:
 
 
 def fetch(year: int) -> list[dict[str, object]]:
-    labels, selected = _variables(year)
+    # The 2020 ACS 1-year product was not released; use the official 5-year
+    # product for that year and retain the dataset choice in each row.
+    dataset = "acs5" if year == 2020 else "acs1"
+    labels, selected = _variables(year, dataset)
     variables = ["NAME", *sorted(labels)]
-    url = f"https://api.census.gov/data/{year}/acs/acs1?get={','.join(variables)}&for=state:*"
+    url = f"https://api.census.gov/data/{year}/acs/{dataset}?get={','.join(variables)}&for=state:*"
     table = _get_json(url)
     header, *body = table
     index = {name: i for i, name in enumerate(header)}
@@ -90,11 +96,11 @@ def fetch(year: int) -> list[dict[str, object]]:
                     {"country": "United States", "state": state, "entity": name,
                      "year": year, "age": age, "age_band": band,
                      "marital": "married", "parity": "all", "exposure": married / divisor,
-                     "source": "Census ACS1 B12002", "allocation": "uniform_within_band"},
+                     "source": f"Census {dataset.upper()} B12002", "allocation": "uniform_within_band"},
                     {"country": "United States", "state": state, "entity": name,
                      "year": year, "age": age, "age_band": band,
                      "marital": "unmarried", "parity": "all", "exposure": unmarried / divisor,
-                     "source": "Census ACS1 B12002", "allocation": "uniform_within_band"},
+                     "source": f"Census {dataset.upper()} B12002", "allocation": "uniform_within_band"},
                 )
                 # Zero cells are valid published counts but are not usable risk
                 # sets; omit them so strict merging cannot divide by zero.
@@ -119,6 +125,7 @@ def main() -> int:
         writer = csv.DictWriter(handle, fieldnames=fields); writer.writeheader(); writer.writerows(rows)
     metadata = {
         "source": "https://api.census.gov/data/{}/acs/acs1/groups/B12002.json".format(args.start),
+        "dataset_override": {"2020": "acs5"} if args.start <= 2020 <= args.end else {},
         "years": [args.start, args.end], "table": "B12002",
         "weighting": "published ACS table estimates (not PUMS microdata)",
         "age_allocation": "uniform_within_band", "retrieved": date.today().isoformat(),

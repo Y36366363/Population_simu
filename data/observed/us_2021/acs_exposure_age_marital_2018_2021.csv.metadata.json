@@ -1,0 +1,15 @@
+{
+  "source": "https://api.census.gov/data/2018/acs/acs1/groups/B12002.json",
+  "dataset_override": {
+    "2020": "acs5"
+  },
+  "years": [
+    2018,
+    2021
+  ],
+  "table": "B12002",
+  "weighting": "published ACS table estimates (not PUMS microdata)",
+  "age_allocation": "uniform_within_band",
+  "retrieved": "2026-08-29",
+  "rows": 12448
+}
