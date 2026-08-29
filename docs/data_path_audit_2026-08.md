@@ -48,6 +48,20 @@ PYTHONPATH=src python3 scripts/collect_wonder_batches.py \
 The command marks every batch `success` or `failed`, records row counts/errors,
 and merges only successful files. It exits nonzero when no batch succeeded.
 
+After all required batches are successful, align them with the ACS panels:
+
+```bash
+PYTHONPATH=src python3 scripts/build_wonder_acs_panel.py \
+  /path/to/wonder_births_2010_2017.csv \
+  data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv \
+  data/observed/us_2021/acs_exposure_age_marital_2018_2021.csv \
+  --output-dir data/observed/us_2021
+```
+
+The alignment script aggregates live-birth-order counts to `parity=all`, then
+strictly checks that all eight calibration years and all four test years are
+present before writing outputs.
+
 The Census API key must be requested by the project owner from the Census API
 portal and supplied at runtime as `CENSUS_API_KEY`; it is never committed,
 printed, or embedded in the repository.

@@ -101,7 +101,7 @@ def merge_stratified_wonder_births(
     denominators: dict[tuple[str, int, str, str, str], float] = {}
     for row in exposure_rows:
         state = str(_field(row, "State", "state")); year = int(_field(row, "Year", "year"))
-        age = str(_field(row, "Age", "age", "Age of Mother", "age_group"))
+        age = str(_field(row, "Age", "age", "Age of Mother", "Age of Mother 9", "age_group"))
         marital = str(row.get("Marital Status", row.get("marital", "all")))
         parity = str(row.get("Live Birth Order", row.get("parity", "all")))
         exposure = _number(_field(row, "Exposure", "exposure", "FemaleExposure"))
@@ -112,7 +112,7 @@ def merge_stratified_wonder_births(
     output = []; seen: set[tuple[str, int, str, str, str]] = set()
     for row in birth_rows:
         state = str(_field(row, "State", "state")); year = int(_field(row, "Year", "year"))
-        age = str(_field(row, "Age", "age", "Age of Mother", "age_group"))
+        age = str(_field(row, "Age", "age", "Age of Mother", "Age of Mother 9", "age_group"))
         marital = str(row.get("Marital Status", row.get("marital", "all")))
         parity = str(row.get("Live Birth Order", row.get("parity", "all")))
         births = _number(_field(row, "Births", "births", "Number of Births"))
@@ -147,7 +147,7 @@ def aggregate_wonder_to_age_marital(
     for row in birth_rows:
         state = str(_field(row, "State", "state"))
         year = int(_field(row, "Year", "year"))
-        age = str(_field(row, "Age", "age", "Age of Mother", "age_group"))
+        age = str(_field(row, "Age", "age", "Age of Mother", "Age of Mother 9", "age_group"))
         marital = str(row.get("Marital Status", row.get("marital", "all")))
         births = _number(_field(row, "Births", "births", "Number of Births"))
         if births < 0:
