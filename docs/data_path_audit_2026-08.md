@@ -62,6 +62,18 @@ The alignment script aggregates live-birth-order counts to `parity=all`, then
 strictly checks that all eight calibration years and all four test years are
 present before writing outputs.
 
+### Do we need all 48 WONDER files?
+
+- **Formal statewide study:** yes. The manifest covers every 2010–2017 year and
+  all 52 state/territory codes used by the ACS panel (8 × 6 state chunks). A
+  missing batch means the statewide calibration estimand is incomplete.
+- **Pipeline smoke test:** no. One successful batch plus a small synthetic or
+  archived comparison can test parsing and key alignment, but must not be used
+  for the headline calibration or model comparison.
+- **Practical sequence:** download one batch first, run the collector, then
+  continue in six-batch year groups. Keep raw TSVs outside Git if redistribution
+  is restricted; commit only the manifest status, checksum, and derived panel.
+
 The Census API key must be requested by the project owner from the Census API
 portal and supplied at runtime as `CENSUS_API_KEY`; it is never committed,
 printed, or embedded in the repository.
