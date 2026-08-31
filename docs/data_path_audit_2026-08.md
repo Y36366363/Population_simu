@@ -74,6 +74,11 @@ present before writing outputs.
   continue in six-batch year groups. Keep raw TSVs outside Git if redistribution
   is restricted; commit only the manifest status, checksum, and derived panel.
 
+Run `scripts/check_wonder_completeness.py` before calibration. It verifies both
+that all 48 files exist and that each file contains every state FIPS listed in
+its manifest entry. A nonzero exit means the files are suitable only for smoke
+tests, not for the formal statewide estimand.
+
 The Census API key must be requested by the project owner from the Census API
 portal and supplied at runtime as `CENSUS_API_KEY`; it is never committed,
 printed, or embedded in the repository.

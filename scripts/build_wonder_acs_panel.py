@@ -25,6 +25,15 @@ def main():
     test=merge_stratified_wonder_births([r for r in births if 2018<=int(r["Year"])<=2021],read_csv(a.acs_test))
     if {int(r["year"]) for r in cal} != set(range(2010,2018)): raise SystemExit("calibration 年份不完整")
     if {int(r["year"]) for r in test} != set(range(2018,2022)): raise SystemExit("test 年份不完整")
+    # Formal statewide calibration requires the same 52 state/territory keys
+    # represented by the ACS panel for every year; partial batches are smoke
+    # tests only and must not silently become the headline panel.
+    expected_cal = {(r["state"], int(r["year"])) for r in read_csv(a.acs_calibration)}
+    expected_test = {(r["state"], int(r["year"])) for r in read_csv(a.acs_test)}
+    observed_cal = {(str(r.get("State", r.get("state"))), int(r["Year"])) for r in births if 2010 <= int(r["Year"]) <= 2017}
+    observed_test = {(str(r.get("State", r.get("state"))), int(r["Year"])) for r in births if 2018 <= int(r["Year"]) <= 2021}
+    if not expected_cal.issubset(observed_cal): raise SystemExit("calibration 州覆盖不完整；不能进入正式结果")
+    if not expected_test.issubset(observed_test): raise SystemExit("test 州覆盖不完整；不能进入正式结果")
     write(a.output_dir/"wonder_acs_age_marital_calibration_2010_2017.csv",cal); write(a.output_dir/"wonder_acs_age_marital_test_2018_2021.csv",test)
     print(f"calibration_rows={len(cal)} test_rows={len(test)}")
 if __name__=="__main__": main()
