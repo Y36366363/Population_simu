@@ -55,12 +55,18 @@ PYTHONPATH=src python3 scripts/build_wonder_acs_panel.py \
   /path/to/wonder_births_2010_2017.csv \
   data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv \
   data/observed/us_2021/acs_exposure_age_marital_2018_2021.csv \
+  --births-test /path/to/wonder_births_2018_2021.csv \
   --output-dir data/observed/us_2021
 ```
 
 The alignment script aggregates live-birth-order counts to `parity=all`, then
 strictly checks that all eight calibration years and all four test years are
 present before writing outputs.
+
+The 48-file manifest covers only 2010–2017. To produce the untouched 2018–2021
+test panel, a separate WONDER export (or equivalent NCHS public-use birth file)
+must be supplied with `--births-test`; the script now refuses to infer test births
+from calibration data.
 
 ### Do we need all 48 WONDER files?
 

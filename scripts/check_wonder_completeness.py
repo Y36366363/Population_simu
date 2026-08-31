@@ -11,7 +11,7 @@ def main():
         f=a.input_dir/f"{b['id']}.tsv"
         try:
             rows=read_wonder_tsv(f)
-            states={str(r.get("State",r.get("state"))) for r in rows}
+            states={str(r.get("State Code", r.get("state_code", r.get("State",r.get("state"))))) for r in rows}
             expected=set(b["state_fips"])
             if not expected.issubset(states): bad.append((b["id"],sorted(expected-states)))
             else: ok+=1

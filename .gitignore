@@ -8,3 +8,4 @@
 outputs/
 __pycache__/
 *.pyc
+data/observed/us_2021/wonder_births_partial_*.csv

@@ -113,6 +113,8 @@ def merge_stratified_wonder_births(
     for row in birth_rows:
         state = str(_field(row, "State", "state")); year = int(_field(row, "Year", "year"))
         age = str(_field(row, "Age", "age", "Age of Mother", "Age of Mother 9", "age_group"))
+        if age in {"Under 15 years", "Under 15", "45-49 years", "50 years and over", "Unknown or Not Stated"}:
+            continue
         marital = str(row.get("Marital Status", row.get("marital", "all")))
         parity = str(row.get("Live Birth Order", row.get("parity", "all")))
         births = _number(_field(row, "Births", "births", "Number of Births"))
@@ -145,9 +147,15 @@ def aggregate_wonder_to_age_marital(
     """
     totals: dict[tuple[str, int, str, str], dict[str, object]] = {}
     for row in birth_rows:
+        # WONDER exports with "Show Totals" include a blank total row; totals
+        # are not a state-year observation and must not enter the panel.
+        if not str(row.get("State", row.get("state", ""))).strip() or not str(row.get("Year", row.get("year", ""))).strip():
+            continue
         state = str(_field(row, "State", "state"))
         year = int(_field(row, "Year", "year"))
         age = str(_field(row, "Age", "age", "Age of Mother", "Age of Mother 9", "age_group"))
+        if age in {"Under 15 years", "Under 15", "45-49 years", "50 years and over", "Unknown or Not Stated"}:
+            continue
         marital = str(row.get("Marital Status", row.get("marital", "all")))
         births = _number(_field(row, "Births", "births", "Number of Births"))
         if births < 0:

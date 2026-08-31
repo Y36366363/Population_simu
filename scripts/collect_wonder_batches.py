@@ -23,6 +23,8 @@ def main() -> int:
     p.add_argument("manifest", type=Path)
     p.add_argument("--input-dir", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--mark-missing-failed", action="store_true",
+                   help="将尚未下载的文件标记 failed；默认保留 pending 以区分未尝试批次")
     args = p.parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     merged: list[dict[str, str]] = []
@@ -35,7 +37,10 @@ def main() -> int:
             batch.update({"status": "success", "rows": len(rows), "file": str(path)})
             merged.extend(rows)
         except Exception as exc:
-            batch.update({"status": "failed", "error": str(exc), "file": str(path)})
+            if path.exists() or args.mark_missing_failed:
+                batch.update({"status": "failed", "error": str(exc), "file": str(path)})
+            else:
+                batch.update({"status": "pending", "file": str(path)})
     manifest["updated"] = True
     args.manifest.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     if merged:
@@ -45,8 +50,9 @@ def main() -> int:
             writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
             writer.writeheader(); writer.writerows(merged)
     success = sum(b.get("status") == "success" for b in manifest["batches"])
-    failed = len(manifest["batches"]) - success
-    print(f"success={success} failed={failed} merged_rows={len(merged)}")
+    failed = sum(b.get("status") == "failed" for b in manifest["batches"])
+    pending = sum(b.get("status") == "pending" for b in manifest["batches"])
+    print(f"success={success} failed={failed} pending={pending} merged_rows={len(merged)}")
     return 0 if success else 2
 
 
