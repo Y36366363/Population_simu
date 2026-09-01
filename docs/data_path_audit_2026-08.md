@@ -88,3 +88,12 @@ tests, not for the formal statewide estimand.
 The Census API key must be requested by the project owner from the Census API
 portal and supplied at runtime as `CENSUS_API_KEY`; it is never committed,
 printed, or embedded in the repository.
+
+For the 2018–2021 untouched numerator, CDC/NCHS also lists annual public-use
+birth archives (for example, `Nat2018us.zip` through `Nat2021us.zip`). These are
+large fixed-width files, so they are an alternative ingestion path rather than
+something to download automatically during tests. The repository records their
+official URLs and a pending status in
+`nchs_birth_public_use_2018_2021.json`; field-level state-of-residence and
+marital/birth-order availability must be verified against each year’s user guide
+before substitution.

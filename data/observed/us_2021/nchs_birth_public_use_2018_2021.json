@@ -1,0 +1,11 @@
+{
+  "source": "CDC/NCHS Vital Statistics Online",
+  "purpose": "Alternative 2018-2021 birth numerator when WONDER batch export is unavailable",
+  "files": [
+    {"year": 2018, "url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/natality/Nat2018us.zip", "status": "pending"},
+    {"year": 2019, "url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/natality/Nat2019us.zip", "status": "pending"},
+    {"year": 2020, "url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/natality/Nat2020us.zip", "status": "pending"},
+    {"year": 2021, "url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/DVS/natality/Nat2021us.zip", "status": "pending"}
+  ],
+  "note": "Public-use files are large fixed-width archives; verify state-of-residence and birth-order fields from each user guide before using them as a state-age-marital panel. Do not commit raw archives."
+}
