@@ -1,0 +1,11 @@
+{
+  "file": "/tmp/wonder_tsv/2010-00.tsv",
+  "scope": "2010; Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, DC, Florida",
+  "rows_after_total_row_removal": 729,
+  "age_groups": "9 WONDER groups; analysis subset 15-44",
+  "marital_groups": ["Married", "Unmarried"],
+  "birth_order_groups": 7,
+  "suppressed_cells_detected": 0,
+  "cross_check": "Compared age 15-44 sum (all birth-order categories) with existing NCHS total ASFR panel; differences ranged from -0.7% to -3.3% across the ten states.",
+  "interpretation": "Suitable for parser/key smoke testing; not sufficient for statewide calibration until all 48 batches and a documented numerator reconciliation are complete."
+}
