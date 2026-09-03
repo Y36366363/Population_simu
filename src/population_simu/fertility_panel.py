@@ -149,7 +149,11 @@ def aggregate_wonder_to_age_marital(
     for row in birth_rows:
         # WONDER exports with "Show Totals" include a blank total row; totals
         # are not a state-year observation and must not enter the panel.
-        if not str(row.get("State", row.get("state", ""))).strip() or not str(row.get("Year", row.get("year", ""))).strip():
+        raw_state = row.get("State", row.get("state", ""))
+        raw_year = row.get("Year", row.get("year", ""))
+        # csv.DictReader stores surplus/malformed fields under a ``None`` key;
+        # treat null values as missing rather than attempting int(None).
+        if raw_state is None or raw_year is None or not str(raw_state).strip() or not str(raw_year).strip() or str(raw_year).strip().lower() == "none":
             continue
         state = str(_field(row, "State", "state"))
         year = int(_field(row, "Year", "year"))
