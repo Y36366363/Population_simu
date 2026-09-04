@@ -173,7 +173,8 @@ def reduced_form_runner(metric: str = "asfr_15_44",
     return run
 
 
-def household_simulator_runner(metric: str = "asfr_15_44", calibration=None) -> Runner:
+def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
+                               *, use_housing: bool = True) -> Runner:
     """Adapt the frozen household World to the state-year forecast contract.
 
     The adapter uses only existing World mechanisms.  It calibrates a scale
@@ -196,7 +197,11 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None) -> 
             last = rows[-1]
             start = int(last["year"])
             initial_people = 1200
-            housing = float(last.get("housing_cost_burden", 0.35) or 0.35)
+            # Ablation fixes burden at the calibrated reference, removing the
+            # observed housing channel while retaining the same simulator and
+            # random-seed contract.
+            housing = (float(last.get("housing_cost_burden", 0.35) or 0.35)
+                       if use_housing else calibration.reference_housing_burden)
             observed_birth_rate = float(last.get("births_15_44", 0.0) or 0.0) / max(1.0, float(last.get("female_15_44", 1.0)))
             scenario = Scenario(
                 name=f"household_adapter_{entity}",

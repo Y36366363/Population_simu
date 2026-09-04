@@ -58,6 +58,8 @@ def main() -> int:
         "cohort_proxy": wpp_style_runner("asfr_15_44"),
         "reduced_form": reduced_form_runner(),
         "household": household_simulator_runner(calibration=external_calibration),
+        "household_no_housing": household_simulator_runner(
+            calibration=external_calibration, use_housing=False),
     }
     reports = {}
     for initial in args.initial:
