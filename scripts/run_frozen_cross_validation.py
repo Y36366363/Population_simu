@@ -60,6 +60,8 @@ def main() -> int:
         "household": household_simulator_runner(calibration=external_calibration),
         "household_no_housing": household_simulator_runner(
             calibration=external_calibration, use_housing=False),
+        "household_no_household": household_simulator_runner(
+            calibration=external_calibration, use_household_mechanisms=False),
     }
     reports = {}
     for initial in args.initial:

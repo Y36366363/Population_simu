@@ -86,6 +86,16 @@ class CalibrationTests(unittest.TestCase):
             self.assertEqual({(r["entity"], r["year"]) for r in forecast},
                              {(entity, year) for entity in ("A", "B") for year in (2013, 2014)})
 
+    def test_household_no_household_ablation_is_deterministic_trend(self):
+        rows = [{"entity": "A", "year": year, "asfr_15_44": 60 + year - 2010,
+                 "housing_cost_burden": 0.35, "births_15_44": 60000,
+                 "female_15_44": 1000000} for year in range(2010, 2014)]
+        runner = household_simulator_runner(use_household_mechanisms=False)
+        first = runner(rows, [2014, 2015], 1)
+        second = runner(rows, [2014, 2015], 99)
+        self.assertEqual(first, second)
+        self.assertEqual([round(x["asfr_15_44"], 6) for x in first], [64.0, 65.0])
+
     def test_replay_errors_aligns_by_year(self):
         observed = [{"year": 2000, "population": 10}, {"year": 2001, "population": 12}]
         simulated = [{"year": 2000, "population": 9}, {"year": 2001, "population": 13}]

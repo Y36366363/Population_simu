@@ -201,6 +201,9 @@ Summary File，因此 5-year 或 experimental 值若使用，必须作为单独�
 4. **历史回放**：在 2018—2021 untouched test 上运行四类模型，使用现有 rolling-origin、
    CRPS、coverage、RMSE/MAPE。
 5. **机制消融**：只比较 no-housing、no-childcare、no-household 与 full，不添加新机制。
+   当前 `household_no_household` 已实现为严格适配器消融：沿用同一训练端点和预测契约，
+   但跳过 World 的家庭形成、婚姻、生育和迁移事件，使用端点趋势外推。它不是第五个
+   独立模型，解释仅限于“加入家庭事件机制后预测是否改变”。
 6. **解释边界**：先报告预测和机制贡献；只有未来建立可信识别设计后，才讨论 causal counterfactual。
 
 `study_readiness()` 会自动报告上述阶段是否具备。当前真实状态是 housing slice 已有、完整

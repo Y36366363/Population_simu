@@ -174,7 +174,8 @@ def reduced_form_runner(metric: str = "asfr_15_44",
 
 
 def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
-                               *, use_housing: bool = True) -> Runner:
+                               *, use_housing: bool = True,
+                               use_household_mechanisms: bool = True) -> Runner:
     """Adapt the frozen household World to the state-year forecast contract.
 
     The adapter uses only existing World mechanisms.  It calibrates a scale
@@ -195,6 +196,16 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
             if not rows or metric not in rows[-1]:
                 continue
             last = rows[-1]
+            if not use_household_mechanisms:
+                # Strict ablation: retain the same observed endpoint and
+                # forecast contract, but skip World household formation,
+                # marriage, fertility and migration events entirely.
+                previous = float(rows[-2][metric]) if len(rows) > 1 and metric in rows[-2] else float(last[metric])
+                increment = float(last[metric]) - previous
+                for offset, year in enumerate(years, start=1):
+                    output.append({"entity": entity, "year": year, metric:
+                                   max(0.0, float(last[metric]) + increment * offset)})
+                continue
             start = int(last["year"])
             initial_people = 1200
             # Ablation fixes burden at the calibrated reference, removing the
