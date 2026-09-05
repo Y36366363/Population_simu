@@ -1,0 +1,61 @@
+{
+  "panel": "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv",
+  "calibration_years": [
+    2010,
+    2017
+  ],
+  "calibration": {
+    "female_exposure_scale": 1.0,
+    "age_profile": [
+      0.35,
+      0.65,
+      0.9,
+      1.0,
+      0.95,
+      0.75,
+      0.45
+    ],
+    "age_profile_ages": [
+      18,
+      22,
+      26,
+      30,
+      34,
+      38,
+      42
+    ],
+    "partnership_exposure": 0.62,
+    "parity_progression": [
+      0.72,
+      0.48,
+      0.24
+    ],
+    "housing_elasticity": 0.4553832881299805,
+    "tfr_conversion_years": 30.0,
+    "reference_housing_burden": 0.455770587590276,
+    "identified": [
+      "female_exposure_scale",
+      "housing_elasticity"
+    ],
+    "prior_only": [
+      "age_profile",
+      "partnership_exposure",
+      "parity_progression"
+    ]
+  },
+  "housing_training": {
+    "mean": 0.4514585332437277,
+    "sd": 0.0424968279910433,
+    "min": 0.31700916944305213,
+    "max": 0.5619238649807156
+  },
+  "forecast_pairs": 150,
+  "housing_channel_abs_difference_mean": 0.7219844775752088,
+  "household_mechanism_abs_difference_mean": 6.357676043036173,
+  "interpretation": {
+    "scale": "adapter rescales simulated births to the last observed ASFR; this is predictive normalization, not an estimated causal effect",
+    "housing": "difference between full and fixed-reference housing forecasts",
+    "household": "difference between full World events and deterministic endpoint-trend ablation",
+    "limits": "aggregate ASFR cannot identify age, marital or parity mechanisms"
+  }
+}
