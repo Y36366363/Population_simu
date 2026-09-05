@@ -175,7 +175,8 @@ def reduced_form_runner(metric: str = "asfr_15_44",
 
 def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                                *, use_housing: bool = True,
-                               use_household_mechanisms: bool = True) -> Runner:
+                               use_household_mechanisms: bool = True,
+                               future_housing: Mapping[tuple[str, int], float] | None = None) -> Runner:
     """Adapt the frozen household World to the state-year forecast contract.
 
     The adapter uses only existing World mechanisms.  It calibrates a scale
@@ -237,10 +238,31 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
             scale = (float(last[metric]) / simulated_asfr
                      if simulated_asfr > 1e-9 else 1.0)
             for year in years:
-                stat = history.get(year)
+                # When provided, use the exogenous state-year housing series
+                # for each forecast year. Outcomes are never read here.
+                if future_housing is not None and (entity, year) in future_housing:
+                    year_housing = float(future_housing[(entity, year)]) if use_housing else calibration.reference_housing_burden
+                    one_year = Scenario(
+                        name=f"household_adapter_{entity}_{year}",
+                        simulation=SimulationConfig(start_year=year - 1, years=2,
+                                                     initial_people=initial_people, random_seed=seed,
+                                                     baseline_tfr=max(0.2, min(4.0, float(last[metric]) * calibration.tfr_conversion_years /
+                                                                         (1000.0 * max(0.1, calibration.partnership_exposure))))),
+                        policy=PolicyConfig(childcare_support=max(0.0, min(1.0, 1.0 - year_housing)),
+                                            fertility_multiplier=calibration.housing_multiplier(year_housing)),
+                        regions=(RegionConfig("state", entity, 1.0),),
+                    )
+                    year_history = {s.year: s for s in World(one_year).run()}
+                    stat = year_history.get(year)
+                else:
+                    stat = history.get(year)
                 rate = ((stat.births / (initial_people * 0.5)) * 1000.0 * scale
                         if stat else float(last[metric]))
-                output.append({"entity": entity, "year": year, metric: max(0.0, rate)})
+                raw_rate = ((stat.births / (initial_people * 0.5)) * 1000.0
+                            if stat else 0.0)
+                output.append({"entity": entity, "year": year, metric: max(0.0, rate),
+                               "world_asfr_unscaled": max(0.0, raw_rate),
+                               "asfr_scaled": max(0.0, rate)})
         return output
     return run
 

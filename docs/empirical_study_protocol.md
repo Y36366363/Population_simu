@@ -204,6 +204,9 @@ Summary File，因此 5-year 或 experimental 值若使用，必须作为单独�
    当前 `household_no_household` 已实现为严格适配器消融：沿用同一训练端点和预测契约，
    但跳过 World 的家庭形成、婚姻、生育和迁移事件，使用端点趋势外推。它不是第五个
    独立模型，解释仅限于“加入家庭事件机制后预测是否改变”。
+   household full 还会输出 `world_asfr_unscaled` 与 `asfr_scaled` 两列；前者用于机制
+   诊断，后者才可与观测 ASFR 比较。由于缩放使用训练期末端点，household 结果定位为
+   机制解释模型，不作为短期预测优越性的证据。
 6. **解释边界**：先报告预测和机制贡献；只有未来建立可信识别设计后，才讨论 causal counterfactual。
 
 `study_readiness()` 会自动报告上述阶段是否具备。当前真实状态是 housing slice 已有、完整

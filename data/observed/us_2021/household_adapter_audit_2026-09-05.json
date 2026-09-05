@@ -50,8 +50,10 @@
     "max": 0.5619238649807156
   },
   "forecast_pairs": 150,
-  "housing_channel_abs_difference_mean": 0.7219844775752088,
-  "household_mechanism_abs_difference_mean": 6.357676043036173,
+  "housing_channel_abs_difference_mean": 0.03162235150866811,
+  "household_mechanism_abs_difference_mean": 3.497633607355278,
+  "world_asfr_unscaled_mean": 23.111111111111114,
+  "asfr_scaled_mean": 61.55175235222742,
   "interpretation": {
     "scale": "adapter rescales simulated births to the last observed ASFR; this is predictive normalization, not an estimated causal effect",
     "housing": "difference between full and fixed-reference housing forecasts",

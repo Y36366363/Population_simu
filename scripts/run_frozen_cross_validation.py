@@ -45,6 +45,8 @@ def main() -> int:
         row["year"] = int(row["year"])
         row["asfr_15_44"] = float(row["asfr_15_44"])
         row["region"] = region_for_state(row.get("state", ""))
+    future_housing = {(str(r["entity"]), int(r["year"])): float(r["housing_cost_burden"])
+                      for r in rows if r.get("housing_cost_burden") not in (None, "")}
     external_calibration = None
     if args.household_calibration_json:
         artifact = json.loads(args.household_calibration_json.read_text(encoding="utf-8"))
@@ -57,9 +59,11 @@ def main() -> int:
         "naive_trend": fixed_trend_runner("asfr_15_44"),
         "cohort_proxy": wpp_style_runner("asfr_15_44"),
         "reduced_form": reduced_form_runner(),
-        "household": household_simulator_runner(calibration=external_calibration),
+        "household": household_simulator_runner(calibration=external_calibration,
+                                                 future_housing=future_housing),
         "household_no_housing": household_simulator_runner(
-            calibration=external_calibration, use_housing=False),
+            calibration=external_calibration, use_housing=False,
+            future_housing=future_housing),
         "household_no_household": household_simulator_runner(
             calibration=external_calibration, use_household_mechanisms=False),
     }

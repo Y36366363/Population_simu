@@ -22,8 +22,11 @@ def main() -> int:
     cal = calibrate_household_parameters([r for r in rows if r["year"] <= 2017])
     train = [r for r in rows if r["year"] <= 2017]
     years = [2018, 2019, 2021]
-    full = household_simulator_runner(calibration=cal, use_housing=True)(train, years, 0)
-    no_housing = household_simulator_runner(calibration=cal, use_housing=False)(train, years, 0)
+    future_housing = {(r["entity"], r["year"]): r["housing_cost_burden"] for r in rows}
+    full = household_simulator_runner(calibration=cal, use_housing=True,
+                                      future_housing=future_housing)(train, years, 0)
+    no_housing = household_simulator_runner(calibration=cal, use_housing=False,
+                                            future_housing=future_housing)(train, years, 0)
     no_household = household_simulator_runner(calibration=cal, use_household_mechanisms=False)(train, years, 0)
     by_key = {(r["entity"], r["year"]): r["asfr_15_44"] for r in full}
     neutral = {(r["entity"], r["year"]): r["asfr_15_44"] for r in no_housing}
@@ -39,6 +42,8 @@ def main() -> int:
         "forecast_pairs": len(by_key),
         "housing_channel_abs_difference_mean": mean(sensitivity) if sensitivity else None,
         "household_mechanism_abs_difference_mean": mean(mechanism) if mechanism else None,
+        "world_asfr_unscaled_mean": mean([float(r["world_asfr_unscaled"]) for r in full]),
+        "asfr_scaled_mean": mean([float(r["asfr_scaled"]) for r in full]),
         "interpretation": {
             "scale": "adapter rescales simulated births to the last observed ASFR; this is predictive normalization, not an estimated causal effect",
             "housing": "difference between full and fixed-reference housing forecasts",
