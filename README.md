@@ -8,6 +8,8 @@
 
 https://Y36366363.github.io/Population_simu/
 
+网页部署状态和后续升级门槛见 [docs/web_deployment_status.md](docs/web_deployment_status.md)。当前网页是纯静态机制演示；正式实证结果面板要等数据面板和历史回放 artifact 完成后再接入。
+
 > 当前网页版本：世界家庭流动沙盘已作为首页主视角；一孩、二孩、三孩资源配置仍可从顶部“子命题：家庭资源”进入。网页使用固定随机种子，适合比较参数变化，不应被解读为现实国家预测。
 
 ## 当前版本定位
