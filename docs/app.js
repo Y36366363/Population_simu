@@ -711,7 +711,10 @@ function renderWorld() {
 }
 
 function localApiUrl(path) {
-  return new URL(path.replace(/^\//, ''), document.baseURI).toString();
+  const configured = new URLSearchParams(window.location.search).get('localApi')
+    || window.localStorage.getItem('populationSimuLocalApi');
+  const base = configured ? configured.replace(/\/$/, '/') : document.baseURI;
+  return new URL(path.replace(/^\//, ''), base).toString();
 }
 
 async function checkLocalEngine() {

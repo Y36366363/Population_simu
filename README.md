@@ -227,6 +227,11 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 
 网页检测到本地接口后，会出现“运行 Python 情景”按钮，并把年度国家曲线、家庭/分支存量、地区城乡分布、政策阶段和多国对比直接画在页面上；在 GitHub Pages 上没有本地接口时，网页会自动退回浏览器轻量模型，不会因为 API 不存在而白屏。
 
+若想从已发布的 GitHub Pages 页面连接本地 Python 引擎，可先在项目根目录运行
+`PYTHONPATH=src python3 -m population_simu.local_app`，再打开
+`https://Y36366363.github.io/Population_simu/?localApi=http://127.0.0.1:8000/`。
+本地应用只读取 `scenarios/` 下的 JSON，不接受远程写入；不需要把本地 API 暴露到公网。
+
 ### GitHub Pages 发布方式
 
 网页采用 GitHub 原生的静态目录发布，不依赖 Actions 构建。把改动合并到 `main` 后，在仓库的 **Settings → Pages → Build and deployment** 中设置：
