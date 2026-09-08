@@ -1,0 +1,33 @@
+{
+  "feature_freeze": true,
+  "required_artifacts": {
+    "static_index": true,
+    "pages_workflow": true,
+    "acs_calibration": true,
+    "acs_test": true,
+    "aggregate_fertility_panel": true,
+    "household_audit": true
+  },
+  "wonder_2010_2017_batches": {
+    "statuses": {
+      "success": 1,
+      "pending": 47
+    },
+    "complete": false
+  },
+  "formal_stratified_replay_ready": false,
+  "web_static_ready": true,
+  "local_python_engine": true,
+  "interpretation": {
+    "ready_now": [
+      "static Pages demo",
+      "local Python engine",
+      "aggregate ASFR model comparison"
+    ],
+    "blocked": [
+      "formal age-marital-parity calibration",
+      "stratified historical replay"
+    ],
+    "reason": "WONDER stratified numerator batches and separate test numerator are incomplete"
+  }
+}
