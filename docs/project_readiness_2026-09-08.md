@@ -24,3 +24,6 @@
 3. WONDER 解冻后先做字段/总量审计，再做分层校准；
 4. 重新运行 household 消融，并分别报告预测误差与机制差异；
 5. 最后才把正式历史回放结果接入网页。
+
+当前 aggregate-ASFR 结果已登记在 `data/observed/us_2021/model_artifacts_manifest_2026-09-09.json`；
+它明确标记为 validated，但不代表年龄—婚姻—孩次 hazard 已完成。

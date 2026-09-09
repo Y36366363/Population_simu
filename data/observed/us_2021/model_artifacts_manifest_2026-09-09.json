@@ -1,0 +1,14 @@
+{
+  "version": "2026-09-09",
+  "artifacts": [
+    {
+      "path": "frozen_cross_validation_2026-09-04.json",
+      "type": "aggregate_asfr_rolling_origin",
+      "validated_by": "scripts/validate_result_artifact.py",
+      "status": "validated",
+      "note": "Uses aggregate state-year ASFR; not age-marital-parity hazard calibration."
+    }
+  ],
+  "web_policy": "The Pages UI may display only versioned artifacts marked validated; raw WONDER and partial files are excluded.",
+  "formal_stratified_replay": "blocked_until_wonder_batches_complete"
+}
