@@ -1,0 +1,25 @@
+country,year,age,marital,parity,weight,source
+US,2010,20,married,first,12000.0,synthetic smoke fixture
+US,2010,20,married,second,12000.0,synthetic smoke fixture
+US,2010,20,unmarried,first,12000.0,synthetic smoke fixture
+US,2010,20,unmarried,second,12000.0,synthetic smoke fixture
+US,2010,30,married,first,13000.0,synthetic smoke fixture
+US,2010,30,married,second,13000.0,synthetic smoke fixture
+US,2010,30,unmarried,first,13000.0,synthetic smoke fixture
+US,2010,30,unmarried,second,13000.0,synthetic smoke fixture
+US,2011,20,married,first,12050.0,synthetic smoke fixture
+US,2011,20,married,second,12050.0,synthetic smoke fixture
+US,2011,20,unmarried,first,12050.0,synthetic smoke fixture
+US,2011,20,unmarried,second,12050.0,synthetic smoke fixture
+US,2011,30,married,first,13050.0,synthetic smoke fixture
+US,2011,30,married,second,13050.0,synthetic smoke fixture
+US,2011,30,unmarried,first,13050.0,synthetic smoke fixture
+US,2011,30,unmarried,second,13050.0,synthetic smoke fixture
+US,2012,20,married,first,12100.0,synthetic smoke fixture
+US,2012,20,married,second,12100.0,synthetic smoke fixture
+US,2012,20,unmarried,first,12100.0,synthetic smoke fixture
+US,2012,20,unmarried,second,12100.0,synthetic smoke fixture
+US,2012,30,married,first,13100.0,synthetic smoke fixture
+US,2012,30,married,second,13100.0,synthetic smoke fixture
+US,2012,30,unmarried,first,13100.0,synthetic smoke fixture
+US,2012,30,unmarried,second,13100.0,synthetic smoke fixture
