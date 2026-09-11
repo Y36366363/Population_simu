@@ -214,6 +214,11 @@
               </select>
             </label>
           </div>
+          <div class="timeline-tools" aria-label="时间线回放工具">
+            <button id="timeline-play" class="secondary-button" type="button">播放时间线</button>
+            <button id="timeline-frame-png" class="secondary-button" type="button">导出当前帧 PNG</button>
+            <output id="timeline-frame-label">当前帧：起点</output>
+          </div>
           <figure class="chart-figure world-timeline-figure">
             <svg id="world-timeline" role="img" aria-labelledby="world-timeline-title world-timeline-desc"></svg>
             <figcaption><strong id="world-timeline-title">家庭总数变化</strong><span id="world-timeline-desc">包含原家庭与成年子女建立的新家庭分支。</span></figcaption>

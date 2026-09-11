@@ -304,7 +304,7 @@ const regionTemplates = [
   {id: 'EA', name: '东亚', x: .81, y: .37, share: .23, development: .72, wage: 1.03, housing: 1.12, education: .77, fertility: .73, school: .76, medical: .72, transport: .74, safety: .68, hazard: .58, exposure: .62, recovery: .35}
 ];
 
-const worldState = {result: null, selectedRegion: 'EA'};
+const worldState = {result: null, selectedRegion: 'EA', frame: null, playback: null};
 const pythonState = {data: null, selectedCountry: null};
 
 function weightedChoice(random, items, weightKey) {
@@ -664,6 +664,10 @@ function renderWorldTimeline() {
   data.filter((_, index) => index % Math.max(1, Math.floor(data.length / 12)) === 0 || index === data.length - 1).forEach(row => {
     content += `<circle class="chart-point" fill="#245d45" cx="${x(row.year)}" cy="${y(row[metric])}" r="4"><title>第 ${row.year} 年：${meta[2](row[metric])}</title></circle>`;
   });
+  if (worldState.frame !== null) {
+    const frame = data[Math.min(worldState.frame, data.length - 1)];
+    if (frame) content += `<line class="chart-frame-marker" x1="${x(frame.year)}" y1="${margin.top}" x2="${x(frame.year)}" y2="${height - margin.bottom}"></line>`;
+  }
   [0, .25, .5, .75, 1].forEach(fraction => {
     const year = Math.round(worldParams().years * fraction);
     content += `<text class="chart-axis" x="${x(year)}" y="${height - 11}" text-anchor="middle">${year} 年</text>`;
@@ -672,6 +676,8 @@ function renderWorldTimeline() {
   svg.innerHTML = content;
   document.getElementById('world-timeline-title').textContent = meta[0];
   document.getElementById('world-timeline-desc').textContent = meta[1];
+  const current = worldState.frame === null ? '起点' : `${data[Math.min(worldState.frame, data.length - 1)].year} 年`;
+  document.getElementById('timeline-frame-label').textContent = `当前帧：${current}`;
 }
 
 function renderRegionDetail() {
@@ -866,9 +872,31 @@ function runWorldExperiment() {
   button.disabled = true; button.textContent = '模拟家庭迁徙中…';
   requestAnimationFrame(() => {
     worldState.result = simulateWorld(worldParams());
+    worldState.frame = null;
     renderWorld();
     button.disabled = false; button.textContent = '运行世界沙盘';
   });
+}
+
+function toggleTimelinePlayback() {
+  const button = document.getElementById('timeline-play');
+  if (worldState.playback) { clearInterval(worldState.playback); worldState.playback = null; button.textContent = '播放时间线'; return; }
+  if (!worldState.result?.history?.length) return;
+  worldState.frame = 0; button.textContent = '暂停时间线';
+  worldState.playback = setInterval(() => {
+    worldState.frame += 1;
+    if (worldState.frame >= worldState.result.history.length) { worldState.frame = null; clearInterval(worldState.playback); worldState.playback = null; button.textContent = '播放时间线'; }
+    renderWorldTimeline();
+  }, 180);
+  renderWorldTimeline();
+}
+
+function exportTimelinePng() {
+  const svg = document.getElementById('world-timeline');
+  const xml = new XMLSerializer().serializeToString(svg);
+  const image = new Image(); const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 520;
+  image.onload = () => { const ctx = canvas.getContext('2d'); ctx.fillStyle = '#f7faf7'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.drawImage(image, 0, 0, canvas.width, canvas.height); canvas.toBlob(blob => { const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `population_simu_frame_${worldState.frame ?? 0}.png`; link.click(); URL.revokeObjectURL(url); }); };
+  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(xml)}`;
 }
 
 function currentScenarioPayload() {
@@ -890,6 +918,8 @@ function loadScenarioPayload(payload) {
 
 Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
+document.getElementById('timeline-play').addEventListener('click', toggleTimelinePlayback);
+document.getElementById('timeline-frame-png').addEventListener('click', exportTimelinePng);
 document.getElementById('scenario-save').addEventListener('click', () => {
   localStorage.setItem('populationSimuScenario', JSON.stringify(currentScenarioPayload()));
   document.getElementById('world-summary').textContent = '情景已保存到本浏览器';
