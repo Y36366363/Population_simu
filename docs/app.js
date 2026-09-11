@@ -871,8 +871,45 @@ function runWorldExperiment() {
   });
 }
 
+function currentScenarioPayload() {
+  return {version: '2026-09-11', kind: 'browser_world_scenario', parameters: worldParams(),
+    controls: Object.fromEntries(Object.keys(worldDefaults).map(id => [id, document.getElementById(id).value]))};
+}
+
+function downloadText(filename, text, type = 'application/json') {
+  const blob = new Blob([text], {type}); const url = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href = url; link.download = filename;
+  document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+}
+
+function loadScenarioPayload(payload) {
+  if (!payload || payload.kind !== 'browser_world_scenario' || !payload.controls) throw new Error('情景文件格式不受支持');
+  Object.entries(payload.controls).forEach(([id, value]) => { if (worldDefaults[id] !== undefined) document.getElementById(id).value = value; });
+  updateWorldOutputs(); runWorldExperiment();
+}
+
 Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
+document.getElementById('scenario-save').addEventListener('click', () => {
+  localStorage.setItem('populationSimuScenario', JSON.stringify(currentScenarioPayload()));
+  document.getElementById('world-summary').textContent = '情景已保存到本浏览器';
+});
+document.getElementById('scenario-load').addEventListener('click', () => {
+  const raw = localStorage.getItem('populationSimuScenario');
+  if (raw) { try { loadScenarioPayload(JSON.parse(raw)); return; } catch (error) { document.getElementById('world-summary').textContent = `载入失败：${error.message}`; } }
+  document.getElementById('scenario-file').click();
+});
+document.getElementById('scenario-file').addEventListener('change', async event => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  try { loadScenarioPayload(JSON.parse(await file.text())); }
+  catch (error) { document.getElementById('world-summary').textContent = `载入失败：${error.message}`; }
+  event.target.value = '';
+});
+document.getElementById('scenario-export').addEventListener('click', () => {
+  const payload = currentScenarioPayload(); payload.result = worldState.result;
+  downloadText(`population_simu_${payload.parameters.seed}.json`, JSON.stringify(payload, null, 2));
+});
 document.getElementById('engine-run').addEventListener('click', runLocalEngine);
 document.getElementById('engine-download').addEventListener('click', async () => {
   const button = document.getElementById('engine-download');
