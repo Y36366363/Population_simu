@@ -306,6 +306,7 @@ const regionTemplates = [
 
 const worldState = {result: null, selectedRegion: 'EA', frame: null, playback: null, uncertainty: null};
 const pythonState = {data: null, selectedCountry: null};
+const variantState = {data: null};
 
 function weightedChoice(random, items, weightKey) {
   const total = items.reduce((sum, item) => sum + item[weightKey], 0);
@@ -688,6 +689,24 @@ function renderWorldTimeline() {
   document.getElementById('timeline-frame-label').textContent = `当前帧：${current}`;
 }
 
+function renderVariantTimeline() {
+  const svg=document.getElementById('variant-timeline'); if (!variantState.data) return;
+  const rows=variantState.data.rows, variants=variantState.data.variants, years=[...new Set(rows.map(r=>r.year))].sort((a,b)=>a-b);
+  const width=Math.max(320,svg.clientWidth||800), height=260, m={top:20,right:20,bottom:34,left:62};
+  const vals=rows.map(r=>Number(r.asfr_scaled||r.asfr_15_44||0)), lo=Math.min(...vals), hi=Math.max(...vals), pad=Math.max(1,(hi-lo)*.15);
+  const x=y=>m.left+(y-years[0])/Math.max(1,years.at(-1)-years[0])*(width-m.left-m.right), sy=v=>m.top+(hi+pad-v)/Math.max(1,hi-lo+2*pad)*(height-m.top-m.bottom);
+  const colors={full:'#245d45',no_housing:'#c98c3a',no_household:'#b44f38'}; let c='';
+  c+=`<line class="chart-grid" x1="${m.left}" y1="${height-m.bottom}" x2="${width-m.right}" y2="${height-m.bottom}"></line>`;
+  variants.forEach(v=>{const p=rows.filter(r=>r.variant===v).sort((a,b)=>a.year-b.year).map(r=>`${x(r.year)},${sy(Number(r.asfr_scaled||0))}`).join(' '); c+=`<polyline class="chart-line" stroke="${colors[v]||'#245d45'}" points="${p}"></polyline>`; const last=rows.filter(r=>r.variant===v).at(-1); if(last)c+=`<text class="chart-axis" x="${x(last.year)-4}" y="${sy(Number(last.asfr_scaled||0))-6}" text-anchor="end">${v}</text>`;});
+  years.forEach(yv=>{c+=`<text class="chart-axis" x="${x(yv)}" y="${height-10}" text-anchor="middle">${yv}</text>`;});
+  c+=`<text class="chart-axis" x="${m.left-8}" y="${m.top+4}" text-anchor="end">ASFR/千</text>`; svg.setAttribute('viewBox',`0 0 ${width} ${height}`); svg.innerHTML=c;
+}
+
+async function loadVariantArtifact() {
+  const status=document.getElementById('variant-status');
+  try { const r=await fetch('artifacts/household_variants_2026-09-12.json',{cache:'no-store'}); if(!r.ok) throw new Error(`HTTP ${r.status}`); const d=await r.json(); if(d.status!=='validated_for_predictive_interface') throw new Error('artifact 未标记 validated'); variantState.data=d; renderVariantTimeline(); status.textContent=`已加载 ${d.variants.join(' / ')}；calibration ${d.calibration_years[0]}–${d.calibration_years.at(-1)}，test ${d.test_years.join(', ')}。`; } catch(e) { status.textContent=`无法加载 artifact：${e.message}`; }
+}
+
 function renderRegionDetail() {
   const regions = worldState.result.regions;
   document.getElementById('region-buttons').innerHTML = regions.map(region => `<button type="button" data-region-button="${region.id}" class="${worldState.selectedRegion === region.id ? 'active' : ''}">${region.name}</button>`).join('');
@@ -954,6 +973,7 @@ function loadScenarioPayload(payload) {
 
 Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
+document.getElementById('variant-load').addEventListener('click', loadVariantArtifact);
 document.getElementById('timeline-play').addEventListener('click', toggleTimelinePlayback);
 document.getElementById('timeline-frame-png').addEventListener('click', exportTimelinePng);
 document.getElementById('timeline-batch-png').addEventListener('click', exportBatchPng);
@@ -1006,6 +1026,7 @@ document.querySelectorAll('[data-view-button]').forEach(button => button.addEven
 window.addEventListener('resize', () => {
   if (worldState.result && !document.getElementById('world-view').hidden) { renderWorldNetwork(); renderWorldTimeline(); }
   if (pythonState.data && !document.getElementById('python-results').hidden) renderPythonTimeline();
+  if (variantState.data) renderVariantTimeline();
 });
 
 updateWorldOutputs();

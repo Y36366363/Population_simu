@@ -78,6 +78,18 @@ blocked：数据不足，不显示正式结论
 独立 HTML 分享回放。批量 PNG 是浏览器下载队列，若浏览器阻止多文件下载，需要允许
 该站点的多次下载；这些帧仍是浏览器机制演示，不是正式实证回放。
 
+Python 三变体 artifact 可由 `scripts/export_household_variants.py` 生成并放入
+`docs/artifacts/`；网页点击“加载已验证 JSON”后绘制 full、no-housing、no-household
+的同一 ASFR 时间线。GIF/MP4 只在本地生成：
+
+```bash
+python3 scripts/render_frames.py frames --output replay.gif
+python3 scripts/render_frames.py frames --output replay.mp4
+```
+
+需要 GIF 的 Pillow 或 MP4 的 ffmpeg；生成的视频不提交到仓库，避免把大二进制文件混入
+研究 artifact。
+
 ## 对“AI 自动生成历史动态图/视频”类项目的借鉴
 
 这类项目的强项通常不在于比人口模型更真实，而在于把一组有时间顺序的状态自动转成

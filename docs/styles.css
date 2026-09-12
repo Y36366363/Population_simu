@@ -63,6 +63,8 @@ h1 { max-width: 780px; margin: 0; font-family: Georgia, "Noto Serif SC", serif; 
 .chart-frame-marker { stroke: #b44f38; stroke-width: 1.5; stroke-dasharray: 4 3; pointer-events: none; }
 .chart-band { fill: rgba(36, 93, 69, .14); stroke: none; }
 .chart-line-median { stroke: #c98c3a; stroke-dasharray: 5 3; }
+.variant-panel { margin-top: 1.4rem; }
+.muted-note { color: var(--muted); font-size: .85rem; }
 .engine-output { grid-column: 1 / -1; margin: 0; padding: .75rem; overflow: auto; max-height: 9rem; background: #15231d; color: #d7f0df; font-size: .78rem; }
 .python-results { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 .python-pickers { display: flex; gap: .8rem; align-items: end; }

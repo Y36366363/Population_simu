@@ -1,0 +1,3370 @@
+{
+  "version": "2026-09-12",
+  "kind": "aggregate_asfr_mechanism_artifact",
+  "status": "validated_for_predictive_interface",
+  "panel": "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv",
+  "calibration_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "test_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "seed": 2026,
+  "variants": [
+    "full",
+    "no_housing",
+    "no_household"
+  ],
+  "calibration": {
+    "female_exposure_scale": 1.0,
+    "age_profile": [
+      0.35,
+      0.65,
+      0.9,
+      1.0,
+      0.95,
+      0.75,
+      0.45
+    ],
+    "age_profile_ages": [
+      18,
+      22,
+      26,
+      30,
+      34,
+      38,
+      42
+    ],
+    "partnership_exposure": 0.62,
+    "parity_progression": [
+      0.72,
+      0.48,
+      0.24
+    ],
+    "housing_elasticity": 0.4553832881299805,
+    "tfr_conversion_years": 30.0,
+    "reference_housing_burden": 0.455770587590276,
+    "identified": [
+      "female_exposure_scale",
+      "housing_elasticity"
+    ],
+    "prior_only": [
+      "age_profile",
+      "partnership_exposure",
+      "parity_progression"
+    ]
+  },
+  "formal_hazard_replay_ready": false,
+  "rows": [
+    {
+      "entity": "Alabama",
+      "year": 2018,
+      "asfr_15_44": 62.15457815431241,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.15457815431241,
+      "variant": "full"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2019,
+      "asfr_15_44": 62.15457815431241,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.15457815431241,
+      "variant": "full"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2021,
+      "asfr_15_44": 62.15457815431241,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.15457815431241,
+      "variant": "full"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2018,
+      "asfr_15_44": 72.83212004574234,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.83212004574234,
+      "variant": "full"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2019,
+      "asfr_15_44": 72.83212004574234,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.83212004574234,
+      "variant": "full"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2021,
+      "asfr_15_44": 72.83212004574234,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.83212004574234,
+      "variant": "full"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2018,
+      "asfr_15_44": 60.55106259452784,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.55106259452784,
+      "variant": "full"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2019,
+      "asfr_15_44": 60.55106259452784,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.55106259452784,
+      "variant": "full"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2021,
+      "asfr_15_44": 60.55106259452784,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.55106259452784,
+      "variant": "full"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2018,
+      "asfr_15_44": 65.12803421651947,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.12803421651947,
+      "variant": "full"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2019,
+      "asfr_15_44": 65.12803421651947,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.12803421651947,
+      "variant": "full"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2021,
+      "asfr_15_44": 65.12803421651947,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.12803421651947,
+      "variant": "full"
+    },
+    {
+      "entity": "California",
+      "year": 2018,
+      "asfr_15_44": 58.62865835566339,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.62865835566339,
+      "variant": "full"
+    },
+    {
+      "entity": "California",
+      "year": 2019,
+      "asfr_15_44": 58.62865835566339,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.62865835566339,
+      "variant": "full"
+    },
+    {
+      "entity": "California",
+      "year": 2021,
+      "asfr_15_44": 58.62865835566339,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.62865835566339,
+      "variant": "full"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2018,
+      "asfr_15_44": 56.78586800826977,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 56.78586800826977,
+      "variant": "full"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2019,
+      "asfr_15_44": 56.78586800826977,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 56.78586800826977,
+      "variant": "full"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2021,
+      "asfr_15_44": 56.78586800826977,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 56.78586800826977,
+      "variant": "full"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2018,
+      "asfr_15_44": 52.59762466194068,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 52.59762466194068,
+      "variant": "full"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2019,
+      "asfr_15_44": 52.59762466194068,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 52.59762466194068,
+      "variant": "full"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2021,
+      "asfr_15_44": 52.59762466194068,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 52.59762466194068,
+      "variant": "full"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2018,
+      "asfr_15_44": 64.72949954820713,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.72949954820713,
+      "variant": "full"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2019,
+      "asfr_15_44": 60.921881927724364,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.921881927724364,
+      "variant": "full"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2021,
+      "asfr_15_44": 60.921881927724364,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.921881927724364,
+      "variant": "full"
+    },
+    {
+      "entity": "Florida",
+      "year": 2018,
+      "asfr_15_44": 58.5532735817464,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.5532735817464,
+      "variant": "full"
+    },
+    {
+      "entity": "Florida",
+      "year": 2019,
+      "asfr_15_44": 58.5532735817464,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.5532735817464,
+      "variant": "full"
+    },
+    {
+      "entity": "Florida",
+      "year": 2021,
+      "asfr_15_44": 58.5532735817464,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.5532735817464,
+      "variant": "full"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2018,
+      "asfr_15_44": 60.54687682997329,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.54687682997329,
+      "variant": "full"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2019,
+      "asfr_15_44": 60.54687682997329,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.54687682997329,
+      "variant": "full"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2021,
+      "asfr_15_44": 60.54687682997329,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.54687682997329,
+      "variant": "full"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2018,
+      "asfr_15_44": 67.82253162302489,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.82253162302489,
+      "variant": "full"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2019,
+      "asfr_15_44": 67.82253162302489,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.82253162302489,
+      "variant": "full"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2021,
+      "asfr_15_44": 67.82253162302489,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.82253162302489,
+      "variant": "full"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2018,
+      "asfr_15_44": 67.23165383018257,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.23165383018257,
+      "variant": "full"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2019,
+      "asfr_15_44": 67.23165383018257,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.23165383018257,
+      "variant": "full"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2021,
+      "asfr_15_44": 67.23165383018257,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.23165383018257,
+      "variant": "full"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2018,
+      "asfr_15_44": 59.20998916392594,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.20998916392594,
+      "variant": "full"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2019,
+      "asfr_15_44": 59.20998916392594,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.20998916392594,
+      "variant": "full"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2021,
+      "asfr_15_44": 59.20998916392594,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.20998916392594,
+      "variant": "full"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2018,
+      "asfr_15_44": 63.48468085369397,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.48468085369397,
+      "variant": "full"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2019,
+      "asfr_15_44": 63.48468085369397,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.48468085369397,
+      "variant": "full"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2021,
+      "asfr_15_44": 63.48468085369397,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.48468085369397,
+      "variant": "full"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2018,
+      "asfr_15_44": 65.03704556147126,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.03704556147126,
+      "variant": "full"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2019,
+      "asfr_15_44": 65.03704556147126,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.03704556147126,
+      "variant": "full"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2021,
+      "asfr_15_44": 65.03704556147126,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.03704556147126,
+      "variant": "full"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2018,
+      "asfr_15_44": 65.67551236215317,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.67551236215317,
+      "variant": "full"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2019,
+      "asfr_15_44": 65.67551236215317,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.67551236215317,
+      "variant": "full"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2021,
+      "asfr_15_44": 65.67551236215317,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.67551236215317,
+      "variant": "full"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2018,
+      "asfr_15_44": 64.71332159277601,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.71332159277601,
+      "variant": "full"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2019,
+      "asfr_15_44": 64.71332159277601,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.71332159277601,
+      "variant": "full"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2021,
+      "asfr_15_44": 64.71332159277601,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.71332159277601,
+      "variant": "full"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2018,
+      "asfr_15_44": 65.68887300380884,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.68887300380884,
+      "variant": "full"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2019,
+      "asfr_15_44": 65.68887300380884,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.68887300380884,
+      "variant": "full"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2021,
+      "asfr_15_44": 65.68887300380884,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.68887300380884,
+      "variant": "full"
+    },
+    {
+      "entity": "Maine",
+      "year": 2018,
+      "asfr_15_44": 53.29577464788733,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.29577464788733,
+      "variant": "full"
+    },
+    {
+      "entity": "Maine",
+      "year": 2019,
+      "asfr_15_44": 53.29577464788733,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.29577464788733,
+      "variant": "full"
+    },
+    {
+      "entity": "Maine",
+      "year": 2021,
+      "asfr_15_44": 53.29577464788733,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.29577464788733,
+      "variant": "full"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2018,
+      "asfr_15_44": 60.76812415388947,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.76812415388947,
+      "variant": "full"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2019,
+      "asfr_15_44": 60.76812415388947,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.76812415388947,
+      "variant": "full"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2021,
+      "asfr_15_44": 60.76812415388947,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.76812415388947,
+      "variant": "full"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2018,
+      "asfr_15_44": 51.091941937493274,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.091941937493274,
+      "variant": "full"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2019,
+      "asfr_15_44": 51.091941937493274,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.091941937493274,
+      "variant": "full"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2021,
+      "asfr_15_44": 51.091941937493274,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.091941937493274,
+      "variant": "full"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2018,
+      "asfr_15_44": 59.32380256704581,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.32380256704581,
+      "variant": "full"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2019,
+      "asfr_15_44": 59.32380256704581,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.32380256704581,
+      "variant": "full"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2021,
+      "asfr_15_44": 59.32380256704581,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.32380256704581,
+      "variant": "full"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2018,
+      "asfr_15_44": 64.52526263508022,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.52526263508022,
+      "variant": "full"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2019,
+      "asfr_15_44": 64.52526263508022,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.52526263508022,
+      "variant": "full"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2021,
+      "asfr_15_44": 64.52526263508022,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.52526263508022,
+      "variant": "full"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2018,
+      "asfr_15_44": 63.27951770901619,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.27951770901619,
+      "variant": "full"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2019,
+      "asfr_15_44": 63.27951770901619,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.27951770901619,
+      "variant": "full"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2021,
+      "asfr_15_44": 63.27951770901619,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.27951770901619,
+      "variant": "full"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2018,
+      "asfr_15_44": 62.521454993095865,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.521454993095865,
+      "variant": "full"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2019,
+      "asfr_15_44": 62.521454993095865,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.521454993095865,
+      "variant": "full"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2021,
+      "asfr_15_44": 62.521454993095865,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.521454993095865,
+      "variant": "full"
+    },
+    {
+      "entity": "Montana",
+      "year": 2018,
+      "asfr_15_44": 61.90191387559808,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 61.90191387559808,
+      "variant": "full"
+    },
+    {
+      "entity": "Montana",
+      "year": 2019,
+      "asfr_15_44": 61.90191387559808,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 61.90191387559808,
+      "variant": "full"
+    },
+    {
+      "entity": "Montana",
+      "year": 2021,
+      "asfr_15_44": 61.90191387559808,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 61.90191387559808,
+      "variant": "full"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2018,
+      "asfr_15_44": 70.15222606507983,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 70.15222606507983,
+      "variant": "full"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2019,
+      "asfr_15_44": 70.15222606507983,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 70.15222606507983,
+      "variant": "full"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2021,
+      "asfr_15_44": 78.40542913155981,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 78.40542913155981,
+      "variant": "full"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2018,
+      "asfr_15_44": 61.663585441902825,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.663585441902825,
+      "variant": "full"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2019,
+      "asfr_15_44": 61.663585441902825,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.663585441902825,
+      "variant": "full"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2021,
+      "asfr_15_44": 61.663585441902825,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.663585441902825,
+      "variant": "full"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2018,
+      "asfr_15_44": 49.74340025454695,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.74340025454695,
+      "variant": "full"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2019,
+      "asfr_15_44": 49.74340025454695,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.74340025454695,
+      "variant": "full"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2021,
+      "asfr_15_44": 49.74340025454695,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.74340025454695,
+      "variant": "full"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2018,
+      "asfr_15_44": 60.36641969596788,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.36641969596788,
+      "variant": "full"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2019,
+      "asfr_15_44": 60.36641969596788,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.36641969596788,
+      "variant": "full"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2021,
+      "asfr_15_44": 60.36641969596788,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.36641969596788,
+      "variant": "full"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2018,
+      "asfr_15_44": 60.11711290138993,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.11711290138993,
+      "variant": "full"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2019,
+      "asfr_15_44": 60.11711290138993,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.11711290138993,
+      "variant": "full"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2021,
+      "asfr_15_44": 60.11711290138993,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.11711290138993,
+      "variant": "full"
+    },
+    {
+      "entity": "New York",
+      "year": 2018,
+      "asfr_15_44": 58.65042521730606,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.65042521730606,
+      "variant": "full"
+    },
+    {
+      "entity": "New York",
+      "year": 2019,
+      "asfr_15_44": 58.65042521730606,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.65042521730606,
+      "variant": "full"
+    },
+    {
+      "entity": "New York",
+      "year": 2021,
+      "asfr_15_44": 58.65042521730606,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.65042521730606,
+      "variant": "full"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2018,
+      "asfr_15_44": 59.80337198917091,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.80337198917091,
+      "variant": "full"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2019,
+      "asfr_15_44": 59.80337198917091,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.80337198917091,
+      "variant": "full"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2021,
+      "asfr_15_44": 59.80337198917091,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.80337198917091,
+      "variant": "full"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2018,
+      "asfr_15_44": 73.88471039973575,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 73.88471039973575,
+      "variant": "full"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2019,
+      "asfr_15_44": 73.88471039973575,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 73.88471039973575,
+      "variant": "full"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2021,
+      "asfr_15_44": 73.88471039973575,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 73.88471039973575,
+      "variant": "full"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2018,
+      "asfr_15_44": 62.10027757052271,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.10027757052271,
+      "variant": "full"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2019,
+      "asfr_15_44": 62.10027757052271,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.10027757052271,
+      "variant": "full"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2021,
+      "asfr_15_44": 62.10027757052271,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.10027757052271,
+      "variant": "full"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2018,
+      "asfr_15_44": 65.56199822170228,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.56199822170228,
+      "variant": "full"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2019,
+      "asfr_15_44": 65.56199822170228,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.56199822170228,
+      "variant": "full"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2021,
+      "asfr_15_44": 65.56199822170228,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.56199822170228,
+      "variant": "full"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2018,
+      "asfr_15_44": 53.77971652588282,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.77971652588282,
+      "variant": "full"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2019,
+      "asfr_15_44": 53.77971652588282,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.77971652588282,
+      "variant": "full"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2021,
+      "asfr_15_44": 53.77971652588282,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.77971652588282,
+      "variant": "full"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2018,
+      "asfr_15_44": 57.96531212981335,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96531212981335,
+      "variant": "full"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2019,
+      "asfr_15_44": 57.96531212981335,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96531212981335,
+      "variant": "full"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2021,
+      "asfr_15_44": 57.96531212981335,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96531212981335,
+      "variant": "full"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2018,
+      "asfr_15_44": 51.40024352061228,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.40024352061228,
+      "variant": "full"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2019,
+      "asfr_15_44": 51.40024352061228,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.40024352061228,
+      "variant": "full"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2021,
+      "asfr_15_44": 51.40024352061228,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.40024352061228,
+      "variant": "full"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2018,
+      "asfr_15_44": 59.44607751162257,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.44607751162257,
+      "variant": "full"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2019,
+      "asfr_15_44": 59.44607751162257,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.44607751162257,
+      "variant": "full"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2021,
+      "asfr_15_44": 59.44607751162257,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.44607751162257,
+      "variant": "full"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2018,
+      "asfr_15_44": 75.9847203957668,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 75.9847203957668,
+      "variant": "full"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2019,
+      "asfr_15_44": 75.9847203957668,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 75.9847203957668,
+      "variant": "full"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2021,
+      "asfr_15_44": 75.9847203957668,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 75.9847203957668,
+      "variant": "full"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2018,
+      "asfr_15_44": 65.80161401411287,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.80161401411287,
+      "variant": "full"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2019,
+      "asfr_15_44": 65.80161401411287,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.80161401411287,
+      "variant": "full"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2021,
+      "asfr_15_44": 65.80161401411287,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.80161401411287,
+      "variant": "full"
+    },
+    {
+      "entity": "Texas",
+      "year": 2018,
+      "asfr_15_44": 64.98110947016542,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.98110947016542,
+      "variant": "full"
+    },
+    {
+      "entity": "Texas",
+      "year": 2019,
+      "asfr_15_44": 64.98110947016542,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.98110947016542,
+      "variant": "full"
+    },
+    {
+      "entity": "Texas",
+      "year": 2021,
+      "asfr_15_44": 64.98110947016542,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.98110947016542,
+      "variant": "full"
+    },
+    {
+      "entity": "Utah",
+      "year": 2018,
+      "asfr_15_44": 72.00946194103183,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.00946194103183,
+      "variant": "full"
+    },
+    {
+      "entity": "Utah",
+      "year": 2019,
+      "asfr_15_44": 72.00946194103183,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.00946194103183,
+      "variant": "full"
+    },
+    {
+      "entity": "Utah",
+      "year": 2021,
+      "asfr_15_44": 72.00946194103183,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.00946194103183,
+      "variant": "full"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2018,
+      "asfr_15_44": 49.50928463242311,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.50928463242311,
+      "variant": "full"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2019,
+      "asfr_15_44": 49.50928463242311,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.50928463242311,
+      "variant": "full"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2021,
+      "asfr_15_44": 49.50928463242311,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.50928463242311,
+      "variant": "full"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2018,
+      "asfr_15_44": 60.632580129453714,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.632580129453714,
+      "variant": "full"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2019,
+      "asfr_15_44": 60.632580129453714,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.632580129453714,
+      "variant": "full"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2021,
+      "asfr_15_44": 60.632580129453714,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.632580129453714,
+      "variant": "full"
+    },
+    {
+      "entity": "Washington",
+      "year": 2018,
+      "asfr_15_44": 59.855900689051744,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.855900689051744,
+      "variant": "full"
+    },
+    {
+      "entity": "Washington",
+      "year": 2019,
+      "asfr_15_44": 59.855900689051744,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.855900689051744,
+      "variant": "full"
+    },
+    {
+      "entity": "Washington",
+      "year": 2021,
+      "asfr_15_44": 59.855900689051744,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.855900689051744,
+      "variant": "full"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2018,
+      "asfr_15_44": 57.96395216383235,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96395216383235,
+      "variant": "full"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2019,
+      "asfr_15_44": 57.96395216383235,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96395216383235,
+      "variant": "full"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2021,
+      "asfr_15_44": 57.96395216383235,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96395216383235,
+      "variant": "full"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2018,
+      "asfr_15_44": 60.000424781768366,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.000424781768366,
+      "variant": "full"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2019,
+      "asfr_15_44": 60.000424781768366,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.000424781768366,
+      "variant": "full"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2021,
+      "asfr_15_44": 60.000424781768366,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.000424781768366,
+      "variant": "full"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2018,
+      "asfr_15_44": 64.23187866381316,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.23187866381316,
+      "variant": "full"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2019,
+      "asfr_15_44": 64.23187866381316,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.23187866381316,
+      "variant": "full"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2021,
+      "asfr_15_44": 64.23187866381316,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.23187866381316,
+      "variant": "full"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2018,
+      "asfr_15_44": 62.15457815431241,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.15457815431241,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2019,
+      "asfr_15_44": 62.15457815431241,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.15457815431241,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2021,
+      "asfr_15_44": 62.15457815431241,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.15457815431241,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2018,
+      "asfr_15_44": 72.83212004574234,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.83212004574234,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2019,
+      "asfr_15_44": 72.83212004574234,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.83212004574234,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2021,
+      "asfr_15_44": 72.83212004574234,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.83212004574234,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2018,
+      "asfr_15_44": 60.55106259452784,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.55106259452784,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2019,
+      "asfr_15_44": 60.55106259452784,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.55106259452784,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2021,
+      "asfr_15_44": 60.55106259452784,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.55106259452784,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2018,
+      "asfr_15_44": 65.12803421651947,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.12803421651947,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2019,
+      "asfr_15_44": 65.12803421651947,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.12803421651947,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2021,
+      "asfr_15_44": 65.12803421651947,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.12803421651947,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "California",
+      "year": 2018,
+      "asfr_15_44": 58.62865835566339,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.62865835566339,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "California",
+      "year": 2019,
+      "asfr_15_44": 58.62865835566339,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.62865835566339,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "California",
+      "year": 2021,
+      "asfr_15_44": 58.62865835566339,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.62865835566339,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2018,
+      "asfr_15_44": 56.78586800826977,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 56.78586800826977,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2019,
+      "asfr_15_44": 56.78586800826977,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 56.78586800826977,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2021,
+      "asfr_15_44": 56.78586800826977,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 56.78586800826977,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2018,
+      "asfr_15_44": 52.59762466194068,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 52.59762466194068,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2019,
+      "asfr_15_44": 52.59762466194068,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 52.59762466194068,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2021,
+      "asfr_15_44": 52.59762466194068,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 52.59762466194068,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2018,
+      "asfr_15_44": 60.921881927724364,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.921881927724364,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2019,
+      "asfr_15_44": 60.921881927724364,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.921881927724364,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2021,
+      "asfr_15_44": 60.921881927724364,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.921881927724364,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Florida",
+      "year": 2018,
+      "asfr_15_44": 58.5532735817464,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.5532735817464,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Florida",
+      "year": 2019,
+      "asfr_15_44": 58.5532735817464,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.5532735817464,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Florida",
+      "year": 2021,
+      "asfr_15_44": 58.5532735817464,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.5532735817464,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2018,
+      "asfr_15_44": 60.54687682997329,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.54687682997329,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2019,
+      "asfr_15_44": 60.54687682997329,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.54687682997329,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2021,
+      "asfr_15_44": 60.54687682997329,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.54687682997329,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2018,
+      "asfr_15_44": 67.82253162302489,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.82253162302489,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2019,
+      "asfr_15_44": 67.82253162302489,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.82253162302489,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2021,
+      "asfr_15_44": 67.82253162302489,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.82253162302489,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2018,
+      "asfr_15_44": 67.23165383018257,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.23165383018257,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2019,
+      "asfr_15_44": 67.23165383018257,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.23165383018257,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2021,
+      "asfr_15_44": 67.23165383018257,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 67.23165383018257,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2018,
+      "asfr_15_44": 59.20998916392594,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.20998916392594,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2019,
+      "asfr_15_44": 59.20998916392594,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.20998916392594,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2021,
+      "asfr_15_44": 59.20998916392594,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.20998916392594,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2018,
+      "asfr_15_44": 63.48468085369397,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.48468085369397,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2019,
+      "asfr_15_44": 63.48468085369397,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.48468085369397,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2021,
+      "asfr_15_44": 63.48468085369397,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.48468085369397,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2018,
+      "asfr_15_44": 65.03704556147126,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.03704556147126,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2019,
+      "asfr_15_44": 65.03704556147126,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.03704556147126,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2021,
+      "asfr_15_44": 65.03704556147126,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.03704556147126,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2018,
+      "asfr_15_44": 65.67551236215317,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.67551236215317,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2019,
+      "asfr_15_44": 65.67551236215317,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.67551236215317,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2021,
+      "asfr_15_44": 65.67551236215317,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.67551236215317,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2018,
+      "asfr_15_44": 64.71332159277601,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.71332159277601,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2019,
+      "asfr_15_44": 64.71332159277601,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.71332159277601,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2021,
+      "asfr_15_44": 64.71332159277601,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.71332159277601,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2018,
+      "asfr_15_44": 65.68887300380884,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.68887300380884,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2019,
+      "asfr_15_44": 65.68887300380884,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.68887300380884,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2021,
+      "asfr_15_44": 65.68887300380884,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.68887300380884,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Maine",
+      "year": 2018,
+      "asfr_15_44": 53.29577464788733,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.29577464788733,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Maine",
+      "year": 2019,
+      "asfr_15_44": 53.29577464788733,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.29577464788733,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Maine",
+      "year": 2021,
+      "asfr_15_44": 53.29577464788733,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.29577464788733,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2018,
+      "asfr_15_44": 60.76812415388947,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.76812415388947,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2019,
+      "asfr_15_44": 60.76812415388947,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.76812415388947,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2021,
+      "asfr_15_44": 60.76812415388947,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.76812415388947,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2018,
+      "asfr_15_44": 51.091941937493274,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.091941937493274,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2019,
+      "asfr_15_44": 51.091941937493274,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.091941937493274,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2021,
+      "asfr_15_44": 51.091941937493274,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.091941937493274,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2018,
+      "asfr_15_44": 59.32380256704581,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.32380256704581,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2019,
+      "asfr_15_44": 59.32380256704581,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.32380256704581,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2021,
+      "asfr_15_44": 59.32380256704581,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.32380256704581,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2018,
+      "asfr_15_44": 64.52526263508022,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.52526263508022,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2019,
+      "asfr_15_44": 64.52526263508022,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.52526263508022,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2021,
+      "asfr_15_44": 64.52526263508022,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.52526263508022,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2018,
+      "asfr_15_44": 63.27951770901619,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.27951770901619,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2019,
+      "asfr_15_44": 63.27951770901619,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.27951770901619,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2021,
+      "asfr_15_44": 63.27951770901619,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 63.27951770901619,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2018,
+      "asfr_15_44": 62.521454993095865,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.521454993095865,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2019,
+      "asfr_15_44": 62.521454993095865,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.521454993095865,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2021,
+      "asfr_15_44": 62.521454993095865,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.521454993095865,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Montana",
+      "year": 2018,
+      "asfr_15_44": 61.901913875598076,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.901913875598076,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Montana",
+      "year": 2019,
+      "asfr_15_44": 61.901913875598076,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.901913875598076,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Montana",
+      "year": 2021,
+      "asfr_15_44": 61.901913875598076,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.901913875598076,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2018,
+      "asfr_15_44": 70.15222606507983,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 70.15222606507983,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2019,
+      "asfr_15_44": 70.15222606507983,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 70.15222606507983,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2021,
+      "asfr_15_44": 70.15222606507983,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 70.15222606507983,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2018,
+      "asfr_15_44": 61.663585441902825,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.663585441902825,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2019,
+      "asfr_15_44": 61.663585441902825,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.663585441902825,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2021,
+      "asfr_15_44": 61.663585441902825,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.663585441902825,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2018,
+      "asfr_15_44": 49.74340025454695,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.74340025454695,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2019,
+      "asfr_15_44": 49.74340025454695,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.74340025454695,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2021,
+      "asfr_15_44": 49.74340025454695,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.74340025454695,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2018,
+      "asfr_15_44": 60.36641969596788,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.36641969596788,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2019,
+      "asfr_15_44": 60.36641969596788,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.36641969596788,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2021,
+      "asfr_15_44": 60.36641969596788,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.36641969596788,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2018,
+      "asfr_15_44": 60.11711290138993,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.11711290138993,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2019,
+      "asfr_15_44": 60.11711290138993,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.11711290138993,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2021,
+      "asfr_15_44": 60.11711290138993,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.11711290138993,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New York",
+      "year": 2018,
+      "asfr_15_44": 58.65042521730606,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.65042521730606,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New York",
+      "year": 2019,
+      "asfr_15_44": 58.65042521730606,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.65042521730606,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "New York",
+      "year": 2021,
+      "asfr_15_44": 58.65042521730606,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 58.65042521730606,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2018,
+      "asfr_15_44": 59.80337198917091,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.80337198917091,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2019,
+      "asfr_15_44": 59.80337198917091,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.80337198917091,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2021,
+      "asfr_15_44": 59.80337198917091,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.80337198917091,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2018,
+      "asfr_15_44": 73.88471039973575,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 73.88471039973575,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2019,
+      "asfr_15_44": 73.88471039973575,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 73.88471039973575,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2021,
+      "asfr_15_44": 73.88471039973575,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 73.88471039973575,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2018,
+      "asfr_15_44": 62.10027757052271,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.10027757052271,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2019,
+      "asfr_15_44": 62.10027757052271,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.10027757052271,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2021,
+      "asfr_15_44": 62.10027757052271,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 62.10027757052271,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2018,
+      "asfr_15_44": 65.56199822170228,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.56199822170228,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2019,
+      "asfr_15_44": 65.56199822170228,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.56199822170228,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2021,
+      "asfr_15_44": 65.56199822170228,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 65.56199822170228,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2018,
+      "asfr_15_44": 53.77971652588282,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.77971652588282,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2019,
+      "asfr_15_44": 53.77971652588282,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.77971652588282,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2021,
+      "asfr_15_44": 53.77971652588282,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 53.77971652588282,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2018,
+      "asfr_15_44": 57.96531212981335,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96531212981335,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2019,
+      "asfr_15_44": 57.96531212981335,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96531212981335,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2021,
+      "asfr_15_44": 57.96531212981335,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96531212981335,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2018,
+      "asfr_15_44": 51.40024352061228,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.40024352061228,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2019,
+      "asfr_15_44": 51.40024352061228,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.40024352061228,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2021,
+      "asfr_15_44": 51.40024352061228,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 51.40024352061228,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2018,
+      "asfr_15_44": 59.44607751162257,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.44607751162257,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2019,
+      "asfr_15_44": 59.44607751162257,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.44607751162257,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2021,
+      "asfr_15_44": 59.44607751162257,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.44607751162257,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2018,
+      "asfr_15_44": 75.9847203957668,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 75.9847203957668,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2019,
+      "asfr_15_44": 75.9847203957668,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 75.9847203957668,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2021,
+      "asfr_15_44": 75.9847203957668,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 75.9847203957668,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2018,
+      "asfr_15_44": 61.93093083681212,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.93093083681212,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2019,
+      "asfr_15_44": 61.93093083681212,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.93093083681212,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2021,
+      "asfr_15_44": 61.93093083681212,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 61.93093083681212,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Texas",
+      "year": 2018,
+      "asfr_15_44": 64.98110947016542,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.98110947016542,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Texas",
+      "year": 2019,
+      "asfr_15_44": 64.98110947016542,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.98110947016542,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Texas",
+      "year": 2021,
+      "asfr_15_44": 64.98110947016542,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.98110947016542,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Utah",
+      "year": 2018,
+      "asfr_15_44": 72.00946194103183,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.00946194103183,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Utah",
+      "year": 2019,
+      "asfr_15_44": 72.00946194103183,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.00946194103183,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Utah",
+      "year": 2021,
+      "asfr_15_44": 72.00946194103183,
+      "world_asfr_unscaled": 31.666666666666668,
+      "asfr_scaled": 72.00946194103183,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2018,
+      "asfr_15_44": 49.50928463242311,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.50928463242311,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2019,
+      "asfr_15_44": 49.50928463242311,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.50928463242311,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2021,
+      "asfr_15_44": 49.50928463242311,
+      "world_asfr_unscaled": 25.0,
+      "asfr_scaled": 49.50928463242311,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2018,
+      "asfr_15_44": 60.632580129453714,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.632580129453714,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2019,
+      "asfr_15_44": 60.632580129453714,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.632580129453714,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2021,
+      "asfr_15_44": 60.632580129453714,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.632580129453714,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Washington",
+      "year": 2018,
+      "asfr_15_44": 59.855900689051744,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.855900689051744,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Washington",
+      "year": 2019,
+      "asfr_15_44": 59.855900689051744,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.855900689051744,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Washington",
+      "year": 2021,
+      "asfr_15_44": 59.855900689051744,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 59.855900689051744,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2018,
+      "asfr_15_44": 57.96395216383235,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96395216383235,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2019,
+      "asfr_15_44": 57.96395216383235,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96395216383235,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2021,
+      "asfr_15_44": 57.96395216383235,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 57.96395216383235,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2018,
+      "asfr_15_44": 60.000424781768366,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.000424781768366,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2019,
+      "asfr_15_44": 60.000424781768366,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.000424781768366,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2021,
+      "asfr_15_44": 60.000424781768366,
+      "world_asfr_unscaled": 26.666666666666668,
+      "asfr_scaled": 60.000424781768366,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2018,
+      "asfr_15_44": 64.23187866381316,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.23187866381316,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2019,
+      "asfr_15_44": 64.23187866381316,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.23187866381316,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2021,
+      "asfr_15_44": 64.23187866381316,
+      "world_asfr_unscaled": 28.333333333333332,
+      "asfr_scaled": 64.23187866381316,
+      "variant": "no_housing"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2018,
+      "asfr_15_44": 62.10073691212568,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2019,
+      "asfr_15_44": 62.046895669938955,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Alabama",
+      "year": 2021,
+      "asfr_15_44": 61.99305442775223,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2018,
+      "asfr_15_44": 67.84287722829171,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2019,
+      "asfr_15_44": 62.85363441084108,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Alaska",
+      "year": 2021,
+      "asfr_15_44": 57.86439159339045,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2018,
+      "asfr_15_44": 57.91720763520607,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2019,
+      "asfr_15_44": 55.2833526758843,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Arizona",
+      "year": 2021,
+      "asfr_15_44": 52.649497716562536,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2018,
+      "asfr_15_44": 63.79049684892024,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2019,
+      "asfr_15_44": 62.45295948132102,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Arkansas",
+      "year": 2021,
+      "asfr_15_44": 61.11542211372179,
+      "variant": "no_household"
+    },
+    {
+      "entity": "California",
+      "year": 2018,
+      "asfr_15_44": 56.44320403825624,
+      "variant": "no_household"
+    },
+    {
+      "entity": "California",
+      "year": 2019,
+      "asfr_15_44": 54.25774972084909,
+      "variant": "no_household"
+    },
+    {
+      "entity": "California",
+      "year": 2021,
+      "asfr_15_44": 52.07229540344194,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2018,
+      "asfr_15_44": 53.977772619416136,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2019,
+      "asfr_15_44": 51.1696772305625,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Colorado",
+      "year": 2021,
+      "asfr_15_44": 48.36158184170886,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2018,
+      "asfr_15_44": 51.56830168963158,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2019,
+      "asfr_15_44": 50.538978717322486,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Connecticut",
+      "year": 2021,
+      "asfr_15_44": 49.50965574501339,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2018,
+      "asfr_15_44": 60.16649219938705,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2019,
+      "asfr_15_44": 59.41110247104974,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Delaware",
+      "year": 2021,
+      "asfr_15_44": 58.655712742712424,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Florida",
+      "year": 2018,
+      "asfr_15_44": 57.47458087637519,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Florida",
+      "year": 2019,
+      "asfr_15_44": 56.39588817100399,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Florida",
+      "year": 2021,
+      "asfr_15_44": 55.317195465632786,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2018,
+      "asfr_15_44": 59.77407102356143,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2019,
+      "asfr_15_44": 59.00126521714957,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Georgia",
+      "year": 2021,
+      "asfr_15_44": 58.22845941073771,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2018,
+      "asfr_15_44": 66.07525651905512,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2019,
+      "asfr_15_44": 64.32798141508535,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Hawaii",
+      "year": 2021,
+      "asfr_15_44": 62.58070631111558,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2018,
+      "asfr_15_44": 64.84472040797995,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2019,
+      "asfr_15_44": 62.45778698577733,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Idaho",
+      "year": 2021,
+      "asfr_15_44": 60.070853563574715,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2018,
+      "asfr_15_44": 57.691225428938154,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2019,
+      "asfr_15_44": 56.17246169395037,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Illinois",
+      "year": 2021,
+      "asfr_15_44": 54.65369795896258,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2018,
+      "asfr_15_44": 62.69231697701332,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2019,
+      "asfr_15_44": 61.899953100332674,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Indiana",
+      "year": 2021,
+      "asfr_15_44": 61.10758922365203,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2018,
+      "asfr_15_44": 63.190720729311224,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2019,
+      "asfr_15_44": 61.34439589715119,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Iowa",
+      "year": 2021,
+      "asfr_15_44": 59.49807106499115,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2018,
+      "asfr_15_44": 63.07443753094363,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2019,
+      "asfr_15_44": 60.47336269973408,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Kansas",
+      "year": 2021,
+      "asfr_15_44": 57.87228786852454,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2018,
+      "asfr_15_44": 63.93549203232004,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2019,
+      "asfr_15_44": 63.15766247186407,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Kentucky",
+      "year": 2021,
+      "asfr_15_44": 62.3798329114081,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2018,
+      "asfr_15_44": 63.80689758052388,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2019,
+      "asfr_15_44": 61.924922157238925,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Louisiana",
+      "year": 2021,
+      "asfr_15_44": 60.04294673395397,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Maine",
+      "year": 2018,
+      "asfr_15_44": 51.6512463349226,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Maine",
+      "year": 2019,
+      "asfr_15_44": 50.006718021957866,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Maine",
+      "year": 2021,
+      "asfr_15_44": 48.362189708993135,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2018,
+      "asfr_15_44": 59.59857893108518,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2019,
+      "asfr_15_44": 58.42903370828088,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Maryland",
+      "year": 2021,
+      "asfr_15_44": 57.25948848547659,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2018,
+      "asfr_15_44": 50.358435143063,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2019,
+      "asfr_15_44": 49.62492834863272,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Massachusetts",
+      "year": 2021,
+      "asfr_15_44": 48.891421554202445,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2018,
+      "asfr_15_44": 58.33745079140391,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2019,
+      "asfr_15_44": 57.35109901576201,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Michigan",
+      "year": 2021,
+      "asfr_15_44": 56.36474724012011,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2018,
+      "asfr_15_44": 62.962535548766766,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2019,
+      "asfr_15_44": 61.39980846245331,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Minnesota",
+      "year": 2021,
+      "asfr_15_44": 59.83708137613985,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2018,
+      "asfr_15_44": 62.65392931109141,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2019,
+      "asfr_15_44": 62.02834091316663,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Mississippi",
+      "year": 2021,
+      "asfr_15_44": 61.40275251524185,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2018,
+      "asfr_15_44": 61.011772536740395,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2019,
+      "asfr_15_44": 59.50209008038492,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Missouri",
+      "year": 2021,
+      "asfr_15_44": 57.99240762402944,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Montana",
+      "year": 2018,
+      "asfr_15_44": 58.378686854357156,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Montana",
+      "year": 2019,
+      "asfr_15_44": 54.85545983311623,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Montana",
+      "year": 2021,
+      "asfr_15_44": 51.3322328118753,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2018,
+      "asfr_15_44": 67.72175961773223,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2019,
+      "asfr_15_44": 65.29129317038463,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Nebraska",
+      "year": 2021,
+      "asfr_15_44": 62.860826723037036,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2018,
+      "asfr_15_44": 59.89663921139827,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2019,
+      "asfr_15_44": 58.12969298089373,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Nevada",
+      "year": 2021,
+      "asfr_15_44": 56.362746750389185,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2018,
+      "asfr_15_44": 48.989525641233996,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2019,
+      "asfr_15_44": 48.235651027921044,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Hampshire",
+      "year": 2021,
+      "asfr_15_44": 47.48177641460809,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2018,
+      "asfr_15_44": 59.579634369898514,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2019,
+      "asfr_15_44": 58.79284904382915,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Jersey",
+      "year": 2021,
+      "asfr_15_44": 58.00606371775979,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2018,
+      "asfr_15_44": 57.93025042965495,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2019,
+      "asfr_15_44": 55.743387957919964,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New Mexico",
+      "year": 2021,
+      "asfr_15_44": 53.55652548618498,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New York",
+      "year": 2018,
+      "asfr_15_44": 57.917709373323156,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New York",
+      "year": 2019,
+      "asfr_15_44": 57.184993529340254,
+      "variant": "no_household"
+    },
+    {
+      "entity": "New York",
+      "year": 2021,
+      "asfr_15_44": 56.45227768535735,
+      "variant": "no_household"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2018,
+      "asfr_15_44": 59.058304324249846,
+      "variant": "no_household"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2019,
+      "asfr_15_44": 58.31323665932877,
+      "variant": "no_household"
+    },
+    {
+      "entity": "North Carolina",
+      "year": 2021,
+      "asfr_15_44": 57.5681689944077,
+      "variant": "no_household"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2018,
+      "asfr_15_44": 69.39893211131486,
+      "variant": "no_household"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2019,
+      "asfr_15_44": 64.91315382289397,
+      "variant": "no_household"
+    },
+    {
+      "entity": "North Dakota",
+      "year": 2021,
+      "asfr_15_44": 60.427375534473086,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2018,
+      "asfr_15_44": 61.4699747724439,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2019,
+      "asfr_15_44": 60.839671974365096,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Ohio",
+      "year": 2021,
+      "asfr_15_44": 60.209369176286295,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2018,
+      "asfr_15_44": 62.56332470734334,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2019,
+      "asfr_15_44": 59.5646511929844,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Oklahoma",
+      "year": 2021,
+      "asfr_15_44": 56.56597767862546,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2018,
+      "asfr_15_44": 50.63506177010158,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2019,
+      "asfr_15_44": 47.49040701432034,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Oregon",
+      "year": 2021,
+      "asfr_15_44": 44.3457522585391,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2018,
+      "asfr_15_44": 57.36506026848574,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2019,
+      "asfr_15_44": 56.764808407158135,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Pennsylvania",
+      "year": 2021,
+      "asfr_15_44": 56.16455654583053,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2018,
+      "asfr_15_44": 50.80728592990479,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2019,
+      "asfr_15_44": 50.21432833919731,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Rhode Island",
+      "year": 2021,
+      "asfr_15_44": 49.621370748489824,
+      "variant": "no_household"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2018,
+      "asfr_15_44": 58.633896335807925,
+      "variant": "no_household"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2019,
+      "asfr_15_44": 57.82171515999328,
+      "variant": "no_household"
+    },
+    {
+      "entity": "South Carolina",
+      "year": 2021,
+      "asfr_15_44": 57.00953398417864,
+      "variant": "no_household"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2018,
+      "asfr_15_44": 74.1796222271756,
+      "variant": "no_household"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2019,
+      "asfr_15_44": 72.3745240585844,
+      "variant": "no_household"
+    },
+    {
+      "entity": "South Dakota",
+      "year": 2021,
+      "asfr_15_44": 70.5694258899932,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2018,
+      "asfr_15_44": 61.65382151904142,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2019,
+      "asfr_15_44": 61.37671220127072,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Tennessee",
+      "year": 2021,
+      "asfr_15_44": 61.09960288350002,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Texas",
+      "year": 2018,
+      "asfr_15_44": 61.51125671598541,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Texas",
+      "year": 2019,
+      "asfr_15_44": 58.0414039618054,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Texas",
+      "year": 2021,
+      "asfr_15_44": 54.57155120762539,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Utah",
+      "year": 2018,
+      "asfr_15_44": 67.56468900769713,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Utah",
+      "year": 2019,
+      "asfr_15_44": 63.11991607436242,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Utah",
+      "year": 2021,
+      "asfr_15_44": 58.67514314102772,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2018,
+      "asfr_15_44": 48.58396951719446,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2019,
+      "asfr_15_44": 47.65865440196581,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Vermont",
+      "year": 2021,
+      "asfr_15_44": 46.73333928673716,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2018,
+      "asfr_15_44": 59.2042611087771,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2019,
+      "asfr_15_44": 57.775942088100486,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Virginia",
+      "year": 2021,
+      "asfr_15_44": 56.347623067423875,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Washington",
+      "year": 2018,
+      "asfr_15_44": 56.628707061889926,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Washington",
+      "year": 2019,
+      "asfr_15_44": 53.401513434728116,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Washington",
+      "year": 2021,
+      "asfr_15_44": 50.174319807566306,
+      "variant": "no_household"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2018,
+      "asfr_15_44": 57.66412168617372,
+      "variant": "no_household"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2019,
+      "asfr_15_44": 57.364291208515084,
+      "variant": "no_household"
+    },
+    {
+      "entity": "West Virginia",
+      "year": 2021,
+      "asfr_15_44": 57.064460730856446,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2018,
+      "asfr_15_44": 58.39160100862344,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2019,
+      "asfr_15_44": 56.78277723547851,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Wisconsin",
+      "year": 2021,
+      "asfr_15_44": 55.173953462333586,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2018,
+      "asfr_15_44": 60.687366195633956,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2019,
+      "asfr_15_44": 57.14285372745475,
+      "variant": "no_household"
+    },
+    {
+      "entity": "Wyoming",
+      "year": 2021,
+      "asfr_15_44": 53.59834125927554,
+      "variant": "no_household"
+    }
+  ],
+  "interpretation": "Aggregate ASFR mechanism comparison only; not age-marital-parity calibration or causal counterfactual."
+}
