@@ -304,7 +304,7 @@ const regionTemplates = [
   {id: 'EA', name: '东亚', x: .81, y: .37, share: .23, development: .72, wage: 1.03, housing: 1.12, education: .77, fertility: .73, school: .76, medical: .72, transport: .74, safety: .68, hazard: .58, exposure: .62, recovery: .35}
 ];
 
-const worldState = {result: null, selectedRegion: 'EA', frame: null, playback: null};
+const worldState = {result: null, selectedRegion: 'EA', frame: null, playback: null, uncertainty: null};
 const pythonState = {data: null, selectedCountry: null};
 
 function weightedChoice(random, items, weightKey) {
@@ -660,6 +660,14 @@ function renderWorldTimeline() {
     content += `<line class="chart-grid" x1="${margin.left}" y1="${yy}" x2="${width - margin.right}" y2="${yy}"></line><text class="chart-axis" x="${margin.left - 10}" y="${yy + 4}" text-anchor="end">${meta[2](value)}</text>`;
   }
   const points = data.map(row => `${x(row.year)},${y(row[metric])}`).join(' ');
+  if (worldState.uncertainty && worldState.uncertainty[metric]) {
+    const band = worldState.uncertainty[metric];
+    const upper = band.map(row => `${x(row.year)},${y(row.high)}`).join(' ');
+    const lower = [...band].reverse().map(row => `${x(row.year)},${y(row.low)}`).join(' ');
+    content += `<polygon class="chart-band" points="${upper} ${lower}"></polygon>`;
+    const medianPoints = band.map(row => `${x(row.year)},${y(row.median)}`).join(' ');
+    content += `<polyline class="chart-line chart-line-median" points="${medianPoints}"></polyline>`;
+  }
   content += `<polyline class="chart-line" stroke="#245d45" points="${points}"></polyline>`;
   data.filter((_, index) => index % Math.max(1, Math.floor(data.length / 12)) === 0 || index === data.length - 1).forEach(row => {
     content += `<circle class="chart-point" fill="#245d45" cx="${x(row.year)}" cy="${y(row[metric])}" r="4"><title>第 ${row.year} 年：${meta[2](row[metric])}</title></circle>`;
@@ -899,6 +907,34 @@ function exportTimelinePng() {
   image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(xml)}`;
 }
 
+function runWorldUncertainty() {
+  if (!worldState.result) return;
+  const params = worldParams(); const runs = [];
+  for (let i = 0; i < 20; i += 1) runs.push(simulateWorld({...params, seed: params.seed + i + 1}).history);
+  const metrics = ['families', 'migrations', 'resources', 'children', 'mobility', 'taxRevenue', 'fiscalBalance', 'capacityPressure', 'technology', 'environmentalStress', 'climateEvents'];
+  worldState.uncertainty = {};
+  metrics.forEach(metric => { worldState.uncertainty[metric] = worldState.result.history.map((row, index) => {
+    const values = runs.map(history => Number(history[index]?.[metric] ?? 0)).sort((a, b) => a - b);
+    return {year: row.year, low: values[2], median: values[9], high: values[17]};
+  }); });
+  renderWorldTimeline(); document.getElementById('timeline-frame-label').textContent = '已显示 20 次运行的 10–90% 区间';
+}
+
+function exportBatchPng() {
+  if (!worldState.result) return;
+  const frames = worldState.result.history.map((_, index) => index);
+  const old = worldState.frame;
+  frames.forEach((index, order) => { worldState.frame = index; renderWorldTimeline(); setTimeout(() => exportTimelinePng(), order * 220); });
+  setTimeout(() => { worldState.frame = old; renderWorldTimeline(); }, frames.length * 220 + 250);
+}
+
+function exportReplay() {
+  if (!worldState.result) return;
+  const payload = {version: '2026-09-12', kind: 'population_simu_browser_replay', parameters: worldParams(), result: worldState.result, uncertainty: worldState.uncertainty};
+  const html = `<!doctype html><meta charset="utf-8"><title>Population Simu Replay</title><style>body{font:16px system-ui;margin:2rem;color:#173326}button{padding:.6rem 1rem}pre{white-space:pre-wrap}</style><h1>Population Simu · 分享回放</h1><button id="play">播放</button><span id="year"></span><pre id="out"></pre><script>const p=${JSON.stringify(payload)};let i=0,t;function draw(){const r=p.result.history[i];document.querySelector('#year').textContent=' '+r.year+' 年';document.querySelector('#out').textContent=JSON.stringify(r,null,2)}document.querySelector('#play').onclick=()=>{if(t){clearInterval(t);t=null;return}t=setInterval(()=>{draw();i=(i+1)%p.result.history.length},350);draw()};draw();<\\/script>`;
+  downloadText(`population_simu_replay_${payload.parameters.seed}.html`, html, 'text/html');
+}
+
 function currentScenarioPayload() {
   return {version: '2026-09-11', kind: 'browser_world_scenario', parameters: worldParams(),
     controls: Object.fromEntries(Object.keys(worldDefaults).map(id => [id, document.getElementById(id).value]))};
@@ -920,6 +956,9 @@ Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventLis
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
 document.getElementById('timeline-play').addEventListener('click', toggleTimelinePlayback);
 document.getElementById('timeline-frame-png').addEventListener('click', exportTimelinePng);
+document.getElementById('timeline-batch-png').addEventListener('click', exportBatchPng);
+document.getElementById('timeline-uncertainty').addEventListener('click', runWorldUncertainty);
+document.getElementById('timeline-replay-export').addEventListener('click', exportReplay);
 document.getElementById('scenario-save').addEventListener('click', () => {
   localStorage.setItem('populationSimuScenario', JSON.stringify(currentScenarioPayload()));
   document.getElementById('world-summary').textContent = '情景已保存到本浏览器';
