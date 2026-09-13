@@ -13,6 +13,17 @@ function percent(value, digits = 1) { return `${(value * 100).toFixed(digits)}%`
 function clamp(value, low = 0, high = 1) { return Math.max(low, Math.min(high, value)); }
 function sigmoid(value) { return 1 / (1 + Math.exp(-value)); }
 
+// Some embedded browsers do not expose requestAnimationFrame reliably.  Keep
+// the interaction asynchronous, but provide a timer fallback so a click never
+// leaves the button stuck in its loading state.
+function scheduleUi(callback) {
+  if (typeof window.requestAnimationFrame === 'function') {
+    window.requestAnimationFrame(callback);
+  } else {
+    window.setTimeout(callback, 0);
+  }
+}
+
 function hashSeed(seed, plan) {
   let value = (Number(seed) || 1) ^ (plan * 0x9e3779b9);
   value = Math.imul(value ^ (value >>> 16), 0x21f0aaad);
@@ -161,13 +172,18 @@ function runExperiment() {
   const button = document.getElementById('run-button');
   button.disabled = true;
   button.textContent = '计算中…';
-  requestAnimationFrame(() => {
-    const params = readParams();
-    state.results = [1, 2, 3].map(plan => simulatePlan(plan, params));
-    document.getElementById('experiment-summary').textContent = `${params.generations} 代 · ${numberFormat(params.trials)} 次 · 种子 ${params.seed}`;
-    renderAll();
-    button.disabled = false;
-    button.textContent = '重新运行实验';
+  scheduleUi(() => {
+    try {
+      const params = readParams();
+      state.results = [1, 2, 3].map(plan => simulatePlan(plan, params));
+      document.getElementById('experiment-summary').textContent = `${params.generations} 代 · ${numberFormat(params.trials)} 次 · 种子 ${params.seed}`;
+      renderAll();
+      button.textContent = '重新运行实验';
+    } catch (error) {
+      document.getElementById('experiment-summary').textContent = `模拟失败：${error.message}`;
+    } finally {
+      button.disabled = false;
+    }
   });
 }
 
@@ -897,11 +913,20 @@ function renderPythonResults() {
 function runWorldExperiment() {
   const button = document.getElementById('world-run');
   button.disabled = true; button.textContent = '模拟家庭迁徙中…';
-  requestAnimationFrame(() => {
-    worldState.result = simulateWorld(worldParams());
-    worldState.frame = null;
-    renderWorld();
-    button.disabled = false; button.textContent = '运行世界沙盘';
+  scheduleUi(() => {
+    try {
+      worldState.result = simulateWorld(worldParams());
+      worldState.frame = null;
+      renderWorld();
+      document.getElementById('world-summary').dataset.error = '';
+    } catch (error) {
+      worldState.result = null;
+      document.getElementById('world-summary').textContent = `模拟失败：${error.message}`;
+      document.getElementById('world-summary').dataset.error = 'true';
+    } finally {
+      button.disabled = false;
+      button.textContent = '运行世界沙盘';
+    }
   });
 }
 
