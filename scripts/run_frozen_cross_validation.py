@@ -38,6 +38,8 @@ def main() -> int:
                         help="optional external artifact; do not use if it overlaps the untouched test")
     parser.add_argument("--allow-test-overlap", action="store_true",
                         help="仅用于外部验证；允许 artifact 年份与 test 重叠并在报告中标记")
+    parser.add_argument("--include-2020-sensitivity", action="store_true",
+                        help="把带 ACS5 住房估计的 2020 面板作为敏感性测试年记录；不改变主规格")
     args = parser.parse_args()
     with args.panel.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -50,7 +52,8 @@ def main() -> int:
     external_calibration = None
     if args.household_calibration_json:
         artifact = json.loads(args.household_calibration_json.read_text(encoding="utf-8"))
-        overlap = set(artifact.get("years", ())) & {2018, 2019, 2021}
+        overlap_years = {2018, 2019, 2021} | ({2020} if args.include_2020_sensitivity else set())
+        overlap = set(artifact.get("years", ())) & overlap_years
         if overlap and not args.allow_test_overlap:
             raise SystemExit(f"外部校准 artifact 与 untouched test 重叠：{sorted(overlap)}；"
                              "如仅做外部验证，请显式加入 --allow-test-overlap")
@@ -122,7 +125,8 @@ def main() -> int:
         "panel": str(args.panel),
         "calibration_years": list(range(2010, 2018)),
         "untouched_test_years": [2018, 2019, 2021],
-        "excluded_years": [2020],
+        "sensitivity_test_years": [2020] if args.include_2020_sensitivity else [],
+        "excluded_years": [] if args.include_2020_sensitivity else [2020],
         "reports": reports,
         "paired_vs_naive": paired,
         "error_strata": strata_reports,
@@ -131,7 +135,7 @@ def main() -> int:
         "external_household_calibration": str(args.household_calibration_json)
         if args.household_calibration_json else None,
         "test_overlap_allowed": bool(args.allow_test_overlap),
-        "interpretation": "窗口稳健性和预测比较，不是因果估计；不据此增加社会机制",
+        "interpretation": "窗口稳健性和预测比较，不是因果估计；2020 若纳入，仅作为 ACS5 住房敏感性，不据此增加社会机制",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",

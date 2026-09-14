@@ -1,0 +1,23 @@
+{
+  "rows": 600,
+  "states": 50,
+  "years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021
+  ],
+  "unmatched_fertility_rows": 165,
+  "primary_panel": "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv",
+  "sensitivity_year": 2020,
+  "sensitivity_source": "Census ACS 5-year B25070",
+  "interpretation": "2020 is a sensitivity observation, not comparable to ACS 1-year years without qualification."
+}

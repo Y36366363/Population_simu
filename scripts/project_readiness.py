@@ -20,6 +20,8 @@ def main() -> int:
         "acs_calibration": (root / "data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv").exists(),
         "acs_test": (root / "data/observed/us_2021/acs_exposure_age_marital_2018_2021.csv").exists(),
         "aggregate_fertility_panel": (root / "data/observed/us_2021/us_fertility_panel.csv").exists(),
+        "acs_2020_housing_sensitivity": (root / "data/observed/us_2021/us_housing_2020_acs5_sensitivity.csv").exists()
+            and (root / "data/observed/us_2021/us_research_panel_2010_2021_with_2020_acs5_sensitivity.csv").exists(),
         "household_audit": (root / "data/observed/us_2021/household_adapter_audit_2026-09-05.json").exists(),
     }
     report = {
@@ -32,7 +34,7 @@ def main() -> int:
         "interpretation": {
             "ready_now": ["static Pages demo", "local Python engine", "aggregate ASFR model comparison"],
             "blocked": ["formal age-marital-parity calibration", "stratified historical replay"],
-            "reason": "WONDER stratified numerator batches and separate test numerator are incomplete",
+            "reason": "WONDER stratified numerator batches and separate test numerator are incomplete; 2020 ACS5 housing is sensitivity-only",
         },
     }
     a.output.parent.mkdir(parents=True, exist_ok=True)
