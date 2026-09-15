@@ -24,4 +24,8 @@ PYTHONPATH=src python3 scripts/build_2020_sensitivity_panel.py \
   --housing-2020 data/observed/us_2021/us_housing_2020_acs5_sensitivity.csv \
   --fertility data/observed/us_2021/us_fertility_panel.csv \
   --output data/observed/us_2021/us_research_panel_2010_2021_with_2020_acs5_sensitivity.csv
+
+# 每日无第三方依赖烟测
+PYTHONPATH=src python3 scripts/run_daily_smoke.py --root . \
+  --output data/observed/us_2021/daily_smoke_YYYY-MM-DD.json
 ```
