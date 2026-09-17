@@ -1012,6 +1012,27 @@ function loadScenarioPayload(payload) {
   updateWorldOutputs(); runWorldExperiment();
 }
 
+const worldPresets = {
+  baseline: {},
+  childcare: {'world-childcare': 80, 'world-welfare': 45, 'world-housing': 55, 'world-seed': 2101},
+  'housing-shock': {'world-housing': 95, 'world-capacity': 75, 'world-childcare': 30, 'world-seed': 2102},
+  equalization: {'education-equality': 90, 'world-childcare': 60, 'world-welfare': 40, 'world-seed': 2103}
+};
+
+function applyWorldPreset(name) {
+  const preset = worldPresets[name];
+  if (!preset) return;
+  Object.entries(worldDefaults).forEach(([id, value]) => { document.getElementById(id).value = value; });
+  Object.entries(preset).forEach(([id, value]) => { document.getElementById(id).value = value; });
+  updateWorldOutputs();
+  runWorldExperiment();
+  // runWorldExperiment is scheduled to the next UI turn; write the label after it renders.
+  setTimeout(() => {
+    const summary = document.getElementById('world-summary');
+    if (summary && summary.dataset.error !== 'true') summary.textContent = `已运行预设：${name === 'baseline' ? '基线' : name === 'childcare' ? '托育扩张' : name === 'housing-shock' ? '住房冲击' : '教育均等化'}`;
+  }, 25);
+}
+
 Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventListener('input', updateWorldOutputs));
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
 document.getElementById('variant-load').addEventListener('click', loadVariantArtifact);
@@ -1051,6 +1072,7 @@ document.getElementById('world-reset').addEventListener('click', () => {
   Object.entries(worldDefaults).forEach(([id, value]) => { document.getElementById(id).value = value; });
   updateWorldOutputs(); runWorldExperiment();
 });
+document.querySelectorAll('[data-world-preset]').forEach(button => button.addEventListener('click', () => applyWorldPreset(button.dataset.worldPreset)));
 document.getElementById('world-map-metric').addEventListener('change', renderWorldNetwork);
 document.getElementById('world-timeline-metric').addEventListener('change', renderWorldTimeline);
 document.getElementById('python-country').addEventListener('change', event => {

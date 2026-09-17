@@ -59,6 +59,9 @@ h1 { max-width: 780px; margin: 0; font-family: Georgia, "Noto Serif SC", serif; 
 .secondary-button:disabled { opacity: .55; cursor: wait; }
 .engine-actions .secondary-button { white-space: nowrap; }
 .scenario-tools { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .7rem; }
+.preset-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .38rem; margin-top: .7rem; color: var(--muted); font-size: .78rem; }
+.preset-tools button { border: 1px solid var(--line); background: var(--surface); color: var(--green); padding: .28rem .48rem; border-radius: .35rem; font-size: .76rem; }
+.preset-tools button:hover, .preset-tools button:focus-visible { border-color: var(--green); background: var(--green-soft); }
 .timeline-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin: .4rem 0 .8rem; color: var(--muted); font-size: .85rem; }
 .chart-frame-marker { stroke: #b44f38; stroke-width: 1.5; stroke-dasharray: 4 3; pointer-events: none; }
 .chart-band { fill: rgba(36, 93, 69, .14); stroke: none; }

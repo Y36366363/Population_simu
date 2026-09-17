@@ -131,6 +131,13 @@
             <button id="scenario-export" class="secondary-button" type="button">导出年度 JSON</button>
             <input id="scenario-file" type="file" accept="application/json" hidden>
           </div>
+          <div class="preset-tools" aria-label="快速情景预设">
+            <span>快速预设</span>
+            <button type="button" data-world-preset="baseline">基线</button>
+            <button type="button" data-world-preset="childcare">托育扩张</button>
+            <button type="button" data-world-preset="housing-shock">住房冲击</button>
+            <button type="button" data-world-preset="equalization">教育均等化</button>
+          </div>
         </aside>
 
         <div class="world-results" aria-live="polite">
@@ -297,6 +304,6 @@
   </main>
 
   <footer><span>Population Simu</span><span>家庭为单位 · 无战争反事实 · 固定种子可复现</span></footer>
-  <script src="app.js?v=4"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
