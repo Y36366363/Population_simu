@@ -19,7 +19,7 @@ def main() -> int:
         print("missing_assets=" + ",".join(missing)); return 2
     if "data-view-panel=\"world\"" not in text or "data-view-panel=\"family\"" not in text:
         print("missing_view_panels"); return 2
-    required_ids = ("world-run", "timeline-play", "variant-load", "engine-run")
+    required_ids = ("world-run", "timeline-play", "variant-load", "variant-meta", "engine-run")
     missing_ids = [element_id for element_id in required_ids if f'id="{element_id}"' not in text]
     if missing_ids:
         print("missing_controls=" + ",".join(missing_ids)); return 2

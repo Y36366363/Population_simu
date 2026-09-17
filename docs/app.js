@@ -716,6 +716,22 @@ function renderVariantTimeline() {
   variants.forEach(v=>{const p=rows.filter(r=>r.variant===v).sort((a,b)=>a.year-b.year).map(r=>`${x(r.year)},${sy(Number(r.asfr_scaled||0))}`).join(' '); c+=`<polyline class="chart-line" stroke="${colors[v]||'#245d45'}" points="${p}"></polyline>`; const last=rows.filter(r=>r.variant===v).at(-1); if(last)c+=`<text class="chart-axis" x="${x(last.year)-4}" y="${sy(Number(last.asfr_scaled||0))-6}" text-anchor="end">${v}</text>`;});
   years.forEach(yv=>{c+=`<text class="chart-axis" x="${x(yv)}" y="${height-10}" text-anchor="middle">${yv}</text>`;});
   c+=`<text class="chart-axis" x="${m.left-8}" y="${m.top+4}" text-anchor="end">ASFR/千</text>`; svg.setAttribute('viewBox',`0 0 ${width} ${height}`); svg.innerHTML=c;
+  const meta=document.getElementById('variant-meta');
+  if (meta) {
+    const mean=(key)=>{const xs=rows.map(r=>Number(r[key])).filter(Number.isFinite); return xs.length ? xs.reduce((a,b)=>a+b,0)/xs.length : null;};
+    const unscaled=mean('world_asfr_unscaled'), scaled=mean('asfr_scaled');
+    const status=variantState.data.status || 'unknown';
+    const calibration=variantState.data.calibration_years || [];
+    const test=variantState.data.test_years || [];
+    const hazardReady=variantState.data.formal_hazard_replay_ready === true;
+    const fmt=(x)=>x===null?'不可用':x.toFixed(2);
+    meta.innerHTML=`<span class="meta-pill ${status==='validated_for_predictive_interface'?'meta-ok':'meta-warn'}">${status}</span>`+
+      `<span>校准：${calibration.length ? `${calibration[0]}–${calibration.at(-1)}` : '未声明'}</span>`+
+      `<span>测试：${test.length ? test.join('、') : '未声明'}</span>`+
+      `<span>未缩放 World ASFR 均值：${fmt(unscaled)}</span>`+
+      `<span>缩放后 ASFR 均值：${fmt(scaled)}</span>`+
+      `<span class="meta-warning">${hazardReady ? '已具备正式 hazard 回放标记' : '仍是预测接口验证；非因果反事实，正式 hazard 回放未就绪'}</span>`;
+  }
 }
 
 async function loadVariantArtifact() {
