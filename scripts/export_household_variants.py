@@ -22,7 +22,17 @@ def main() -> int:
     for name,runner in specs.items():
         for row in runner(train,years,a.seed):
             row["variant"]=name; forecasts.append(row)
-    payload={"version":"2026-09-12","kind":"aggregate_asfr_mechanism_artifact","status":"validated_for_predictive_interface","panel":str(a.panel),"calibration_years":[2010,2011,2012,2013,2014,2015,2016,2017],"test_years":years,"seed":a.seed,"variants":["full","no_housing","no_household"],"calibration":calibration.as_dict(),"formal_hazard_replay_ready":False,"rows":forecasts,"interpretation":"Aggregate ASFR mechanism comparison only; not age-marital-parity calibration or causal counterfactual."}
+    reports = {}
+    for name in ("full", "no_housing", "no_household"):
+        by_key = {(str(r["entity"]), int(r["year"])): float(r["asfr_15_44"]) for r in forecasts if r["variant"] == name}
+        errors = []
+        for observed in rows:
+            key = (str(observed["entity"]), int(observed["year"]))
+            if int(observed["year"]) in years and key in by_key:
+                actual = float(observed["asfr_15_44"])
+                errors.append(abs(by_key[key] - actual) / max(abs(actual), 1e-9))
+        reports[name] = {"mape": sum(errors) / len(errors) if errors else None, "n": len(errors), "metric": "asfr_15_44"}
+    payload={"version":"2026-09-18","kind":"aggregate_asfr_mechanism_artifact","status":"validated_for_predictive_interface","panel":str(a.panel),"calibration_years":[2010,2011,2012,2013,2014,2015,2016,2017],"untouched_test_years":years,"test_years":years,"seed":a.seed,"variants":["full","no_housing","no_household"],"calibration":calibration.as_dict(),"formal_hazard_replay_ready":False,"rows":forecasts,"reports":{"aggregate_asfr":reports},"interpretation":"Aggregate ASFR mechanism comparison only; reports are predictive diagnostics, not age-marital-parity calibration or causal counterfactual."}
     a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n")
     print(f"wrote {a.output} rows={len(forecasts)} variants={len(specs)}"); return 0
 if __name__=="__main__": raise SystemExit(main())

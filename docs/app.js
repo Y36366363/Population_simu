@@ -736,7 +736,7 @@ function renderVariantTimeline() {
 
 async function loadVariantArtifact() {
   const status=document.getElementById('variant-status');
-  try { const r=await fetch('artifacts/household_variants_2026-09-12.json',{cache:'no-store'}); if(!r.ok) throw new Error(`HTTP ${r.status}`); const d=await r.json(); if(d.status!=='validated_for_predictive_interface') throw new Error('artifact 未标记 validated'); variantState.data=d; renderVariantTimeline(); status.textContent=`已加载 ${d.variants.join(' / ')}；calibration ${d.calibration_years[0]}–${d.calibration_years.at(-1)}，test ${d.test_years.join(', ')}。`; } catch(e) { status.textContent=`无法加载 artifact：${e.message}`; }
+  try { const r=await fetch('artifacts/household_variants_2026-09-18.json',{cache:'no-store'}); if(!r.ok) throw new Error(`HTTP ${r.status}`); const d=await r.json(); if(d.status!=='validated_for_predictive_interface') throw new Error('artifact 未标记 validated'); variantState.data=d; renderVariantTimeline(); status.textContent=`已加载 ${d.variants.join(' / ')}；calibration ${d.calibration_years[0]}–${d.calibration_years.at(-1)}，test ${d.untouched_test_years.join(', ')}。`; } catch(e) { status.textContent=`无法加载 artifact：${e.message}`; }
 }
 
 function renderRegionDetail() {
