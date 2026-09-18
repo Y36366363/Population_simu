@@ -1,31 +1,86 @@
-# 家庭—姓氏家族人口流动与社会晋升模拟沙盘
+# Population Sandbox
 
-这是一个以家庭为最小行动单位的无战争世界人口流动与发展沙盘。家庭会形成新分支、积累或损失多维资本，并随工资、住房、教育、福利、婚姻和照护条件在地区与国家之间迁徙；这些微观选择共同改变地区人口、阶层结构和家族延续。
+An empirical and simulation framework for studying how housing and childcare burdens are associated with fertility outcomes across U.S. states and years.
 
-项目的主问题是“家庭如何流动，以及长期累积后世界怎样变化”。一孩、二孩、三孩与资源集中只是其中一个可单独开启的家庭层子实验，不代表整个项目的中心。
+> [Open the interactive sandbox](https://Y36366363.github.io/Population_simu/)
 
-交互式网页沙盘（将 `docs/` 设为 GitHub Pages 来源后）：
+## Current Research Question
 
-https://Y36366363.github.io/Population_simu/
+> How are state-level housing and childcare burdens associated with fertility outcomes in the United States, and which household-level mechanisms may help explain the observed patterns?
 
-网页部署状态和后续升级门槛见 [docs/web_deployment_status.md](docs/web_deployment_status.md)。当前网页是纯静态机制演示；正式实证结果面板要等数据面板和历史回放 artifact 完成后再接入。
+The current research phase focuses on a deliberately narrow state–year question. The broader family and population simulator remains available as a mechanism library, but migration, social mobility, surname dynasties, and global population development are not simultaneous primary research claims.
 
-> 当前网页版本：世界家庭流动沙盘已作为首页主视角；一孩、二孩、三孩资源配置仍可从顶部“子命题：家庭资源”进入。网页使用固定随机种子，适合比较参数变化，不应被解读为现实国家预测。
+The project currently treats the housing–childcare–fertility relationship as an empirical association and mechanism-development problem. It does **not** yet claim a causal effect, validated forecasting performance, or a policy recommendation.
 
-## 当前版本定位
+## Current Scope
 
-## Feature Freeze（实证研究阶段）
+| Component | Current scope |
+|---|---|
+| Unit of analysis | U.S. state–year |
+| Main exposures | Housing burden and childcare burden |
+| Main outcome | Fertility-related outcomes |
+| Empirical task | Historical association, calibration, and out-of-sample evaluation |
+| Simulation task | Test whether explicit household mechanisms can reproduce selected empirical patterns |
+| Comparison | Transparent baselines, cohort-component models, and family microsimulation |
+| Uncertainty | Repeated simulation, common random numbers, intervals, and sensitivity analysis |
 
-从 2026-08-18 起冻结新的社会机制、职业、国家、政策、UI 和 agent complexity。后续提交
-只有在完成真实数据接入、参数校准、历史回放、模型比较、机制消融或验证审计时才允许。
-首个研究协议见 [docs/empirical_study_protocol.md](docs/empirical_study_protocol.md)，
-当前唯一主问题是美国州—年 housing/childcare burden → fertility；其余方向暂不扩展。
+## Research Workflow
 
-当前版本是“机制实验型”的家庭人口微观仿真，不是经过国家数据校准的人口预测器。Python 引擎负责详细年度家庭、个人、职业、婚姻、健康、照护、住房、迁移和政策事件；网页浏览器模型负责快速交互，启动本地应用后可以直接读取 Python 年度结果。
+1. Build documented and auditable state–year inputs.
+2. Define housing, childcare, and fertility measures before model comparison.
+3. Separate training periods from held-out years.
+4. Compare simple baselines with demographic and household-level models.
+5. Evaluate out-of-sample error and uncertainty rather than a single simulated trajectory.
+6. Use mechanism ablations to determine which assumptions materially affect the results.
+7. Report limitations and avoid interpreting model fit as causal identification.
 
-项目当前优先研究：家庭如何在生育数量、子女投资、迁移和代际资本传递之间做选择，以及这些选择如何累积成家族延续、地区分化和阶层流动。一孩/二孩/三孩是其中一个子命题，不是全项目的结论。
+## Evidence Status
 
-## 家庭世界沙盘
+### Implemented
+
+- Household-level and cohort-component simulation components.
+- Reproducible scenario configuration and fixed-seed execution.
+- Temporal splits, rolling evaluation, calibration interfaces, and model-comparison utilities.
+- Data-integrity and calibration-bundle audits.
+- Browser-based mechanism demonstration and a more detailed local Python engine.
+
+### In progress
+
+- Assembly and documentation of the complete U.S. state–year data panel.
+- Final definitions of housing burden, childcare burden, and fertility outcomes.
+- Calibration against observed data.
+- Historical replay and held-out evaluation.
+- Mechanism ablation and uncertainty analysis.
+
+### Not yet claimed
+
+- A causal estimate of housing or childcare effects.
+- A validated population or fertility forecasting system.
+- Nationally representative household-level conclusions.
+- Evidence supporting a specific policy intervention.
+
+## Interactive Demonstration
+
+The [public web sandbox](https://Y36366363.github.io/Population_simu/) is a static, fixed-seed mechanism demonstration. It is useful for comparing how parameter changes alter simulated trajectories, but it should not be interpreted as a calibrated forecast of any real state or country.
+
+The detailed Python engine supports household, demographic, migration, employment, housing, care, and policy mechanisms. These broader components are retained as infrastructure for future research rather than presented as completed empirical findings.
+
+## Feature Freeze: Empirical Research Phase
+
+New countries, occupations, social mechanisms, policy switches, interface features, and agent complexity are currently frozen. Development should prioritize:
+
+- data construction;
+- parameter measurement and calibration;
+- historical replay;
+- baseline comparison;
+- held-out evaluation;
+- mechanism ablation;
+- uncertainty and sensitivity analysis.
+
+The current empirical protocol is documented in [`docs/empirical_study_protocol.md`](docs/empirical_study_protocol.md).
+
+## Broader Simulation Platform / 更广的模拟平台
+The following components describe the broader mechanism library. They are retained for future research and interactive exploration, but they are not all part of the current housing–childcare–fertility study.
 
 - 每个国家从若干姓氏家族开始；中国示例使用 300 个初始姓氏。
 - 每个姓氏最初只有一个创始家庭，成年子女结成伴侣后会创建新的家庭分支。
@@ -254,16 +309,16 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 
 底层情景加载会检查比例范围、资源非负性、地区参数、姓氏规则和政策时期重叠；`FamilyWorld.snapshot()` 提供可序列化的当前年份、国家、地区、家庭数和人口分区结果，供网页/API/批量实验复用。
 
-## 下一步路线
+## Next Research Milestones / 下一阶段
 
-1. 用仓库 `data/observed/` 的 OWID/UN WPP 快照验证管线，再用生命表、人口普查、DHS/MICS/IPUMS 等更细数据校准年龄别生育率、死亡率、迁移年龄结构和地区人口基线。
-2. 把婚姻、就业、生育和迁移完全拆成可替换的 hazard/logit 模块，并保留默认示意模型。
-3. 用真实省级或城市—乡村迁移矩阵替代默认地区效用，加入迁移网络、住房约束和家庭成员生命周期。
-4. 将同一区域的生育规范从“平均子女数”升级为可配置社会网络，区分邻居、亲属、同事和媒体影响。
-5. 用历史回放、敏感性分析、共同随机数反事实和中位数/置信区间评估政策，而不是比较单次随机曲线。
-6. 继续补充税收、养老金缴费池、医疗融资、托育容量和人口反馈，并让网页展示校准误差和不确定性。
-7. 将五维公共服务接入真实地区面板数据，估计滞后效应和异质性。
-8. 使用灾害历史和地区暴露数据校准环境模块，并继续扩展资源约束与恢复成本。
+1. Freeze operational definitions for housing burden, childcare burden, and fertility outcomes.
+2. Complete the U.S. state–year panel with source, year, unit, denominator, and transformation metadata.
+3. Establish transparent descriptive and time-trend baselines.
+4. Separate calibration years from held-out evaluation years.
+5. Compare baseline, cohort-component, and household-microsimulation results under the same evaluation windows.
+6. Run mechanism ablations for housing and childcare channels.
+7. Report uncertainty, sensitivity, missing-data limitations, and alternative variable definitions.
+8. Reconsider broader migration and intergenerational-mobility questions only after the focused study is complete.
 
 ### 观测 CSV 与参数搜索快速示例
 
