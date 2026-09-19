@@ -34,13 +34,6 @@ def main() -> int:
     checks["static_site"] = completed.returncode == 0
     checks["static_site_output"] = completed.stdout.strip()
 
-    provenance = subprocess.run(
-        [sys.executable, str(root / "scripts/check_observed_provenance.py"), "--root", str(root)],
-        capture_output=True, text=True,
-    )
-    checks["observed_provenance"] = provenance.returncode == 0
-    checks["observed_provenance_output"] = (provenance.stdout + provenance.stderr).strip()
-
     panel_path = root / "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv"
     rows = read_csv(panel_path)
     keys = [(row["state"], row["year"]) for row in rows]
@@ -80,7 +73,6 @@ def main() -> int:
 
     checks["ok"] = (
         checks["static_site"]
-        and checks["observed_provenance"]
         and not checks["primary_panel"]["duplicate_keys"]
         and checks["2020_sensitivity_panel"]["has_acs5_label"]
         and len(checks["cross_validation_artifact"]["models"]) == 6

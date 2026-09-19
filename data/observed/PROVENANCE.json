@@ -137,7 +137,7 @@
       "recorded_on": "2026-08-15",
       "date_basis": "first_committed",
       "transformation": "Documented country/year/age subset and reshaping; see DATA_LICENSES.md.",
-      "sha256": "b4df7ff146b0542f0859d967ac221de9d7ce180fac31a24db596863bd5b8a1e3",
+      "sha256": "b40789e173934bc733ad9bc7d1276f1ce8115a4e377c772bd9fb594348d0700e",
       "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
     },
     "data/observed/owid_demography_sample.csv": {
@@ -145,14 +145,14 @@
       "recorded_on": "2026-08-12",
       "date_basis": "downloaded",
       "transformation": "Documented country/year/age subset and reshaping; see DATA_LICENSES.md.",
-      "sha256": "90cd907b5c631424bdcff3c0fac27abd9085c36e4ed96184f552cfd823e826b6"
+      "sha256": "05207532c46bf246661e5e607554604d33d87db617ffceaa27a4fdf9aaf2c980"
     },
     "data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv": {
       "dataset": "census_acs",
       "recorded_on": "2026-08-28",
       "date_basis": "downloaded",
       "transformation": "ACS age-band and marital-status estimates with documented uniform-within-band allocation.",
-      "sha256": "7d86a2a3112fac83131e4971be1b05ff3a8a4147bc69d3c9dcd63ad1acd38f0d"
+      "sha256": "1daa1c1cdbb5a98504bb292007c607bf7d864a0f523d7390140151c294b9cdf6"
     },
     "data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv.metadata.json": {
       "dataset": "census_acs",
@@ -166,7 +166,7 @@
       "recorded_on": "2026-08-29",
       "date_basis": "downloaded",
       "transformation": "ACS age-band and marital-status estimates with documented uniform-within-band allocation.",
-      "sha256": "b873733d41679c112bc4dba464e2f5e2dd510b0aa1ed0df9dc1efc92f8a9969a"
+      "sha256": "7e20c7d8f69d026e6ab0636926888b77aa6a388e24fe56affae704dd090049f4"
     },
     "data/observed/us_2021/acs_exposure_age_marital_2018_2021.csv.metadata.json": {
       "dataset": "census_acs",
@@ -331,7 +331,7 @@
       "recorded_on": "2026-08-24",
       "date_basis": "first_committed",
       "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
-      "sha256": "ad4dfa996f3121b32ae9bda764bf0b6b4b3e29eef00589990d37dc172c76984a",
+      "sha256": "b7432065df646e4add9e8061125b7344d78090a44dc08d291fb08f21bf3970c3",
       "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
     },
     "data/observed/us_2021/nsfg_birth_rows_2018.csv": {
@@ -339,7 +339,7 @@
       "recorded_on": "2026-08-24",
       "date_basis": "first_committed",
       "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
-      "sha256": "6267c2f7c31c0b9bb5684d467921d9f98c815c57ab1db5d457895e2543eecff1",
+      "sha256": "f2b4531ec75ceb9d6d03ce84c8fa4e13ccb60c0176ddca7e8c1fe265316fe4fe",
       "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
     },
     "data/observed/us_2021/nsfg_exposure_snapshot_2018.csv": {
@@ -347,7 +347,7 @@
       "recorded_on": "2026-08-24",
       "date_basis": "first_committed",
       "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
-      "sha256": "97dfb6c5dbe477f53736d4e62f233a86abb0912d09d874c3491670ebeb1fdd5f",
+      "sha256": "306f2ef161598aa213526a9e5a588b5f7782fe8880349ca64326601c0a63a2f5",
       "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
     },
     "data/observed/us_2021/project_readiness_2026-09-08.json": {
@@ -362,7 +362,7 @@
       "recorded_on": "2026-08-20",
       "date_basis": "downloaded",
       "transformation": "Single-age female estimates summed to ages 15–44.",
-      "sha256": "87492c1b34ba0162723c23cb8b2498c06dd30b86f559ad2807a6fb9628acf45c"
+      "sha256": "5f2e6fb745c17b2555232df9b506e8b29702bb9214abd8b76488ca2cc35011c6"
     },
     "data/observed/us_2021/us_fertility_manifest.json": {
       "dataset": "project_derived_mixed",
@@ -376,14 +376,14 @@
       "recorded_on": "2026-08-20",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "990f5e9ddbd1dc87394789828ab9874e03f59702ce4abcee9d987f129202da61"
+      "sha256": "c98796f57b6cf3cb9de6cd2038b7213d03a599377036745fa713f7a1ebe57c46"
     },
     "data/observed/us_2021/us_housing_2020_acs5_sensitivity.csv": {
       "dataset": "census_acs",
       "recorded_on": "2026-09-14",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "2c13f57d454070b6376c1f7b74296360445065fad3ae377da8df989e3461d046"
+      "sha256": "046ad8351976553694ef6fd602e9dcf60c29c75ce331adcd13460bceb609ec4b"
     },
     "data/observed/us_2021/us_housing_panel_2007_2021.csv": {
       "dataset": "census_acs",
@@ -397,7 +397,7 @@
       "recorded_on": "2026-08-22",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "0ee9c6fb87acf0e6fbcd5ee6f7de1c666471e7b24118028a57163e21cdf11de6"
+      "sha256": "23d9e2426fe21f251a9b6f280f44fb236c2f2044c7449547ae9ed4e360c3cdfa"
     },
     "data/observed/us_2021/us_housing_panel_2010_2021_comparable.manifest.json": {
       "dataset": "census_acs",
@@ -411,7 +411,7 @@
       "recorded_on": "2026-08-18",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "2f8ccb0a6b856edb9d414954f3d942427238ddda7d07214c33e3de9cb384f9dc"
+      "sha256": "a8019c10d5e9934cf4bcd72fe453d417092998db2dc4056ededcf642d7507dc5"
     },
     "data/observed/us_2021/us_housing_validation_2021.json": {
       "dataset": "census_acs",
@@ -425,28 +425,28 @@
       "recorded_on": "2026-08-16",
       "date_basis": "generated",
       "transformation": "Published period q_x values extracted into the project single-age CSV contract.",
-      "sha256": "4a682792a7142e2a939db183433be3db3961f18adacf13b15f328dd95dccaa88"
+      "sha256": "c500d7e799c62775a0bf8555af5bcc1318bf9c49e909fb1036ef8ac616fd0a9e"
     },
     "data/observed/us_2021/us_life_table_male_2021.csv": {
       "dataset": "cdc_life_tables",
       "recorded_on": "2026-08-16",
       "date_basis": "generated",
       "transformation": "Published period q_x values extracted into the project single-age CSV contract.",
-      "sha256": "c9666e062d2c5990a9bc4cf1222eed8f4afe143d37ca3c551c01ab8d8a684f44"
+      "sha256": "0be2efc39318668dfdd42dc8f8931535a63dd46d3236cf5a907a6e605eaa9e64"
     },
     "data/observed/us_2021/us_population_single_age_sex_2021.csv": {
       "dataset": "census_popest_national",
       "recorded_on": "2026-08-16",
       "date_basis": "generated",
       "transformation": "The 2021 estimate was selected and converted to the project country-year-sex-age contract.",
-      "sha256": "af7b3f91acbc36a0e9080e80cabb640eb3107cedb1aa0a649264fd3fd74ba6a3"
+      "sha256": "d641444abeeb51b222fd3ff828b5d526d87deaeec895c387f89c63de039e9cce"
     },
     "data/observed/us_2021/us_research_panel_2007_2021.csv": {
       "dataset": "project_derived_mixed",
       "recorded_on": "2026-08-21",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "d57f74e1c137c1b15a79e9fbcd913102806e35710ae67ffc1f9e4a67b9022543"
+      "sha256": "d195b809aec7502b3e181005cd9effe15715f3fcdd443eef586025861bb5ccb3"
     },
     "data/observed/us_2021/us_research_panel_2007_2021.manifest.json": {
       "dataset": "project_derived_mixed",
@@ -460,7 +460,7 @@
       "recorded_on": "2026-08-22",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "c8e9793d978ecc954caba21c156749cba3d0dcb6c067c625256226110279eb41"
+      "sha256": "ca8667f34aac57a146fe6f03c1e8f89c12bd2c515ac0ba7413dc2d27d4ddd844"
     },
     "data/observed/us_2021/us_research_panel_2010_2021_comparable.manifest.json": {
       "dataset": "project_derived_mixed",
@@ -474,7 +474,7 @@
       "recorded_on": "2026-09-14",
       "date_basis": "generated",
       "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
-      "sha256": "88a2044fc54493292ede283c06f956a5534a4b30a59f1acd4ec014e68e44c455"
+      "sha256": "fc736ce5cbd3e097aa02d976eb090badec6be4746acb3d6988d131fa9c2c2123"
     },
     "data/observed/us_2021/us_research_panel_2010_2021_with_2020_acs5_sensitivity.manifest.json": {
       "dataset": "project_derived_mixed",
@@ -488,7 +488,7 @@
       "recorded_on": "2026-08-20",
       "date_basis": "downloaded",
       "transformation": "State-year live-birth totals transcribed from final NCHS reports by mother's state of residence.",
-      "sha256": "1a31f3404a46f57ede34291d1b26d4c05e1c0d0426358c860f69a2b2460adb16"
+      "sha256": "ab2b03aa4bfa32f63edf714ad1534beb853bc150322123a36b480a7f9415e8dc"
     },
     "data/observed/us_2021/wonder_2010_00_validation.json": {
       "dataset": "cdc_wonder",
@@ -509,8 +509,16 @@
       "recorded_on": "2026-08-15",
       "date_basis": "first_committed",
       "transformation": "Documented country/year/age subset and reshaping; see DATA_LICENSES.md.",
-      "sha256": "349823759db918695d0b2481fa87f2fa0942cab8c9fde9eef6250451c5cb30b3",
+      "sha256": "1f93a5877caf1f9df3934dd33ec15e8a7aa6664b56ce0360a4f857efb63c29c1",
       "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/wonder_births_partial_2010_2017.csv": {
+      "dataset": "cdc_wonder",
+      "recorded_on": "2026-08-12",
+      "date_basis": "downloaded",
+      "transformation": "CDC WONDER aggregate TSV/CSV export retained as a partial 2010–2017 age × marital status × live-birth-order numerator; no interpolation or imputation.",
+      "sha256": "c743a261e794bec19ca8ac059e327c39981e30ed2d7ddf6b4e750966d953cb3d",
+      "notes": "Partial export; 1 of 48 planned batches. Remaining batches are intentionally not represented as present."
     }
   }
 }

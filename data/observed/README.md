@@ -61,16 +61,16 @@ country,year,marital,parity,age,births,exposure
 
 ## 数据登记与完整性检查
 
-`provenance_manifest.json` 登记 `data/observed/` 下提交文件的来源、许可、日期、
-转换方式和 SHA-256。新增文件必须在同一提交中添加完整登记；修改已有文件必须更新
-SHA-256，并在来源、许可、日期或转换方式变化时同步修改相应字段。运行：
+`PROVENANCE.json` 登记 `data/observed/` 下提交文件的来源、许可、日期、转换方式和
+SHA-256。新增文件必须在同一提交中添加完整登记；修改已有文件必须更新 SHA-256，
+并在来源、许可、日期或转换方式变化时同步修改相应字段。运行：
 
 ```text
-python3 scripts/check_observed_provenance.py
+python3 scripts/check_data_provenance.py
 ```
 
-该检查不覆盖普通代码、README、网页或 `data/fixtures/`。现有历史文件在 manifest
-中保留 `record_status=legacy_baseline`，后续新增数据不得沿用该状态。
+该检查不覆盖普通代码、README、网页或 `data/fixtures/`。具体字段和许可说明见
+仓库根目录的 `DATA_LICENSES.md`。
 
 ## 美国 2021 试点
 
