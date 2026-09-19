@@ -471,3 +471,30 @@ src/population_simu/
 scenarios/    # 可复制修改的政策情景
 tests/        # 可重复性、参数契约、本地应用和基本不变量测试
 ```
+
+## License and data attribution
+
+The original source code, tests, scripts, documentation, static web interface,
+scenario definitions, and synthetic test fixtures are licensed under the
+[MIT License](LICENSE).
+
+> MIT applies to the original source code and documentation. Files under
+> `data/observed/` remain subject to the terms of their respective data
+> providers.
+
+Observed and derived research data are not relicensed under MIT. Their exact
+sources, retrieval records, transformations, redistribution conditions, and
+recommended citations are documented in
+[`DATA_LICENSES.md`](DATA_LICENSES.md). This includes data from Our World in
+Data, UN World Population Prospects, the Human Mortality Database, the World
+Bank, the U.S. Census Bureau, and CDC/NCHS.
+
+Required notice for features and files built with the Census Bureau Data API:
+
+> This product uses the Census Bureau Data API but is not endorsed or certified
+> by the Census Bureau.
+
+本仓库采用混合许可结构：原创代码、测试、脚本、文档、网页、情景配置和合成
+测试数据采用 MIT License；`data/observed/` 中的观测数据及其派生文件继续适用
+各数据提供方的条款，不能被视为 MIT 数据。引用或再发布前请查看
+[`DATA_LICENSES.md`](DATA_LICENSES.md)。

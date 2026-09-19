@@ -17,9 +17,12 @@ World Population Prospects 2024：
 - [Crude death rate](https://ourworldindata.org/grapher/crude-death-rate)
 - [Total fertility rate](https://ourworldindata.org/grapher/children-born-per-woman)
 
-下载日期：2026-08-12。OWID 数据通常按 CC BY 4.0 发布；使用时请保留
-来源和底层提供者署名。该文件是固定快照，后续更新数据时应在这里记录
-新的下载日期和版本，避免校准结果因数据漂移而无法复现。
+下载日期：2026-08-12。OWID 自己制作或进行主要处理的内容通常采用 CC BY，
+但通过 OWID 提供的第三方数据仍适用原始提供方条款；因此该文件不属于本仓库
+MIT License 的授权范围。使用时必须同时保留 OWID 和底层提供者署名，并查阅
+对应图表的实时元数据。完整的许可和引用清单见
+[`DATA_LICENSES.md`](../../DATA_LICENSES.md)。该文件是固定快照，后续更新数据时
+应在这里记录新的下载日期和版本，避免校准结果因数据漂移而无法复现。
 
 ## 年龄—性别与死亡率样例
 
