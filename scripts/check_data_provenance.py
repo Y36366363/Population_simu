@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path, PurePosixPath
@@ -36,15 +37,29 @@ def _valid_date(value: Any) -> bool:
 
 
 def _sha256(path: Path) -> str:
+    # Git normalizes tracked text files to LF.  macOS checkouts may expose
+    # CRLF in the working tree via core.autocrlf, so hash the canonical bytes
+    # used by the repository rather than a platform-specific line ending.
+    raw = path.read_bytes()
+    if path.suffix.lower() in {".csv", ".tsv", ".json", ".txt"}:
+        raw = raw.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+    digest.update(raw)
     return digest.hexdigest()
 
 
 def _observed_files(root: Path) -> set[str]:
     base = root / OBSERVED_DIR
+    git_dir = root / ".git"
+    if git_dir.exists():
+        tracked = subprocess.run(
+            ["git", "ls-files", "data/observed"], cwd=root,
+            check=True, capture_output=True, text=True,
+        ).stdout.splitlines()
+        return {
+            path for path in tracked
+            if Path(path).name != "README.md" and Path(path) != MANIFEST_PATH
+        }
     return {
         path.relative_to(root).as_posix()
         for path in base.rglob("*")
