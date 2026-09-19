@@ -56,6 +56,19 @@ country,year,marital,parity,age,births,exposure
 `derived=True`，严格校准会要求真实单岁年龄覆盖。迁移 OD 也必须保留性别与年龄，
 否则只能作为兼容旧模型的平均 profile。
 
+## 数据登记与完整性检查
+
+`provenance_manifest.json` 登记 `data/observed/` 下提交文件的来源、许可、日期、
+转换方式和 SHA-256。新增文件必须在同一提交中添加完整登记；修改已有文件必须更新
+SHA-256，并在来源、许可、日期或转换方式变化时同步修改相应字段。运行：
+
+```text
+python3 scripts/check_observed_provenance.py
+```
+
+该检查不覆盖普通代码、README、网页或 `data/fixtures/`。现有历史文件在 manifest
+中保留 `record_status=legacy_baseline`，后续新增数据不得沿用该状态。
+
 ## 美国 2021 试点
 
 `us_2021/` 已接入美国 Census 单岁人口估计和 CDC/NCHS 完整男女生命表，转换脚本为
