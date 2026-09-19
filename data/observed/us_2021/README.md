@@ -2,6 +2,11 @@
 
 This directory contains a reproducible public-data ingestion pilot:
 
+- `census_age_sex.csv`: unmodified Census Bureau Vintage 2024 Puerto Rico
+  municipio selected-age-group and sex estimates (`CC-EST2024-AGESEX-72`). It
+  is retained as an auxiliary raw snapshot and is not currently consumed by
+  the pilot code. Its official source, checksum, retrieval record, license
+  boundary and citation are documented in [`DATA_LICENSES.md`](../../../DATA_LICENSES.md).
 - `us_population_single_age_sex_2021.csv`: Census Bureau resident population
   estimate by single year of age and sex (July 1, 2021 field from the Vintage
   2025 file).
