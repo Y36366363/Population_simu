@@ -322,7 +322,7 @@ const regionTemplates = [
 
 const worldState = {result: null, selectedRegion: 'EA', frame: null, playback: null, uncertainty: null};
 const pythonState = {data: null, selectedCountry: null};
-const variantState = {data: null};
+const variantState = {data: null, report: null};
 
 function weightedChoice(random, items, weightKey) {
   const total = items.reduce((sum, item) => sum + item[weightKey], 0);
@@ -725,18 +725,34 @@ function renderVariantTimeline() {
     const test=variantState.data.test_years || [];
     const hazardReady=variantState.data.formal_hazard_replay_ready === true;
     const fmt=(x)=>x===null?'不可用':x.toFixed(2);
+    const paired=variantState.report?.paired_confidence_intervals || {};
+    const fmtCi=(key)=>{const item=paired[key]; if(!item || item.mean===null) return '未加载'; return `${(item.mean*100).toFixed(2)}pp [${(item.lower_95*100).toFixed(2)}, ${(item.upper_95*100).toFixed(2)}]`;};
     meta.innerHTML=`<span class="meta-pill ${status==='validated_for_predictive_interface'?'meta-ok':'meta-warn'}">${status}</span>`+
       `<span>校准：${calibration.length ? `${calibration[0]}–${calibration.at(-1)}` : '未声明'}</span>`+
       `<span>测试：${test.length ? test.join('、') : '未声明'}</span>`+
       `<span>未缩放 World ASFR 均值：${fmt(unscaled)}</span>`+
       `<span>缩放后 ASFR 均值：${fmt(scaled)}</span>`+
+      `<span>no-housing − full MAPE：${fmtCi('no_housing_minus_full_mape')}</span>`+
+      `<span>no-household − full MAPE：${fmtCi('no_household_minus_full_mape')}</span>`+
       `<span class="meta-warning">${hazardReady ? '已具备正式 hazard 回放标记' : '仍是预测接口验证；非因果反事实，正式 hazard 回放未就绪'}</span>`;
   }
 }
 
 async function loadVariantArtifact() {
   const status=document.getElementById('variant-status');
-  try { const r=await fetch('artifacts/household_variants_2026-09-18.json',{cache:'no-store'}); if(!r.ok) throw new Error(`HTTP ${r.status}`); const d=await r.json(); if(d.status!=='validated_for_predictive_interface') throw new Error('artifact 未标记 validated'); variantState.data=d; renderVariantTimeline(); status.textContent=`已加载 ${d.variants.join(' / ')}；calibration ${d.calibration_years[0]}–${d.calibration_years.at(-1)}，test ${d.untouched_test_years.join(', ')}。`; } catch(e) { status.textContent=`无法加载 artifact：${e.message}`; }
+  try {
+    const [artifactResponse, reportResponse] = await Promise.all([
+      fetch('artifacts/household_variants_2026-09-18.json',{cache:'no-store'}),
+      fetch('artifacts/household_ablation_report_2026-09-19.json',{cache:'no-store'}),
+    ]);
+    if(!artifactResponse.ok) throw new Error(`artifact HTTP ${artifactResponse.status}`);
+    if(!reportResponse.ok) throw new Error(`机制报告 HTTP ${reportResponse.status}`);
+    const d=await artifactResponse.json(), report=await reportResponse.json();
+    if(d.status!=='validated_for_predictive_interface') throw new Error('artifact 未标记 validated');
+    if(report.formal_hazard_replay_ready===true) throw new Error('机制报告不应宣称正式 hazard');
+    variantState.data=d; variantState.report=report; renderVariantTimeline();
+    status.textContent=`已加载 ${d.variants.join(' / ')} 与分层消融报告；calibration ${d.calibration_years[0]}–${d.calibration_years.at(-1)}，test ${d.untouched_test_years.join(', ')}。`;
+  } catch(e) { status.textContent=`无法加载 artifact：${e.message}`; }
 }
 
 function renderRegionDetail() {

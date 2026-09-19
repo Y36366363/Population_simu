@@ -112,6 +112,8 @@ The following components describe the broader mechanism library. They are retain
 - `benchmarks.compare_models()` 提供统一的模型横向比较接口，仓库内附有透明的固定趋势和阻尼趋势（WPP 风格占位）基准；完整家庭微观模型和年龄—性别 cohort-component 模型可通过 runner 接入。
 - `benchmarks.compare_models_rolling()` 用多个 expanding-window 折叠汇总 MAPE、RMSE、CRPS，并用 bootstrap 给出 95% 区间；还可报告相对朴素基准的逐折胜率和误差差值区间。
 - 比较器现在要求每个模型完整覆盖测试期的实体—年份键；同时输出 `n_folds`、相对基准改善率和缺失预测错误，避免模型因只预测“容易的国家/年份”而虚假得分。
+- `scripts/report_household_ablation.py` 生成冻结测试期的 full / no-housing / no-household 机制报告：按州、Census 区域和年份分层给出 MAE、RMSE、MAPE、bias，并用同一州—年键的 paired bootstrap 报告差值 95% 区间。该报告只用于预测诊断和机制解释，明确不把年龄—婚姻—孩次 hazard 说成正式估计。
+- 短期预测解释优先使用 `naive_trend`、`cohort_proxy` 和 `reduced_form`；household adapter 及其消融仅作为机制模型单列。网页读取已验证的 `docs/artifacts/household_ablation_report_2026-09-19.json`，展示配对区间但不提供因果政策结论。
 - `mechanisms.py` 为婚姻、生育、死亡、迁移、就业、代际传递、照护和财政建立机制卡片，逐项记录目的、输入、参数、概率规则、观测对应物、验证指标和失效范围。
 - `cohort_component.py` 提供独立的年龄—性别 cohort-component 核心：按年龄推进存活、按年龄别生育率生成出生、按地区迁移 hazard 重分配，并检查人口守恒。
 - `fertility.py` 提供“婚姻状态 × 首胎/二胎/三胎以上”的年龄别生育率表；动态权重应由家庭模型每年更新。
