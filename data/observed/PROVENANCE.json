@@ -1,0 +1,516 @@
+{
+  "schema_version": 1,
+  "datasets": {
+    "owid_demography": {
+      "provider": "Our World in Data; underlying series primarily from UN World Population Prospects 2024",
+      "source_urls": [
+        "https://ourworldindata.org/grapher/population",
+        "https://ourworldindata.org/grapher/crude-birth-rate",
+        "https://ourworldindata.org/grapher/crude-death-rate",
+        "https://ourworldindata.org/grapher/children-born-per-woman"
+      ],
+      "license": "OWID-produced material is generally CC BY; third-party series retain their original provider terms.",
+      "redistribution": "Allowed only with OWID and underlying-provider attribution and any applicable upstream restrictions.",
+      "citation": "UN DESA Population Division (2024), World Population Prospects 2024, processed by Our World in Data; subset and derived columns by Population Simu."
+    },
+    "owid_mortality": {
+      "provider": "Human Mortality Database and UN World Population Prospects, processed by Our World in Data",
+      "source_urls": [
+        "https://ourworldindata.org/grapher/annual-death-rates-in-different-age-groups-by-sex",
+        "https://former.mortality.org/Public/UserAgreement.php"
+      ],
+      "license": "HMD user agreement and applicable UN/OWID terms; not MIT and not assumed commercially unrestricted.",
+      "redistribution": "Preserve HMD, UN, and OWID attribution and comply with the HMD user agreement.",
+      "citation": "Human Mortality Database and UN DESA Population Division, processed by Our World in Data; selected subset by Population Simu."
+    },
+    "world_bank_wdi": {
+      "provider": "World Bank, World Development Indicators",
+      "source_urls": [
+        "https://api.worldbank.org/",
+        "https://datacatalog.worldbank.org/public-licenses"
+      ],
+      "license": "CC BY 4.0 for World Bank-produced open data, subject to the World Bank additional terms.",
+      "redistribution": "Allowed with attribution and an indication of modifications, subject to provider-specific restrictions.",
+      "citation": "World Bank, World Development Indicators, population by age group and sex; reformatted by Population Simu."
+    },
+    "census_popest_national": {
+      "provider": "U.S. Census Bureau, Population Division",
+      "source_urls": [
+        "https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/national/asrh/nc-est2025-agesex-res.csv"
+      ],
+      "license": "U.S. Census Bureau public statistical product; not relicensed under MIT.",
+      "redistribution": "Preserve Census attribution, do not imply endorsement, and comply with Census terms and confidentiality requirements.",
+      "citation": "U.S. Census Bureau, Vintage 2025 National Population Estimates, NC-EST2025-AGESEX-RES; conversions by Population Simu where noted."
+    },
+    "census_popest_puerto_rico": {
+      "provider": "U.S. Census Bureau, Population Division",
+      "source_urls": [
+        "https://www2.census.gov/programs-surveys/popest/datasets/2020-2024/counties/asrh/cc-est2024-agesex-72.csv",
+        "https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2020-2024/CC-EST2024-AGESEX.pdf"
+      ],
+      "license": "U.S. Census Bureau public statistical product; not relicensed under MIT.",
+      "redistribution": "Allowed subject to Census terms; preserve source attribution and do not imply endorsement.",
+      "citation": "U.S. Census Bureau, Population Division, Vintage 2024 CC-EST2024-AGESEX-72, released June 2025."
+    },
+    "census_acs": {
+      "provider": "U.S. Census Bureau, American Community Survey",
+      "source_urls": [
+        "https://api.census.gov/data.html",
+        "https://www.census.gov/data/developers/about/terms-of-service.html"
+      ],
+      "license": "U.S. Census Bureau public statistical products and API output; not relicensed under MIT.",
+      "redistribution": "Preserve Census attribution, source URLs, estimate types, and the required non-endorsement notice.",
+      "citation": "U.S. Census Bureau, American Community Survey; extraction and documented transformations by Population Simu."
+    },
+    "census_pep": {
+      "provider": "U.S. Census Bureau, Population Estimates Program",
+      "source_urls": [
+        "https://www.census.gov/programs-surveys/popest/data/data-sets.html"
+      ],
+      "license": "U.S. Census Bureau public statistical product; not relicensed under MIT.",
+      "redistribution": "Preserve source manifest and Census attribution; do not imply endorsement.",
+      "citation": "U.S. Census Bureau, Population Estimates Program, state female population ages 15–44; aggregation by Population Simu."
+    },
+    "cdc_life_tables": {
+      "provider": "CDC/National Center for Health Statistics",
+      "source_urls": [
+        "https://www.cdc.gov/nchs/data/nvsr/nvsr72/nvsr72-12.pdf",
+        "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/NVSR/72-12/Table02.xlsx",
+        "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/NVSR/72-12/Table03.xlsx"
+      ],
+      "license": "U.S. federal statistical publication; not relicensed under MIT.",
+      "redistribution": "Retain CDC/NCHS attribution and do not imply CDC endorsement.",
+      "citation": "Arias E, Xu J, Kochanek K. United States Life Tables, 2021. National Vital Statistics Reports 72(12), 2023."
+    },
+    "cdc_natality": {
+      "provider": "CDC/National Center for Health Statistics, National Vital Statistics System",
+      "source_urls": [
+        "https://www.cdc.gov/nchs/products/nvsr.htm",
+        "data/observed/us_2021/us_fertility_manifest.json"
+      ],
+      "license": "CDC/NCHS published aggregate statistics; not relicensed under MIT.",
+      "redistribution": "Allowed for aggregate statistics with report-level attribution; preserve the project source manifest and checksums.",
+      "citation": "CDC/NCHS National Vital Statistics Reports, final live births by mother's state of residence; compiled by Population Simu."
+    },
+    "nchs_nsfg": {
+      "provider": "CDC/National Center for Health Statistics, National Survey of Family Growth",
+      "source_urls": [
+        "https://www.cdc.gov/nchs/nsfg/nsfg_2017_2019_puf.htm",
+        "https://www.cdc.gov/nchs/policy/data-user-agreement.html"
+      ],
+      "license": "NCHS public-use data subject to the NCHS Data User Agreement; not MIT.",
+      "redistribution": "Use for statistical analysis and reporting; do not attempt identification, disclosure, or prohibited linkage.",
+      "citation": "National Center for Health Statistics, National Survey of Family Growth 2017–2019 public-use files; weighted aggregation by Population Simu."
+    },
+    "cdc_wonder": {
+      "provider": "CDC WONDER/National Center for Health Statistics",
+      "source_urls": [
+        "https://wonder.cdc.gov/"
+      ],
+      "license": "CDC WONDER query metadata and aggregate outputs remain subject to CDC/NCHS terms; project-authored manifests are MIT.",
+      "redistribution": "Preserve query definitions, dates, CDC/NCHS attribution, and any suppression or use restrictions.",
+      "citation": "CDC WONDER Natality database, with query date and grouping; manifest and validation by Population Simu."
+    },
+    "nchs_download_plan": {
+      "provider": "CDC/National Center for Health Statistics, Vital Statistics Online",
+      "source_urls": [
+        "https://www.cdc.gov/nchs/data_access/vitalstatsonline.htm"
+      ],
+      "license": "Project-authored download plan is MIT; any future downloaded microdata remain subject to NCHS terms.",
+      "redistribution": "The plan may be redistributed; do not add downloaded microdata to the MIT scope without separate review.",
+      "citation": "CDC/NCHS Vital Statistics Online and the specific annual public-use file used."
+    },
+    "project_derived_mixed": {
+      "provider": "Population Simu, derived from the upstream providers recorded in DATA_LICENSES.md and input manifests",
+      "source_urls": [
+        "DATA_LICENSES.md",
+        "data/observed/us_2021/README.md"
+      ],
+      "license": "Project-authored code and artifact structure are MIT; embedded or derived statistics retain all applicable upstream terms.",
+      "redistribution": "Allowed for reproducibility with Population Simu and every applicable upstream source attributed.",
+      "citation": "Population Simu, specific artifact version and generation script, together with all upstream datasets used."
+    }
+  },
+  "files": {
+    "data/observed/owid_age_sex_death_rates_sample.csv": {
+      "dataset": "owid_mortality",
+      "recorded_on": "2026-08-15",
+      "date_basis": "first_committed",
+      "transformation": "Documented country/year/age subset and reshaping; see DATA_LICENSES.md.",
+      "sha256": "b4df7ff146b0542f0859d967ac221de9d7ce180fac31a24db596863bd5b8a1e3",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/owid_demography_sample.csv": {
+      "dataset": "owid_demography",
+      "recorded_on": "2026-08-12",
+      "date_basis": "downloaded",
+      "transformation": "Documented country/year/age subset and reshaping; see DATA_LICENSES.md.",
+      "sha256": "90cd907b5c631424bdcff3c0fac27abd9085c36e4ed96184f552cfd823e826b6"
+    },
+    "data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-28",
+      "date_basis": "downloaded",
+      "transformation": "ACS age-band and marital-status estimates with documented uniform-within-band allocation.",
+      "sha256": "7d86a2a3112fac83131e4971be1b05ff3a8a4147bc69d3c9dcd63ad1acd38f0d"
+    },
+    "data/observed/us_2021/acs_exposure_age_marital_2010_2017.csv.metadata.json": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-28",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "0dac691d117b0594c49950d8b09cc7a770da721d2b416d15d3bbc8a5ce12deba"
+    },
+    "data/observed/us_2021/acs_exposure_age_marital_2018_2021.csv": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-29",
+      "date_basis": "downloaded",
+      "transformation": "ACS age-band and marital-status estimates with documented uniform-within-band allocation.",
+      "sha256": "b873733d41679c112bc4dba464e2f5e2dd510b0aa1ed0df9dc1efc92f8a9969a"
+    },
+    "data/observed/us_2021/acs_exposure_age_marital_2018_2021.csv.metadata.json": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-29",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "bd8b6e8e9431c00a651d5b85fc9ed0a5b732d330843b2e5c3d9bbc425d499cb4"
+    },
+    "data/observed/us_2021/acs_exposure_validation_2026-09-01.json": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-09-01",
+      "date_basis": "generated",
+      "transformation": "ACS age-band and marital-status estimates with documented uniform-within-band allocation.",
+      "sha256": "99f3774a43e9ba0501ead886aadd848d5787bc57b8b36a97bec6a5299d2de73b"
+    },
+    "data/observed/us_2021/cdc_us_life_table_female.xlsx": {
+      "dataset": "cdc_life_tables",
+      "recorded_on": "2026-08-16",
+      "date_basis": "first_committed",
+      "transformation": "None; unmodified provider file.",
+      "sha256": "e681e11c6927f11b864b3330fef4ddcdc784bcdab15bb0f9c7169c2465e87fda",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/cdc_us_life_table_male.xlsx": {
+      "dataset": "cdc_life_tables",
+      "recorded_on": "2026-08-16",
+      "date_basis": "first_committed",
+      "transformation": "None; unmodified provider file.",
+      "sha256": "7da17d79c395e230a7c72bb43f844635671af4a0db726629d19a8eede59ca13e",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/census_age_sex.csv": {
+      "dataset": "census_popest_puerto_rico",
+      "recorded_on": "2026-08-16",
+      "date_basis": "first_committed",
+      "transformation": "None; unmodified provider file.",
+      "sha256": "9b480785c7a98b08e6f52cda9e633ee78e76bfa35d34dcba72b006cb3ea96a72",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/census_single_age_sex_2025.csv": {
+      "dataset": "census_popest_national",
+      "recorded_on": "2026-08-16",
+      "date_basis": "first_committed",
+      "transformation": "None; unmodified provider file.",
+      "sha256": "6436d4f6972d415caf14cb20776807bc031fc9f1bfc9d6ff26055d592a2b0230",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/comparable_baseline_smoke.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-22",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "b60853bd494736c7b9c3b525279a994fb787964dd60b8742b931032adfd5a1d3"
+    },
+    "data/observed/us_2021/comparable_four_model_acs_nsfg_validation.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-24",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "d9f499ede6774ce874c55a6ecbd4d71763576ad90c1afcdf45d5c31b3b7d0e9e"
+    },
+    "data/observed/us_2021/comparable_four_model_calibrated.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-23",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "d9f499ede6774ce874c55a6ecbd4d71763576ad90c1afcdf45d5c31b3b7d0e9e"
+    },
+    "data/observed/us_2021/comparable_four_model_smoke.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-23",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "0dafa734d3ef1965da17f90df913447805b12a6825983f2a0e2d204563c36f43"
+    },
+    "data/observed/us_2021/daily_smoke_2026-09-15.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-15",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "7ba6d0e05e7f51747f06081e07d0aad9e0c2465fe5e70db64c905ade25f5dda2"
+    },
+    "data/observed/us_2021/daily_smoke_2026-09-16.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-16",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "7ba6d0e05e7f51747f06081e07d0aad9e0c2465fe5e70db64c905ade25f5dda2"
+    },
+    "data/observed/us_2021/fertility_baseline_smoke.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-22",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "c0b0d658b8c1bb546e3574c1940a7374bf75fc2ca7bd4d6363ef089b5f857ccc"
+    },
+    "data/observed/us_2021/frozen_cross_validation.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-25",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "bf340b436f091b9567dd744ddf0e0089c8b32ef167fb13bef39d5a7a067f4f63"
+    },
+    "data/observed/us_2021/frozen_cross_validation_2026-09-04.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-04",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "0b333325ff686d9eba43283ff2241376e637082a60b8b6a6754112a4b1f0b934"
+    },
+    "data/observed/us_2021/frozen_cross_validation_2026-09-09.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-12",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "739831a9ef5de26ad3b36b39b52865369220f4c4568f3cb146c3a9fa5b015fff"
+    },
+    "data/observed/us_2021/frozen_cross_validation_2026-09-14_2020_sensitivity.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-14",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "571558854d0acc1f4e03f8ef22eff51672fc574e0fb02c702dc3fc3017f0daed"
+    },
+    "data/observed/us_2021/household_adapter_audit_2026-09-05.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-05",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "77ce9c11cde69e08d04795296fd1e1b8925274775a17908550d5959e8772d161"
+    },
+    "data/observed/us_2021/household_adapter_audit_2026-09-16.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-16",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "77ce9c11cde69e08d04795296fd1e1b8925274775a17908550d5959e8772d161"
+    },
+    "data/observed/us_2021/model_artifacts_manifest_2026-09-09.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-09",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "a1fcb5180e579058fda879f28cc138b6499dbf10b8e2c6a8536fcbabe7276244"
+    },
+    "data/observed/us_2021/nchs_birth_public_use_2018_2021.json": {
+      "dataset": "nchs_download_plan",
+      "recorded_on": "2026-09-01",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "835db0880ab4c413b750c4e5e06cedf8194eacbaa17c578f720a313b5df985df"
+    },
+    "data/observed/us_2021/nsfg_2018_calibration.json": {
+      "dataset": "nchs_nsfg",
+      "recorded_on": "2026-08-24",
+      "date_basis": "generated",
+      "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
+      "sha256": "315559e47a1867e2b06a90690c022c405b03cb639c23165881e1ec1f4c612502"
+    },
+    "data/observed/us_2021/nsfg_birth_rows_2010_2017.csv": {
+      "dataset": "nchs_nsfg",
+      "recorded_on": "2026-08-24",
+      "date_basis": "first_committed",
+      "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
+      "sha256": "ad4dfa996f3121b32ae9bda764bf0b6b4b3e29eef00589990d37dc172c76984a",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/nsfg_birth_rows_2018.csv": {
+      "dataset": "nchs_nsfg",
+      "recorded_on": "2026-08-24",
+      "date_basis": "first_committed",
+      "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
+      "sha256": "6267c2f7c31c0b9bb5684d467921d9f98c815c57ab1db5d457895e2543eecff1",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/nsfg_exposure_snapshot_2018.csv": {
+      "dataset": "nchs_nsfg",
+      "recorded_on": "2026-08-24",
+      "date_basis": "first_committed",
+      "transformation": "Weighted aggregate extract or validation artifact generated from the NSFG public-use files; see the US pilot README.",
+      "sha256": "97dfb6c5dbe477f53736d4e62f233a86abb0912d09d874c3491670ebeb1fdd5f",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    },
+    "data/observed/us_2021/project_readiness_2026-09-08.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-08",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "faf7b481a3dbb6fa87c75e74e75c36eddb3921995ec78e448329fad7cdf3d78d"
+    },
+    "data/observed/us_2021/us_female_15_44_2007_2021.csv": {
+      "dataset": "census_pep",
+      "recorded_on": "2026-08-20",
+      "date_basis": "downloaded",
+      "transformation": "Single-age female estimates summed to ages 15–44.",
+      "sha256": "87492c1b34ba0162723c23cb8b2498c06dd30b86f559ad2807a6fb9628acf45c"
+    },
+    "data/observed/us_2021/us_fertility_manifest.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-20",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "aa7a9eea2f2106785705dff87cff7ecf0b7455405ef68bfcc9e7b791f8056bf3"
+    },
+    "data/observed/us_2021/us_fertility_panel.csv": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-20",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "990f5e9ddbd1dc87394789828ab9874e03f59702ce4abcee9d987f129202da61"
+    },
+    "data/observed/us_2021/us_housing_2020_acs5_sensitivity.csv": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-09-14",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "2c13f57d454070b6376c1f7b74296360445065fad3ae377da8df989e3461d046"
+    },
+    "data/observed/us_2021/us_housing_panel_2007_2021.csv": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-21",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "bf25614864c7bfda185d6ab26bcd753d53ce225acaadeb53d6d005d667dfdeae"
+    },
+    "data/observed/us_2021/us_housing_panel_2010_2021_comparable.csv": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-22",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "0ee9c6fb87acf0e6fbcd5ee6f7de1c666471e7b24118028a57163e21cdf11de6"
+    },
+    "data/observed/us_2021/us_housing_panel_2010_2021_comparable.manifest.json": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-22",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "7d5499c225972846be4ff7c05879ae72e72b158372c4df308e2973d0176cde86"
+    },
+    "data/observed/us_2021/us_housing_panel_2021.csv": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-18",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "2f8ccb0a6b856edb9d414954f3d942427238ddda7d07214c33e3de9cb384f9dc"
+    },
+    "data/observed/us_2021/us_housing_validation_2021.json": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-08-19",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "1c8b2b266cf126a2a6dcd19ecf1786cfccf5d7c0aa8fb1a44dd17e5c842ea6a7"
+    },
+    "data/observed/us_2021/us_life_table_female_2021.csv": {
+      "dataset": "cdc_life_tables",
+      "recorded_on": "2026-08-16",
+      "date_basis": "generated",
+      "transformation": "Published period q_x values extracted into the project single-age CSV contract.",
+      "sha256": "4a682792a7142e2a939db183433be3db3961f18adacf13b15f328dd95dccaa88"
+    },
+    "data/observed/us_2021/us_life_table_male_2021.csv": {
+      "dataset": "cdc_life_tables",
+      "recorded_on": "2026-08-16",
+      "date_basis": "generated",
+      "transformation": "Published period q_x values extracted into the project single-age CSV contract.",
+      "sha256": "c9666e062d2c5990a9bc4cf1222eed8f4afe143d37ca3c551c01ab8d8a684f44"
+    },
+    "data/observed/us_2021/us_population_single_age_sex_2021.csv": {
+      "dataset": "census_popest_national",
+      "recorded_on": "2026-08-16",
+      "date_basis": "generated",
+      "transformation": "The 2021 estimate was selected and converted to the project country-year-sex-age contract.",
+      "sha256": "af7b3f91acbc36a0e9080e80cabb640eb3107cedb1aa0a649264fd3fd74ba6a3"
+    },
+    "data/observed/us_2021/us_research_panel_2007_2021.csv": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-21",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "d57f74e1c137c1b15a79e9fbcd913102806e35710ae67ffc1f9e4a67b9022543"
+    },
+    "data/observed/us_2021/us_research_panel_2007_2021.manifest.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-21",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "6707cb5598e94004bfa4a87ab1fb12fb2d88b66c96b707f724a6513084805936"
+    },
+    "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-22",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "c8e9793d978ecc954caba21c156749cba3d0dcb6c067c625256226110279eb41"
+    },
+    "data/observed/us_2021/us_research_panel_2010_2021_comparable.manifest.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-08-22",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "92cf06c4c9eb31b57a04dd21ca491ca63a8401208af4ae423ea416883dcefada"
+    },
+    "data/observed/us_2021/us_research_panel_2010_2021_with_2020_acs5_sensitivity.csv": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-14",
+      "date_basis": "generated",
+      "transformation": "Project-generated panel, diagnostic, validation, or model artifact; generation path is documented in the US pilot README.",
+      "sha256": "88a2044fc54493292ede283c06f956a5534a4b30a59f1acd4ec014e68e44c455"
+    },
+    "data/observed/us_2021/us_research_panel_2010_2021_with_2020_acs5_sensitivity.manifest.json": {
+      "dataset": "project_derived_mixed",
+      "recorded_on": "2026-09-14",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "83f4b9cf41124be90fb579345ca3a0cc9ef66a587fe70109c46fc4ed29230f1f"
+    },
+    "data/observed/us_2021/us_state_births_2007_2021.csv": {
+      "dataset": "cdc_natality",
+      "recorded_on": "2026-08-20",
+      "date_basis": "downloaded",
+      "transformation": "State-year live-birth totals transcribed from final NCHS reports by mother's state of residence.",
+      "sha256": "1a31f3404a46f57ede34291d1b26d4c05e1c0d0426358c860f69a2b2460adb16"
+    },
+    "data/observed/us_2021/wonder_2010_00_validation.json": {
+      "dataset": "cdc_wonder",
+      "recorded_on": "2026-09-02",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "a88b0eb63176f9fa34dcb8eb041928dcb3822589e69b834fa497a7006569cd42"
+    },
+    "data/observed/us_2021/wonder_batches_2010_2017.json": {
+      "dataset": "cdc_wonder",
+      "recorded_on": "2026-08-27",
+      "date_basis": "generated",
+      "transformation": "Project-authored provenance, acquisition, or validation metadata; no claim that embedded upstream facts are MIT.",
+      "sha256": "da5da75e1e7d6fa99ef2348de70247cfd016087c3a708a789c5eb2b312ad7e63"
+    },
+    "data/observed/wb_age_sex_groups_sample.csv": {
+      "dataset": "world_bank_wdi",
+      "recorded_on": "2026-08-15",
+      "date_basis": "first_committed",
+      "transformation": "Documented country/year/age subset and reshaping; see DATA_LICENSES.md.",
+      "sha256": "349823759db918695d0b2481fa87f2fa0942cab8c9fde9eef6250451c5cb30b3",
+      "notes": "Exact download date was not recorded; recorded_on is the first Git commit date and is not presented as the retrieval date."
+    }
+  }
+}

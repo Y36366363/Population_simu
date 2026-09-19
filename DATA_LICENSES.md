@@ -105,3 +105,24 @@ This inventory is a reproducibility and attribution record, not legal advice.
 When replacing or refreshing a dataset, update this file, the relevant manifest,
 the retrieval date, exact URL, transformation description, and checksum in the
 same commit.
+
+## Automated provenance guard
+
+`data/observed/PROVENANCE.json` is the machine-readable companion to this
+human-readable inventory. Every non-README file under `data/observed/` must have
+an explicit entry containing its dataset, acquisition or generation date basis,
+transformation, and SHA-256 checksum. Each referenced dataset must define its
+provider, source links, license or terms, redistribution conditions, and citation.
+
+Run the guard locally before committing observed data:
+
+```bash
+python scripts/check_data_provenance.py
+```
+
+GitHub Actions runs the same guard on every push and pull request. A new or
+changed file fails the check until its provenance entry and checksum are added
+or updated. `date_basis: "first_committed"` is reserved for legacy files whose
+exact retrieval date was not recorded and requires an explanatory `notes` field;
+new external downloads should use `date_basis: "downloaded"` with the actual
+retrieval date.
