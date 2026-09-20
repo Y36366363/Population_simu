@@ -306,7 +306,7 @@ PYTHONPATH=src python3 -m population_simu.local_app --port 8000
 ## 测试
 
 ```bash
-PYTHONPATH=src python3 -m unittest discover -s tests -v
+python3 scripts/run_tests.py
 ```
 
 底层情景加载会检查比例范围、资源非负性、地区参数、姓氏规则和政策时期重叠；`FamilyWorld.snapshot()` 提供可序列化的当前年份、国家、地区、家庭数和人口分区结果，供网页/API/批量实验复用。
