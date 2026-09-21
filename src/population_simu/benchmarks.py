@@ -13,6 +13,7 @@ from typing import Callable, Iterable, Mapping
 
 from .calibration import (
     crps_metrics,
+    interval_metrics,
     replay_errors_by_group,
     rolling_origin_splits,
     stratified_interval_metrics,
@@ -344,23 +345,30 @@ def compare_models_rolling(
             point = _median_forecast(samples, metric)
             errors = replay_errors_by_group(test, point, group="entity", metrics=(metric,))
             crps = crps_metrics(test, samples, metrics=(metric,), group="entity")[metric]["mean_crps"]
+            interval = interval_metrics(test, samples, metrics=(metric,), group="entity")[metric]
             fold_scores[name].append({
                 "origin_year": min(years),
                 "mape": _mean_error(errors, "mape"),
                 "rmse": _mean_error(errors, "rmse"),
                 "crps": float(crps),
+                "coverage": float(interval["coverage"]),
+                "mean_interval_width": float(interval["mean_interval_width"]),
             })
     result: dict[str, dict[str, object]] = {}
     for name, scores in fold_scores.items():
         mape = [float(row["mape"]) for row in scores]
         rmse = [float(row["rmse"]) for row in scores]
         crps = [float(row["crps"]) for row in scores]
+        coverage = [float(row["coverage"]) for row in scores]
+        interval_width = [float(row["mean_interval_width"]) for row in scores]
         result[name] = {
             "folds": scores,
             "summary": {
                 "mape": _bootstrap_mean(mape, seed + 11, bootstrap_draws),
                 "rmse": _bootstrap_mean(rmse, seed + 17, bootstrap_draws),
                 "crps": _bootstrap_mean(crps, seed + 23, bootstrap_draws),
+                "coverage": _bootstrap_mean(coverage, seed + 29, bootstrap_draws),
+                "mean_interval_width": _bootstrap_mean(interval_width, seed + 37, bootstrap_draws),
                 "n_folds": len(scores),
             },
         }
