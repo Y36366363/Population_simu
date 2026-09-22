@@ -74,7 +74,7 @@ def main() -> int:
         and any(value not in {"", "all", "total"} for value in exposure_parity_values)
     )
     report = {
-        "version": "2026-09-21",
+        "version": "2026-09-22",
         "feature_freeze": True,
         "panel": {
             "rows": len(panel), "states": len(panel_states),

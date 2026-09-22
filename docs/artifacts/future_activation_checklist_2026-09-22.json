@@ -1,0 +1,44 @@
+{
+  "version": "2026-09-22",
+  "feature_freeze": true,
+  "components": {
+    "childcare_primary_exposure": {
+      "status": "blocked",
+      "unlock": [
+        "complete state-year keys for 2010-2019 and 2021",
+        "stable definition, numerator, denominator and units",
+        "source/version/transformation metadata",
+        "pre-specified lag and missingness policy",
+        "housing-only versus housing-plus-childcare comparison"
+      ]
+    },
+    "age_marital_parity_hazard": {
+      "status": "blocked",
+      "unlock": [
+        "48 of 48 calibration WONDER batches",
+        "separate 2018-2021 test numerator",
+        "matching state-year-age-marital-parity exposure denominators",
+        "strict key, suppression and aggregate reconciliation audits",
+        "calibration-only discrete-time hazard estimation"
+      ]
+    },
+    "causal_policy_counterfactual": {
+      "status": "blocked",
+      "unlock": [
+        "pre-specified intervention and estimand",
+        "DAG and confounder policy",
+        "identification design with overlap and pre-trend checks",
+        "held-out validation of the calibrated simulator",
+        "separate structural extrapolation label"
+      ]
+    }
+  },
+  "current_gate_snapshot": {
+    "childcare_complete_state_year_keys": 0,
+    "childcare_expected_state_year_keys": 550,
+    "wonder_success_batches": 1,
+    "wonder_required_batches": 48,
+    "acs_exposure_parity_values": ["all"],
+    "formal_hazard_replay_ready": false
+  }
+}
