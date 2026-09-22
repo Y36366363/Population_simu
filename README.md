@@ -116,6 +116,7 @@ The following components describe the broader mechanism library. They are retain
 - 短期预测解释优先使用 `naive_trend`、`cohort_proxy` 和 `reduced_form`；household adapter 及其消融仅作为机制模型单列。网页读取已验证的 `docs/artifacts/household_ablation_report_2026-09-19.json`，展示配对区间但不提供因果政策结论。
 - 研究路线已冻结在 [docs/frozen_route_decision_2026-09-20.md](docs/frozen_route_decision_2026-09-20.md)：当前主 exposure 只有可审计的 `housing_cost_burden`；托育是条件性第二 exposure，只有完成同口径、全覆盖州—年序列后才进入主规格。
 - 住房主规格的 rolling-origin 结果见 [docs/housing_primary_results_2026-09-21.md](docs/housing_primary_results_2026-09-21.md)，机器可读结果见 `docs/artifacts/housing_primary_rolling_origin_2026-09-21.json`。报告特别标记了 `no-household` 当前等价于 naive trend，以及确定性基准 coverage 为零宽度区间的机械结果。
+- `scripts/audit_frozen_data_gates.py` 会自动检查托育 exposure 和年龄—婚姻—孩次 hazard 的进入门槛；当前结果明确为 blocked（托育字段缺失、WONDER 仅 1/48 批、ACS 暴露仅 all-parity），因此不会把网页演示变量或 NSFG 全国文件误接入州级主规格。
 - `mechanisms.py` 为婚姻、生育、死亡、迁移、就业、代际传递、照护和财政建立机制卡片，逐项记录目的、输入、参数、概率规则、观测对应物、验证指标和失效范围。
 - `cohort_component.py` 提供独立的年龄—性别 cohort-component 核心：按年龄推进存活、按年龄别生育率生成出生、按地区迁移 hazard 重分配，并检查人口守恒。
 - `fertility.py` 提供“婚姻状态 × 首胎/二胎/三胎以上”的年龄别生育率表；动态权重应由家庭模型每年更新。
