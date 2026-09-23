@@ -15,7 +15,29 @@ from pathlib import Path
 from population_simu.fertility_panel import read_wonder_tsv
 
 
-REQUIRED = {"State", "Year"}
+REQUIRED = {
+    "State", "State Code", "Year", "Age of Mother 9",
+    "Marital Status", "Live Birth Order", "Births",
+}
+
+
+def validate_batch_rows(rows: list[dict[str, str]]) -> None:
+    """Reject structurally incomplete exports before marking a batch success."""
+    if not rows:
+        raise ValueError("empty WONDER batch")
+    missing = sorted(REQUIRED - set(rows[0]))
+    if missing:
+        raise ValueError(f"missing WONDER columns: {missing}")
+    for index, row in enumerate(rows, start=2):
+        if not str(row.get("State Code", "")).strip() or not str(row.get("Year", "")).strip():
+            raise ValueError(f"missing state/year at row {index}")
+        births = str(row.get("Births", "")).strip().replace(",", "")
+        if births and not births.lower().startswith(("suppressed", "missing", "unknown")):
+            try:
+                if float(births) < 0:
+                    raise ValueError
+            except ValueError as exc:
+                raise ValueError(f"invalid Births at row {index}: {row.get('Births')!r}") from exc
 
 
 def main() -> int:
@@ -32,8 +54,7 @@ def main() -> int:
         path = args.input_dir / f"{batch['id']}.tsv"
         try:
             rows = read_wonder_tsv(path)
-            if not rows or not REQUIRED.issubset(rows[0]):
-                raise ValueError("missing State/Year columns")
+            validate_batch_rows(rows)
             batch.update({"status": "success", "rows": len(rows), "file": str(path)})
             merged.extend(rows)
         except Exception as exc:
