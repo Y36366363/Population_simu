@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "scenario_id": "us_state_housing_frozen_v1",
+  "status": "predictive_interface_only",
+  "objective": "Can a household-level mechanistic simulator reproduce held-out state fertility dynamics better, or more interpretably, than simpler alternatives?",
+  "geography": "US states",
+  "outcome": "ASFR_15_44",
+  "exposure": "housing_cost_burden",
+  "calibration_years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017],
+  "untouched_test_years": [2018, 2019, 2021],
+  "sensitivity_years": [2020],
+  "models": [
+    "naive_trend",
+    "cohort_component_proxy",
+    "reduced_form",
+    "household_full",
+    "household_no_housing",
+    "household_no_household"
+  ],
+  "metrics": ["RMSE", "MAPE", "CRPS", "coverage"],
+  "randomness": {
+    "common_random_numbers": true,
+    "seed_policy": "versioned_seed_per_state_origin_model"
+  },
+  "mechanism_gates": {
+    "childcare": "blocked_until_definition_years_denominator_audit",
+    "age_marital_parity_hazard": "prior_only_until_wonder_and_exposure_audit",
+    "wonder_batches": "1_success_47_pending"
+  },
+  "artifact_refs": [],
+  "trace_fields": [
+    "scenario_id",
+    "model_id",
+    "state",
+    "year",
+    "seed",
+    "housing_cost_burden",
+    "predicted_asfr",
+    "observed_asfr",
+    "artifact_sha256"
+  ],
+  "causal_claim": false
+}
