@@ -1,0 +1,72 @@
+{
+  "static_site": true,
+  "static_site_output": "static_site_ok assets=5",
+  "primary_panel": {
+    "rows": 550,
+    "states": 50,
+    "years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2021
+    ],
+    "duplicate_keys": false
+  },
+  "2020_sensitivity_panel": {
+    "rows": 600,
+    "states": 50,
+    "has_acs5_label": true,
+    "years": [
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021
+    ]
+  },
+  "cross_validation_artifact": {
+    "models": [
+      "cohort_proxy",
+      "household",
+      "household_no_household",
+      "household_no_housing",
+      "naive_trend",
+      "reduced_form"
+    ],
+    "untouched_test_years": [
+      2018,
+      2019,
+      2021
+    ],
+    "sensitivity_test_years": [
+      2020
+    ]
+  },
+  "local_api_contract": {
+    "family_major_countries.json": {
+      "history_rows": 12,
+      "snapshot_year": 1972,
+      "region_history": true
+    },
+    "resource_allocation_experiment.json": {
+      "history_rows": 9,
+      "snapshot_year": 2002,
+      "region_history": true
+    }
+  },
+  "ok": true
+}
