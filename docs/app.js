@@ -1022,6 +1022,24 @@ function downloadText(filename, text, type = 'application/json') {
   document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
 }
 
+async function loadStudyContract() {
+  const target = document.getElementById('study-contract');
+  if (!target) return;
+  try {
+    const response = await fetch('data/fixtures/frozen_study_scenario.json', {cache: 'no-store'});
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const contract = await response.json();
+    const tests = (contract.untouched_test_years || []).join(', ');
+    const models = (contract.models || []).length;
+    target.innerHTML = `<div><strong>${contract.outcome}</strong> ← ${contract.exposure}</div>`
+      + `<div>校准期：${contract.calibration_years[0]}–${contract.calibration_years.at(-1)}；留出期：${tests}</div>`
+      + `<div>比较模型：${models} 个；状态：${contract.status}</div>`
+      + `<div class="muted-note">托育与年龄—婚姻—孩次 hazard 仍由数据闸门锁定，网页不会把演示结果标为因果估计。</div>`;
+  } catch (error) {
+    target.innerHTML = `<span class="muted-note">冻结场景契约暂不可用：${error.message}</span>`;
+  }
+}
+
 function loadScenarioPayload(payload) {
   if (!payload || payload.kind !== 'browser_world_scenario' || !payload.controls) throw new Error('情景文件格式不受支持');
   Object.entries(payload.controls).forEach(([id, value]) => { if (worldDefaults[id] !== undefined) document.getElementById(id).value = value; });
@@ -1111,3 +1129,4 @@ window.addEventListener('resize', () => {
 updateWorldOutputs();
 runWorldExperiment();
 checkLocalEngine();
+loadStudyContract();
