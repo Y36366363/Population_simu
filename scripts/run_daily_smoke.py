@@ -34,6 +34,16 @@ def main() -> int:
     checks["static_site"] = completed.returncode == 0
     checks["static_site_output"] = completed.stdout.strip()
 
+    registry = subprocess.run(
+        [sys.executable, str(root / "scripts/check_calibration_registry.py"),
+         str(root / "data/fixtures/calibration_target_registry.json")],
+        capture_output=True, text=True,
+    )
+    checks["calibration_registry"] = {
+        "ok": registry.returncode == 0,
+        "output": registry.stdout.strip(),
+    }
+
     panel_path = root / "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv"
     rows = read_csv(panel_path)
     keys = [(row["state"], row["year"]) for row in rows]
@@ -73,6 +83,7 @@ def main() -> int:
 
     checks["ok"] = (
         checks["static_site"]
+        and checks["calibration_registry"]["ok"]
         and not checks["primary_panel"]["duplicate_keys"]
         and checks["2020_sensitivity_panel"]["has_acs5_label"]
         and len(checks["cross_validation_artifact"]["models"]) == 6
