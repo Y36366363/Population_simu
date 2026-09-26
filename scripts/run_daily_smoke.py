@@ -43,6 +43,14 @@ def main() -> int:
         "ok": registry.returncode == 0,
         "output": registry.stdout.strip(),
     }
+    unlock = json.loads((root / "data/fixtures/mechanism_unlock_registry.json").read_text(encoding="utf-8"))
+    mechanisms = unlock.get("mechanisms", {})
+    checks["mechanism_unlocks"] = {
+        "feature_freeze": unlock.get("feature_freeze") is True,
+        "primary_estimand_unchanged": unlock.get("primary_estimand_unchanged") is True,
+        "hazard_blocked": mechanisms.get("age_marital_parity_hazard", {}).get("status") == "blocked",
+        "test_period_alignment_disabled": mechanisms.get("alignment", {}).get("test_period_adjustment") is False,
+    }
 
     panel_path = root / "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv"
     rows = read_csv(panel_path)
@@ -84,6 +92,7 @@ def main() -> int:
     checks["ok"] = (
         checks["static_site"]
         and checks["calibration_registry"]["ok"]
+        and all(checks["mechanism_unlocks"].values())
         and not checks["primary_panel"]["duplicate_keys"]
         and checks["2020_sensitivity_panel"]["has_acs5_label"]
         and len(checks["cross_validation_artifact"]["models"]) == 6

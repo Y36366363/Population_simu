@@ -1,0 +1,12 @@
+{
+  "version": "2026-09-26",
+  "feature_freeze": true,
+  "mechanisms": {
+    "llm_autonomous_decision": {"status": "deferred", "allowed_role": "scenario_authoring_only"},
+    "evolving_agent": {"status": "deferred", "allowed_role": "isolated_exploration_only"},
+    "age_marital_parity_hazard": {"status": "blocked", "wonder_success": 1, "wonder_required": 48},
+    "alignment": {"status": "calibration_only", "test_period_adjustment": false}
+  },
+  "primary_estimand_unchanged": true,
+  "causal_claims_allowed": false
+}
