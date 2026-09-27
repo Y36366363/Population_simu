@@ -236,6 +236,21 @@ class CalibrationTests(unittest.TestCase):
         self.assertIn("relative_improvement", result["damped"]["vs_baseline"])
         self.assertGreaterEqual(result["damped"]["vs_baseline"]["win_rate"], 0)
 
+    def test_residual_uncertainty_makes_deterministic_intervals_non_degenerate(self):
+        observed = [
+            {"entity": "A", "year": year, "population": 100 + 2 * (year - 2000)}
+            for year in range(2000, 2010)
+        ]
+        result = compare_models_rolling(
+            observed,
+            {"fixed": fixed_trend_runner()},
+            initial_train_years=4, horizon=1, replicates=5,
+            bootstrap_draws=100, residual_uncertainty=True,
+        )
+        summary = result["fixed"]["summary"]
+        self.assertGreater(summary["mean_interval_width"]["mean"], 0)
+        self.assertIn("coverage", summary)
+
     def test_paired_comparison_and_ranking_are_explicit(self):
         observed = [{"entity": "A", "year": year, "population": 100 + 2 * (year - 2000)}
                     for year in range(2000, 2010)]

@@ -8,7 +8,7 @@
 from __future__ import annotations
 
 from random import Random
-from statistics import median
+from statistics import median, pstdev
 from typing import Callable, Iterable, Mapping
 
 from .calibration import (
@@ -89,6 +89,54 @@ def _validate_forecast_coverage(
             f"模型 {metric} 预测覆盖不完整：missing={preview}, "
             f"expected={len(expected)}, actual={len(actual)}"
         )
+
+
+def _augment_residual_uncertainty(
+    samples: list[list[Mapping[str, object]]],
+    train: list[Mapping[str, object]],
+    metric: str,
+    seed: int,
+) -> list[list[dict[str, object]]]:
+    """Add a transparent predictive-error layer to deterministic runners.
+
+    Several valid baselines (trend and cohort proxies) are deterministic by
+    design.  Repeating them cannot create a forecast distribution.  This layer
+    leaves the point forecast unchanged in expectation and samples a zero-mean
+    Gaussian error whose scale is estimated from one-step within-entity changes
+    in the calibration rows.  It is predictive uncertainty, not a new social
+    mechanism or a causal disturbance model.
+    """
+    differences: dict[str, list[float]] = {}
+    all_differences: list[float] = []
+    by_entity: dict[str, list[Mapping[str, object]]] = {}
+    for row in train:
+        if metric in row and "year" in row:
+            by_entity.setdefault(str(row.get("entity", "all")), []).append(row)
+    for entity, rows in by_entity.items():
+        ordered = sorted(rows, key=lambda row: int(row["year"]))
+        values = [float(row[metric]) for row in ordered]
+        diffs = [values[i] - values[i - 1] for i in range(1, len(values))]
+        if diffs:
+            differences[entity] = diffs
+            all_differences.extend(diffs)
+    global_scale = max(pstdev(all_differences) if len(all_differences) > 1 else 0.0, 0.25)
+    scales = {
+        entity: max(pstdev(diffs) if len(diffs) > 1 else global_scale, 0.25)
+        for entity, diffs in differences.items()
+    }
+    rng = Random(seed)
+    augmented: list[list[dict[str, object]]] = []
+    for replica in samples:
+        output: list[dict[str, object]] = []
+        for row in replica:
+            entity = str(row.get("entity", "all"))
+            value = float(row[metric])
+            noise = rng.gauss(0.0, scales.get(entity, global_scale))
+            updated = dict(row)
+            updated[metric] = max(0.0, value + noise)
+            output.append(updated)
+        augmented.append(output)
+    return augmented
 
 
 def fixed_trend_runner(metric: str = "population") -> Runner:
@@ -319,6 +367,7 @@ def compare_models_rolling(
     seed: int = 0,
     bootstrap_draws: int = 2000,
     baseline: str | None = None,
+    residual_uncertainty: bool = False,
 ) -> dict[str, dict[str, object]]:
     """多窗口滚动回测，并给出 bootstrap 置信区间和相对基准胜率。
 
@@ -340,6 +389,11 @@ def compare_models_rolling(
             # 每个模型共享同一组 replicate seeds；不同折叠使用不重叠的偏移。
             samples = [list(runner(train, years, seed + fold_index * replicates + index))
                        for index in range(replicates)]
+            if residual_uncertainty and replicates > 1:
+                samples = _augment_residual_uncertainty(
+                    samples, train, metric,
+                    seed + 100003 * fold_index + sum(ord(char) for char in name),
+                )
             for sample in samples:
                 _validate_forecast_coverage(test, sample, metric)
             point = _median_forecast(samples, metric)

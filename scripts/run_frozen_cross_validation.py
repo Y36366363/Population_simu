@@ -40,6 +40,8 @@ def main() -> int:
                         help="仅用于外部验证；允许 artifact 年份与 test 重叠并在报告中标记")
     parser.add_argument("--include-2020-sensitivity", action="store_true",
                         help="把带 ACS5 住房估计的 2020 面板作为敏感性测试年记录；不改变主规格")
+    parser.add_argument("--residual-uncertainty", action="store_true",
+                        help="对确定性基准加入校准期一步变化误差的预测不确定性；不改变点预测或机制")
     args = parser.parse_args()
     with args.panel.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -76,6 +78,7 @@ def main() -> int:
             rows, models, initial_train_years=initial, horizon=1,
             metric="asfr_15_44", replicates=args.replicates,
             bootstrap_draws=args.bootstrap_draws, baseline="naive_trend",
+            residual_uncertainty=args.residual_uncertainty,
         )
     paired = {}
     for initial, report in reports.items():
@@ -136,6 +139,10 @@ def main() -> int:
         if args.household_calibration_json else None,
         "test_overlap_allowed": bool(args.allow_test_overlap),
         "interpretation": "窗口稳健性和预测比较，不是因果估计；2020 若纳入，仅作为 ACS5 住房敏感性，不据此增加社会机制",
+        "uncertainty": {
+            "residual_bootstrap": bool(args.residual_uncertainty),
+            "note": "若开启，确定性 runner 的预测区间来自 calibration 内州级一步变化误差；点预测和机制规则不变。",
+        },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
