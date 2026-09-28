@@ -1,0 +1,780 @@
+{
+  "version": "2026-09-28",
+  "kind": "housing_primary_rolling_origin_summary",
+  "panel": "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv",
+  "calibration_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "untouched_test_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "origins": [
+    6,
+    7,
+    8
+  ],
+  "monte_carlo_replicates": 20,
+  "bootstrap_draws": 1000,
+  "residual_uncertainty": true,
+  "source_artifacts": [
+    "docs/artifacts/housing_primary_monte_carlo_2026-09-27_residual.json",
+    "docs/artifacts/housing_primary_monte_carlo_2026-09-28_initial7.json",
+    "docs/artifacts/housing_primary_monte_carlo_2026-09-28_initial8.json"
+  ],
+  "pooled_fold_summary": {
+    "cohort_proxy": {
+      "n_folds": 9,
+      "mape_mean": 0.015988665710881138,
+      "rmse_mean": 0.9769395833937777,
+      "crps_mean": 0.7303634855181823,
+      "coverage_mean": 0.5044444444444445,
+      "mean_interval_width": 1.9076366246210221,
+      "by_origin": {
+        "housing_primary_monte_carlo_2026-09-27_residual.json": {
+          "mape": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.015982878571085407,
+            "lower_95": 0.012599815133091503,
+            "upper_95": 0.02126413440261003
+          },
+          "rmse": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.9859065606609784,
+            "lower_95": 0.7875384023746343,
+            "upper_95": 1.3309334295531023
+          },
+          "crps": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.7368508310633576,
+            "lower_95": 0.5753678580194457,
+            "upper_95": 1.0465735034486856
+          },
+          "coverage": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.525,
+            "lower_95": 0.36,
+            "upper_95": 0.625
+          },
+          "mean_interval_width": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.8502978915385713,
+            "lower_95": 1.632070159213343,
+            "upper_95": 2.0684306685385216
+          },
+          "n_folds": 4
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial7.json": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.017373380142572874,
+            "lower_95": 0.012915034826881088,
+            "upper_95": 0.02499826991371488
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.062681283132698,
+            "lower_95": 0.7601481081256475,
+            "upper_95": 1.5772820042580082
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.8063852441037751,
+            "lower_95": 0.5640435453207424,
+            "upper_95": 1.2462895545299661
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.46666666666666673,
+            "lower_95": 0.20000000000000004,
+            "upper_95": 0.64
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.9223423782834654,
+            "lower_95": 1.679945902342314,
+            "upper_95": 2.115384780088947
+          },
+          "n_folds": 3
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial8.json": {
+          "mape": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.013923168342934993,
+            "lower_95": 0.012704445755678863,
+            "upper_95": 0.01514189093019112
+          },
+          "rmse": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.8303930792509961,
+            "lower_95": 0.756471105402011,
+            "upper_95": 0.9043150530999814
+          },
+          "crps": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.6033561565494427,
+            "lower_95": 0.5672937638767819,
+            "upper_95": 0.6394185492221037
+          },
+          "coverage": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.52,
+            "lower_95": 0.44,
+            "upper_95": 0.6
+          },
+          "mean_interval_width": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 2.0002554602922595,
+            "lower_95": 1.9725189026996315,
+            "upper_95": 2.027992017884887
+          },
+          "n_folds": 2
+        }
+      }
+    },
+    "household": {
+      "n_folds": 9,
+      "mape_mean": 0.020978324491164803,
+      "rmse_mean": 1.278151748070816,
+      "crps_mean": 0.9735373826662773,
+      "coverage_mean": 0.40222222222222226,
+      "mean_interval_width": 2.1805598194148654,
+      "by_origin": {
+        "housing_primary_monte_carlo_2026-09-27_residual.json": {
+          "mape": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.020531058740218884,
+            "lower_95": 0.016048589238339697,
+            "upper_95": 0.025063626503702842
+          },
+          "rmse": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.2628161576060917,
+            "lower_95": 1.012067043260884,
+            "upper_95": 1.5595869066920327
+          },
+          "crps": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.9564367122463354,
+            "lower_95": 0.7152095647577386,
+            "upper_95": 1.2412026072356703
+          },
+          "coverage": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.42000000000000004,
+            "lower_95": 0.28,
+            "upper_95": 0.54
+          },
+          "mean_interval_width": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 2.0182843933583596,
+            "lower_95": 1.6513483438515375,
+            "upper_95": 2.385220442865182
+          },
+          "n_folds": 4
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial7.json": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.022420886736742918,
+            "lower_95": 0.018570423332335904,
+            "upper_95": 0.027824393857121585
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.3661008945047666,
+            "lower_95": 1.0928292796160992,
+            "upper_95": 1.7522230823234455
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.0505793638735006,
+            "lower_95": 0.800194881321525,
+            "upper_95": 1.410141020556101
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.35333333333333333,
+            "lower_95": 0.16,
+            "upper_95": 0.54
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 2.208361814508384,
+            "lower_95": 1.692905645545548,
+            "upper_95": 2.804705043806129
+          },
+          "n_folds": 3
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial8.json": {
+          "mape": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.019709012624689472,
+            "lower_95": 0.01784367083579804,
+            "upper_95": 0.0215743544135809
+          },
+          "rmse": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 1.1768992093493393,
+            "lower_95": 1.0569925981888506,
+            "upper_95": 1.2968058205098283
+          },
+          "crps": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.8921757516953261,
+            "lower_95": 0.8116511844619438,
+            "upper_95": 0.9727003189287083
+          },
+          "coverage": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.44000000000000006,
+            "lower_95": 0.34,
+            "upper_95": 0.54
+          },
+          "mean_interval_width": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 2.4634076788875987,
+            "lower_95": 2.125588594588839,
+            "upper_95": 2.801226763186358
+          },
+          "n_folds": 2
+        }
+      }
+    },
+    "household_no_household": {
+      "n_folds": 9,
+      "mape_mean": 0.014887151093803532,
+      "rmse_mean": 0.9087144129025375,
+      "crps_mean": 0.6735324976272289,
+      "coverage_mean": 0.5955555555555555,
+      "mean_interval_width": 1.8802562940269114,
+      "by_origin": {
+        "housing_primary_monte_carlo_2026-09-27_residual.json": {
+          "mape": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.015108819764007991,
+            "lower_95": 0.013620385124180035,
+            "upper_95": 0.016597254403835946
+          },
+          "rmse": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.9281309128864376,
+            "lower_95": 0.8312521766683413,
+            "upper_95": 1.0413271825425918
+          },
+          "crps": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.6945893129135025,
+            "lower_95": 0.5835286039644387,
+            "upper_95": 0.8201558041998516
+          },
+          "coverage": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.56,
+            "lower_95": 0.5,
+            "upper_95": 0.62
+          },
+          "mean_interval_width": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.8156904585884792,
+            "lower_95": 1.6619232622559743,
+            "upper_95": 1.9694576549209843
+          },
+          "n_folds": 4
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial7.json": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.015070585452399704,
+            "lower_95": 0.012746301334385328,
+            "upper_95": 0.017139859773634185
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.9209913669381828,
+            "lower_95": 0.7861652703255201,
+            "upper_95": 1.0733012464987046
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.690565395777407,
+            "lower_95": 0.552206997958142,
+            "upper_95": 0.8650702518445725
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.5866666666666667,
+            "lower_95": 0.46,
+            "upper_95": 0.7200000000000001
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.8748935307066346,
+            "lower_95": 1.6441887817285066,
+            "upper_95": 2.058172977690987
+          },
+          "n_folds": 3
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial8.json": {
+          "mape": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.01416866221550036,
+            "lower_95": 0.01335243147419771,
+            "upper_95": 0.014984892956803008
+          },
+          "rmse": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.8514659818812693,
+            "lower_95": 0.8272343721290187,
+            "upper_95": 0.8756975916335199
+          },
+          "crps": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.6058695198294144,
+            "lower_95": 0.5590855874873402,
+            "upper_95": 0.6526534521714886
+          },
+          "coverage": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.6799999999999999,
+            "lower_95": 0.66,
+            "upper_95": 0.7
+          },
+          "mean_interval_width": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 2.0174321098841905,
+            "lower_95": 1.972264519536268,
+            "upper_95": 2.062599700232113
+          },
+          "n_folds": 2
+        }
+      }
+    },
+    "household_no_housing": {
+      "n_folds": 9,
+      "mape_mean": 0.020854627892633735,
+      "rmse_mean": 1.2718508288561394,
+      "crps_mean": 0.9561927899499137,
+      "coverage_mean": 0.35555555555555557,
+      "mean_interval_width": 1.8243102620835865,
+      "by_origin": {
+        "housing_primary_monte_carlo_2026-09-27_residual.json": {
+          "mape": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.020430535787308704,
+            "lower_95": 0.01614756890945543,
+            "upper_95": 0.025025395589458026
+          },
+          "rmse": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.2584012809026033,
+            "lower_95": 1.028319086061415,
+            "upper_95": 1.5629505755339175
+          },
+          "crps": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.9541893849858644,
+            "lower_95": 0.7107705486632417,
+            "upper_95": 1.2452736717656778
+          },
+          "coverage": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.385,
+            "lower_95": 0.27,
+            "upper_95": 0.5
+          },
+          "mean_interval_width": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.7894081685103573,
+            "lower_95": 1.548506768227448,
+            "upper_95": 2.0303095687932666
+          },
+          "n_folds": 4
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial7.json": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.02233247459687786,
+            "lower_95": 0.01806505520873427,
+            "upper_95": 0.02759764130411324
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.361804734562558,
+            "lower_95": 1.0660378578029364,
+            "upper_95": 1.7333417356791012
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.033164015798969,
+            "lower_95": 0.7579994281050538,
+            "upper_95": 1.3898598078880895
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.3066666666666667,
+            "lower_95": 0.20000000000000004,
+            "upper_95": 0.46
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.821542518371398,
+            "lower_95": 1.5787490865204814,
+            "upper_95": 1.9933063558035442
+          },
+          "n_folds": 3
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial8.json": {
+          "mape": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.019486042046917597,
+            "lower_95": 0.017597909079085042,
+            "upper_95": 0.021374175014750155
+          },
+          "rmse": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 1.163819066203584,
+            "lower_95": 1.0475806874848288,
+            "upper_95": 1.2800574449223392
+          },
+          "crps": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.8447427611044298,
+            "lower_95": 0.7663511513158672,
+            "upper_95": 0.9231343708929924
+          },
+          "coverage": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.37,
+            "lower_95": 0.32,
+            "upper_95": 0.42
+          },
+          "mean_interval_width": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 1.8982660647983276,
+            "lower_95": 1.8925137758407902,
+            "upper_95": 1.9040183537558653
+          },
+          "n_folds": 2
+        }
+      }
+    },
+    "naive_trend": {
+      "n_folds": 9,
+      "mape_mean": 0.015076883298610635,
+      "rmse_mean": 0.9222867227001035,
+      "crps_mean": 0.6811579033709466,
+      "coverage_mean": 0.6044444444444445,
+      "mean_interval_width": 1.894124453159849,
+      "by_origin": {
+        "housing_primary_monte_carlo_2026-09-27_residual.json": {
+          "mape": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.015272359605742448,
+            "lower_95": 0.014363898204378478,
+            "upper_95": 0.01688665100853646
+          },
+          "rmse": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.941220189086739,
+            "lower_95": 0.8723386037477826,
+            "upper_95": 1.0548836789371445
+          },
+          "crps": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.7038007880599315,
+            "lower_95": 0.6322980353146744,
+            "upper_95": 0.8227500470059547
+          },
+          "coverage": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.59,
+            "lower_95": 0.51,
+            "upper_95": 0.69
+          },
+          "mean_interval_width": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.8492764355605353,
+            "lower_95": 1.6258047716743735,
+            "upper_95": 2.072748099446697
+          },
+          "n_folds": 4
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial7.json": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.015683942207291555,
+            "lower_95": 0.013775049361435405,
+            "upper_95": 0.01726097013598614
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.9591418411073596,
+            "lower_95": 0.8487109010986101,
+            "upper_95": 1.0845738634779998
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.7121568183189249,
+            "lower_95": 0.6117349758429734,
+            "upper_95": 0.8582046598063852
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.5866666666666667,
+            "lower_95": 0.42,
+            "upper_95": 0.6999999999999998
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.8819073666281927,
+            "lower_95": 1.634957977253247,
+            "upper_95": 2.0124115232147557
+          },
+          "n_folds": 3
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial8.json": {
+          "mape": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.013775342321325634,
+            "lower_95": 0.01225471188188006,
+            "upper_95": 0.015295972760771208
+          },
+          "rmse": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.8291371123159484,
+            "lower_95": 0.7548790964341765,
+            "upper_95": 0.9033951281977204
+          },
+          "crps": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.5893737615710093,
+            "lower_95": 0.5481182760773088,
+            "upper_95": 0.6306292470647097
+          },
+          "coverage": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.66,
+            "lower_95": 0.66,
+            "upper_95": 0.66
+          },
+          "mean_interval_width": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 2.0021461181559608,
+            "lower_95": 1.98187871545487,
+            "upper_95": 2.0224135208570515
+          },
+          "n_folds": 2
+        }
+      }
+    },
+    "reduced_form": {
+      "n_folds": 9,
+      "mape_mean": 0.02274785034622251,
+      "rmse_mean": 1.3923344423428619,
+      "crps_mean": 1.0824460744269726,
+      "coverage_mean": 0.4022222222222222,
+      "mean_interval_width": 1.9225467463438457,
+      "by_origin": {
+        "housing_primary_monte_carlo_2026-09-27_residual.json": {
+          "mape": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.021908790031816353,
+            "lower_95": 0.018887391022147357,
+            "upper_95": 0.025715223597866304
+          },
+          "rmse": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.352609438694041,
+            "lower_95": 1.173317477825748,
+            "upper_95": 1.550701270568079
+          },
+          "crps": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.0573227015715252,
+            "lower_95": 0.8772553364752602,
+            "upper_95": 1.2373900666677902
+          },
+          "coverage": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 0.385,
+            "lower_95": 0.33,
+            "upper_95": 0.445
+          },
+          "mean_interval_width": {
+            "n_folds": 4,
+            "draws": 1000,
+            "mean": 1.8406534500708225,
+            "lower_95": 1.7167093642777869,
+            "upper_95": 1.9613374992660535
+          },
+          "n_folds": 4
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial7.json": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.02329710262344643,
+            "lower_95": 0.019503230314558553,
+            "upper_95": 0.028347211164317904
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.4298583261604125,
+            "lower_95": 1.1877926380639878,
+            "upper_95": 1.690577450379226
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.103309213394818,
+            "lower_95": 0.8672542128003369,
+            "upper_95": 1.3209628712612302
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.42,
+            "lower_95": 0.38000000000000006,
+            "upper_95": 0.44
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.9292112234011114,
+            "lower_95": 1.7653623194792403,
+            "upper_95": 2.053723319155095
+          },
+          "n_folds": 3
+        },
+        "housing_primary_monte_carlo_2026-09-28_initial8.json": {
+          "mape": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.023602092559198932,
+            "lower_95": 0.01917375018260266,
+            "upper_95": 0.028030434935795205
+          },
+          "rmse": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 1.4154986239141782,
+            "lower_95": 1.161100148451451,
+            "upper_95": 1.6698970993769056
+          },
+          "crps": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 1.1013981116860991,
+            "lower_95": 0.8736960657082372,
+            "upper_95": 1.329100157663961
+          },
+          "coverage": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 0.41000000000000003,
+            "lower_95": 0.36,
+            "upper_95": 0.46
+          },
+          "mean_interval_width": {
+            "n_folds": 2,
+            "draws": 1000,
+            "mean": 2.0763366233039933,
+            "lower_95": 2.055328389430723,
+            "upper_95": 2.0973448571772635
+          },
+          "n_folds": 2
+        }
+      }
+    }
+  },
+  "interpretation": "跨 initial=6/7/8 的 rolling-origin 汇总；每个起点的原始 fold 和 bootstrap 结果保留在 source_artifacts 中。不是因果估计。"
+}

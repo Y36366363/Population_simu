@@ -1,0 +1,1938 @@
+{
+  "panel": "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv",
+  "calibration_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "untouched_test_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "sensitivity_test_years": [],
+  "excluded_years": [
+    2020
+  ],
+  "reports": {
+    "7": {
+      "naive_trend": {
+        "folds": [
+          {
+            "origin_year": 2017,
+            "mape": 0.01726097013598614,
+            "rmse": 1.0845738634779998,
+            "crps": 0.8582046598063852,
+            "coverage": 0.42,
+            "mean_interval_width": 1.634957977253247
+          },
+          {
+            "origin_year": 2018,
+            "mape": 0.013775049361435405,
+            "rmse": 0.8487109010986102,
+            "crps": 0.6117349758429734,
+            "coverage": 0.7,
+            "mean_interval_width": 2.0124115232147557
+          },
+          {
+            "origin_year": 2019,
+            "mape": 0.016015807124453118,
+            "rmse": 0.9441407587454685,
+            "crps": 0.6665308193074161,
+            "coverage": 0.64,
+            "mean_interval_width": 1.9983525994165752
+          }
+        ],
+        "summary": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.015683942207291555,
+            "lower_95": 0.013775049361435405,
+            "upper_95": 0.01726097013598614
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.9591418411073596,
+            "lower_95": 0.8487109010986101,
+            "upper_95": 1.0845738634779998
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.7121568183189249,
+            "lower_95": 0.6117349758429734,
+            "upper_95": 0.8582046598063852
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.5866666666666667,
+            "lower_95": 0.42,
+            "upper_95": 0.6999999999999998
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.8819073666281927,
+            "lower_95": 1.634957977253247,
+            "upper_95": 2.0124115232147557
+          },
+          "n_folds": 3
+        },
+        "vs_baseline": {
+          "win_rate": 0.5,
+          "mean_delta": 0.0
+        }
+      },
+      "cohort_proxy": {
+        "folds": [
+          {
+            "origin_year": 2017,
+            "mape": 0.024998269913714878,
+            "rmse": 1.577282004258008,
+            "crps": 1.2462895545299661,
+            "coverage": 0.2,
+            "mean_interval_width": 1.679945902342314
+          },
+          {
+            "origin_year": 2018,
+            "mape": 0.01420683568712266,
+            "rmse": 0.8506137370144384,
+            "crps": 0.6088226324606167,
+            "coverage": 0.56,
+            "mean_interval_width": 1.9716964524191354
+          },
+          {
+            "origin_year": 2019,
+            "mape": 0.012915034826881087,
+            "rmse": 0.7601481081256474,
+            "crps": 0.5640435453207424,
+            "coverage": 0.64,
+            "mean_interval_width": 2.115384780088947
+          }
+        ],
+        "summary": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.017373380142572874,
+            "lower_95": 0.012915034826881088,
+            "upper_95": 0.02499826991371488
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.062681283132698,
+            "lower_95": 0.7601481081256475,
+            "upper_95": 1.5772820042580082
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.8063852441037751,
+            "lower_95": 0.5640435453207424,
+            "upper_95": 1.2462895545299661
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.46666666666666673,
+            "lower_95": 0.20000000000000004,
+            "upper_95": 0.64
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.9223423782834654,
+            "lower_95": 1.679945902342314,
+            "upper_95": 2.115384780088947
+          },
+          "n_folds": 3
+        },
+        "vs_baseline": {
+          "win_rate": 0.3333333333333333,
+          "mean_delta": 0.0016894379352813207,
+          "delta_95": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.0016894379352813207,
+            "lower_95": -0.003100772297572031,
+            "upper_95": 0.007737299777728739
+          },
+          "relative_improvement": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": -0.09533086413269266,
+            "lower_95": -0.4482540504254628,
+            "upper_95": 0.1936069954812166
+          }
+        }
+      },
+      "reduced_form": {
+        "folds": [
+          {
+            "origin_year": 2017,
+            "mape": 0.022040866391462834,
+            "rmse": 1.4112048900380234,
+            "crps": 1.1217105561228868,
+            "coverage": 0.44,
+            "mean_interval_width": 1.7653623194792405
+          },
+          {
+            "origin_year": 2018,
+            "mape": 0.019503230314558553,
+            "rmse": 1.1877926380639878,
+            "crps": 0.8672542128003369,
+            "coverage": 0.44,
+            "mean_interval_width": 2.053723319155095
+          },
+          {
+            "origin_year": 2019,
+            "mape": 0.028347211164317904,
+            "rmse": 1.690577450379226,
+            "crps": 1.3209628712612302,
+            "coverage": 0.38,
+            "mean_interval_width": 1.9685480315689983
+          }
+        ],
+        "summary": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.02329710262344643,
+            "lower_95": 0.019503230314558553,
+            "upper_95": 0.028347211164317904
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.4298583261604125,
+            "lower_95": 1.1877926380639878,
+            "upper_95": 1.690577450379226
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.103309213394818,
+            "lower_95": 0.8672542128003369,
+            "upper_95": 1.3209628712612302
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.42,
+            "lower_95": 0.38000000000000006,
+            "upper_95": 0.44
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.9292112234011114,
+            "lower_95": 1.7653623194792403,
+            "upper_95": 2.053723319155095
+          },
+          "n_folds": 3
+        },
+        "vs_baseline": {
+          "win_rate": 0.0,
+          "mean_delta": 0.007613160416154875,
+          "delta_95": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.007613160416154875,
+            "lower_95": 0.004779896255476694,
+            "upper_95": 0.012331404039864787
+          },
+          "relative_improvement": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": -0.4875696092660427,
+            "lower_95": -0.7699520819676366,
+            "upper_95": -0.27691932827758253
+          }
+        }
+      },
+      "household": {
+        "folds": [
+          {
+            "origin_year": 2017,
+            "mape": 0.027824393857121585,
+            "rmse": 1.7522230823234453,
+            "crps": 1.4101410205561007,
+            "coverage": 0.16,
+            "mean_interval_width": 1.6929056455455478
+          },
+          {
+            "origin_year": 2018,
+            "mape": 0.020867843020771257,
+            "rmse": 1.2532503215747548,
+            "crps": 0.9414021897428759,
+            "coverage": 0.36,
+            "mean_interval_width": 2.127474754173475
+          },
+          {
+            "origin_year": 2019,
+            "mape": 0.018570423332335904,
+            "rmse": 1.0928292796160992,
+            "crps": 0.8001948813215252,
+            "coverage": 0.54,
+            "mean_interval_width": 2.804705043806129
+          }
+        ],
+        "summary": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.022420886736742918,
+            "lower_95": 0.018570423332335904,
+            "upper_95": 0.027824393857121585
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.3661008945047666,
+            "lower_95": 1.0928292796160992,
+            "upper_95": 1.7522230823234455
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.0505793638735006,
+            "lower_95": 0.800194881321525,
+            "upper_95": 1.410141020556101
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.35333333333333333,
+            "lower_95": 0.16,
+            "upper_95": 0.54
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 2.208361814508384,
+            "lower_95": 1.692905645545548,
+            "upper_95": 2.804705043806129
+          },
+          "n_folds": 3
+        },
+        "vs_baseline": {
+          "win_rate": 0.0,
+          "mean_delta": 0.006736944529451362,
+          "delta_95": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.006736944529451362,
+            "lower_95": 0.0025546162078827865,
+            "upper_95": 0.010563423721135445
+          },
+          "relative_improvement": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": -0.42879687822664264,
+            "lower_95": -0.6119831989693634,
+            "upper_95": -0.15950592986240258
+          }
+        }
+      },
+      "household_no_housing": {
+        "folds": [
+          {
+            "origin_year": 2017,
+            "mape": 0.02759764130411324,
+            "rmse": 1.7333417356791012,
+            "crps": 1.3898598078880897,
+            "coverage": 0.2,
+            "mean_interval_width": 1.5787490865204814
+          },
+          {
+            "origin_year": 2018,
+            "mape": 0.02133472727778608,
+            "rmse": 1.2860346102056364,
+            "crps": 0.9516328114037633,
+            "coverage": 0.26,
+            "mean_interval_width": 1.8925721127901682
+          },
+          {
+            "origin_year": 2019,
+            "mape": 0.01806505520873427,
+            "rmse": 1.0660378578029364,
+            "crps": 0.7579994281050538,
+            "coverage": 0.46,
+            "mean_interval_width": 1.993306355803544
+          }
+        ],
+        "summary": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.02233247459687786,
+            "lower_95": 0.01806505520873427,
+            "upper_95": 0.02759764130411324
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.361804734562558,
+            "lower_95": 1.0660378578029364,
+            "upper_95": 1.7333417356791012
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.033164015798969,
+            "lower_95": 0.7579994281050538,
+            "upper_95": 1.3898598078880895
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.3066666666666667,
+            "lower_95": 0.20000000000000004,
+            "upper_95": 0.46
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.821542518371398,
+            "lower_95": 1.5787490865204814,
+            "upper_95": 1.9933063558035442
+          },
+          "n_folds": 3
+        },
+        "vs_baseline": {
+          "win_rate": 0.0,
+          "mean_delta": 0.006648532389586309,
+          "delta_95": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.006648532389586309,
+            "lower_95": 0.0020492480842811515,
+            "upper_95": 0.010336671168127101
+          },
+          "relative_improvement": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": -0.42519768406381325,
+            "lower_95": -0.5988464777293675,
+            "upper_95": -0.12795159609235904
+          }
+        }
+      },
+      "household_no_household": {
+        "folds": [
+          {
+            "origin_year": 2017,
+            "mape": 0.017139859773634185,
+            "rmse": 1.0733012464987046,
+            "crps": 0.8650702518445725,
+            "coverage": 0.46,
+            "mean_interval_width": 1.6441887817285066
+          },
+          {
+            "origin_year": 2018,
+            "mape": 0.012746301334385328,
+            "rmse": 0.78616527032552,
+            "crps": 0.552206997958142,
+            "coverage": 0.72,
+            "mean_interval_width": 2.058172977690987
+          },
+          {
+            "origin_year": 2019,
+            "mape": 0.015325595249179593,
+            "rmse": 0.9035075839903238,
+            "crps": 0.6544189375295066,
+            "coverage": 0.58,
+            "mean_interval_width": 1.9223188327004102
+          }
+        ],
+        "summary": {
+          "mape": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.015070585452399704,
+            "lower_95": 0.012746301334385328,
+            "upper_95": 0.017139859773634185
+          },
+          "rmse": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.9209913669381828,
+            "lower_95": 0.7861652703255201,
+            "upper_95": 1.0733012464987046
+          },
+          "crps": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.690565395777407,
+            "lower_95": 0.552206997958142,
+            "upper_95": 0.8650702518445725
+          },
+          "coverage": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.5866666666666667,
+            "lower_95": 0.46,
+            "upper_95": 0.7200000000000001
+          },
+          "mean_interval_width": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 1.8748935307066346,
+            "lower_95": 1.6441887817285066,
+            "upper_95": 2.058172977690987
+          },
+          "n_folds": 3
+        },
+        "vs_baseline": {
+          "win_rate": 1.0,
+          "mean_delta": -0.0006133567548918523,
+          "delta_95": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": -0.0006133567548918523,
+            "lower_95": -0.001028748027050077,
+            "upper_95": -0.00012111036235195466
+          },
+          "relative_improvement": {
+            "n_folds": 3,
+            "draws": 1000,
+            "mean": 0.04159802644010852,
+            "lower_95": 0.007016428474055492,
+            "upper_95": 0.07468198480145977
+          }
+        }
+      }
+    }
+  },
+  "paired_vs_naive": {
+    "7": {
+      "cohort_proxy": {
+        "reference": "naive_trend",
+        "candidate": "cohort_proxy",
+        "metric": "mape",
+        "delta_definition": "candidate - reference",
+        "deltas": [
+          0.007737299777728739,
+          0.0004317863256872549,
+          -0.003100772297572031
+        ],
+        "bootstrap": {
+          "n_folds": 3,
+          "draws": 1000,
+          "mean": 0.0016894379352813207,
+          "lower_95": -0.0019232527564856025,
+          "upper_95": 0.007737299777728739
+        },
+        "candidate_better_rate": 0.3333333333333333
+      },
+      "reduced_form": {
+        "reference": "naive_trend",
+        "candidate": "reduced_form",
+        "metric": "mape",
+        "delta_definition": "candidate - reference",
+        "deltas": [
+          0.004779896255476694,
+          0.0057281809531231475,
+          0.012331404039864786
+        ],
+        "bootstrap": {
+          "n_folds": 3,
+          "draws": 1000,
+          "mean": 0.007613160416154875,
+          "lower_95": 0.004779896255476694,
+          "upper_95": 0.010130329677617574
+        },
+        "candidate_better_rate": 0.0
+      },
+      "household": {
+        "reference": "naive_trend",
+        "candidate": "household",
+        "metric": "mape",
+        "delta_definition": "candidate - reference",
+        "deltas": [
+          0.010563423721135445,
+          0.0070927936593358516,
+          0.0025546162078827865
+        ],
+        "bootstrap": {
+          "n_folds": 3,
+          "draws": 1000,
+          "mean": 0.006736944529451362,
+          "lower_95": 0.004067342025033808,
+          "upper_95": 0.010563423721135445
+        },
+        "candidate_better_rate": 0.0
+      },
+      "household_no_housing": {
+        "reference": "naive_trend",
+        "candidate": "household_no_housing",
+        "metric": "mape",
+        "delta_definition": "candidate - reference",
+        "deltas": [
+          0.010336671168127101,
+          0.007559677916350675,
+          0.0020492480842811515
+        ],
+        "bootstrap": {
+          "n_folds": 3,
+          "draws": 1000,
+          "mean": 0.006648532389586309,
+          "lower_95": 0.003886058028304326,
+          "upper_95": 0.010336671168127101
+        },
+        "candidate_better_rate": 0.0
+      },
+      "household_no_household": {
+        "reference": "naive_trend",
+        "candidate": "household_no_household",
+        "metric": "mape",
+        "delta_definition": "candidate - reference",
+        "deltas": [
+          -0.00012111036235195466,
+          -0.001028748027050077,
+          -0.0006902118752735251
+        ],
+        "bootstrap": {
+          "n_folds": 3,
+          "draws": 1000,
+          "mean": -0.0006133567548918523,
+          "lower_95": -0.001028748027050077,
+          "upper_95": -0.00012111036235195466
+        },
+        "candidate_better_rate": 1.0
+      }
+    }
+  },
+  "error_strata": {
+    "7": {
+      "naive_trend": {
+        "South": {
+          "mean_mape": 0.01118253841756825,
+          "n": 48
+        },
+        "Alabama": {
+          "mean_mape": 0.01832921088913061,
+          "n": 3
+        },
+        "West": {
+          "mean_mape": 0.020728307396697038,
+          "n": 39
+        },
+        "Alaska": {
+          "mean_mape": 0.03628041043373798,
+          "n": 3
+        },
+        "Arizona": {
+          "mean_mape": 0.013009707295782604,
+          "n": 3
+        },
+        "Arkansas": {
+          "mean_mape": 0.0038292828397492183,
+          "n": 3
+        },
+        "California": {
+          "mean_mape": 0.016744024720814186,
+          "n": 3
+        },
+        "Colorado": {
+          "mean_mape": 0.02276840025513693,
+          "n": 3
+        },
+        "Northeast": {
+          "mean_mape": 0.01410122540851588,
+          "n": 27
+        },
+        "Connecticut": {
+          "mean_mape": 0.013453315187533309,
+          "n": 3
+        },
+        "Delaware": {
+          "mean_mape": 0.008896295143743103,
+          "n": 3
+        },
+        "Florida": {
+          "mean_mape": 0.004235694933318434,
+          "n": 3
+        },
+        "Georgia": {
+          "mean_mape": 0.016019660236432875,
+          "n": 3
+        },
+        "Hawaii": {
+          "mean_mape": 0.009570276631570547,
+          "n": 3
+        },
+        "Idaho": {
+          "mean_mape": 0.028922389718233656,
+          "n": 3
+        },
+        "Midwest": {
+          "mean_mape": 0.013965081655688457,
+          "n": 36
+        },
+        "Illinois": {
+          "mean_mape": 0.005460584957615616,
+          "n": 3
+        },
+        "Indiana": {
+          "mean_mape": 0.0014634266718017465,
+          "n": 3
+        },
+        "Iowa": {
+          "mean_mape": 0.015870201735648435,
+          "n": 3
+        },
+        "Kansas": {
+          "mean_mape": 0.018702377111132814,
+          "n": 3
+        },
+        "Kentucky": {
+          "mean_mape": 0.0030059650119223322,
+          "n": 3
+        },
+        "Louisiana": {
+          "mean_mape": 0.009506820834044182,
+          "n": 3
+        },
+        "Maine": {
+          "mean_mape": 0.03960228484344814,
+          "n": 3
+        },
+        "Maryland": {
+          "mean_mape": 0.011962208475485838,
+          "n": 3
+        },
+        "Massachusetts": {
+          "mean_mape": 0.016277192947634533,
+          "n": 3
+        },
+        "Michigan": {
+          "mean_mape": 0.010140087521423513,
+          "n": 3
+        },
+        "Minnesota": {
+          "mean_mape": 0.007351434105333689,
+          "n": 3
+        },
+        "Mississippi": {
+          "mean_mape": 0.006312836267964248,
+          "n": 3
+        },
+        "Missouri": {
+          "mean_mape": 0.02293406781478109,
+          "n": 3
+        },
+        "Montana": {
+          "mean_mape": 0.01832674080062428,
+          "n": 3
+        },
+        "Nebraska": {
+          "mean_mape": 0.01767864380104088,
+          "n": 3
+        },
+        "Nevada": {
+          "mean_mape": 0.012689199876811594,
+          "n": 3
+        },
+        "New Hampshire": {
+          "mean_mape": 0.005062302243532166,
+          "n": 3
+        },
+        "New Jersey": {
+          "mean_mape": 0.01536216974911867,
+          "n": 3
+        },
+        "New Mexico": {
+          "mean_mape": 0.013421526380900058,
+          "n": 3
+        },
+        "New York": {
+          "mean_mape": 0.00539414138577536,
+          "n": 3
+        },
+        "North Carolina": {
+          "mean_mape": 0.006224329354883256,
+          "n": 3
+        },
+        "North Dakota": {
+          "mean_mape": 0.041943088548986006,
+          "n": 3
+        },
+        "Ohio": {
+          "mean_mape": 0.004918149329254435,
+          "n": 3
+        },
+        "Oklahoma": {
+          "mean_mape": 0.025966324884377296,
+          "n": 3
+        },
+        "Oregon": {
+          "mean_mape": 0.02564941174908056,
+          "n": 3
+        },
+        "Pennsylvania": {
+          "mean_mape": 0.005045474172504358,
+          "n": 3
+        },
+        "Rhode Island": {
+          "mean_mape": 0.008391141435831945,
+          "n": 3
+        },
+        "South Carolina": {
+          "mean_mape": 0.006339456343350849,
+          "n": 3
+        },
+        "South Dakota": {
+          "mean_mape": 0.009844995379931186,
+          "n": 3
+        },
+        "Tennessee": {
+          "mean_mape": 0.006038137886854711,
+          "n": 3
+        },
+        "Texas": {
+          "mean_mape": 0.021450805793477707,
+          "n": 3
+        },
+        "Utah": {
+          "mean_mape": 0.023441016759549307,
+          "n": 3
+        },
+        "Vermont": {
+          "mean_mape": 0.018323006711264432,
+          "n": 3
+        },
+        "Virginia": {
+          "mean_mape": 0.01760365625754272,
+          "n": 3
+        },
+        "Washington": {
+          "mean_mape": 0.02721311728325196,
+          "n": 3
+        },
+        "West Virginia": {
+          "mean_mape": 0.013199929528814625,
+          "n": 3
+        },
+        "Wisconsin": {
+          "mean_mape": 0.01127392289131207,
+          "n": 3
+        },
+        "Wyoming": {
+          "mean_mape": 0.021431774251567833,
+          "n": 3
+        }
+      },
+      "cohort_proxy": {
+        "South": {
+          "mean_mape": 0.011772043684593718,
+          "n": 48
+        },
+        "Alabama": {
+          "mean_mape": 0.012338552753151585,
+          "n": 3
+        },
+        "West": {
+          "mean_mape": 0.024603422181850527,
+          "n": 39
+        },
+        "Alaska": {
+          "mean_mape": 0.0259548423382568,
+          "n": 3
+        },
+        "Arizona": {
+          "mean_mape": 0.017901054637711463,
+          "n": 3
+        },
+        "Arkansas": {
+          "mean_mape": 0.012479169833779169,
+          "n": 3
+        },
+        "California": {
+          "mean_mape": 0.017866092149198234,
+          "n": 3
+        },
+        "Colorado": {
+          "mean_mape": 0.02388431212729541,
+          "n": 3
+        },
+        "Northeast": {
+          "mean_mape": 0.014794536370767197,
+          "n": 27
+        },
+        "Connecticut": {
+          "mean_mape": 0.013772157320167547,
+          "n": 3
+        },
+        "Delaware": {
+          "mean_mape": 0.01270170308424083,
+          "n": 3
+        },
+        "Florida": {
+          "mean_mape": 0.014306185769839462,
+          "n": 3
+        },
+        "Georgia": {
+          "mean_mape": 0.010522787693631963,
+          "n": 3
+        },
+        "Hawaii": {
+          "mean_mape": 0.014462911555012456,
+          "n": 3
+        },
+        "Idaho": {
+          "mean_mape": 0.03243943818605979,
+          "n": 3
+        },
+        "Midwest": {
+          "mean_mape": 0.018874349958413104,
+          "n": 36
+        },
+        "Illinois": {
+          "mean_mape": 0.020733185346834392,
+          "n": 3
+        },
+        "Indiana": {
+          "mean_mape": 0.010395156893611502,
+          "n": 3
+        },
+        "Iowa": {
+          "mean_mape": 0.01599325801699985,
+          "n": 3
+        },
+        "Kansas": {
+          "mean_mape": 0.017378779698968262,
+          "n": 3
+        },
+        "Kentucky": {
+          "mean_mape": 0.012765563541098403,
+          "n": 3
+        },
+        "Louisiana": {
+          "mean_mape": 0.01570668239057303,
+          "n": 3
+        },
+        "Maine": {
+          "mean_mape": 0.027586820348750814,
+          "n": 3
+        },
+        "Maryland": {
+          "mean_mape": 0.013461152005335797,
+          "n": 3
+        },
+        "Massachusetts": {
+          "mean_mape": 0.01166365458871115,
+          "n": 3
+        },
+        "Michigan": {
+          "mean_mape": 0.015324944182059761,
+          "n": 3
+        },
+        "Minnesota": {
+          "mean_mape": 0.02314044007001571,
+          "n": 3
+        },
+        "Mississippi": {
+          "mean_mape": 0.003115486714975267,
+          "n": 3
+        },
+        "Missouri": {
+          "mean_mape": 0.014433002698154113,
+          "n": 3
+        },
+        "Montana": {
+          "mean_mape": 0.033869231721829075,
+          "n": 3
+        },
+        "Nebraska": {
+          "mean_mape": 0.025046647690373125,
+          "n": 3
+        },
+        "Nevada": {
+          "mean_mape": 0.02171826243016235,
+          "n": 3
+        },
+        "New Hampshire": {
+          "mean_mape": 0.011995825732389614,
+          "n": 3
+        },
+        "New Jersey": {
+          "mean_mape": 0.010602069618912692,
+          "n": 3
+        },
+        "New Mexico": {
+          "mean_mape": 0.01511678314356836,
+          "n": 3
+        },
+        "New York": {
+          "mean_mape": 0.01026240187270131,
+          "n": 3
+        },
+        "North Carolina": {
+          "mean_mape": 0.009530168429553834,
+          "n": 3
+        },
+        "North Dakota": {
+          "mean_mape": 0.03343187702317297,
+          "n": 3
+        },
+        "Ohio": {
+          "mean_mape": 0.00904238229649239,
+          "n": 3
+        },
+        "Oklahoma": {
+          "mean_mape": 0.015766520680608232,
+          "n": 3
+        },
+        "Oregon": {
+          "mean_mape": 0.028311746465002192,
+          "n": 3
+        },
+        "Pennsylvania": {
+          "mean_mape": 0.01062387730089445,
+          "n": 3
+        },
+        "Rhode Island": {
+          "mean_mape": 0.019665830291512833,
+          "n": 3
+        },
+        "South Carolina": {
+          "mean_mape": 0.006261424484397815,
+          "n": 3
+        },
+        "South Dakota": {
+          "mean_mape": 0.026265606250496874,
+          "n": 3
+        },
+        "Tennessee": {
+          "mean_mape": 0.007764677870888535,
+          "n": 3
+        },
+        "Texas": {
+          "mean_mape": 0.019183661591248635,
+          "n": 3
+        },
+        "Utah": {
+          "mean_mape": 0.023389446566363648,
+          "n": 3
+        },
+        "Vermont": {
+          "mean_mape": 0.016978190262864363,
+          "n": 3
+        },
+        "Virginia": {
+          "mean_mape": 0.015570569688505842,
+          "n": 3
+        },
+        "Washington": {
+          "mean_mape": 0.029628327081263246,
+          "n": 3
+        },
+        "West Virginia": {
+          "mean_mape": 0.006878392421671101,
+          "n": 3
+        },
+        "Wisconsin": {
+          "mean_mape": 0.015306919333778332,
+          "n": 3
+        },
+        "Wyoming": {
+          "mean_mape": 0.03530203996233381,
+          "n": 3
+        }
+      },
+      "reduced_form": {
+        "South": {
+          "mean_mape": 0.020101166387142367,
+          "n": 48
+        },
+        "Alabama": {
+          "mean_mape": 0.017747815344535244,
+          "n": 3
+        },
+        "West": {
+          "mean_mape": 0.026289537202842866,
+          "n": 39
+        },
+        "Alaska": {
+          "mean_mape": 0.04626078839429903,
+          "n": 3
+        },
+        "Arizona": {
+          "mean_mape": 0.016122839163890557,
+          "n": 3
+        },
+        "Arkansas": {
+          "mean_mape": 0.02292177778116676,
+          "n": 3
+        },
+        "California": {
+          "mean_mape": 0.03878520796645322,
+          "n": 3
+        },
+        "Colorado": {
+          "mean_mape": 0.035390099517473995,
+          "n": 3
+        },
+        "Northeast": {
+          "mean_mape": 0.017693179495330703,
+          "n": 27
+        },
+        "Connecticut": {
+          "mean_mape": 0.028810803998195442,
+          "n": 3
+        },
+        "Delaware": {
+          "mean_mape": 0.02156770963841952,
+          "n": 3
+        },
+        "Florida": {
+          "mean_mape": 0.03853802233153845,
+          "n": 3
+        },
+        "Georgia": {
+          "mean_mape": 0.018570661339247892,
+          "n": 3
+        },
+        "Hawaii": {
+          "mean_mape": 0.028714555606349768,
+          "n": 3
+        },
+        "Idaho": {
+          "mean_mape": 0.0307667712842309,
+          "n": 3
+        },
+        "Midwest": {
+          "mean_mape": 0.025764708459265588,
+          "n": 36
+        },
+        "Illinois": {
+          "mean_mape": 0.007789806285408082,
+          "n": 3
+        },
+        "Indiana": {
+          "mean_mape": 0.01432693654902194,
+          "n": 3
+        },
+        "Iowa": {
+          "mean_mape": 0.02875371840823536,
+          "n": 3
+        },
+        "Kansas": {
+          "mean_mape": 0.023984289939583004,
+          "n": 3
+        },
+        "Kentucky": {
+          "mean_mape": 0.03150237797354525,
+          "n": 3
+        },
+        "Louisiana": {
+          "mean_mape": 0.018727594474214408,
+          "n": 3
+        },
+        "Maine": {
+          "mean_mape": 0.03624323164337125,
+          "n": 3
+        },
+        "Maryland": {
+          "mean_mape": 0.01645505754023723,
+          "n": 3
+        },
+        "Massachusetts": {
+          "mean_mape": 0.017018543499929668,
+          "n": 3
+        },
+        "Michigan": {
+          "mean_mape": 0.00963465249992355,
+          "n": 3
+        },
+        "Minnesota": {
+          "mean_mape": 0.015070171592070672,
+          "n": 3
+        },
+        "Mississippi": {
+          "mean_mape": 0.017164858686850148,
+          "n": 3
+        },
+        "Missouri": {
+          "mean_mape": 0.028294327150860363,
+          "n": 3
+        },
+        "Montana": {
+          "mean_mape": 0.030718727959143852,
+          "n": 3
+        },
+        "Nebraska": {
+          "mean_mape": 0.038086295740776786,
+          "n": 3
+        },
+        "Nevada": {
+          "mean_mape": 0.010459287033696725,
+          "n": 3
+        },
+        "New Hampshire": {
+          "mean_mape": 0.007410814455806935,
+          "n": 3
+        },
+        "New Jersey": {
+          "mean_mape": 0.014595375389215707,
+          "n": 3
+        },
+        "New Mexico": {
+          "mean_mape": 0.006185823392573557,
+          "n": 3
+        },
+        "New York": {
+          "mean_mape": 0.019310961988692716,
+          "n": 3
+        },
+        "North Carolina": {
+          "mean_mape": 0.011289836844064873,
+          "n": 3
+        },
+        "North Dakota": {
+          "mean_mape": 0.0576589904114568,
+          "n": 3
+        },
+        "Ohio": {
+          "mean_mape": 0.01905754014603713,
+          "n": 3
+        },
+        "Oklahoma": {
+          "mean_mape": 0.038290523616854484,
+          "n": 3
+        },
+        "Oregon": {
+          "mean_mape": 0.033734011457966534,
+          "n": 3
+        },
+        "Pennsylvania": {
+          "mean_mape": 0.010627506002415596,
+          "n": 3
+        },
+        "Rhode Island": {
+          "mean_mape": 0.01489802611591942,
+          "n": 3
+        },
+        "South Carolina": {
+          "mean_mape": 0.0016201070267849909,
+          "n": 3
+        },
+        "South Dakota": {
+          "mean_mape": 0.042291427371681865,
+          "n": 3
+        },
+        "Tennessee": {
+          "mean_mape": 0.011420331298752107,
+          "n": 3
+        },
+        "Texas": {
+          "mean_mape": 0.02246344453925359,
+          "n": 3
+        },
+        "Utah": {
+          "mean_mape": 0.01473550644650006,
+          "n": 3
+        },
+        "Vermont": {
+          "mean_mape": 0.010323352364429597,
+          "n": 3
+        },
+        "Virginia": {
+          "mean_mape": 0.014579413936162869,
+          "n": 3
+        },
+        "Washington": {
+          "mean_mape": 0.028473371652983397,
+          "n": 3
+        },
+        "West Virginia": {
+          "mean_mape": 0.01875912982265004,
+          "n": 3
+        },
+        "Wisconsin": {
+          "mean_mape": 0.02422834541613154,
+          "n": 3
+        },
+        "Wyoming": {
+          "mean_mape": 0.021416993761395692,
+          "n": 3
+        }
+      },
+      "household": {
+        "South": {
+          "mean_mape": 0.015247444583555557,
+          "n": 48
+        },
+        "Alabama": {
+          "mean_mape": 0.011418320422636734,
+          "n": 3
+        },
+        "West": {
+          "mean_mape": 0.03505430781253741,
+          "n": 39
+        },
+        "Alaska": {
+          "mean_mape": 0.03875076122348118,
+          "n": 3
+        },
+        "Arizona": {
+          "mean_mape": 0.03577173226281914,
+          "n": 3
+        },
+        "Arkansas": {
+          "mean_mape": 0.01638395997710591,
+          "n": 3
+        },
+        "California": {
+          "mean_mape": 0.030877312069005108,
+          "n": 3
+        },
+        "Colorado": {
+          "mean_mape": 0.03623880115559903,
+          "n": 3
+        },
+        "Northeast": {
+          "mean_mape": 0.01721155287494799,
+          "n": 27
+        },
+        "Connecticut": {
+          "mean_mape": 0.016050535581757203,
+          "n": 3
+        },
+        "Delaware": {
+          "mean_mape": 0.015824137381702467,
+          "n": 3
+        },
+        "Florida": {
+          "mean_mape": 0.016753881855436432,
+          "n": 3
+        },
+        "Georgia": {
+          "mean_mape": 0.017538724557252593,
+          "n": 3
+        },
+        "Hawaii": {
+          "mean_mape": 0.019417349766847336,
+          "n": 3
+        },
+        "Idaho": {
+          "mean_mape": 0.03378364056660697,
+          "n": 3
+        },
+        "Midwest": {
+          "mean_mape": 0.02217387748627654,
+          "n": 36
+        },
+        "Illinois": {
+          "mean_mape": 0.02587354118190721,
+          "n": 3
+        },
+        "Indiana": {
+          "mean_mape": 0.01363149780016537,
+          "n": 3
+        },
+        "Iowa": {
+          "mean_mape": 0.018139250634949054,
+          "n": 3
+        },
+        "Kansas": {
+          "mean_mape": 0.025468836304935762,
+          "n": 3
+        },
+        "Kentucky": {
+          "mean_mape": 0.014267659788862075,
+          "n": 3
+        },
+        "Louisiana": {
+          "mean_mape": 0.017995607079635174,
+          "n": 3
+        },
+        "Maine": {
+          "mean_mape": 0.02773374223576065,
+          "n": 3
+        },
+        "Maryland": {
+          "mean_mape": 0.013346531434610287,
+          "n": 3
+        },
+        "Massachusetts": {
+          "mean_mape": 0.014623042563113592,
+          "n": 3
+        },
+        "Michigan": {
+          "mean_mape": 0.016354150179593397,
+          "n": 3
+        },
+        "Minnesota": {
+          "mean_mape": 0.02672823881840605,
+          "n": 3
+        },
+        "Mississippi": {
+          "mean_mape": 0.0051968893917789805,
+          "n": 3
+        },
+        "Missouri": {
+          "mean_mape": 0.015086614315973064,
+          "n": 3
+        },
+        "Montana": {
+          "mean_mape": 0.04749011246489429,
+          "n": 3
+        },
+        "Nebraska": {
+          "mean_mape": 0.029959798303633284,
+          "n": 3
+        },
+        "Nevada": {
+          "mean_mape": 0.027367567002448967,
+          "n": 3
+        },
+        "New Hampshire": {
+          "mean_mape": 0.015605861871936405,
+          "n": 3
+        },
+        "New Jersey": {
+          "mean_mape": 0.010053873957029981,
+          "n": 3
+        },
+        "New Mexico": {
+          "mean_mape": 0.02493720538042871,
+          "n": 3
+        },
+        "New York": {
+          "mean_mape": 0.01245129182678322,
+          "n": 3
+        },
+        "North Carolina": {
+          "mean_mape": 0.014048699557326516,
+          "n": 3
+        },
+        "North Dakota": {
+          "mean_mape": 0.03310182788697206,
+          "n": 3
+        },
+        "Ohio": {
+          "mean_mape": 0.010309617131868249,
+          "n": 3
+        },
+        "Oklahoma": {
+          "mean_mape": 0.025055037968991653,
+          "n": 3
+        },
+        "Oregon": {
+          "mean_mape": 0.04028568066348435,
+          "n": 3
+        },
+        "Pennsylvania": {
+          "mean_mape": 0.012935634322237462,
+          "n": 3
+        },
+        "Rhode Island": {
+          "mean_mape": 0.020393731668987992,
+          "n": 3
+        },
+        "South Carolina": {
+          "mean_mape": 0.01056443363565066,
+          "n": 3
+        },
+        "South Dakota": {
+          "mean_mape": 0.03159540776880014,
+          "n": 3
+        },
+        "Tennessee": {
+          "mean_mape": 0.009715729277779415,
+          "n": 3
+        },
+        "Texas": {
+          "mean_mape": 0.029436664305669057,
+          "n": 3
+        },
+        "Utah": {
+          "mean_mape": 0.04640217499319016,
+          "n": 3
+        },
+        "Vermont": {
+          "mean_mape": 0.025056261846925425,
+          "n": 3
+        },
+        "Virginia": {
+          "mean_mape": 0.019458401493450714,
+          "n": 3
+        },
+        "Washington": {
+          "mean_mape": 0.038963736451792796,
+          "n": 3
+        },
+        "West Virginia": {
+          "mean_mape": 0.00695443520900026,
+          "n": 3
+        },
+        "Wisconsin": {
+          "mean_mape": 0.019837749508114864,
+          "n": 3
+        },
+        "Wyoming": {
+          "mean_mape": 0.035419927562388355,
+          "n": 3
+        }
+      },
+      "household_no_housing": {
+        "South": {
+          "mean_mape": 0.015247444583555557,
+          "n": 48
+        },
+        "Alabama": {
+          "mean_mape": 0.011418320422636734,
+          "n": 3
+        },
+        "West": {
+          "mean_mape": 0.03505430781253741,
+          "n": 39
+        },
+        "Alaska": {
+          "mean_mape": 0.03875076122348118,
+          "n": 3
+        },
+        "Arizona": {
+          "mean_mape": 0.03577173226281914,
+          "n": 3
+        },
+        "Arkansas": {
+          "mean_mape": 0.01638395997710591,
+          "n": 3
+        },
+        "California": {
+          "mean_mape": 0.030877312069005108,
+          "n": 3
+        },
+        "Colorado": {
+          "mean_mape": 0.03623880115559903,
+          "n": 3
+        },
+        "Northeast": {
+          "mean_mape": 0.017211552874947987,
+          "n": 27
+        },
+        "Connecticut": {
+          "mean_mape": 0.016050535581757203,
+          "n": 3
+        },
+        "Delaware": {
+          "mean_mape": 0.015824137381702467,
+          "n": 3
+        },
+        "Florida": {
+          "mean_mape": 0.016753881855436432,
+          "n": 3
+        },
+        "Georgia": {
+          "mean_mape": 0.017538724557252593,
+          "n": 3
+        },
+        "Hawaii": {
+          "mean_mape": 0.019417349766847336,
+          "n": 3
+        },
+        "Idaho": {
+          "mean_mape": 0.03378364056660697,
+          "n": 3
+        },
+        "Midwest": {
+          "mean_mape": 0.02217387748627654,
+          "n": 36
+        },
+        "Illinois": {
+          "mean_mape": 0.02587354118190721,
+          "n": 3
+        },
+        "Indiana": {
+          "mean_mape": 0.01363149780016537,
+          "n": 3
+        },
+        "Iowa": {
+          "mean_mape": 0.018139250634949054,
+          "n": 3
+        },
+        "Kansas": {
+          "mean_mape": 0.025468836304935762,
+          "n": 3
+        },
+        "Kentucky": {
+          "mean_mape": 0.014267659788862075,
+          "n": 3
+        },
+        "Louisiana": {
+          "mean_mape": 0.017995607079635174,
+          "n": 3
+        },
+        "Maine": {
+          "mean_mape": 0.02773374223576065,
+          "n": 3
+        },
+        "Maryland": {
+          "mean_mape": 0.013346531434610287,
+          "n": 3
+        },
+        "Massachusetts": {
+          "mean_mape": 0.014623042563113592,
+          "n": 3
+        },
+        "Michigan": {
+          "mean_mape": 0.016354150179593397,
+          "n": 3
+        },
+        "Minnesota": {
+          "mean_mape": 0.02672823881840605,
+          "n": 3
+        },
+        "Mississippi": {
+          "mean_mape": 0.0051968893917789805,
+          "n": 3
+        },
+        "Missouri": {
+          "mean_mape": 0.015086614315973064,
+          "n": 3
+        },
+        "Montana": {
+          "mean_mape": 0.04749011246489429,
+          "n": 3
+        },
+        "Nebraska": {
+          "mean_mape": 0.029959798303633284,
+          "n": 3
+        },
+        "Nevada": {
+          "mean_mape": 0.027367567002448967,
+          "n": 3
+        },
+        "New Hampshire": {
+          "mean_mape": 0.015605861871936405,
+          "n": 3
+        },
+        "New Jersey": {
+          "mean_mape": 0.010053873957029981,
+          "n": 3
+        },
+        "New Mexico": {
+          "mean_mape": 0.02493720538042871,
+          "n": 3
+        },
+        "New York": {
+          "mean_mape": 0.01245129182678322,
+          "n": 3
+        },
+        "North Carolina": {
+          "mean_mape": 0.014048699557326516,
+          "n": 3
+        },
+        "North Dakota": {
+          "mean_mape": 0.03310182788697206,
+          "n": 3
+        },
+        "Ohio": {
+          "mean_mape": 0.010309617131868249,
+          "n": 3
+        },
+        "Oklahoma": {
+          "mean_mape": 0.025055037968991653,
+          "n": 3
+        },
+        "Oregon": {
+          "mean_mape": 0.04028568066348435,
+          "n": 3
+        },
+        "Pennsylvania": {
+          "mean_mape": 0.012935634322237462,
+          "n": 3
+        },
+        "Rhode Island": {
+          "mean_mape": 0.020393731668987992,
+          "n": 3
+        },
+        "South Carolina": {
+          "mean_mape": 0.01056443363565066,
+          "n": 3
+        },
+        "South Dakota": {
+          "mean_mape": 0.03159540776880014,
+          "n": 3
+        },
+        "Tennessee": {
+          "mean_mape": 0.009715729277779415,
+          "n": 3
+        },
+        "Texas": {
+          "mean_mape": 0.029436664305669057,
+          "n": 3
+        },
+        "Utah": {
+          "mean_mape": 0.04640217499319016,
+          "n": 3
+        },
+        "Vermont": {
+          "mean_mape": 0.025056261846925373,
+          "n": 3
+        },
+        "Virginia": {
+          "mean_mape": 0.019458401493450714,
+          "n": 3
+        },
+        "Washington": {
+          "mean_mape": 0.038963736451792796,
+          "n": 3
+        },
+        "West Virginia": {
+          "mean_mape": 0.00695443520900026,
+          "n": 3
+        },
+        "Wisconsin": {
+          "mean_mape": 0.019837749508114864,
+          "n": 3
+        },
+        "Wyoming": {
+          "mean_mape": 0.035419927562388355,
+          "n": 3
+        }
+      },
+      "household_no_household": {
+        "South": {
+          "mean_mape": 0.01118253841756825,
+          "n": 48
+        },
+        "Alabama": {
+          "mean_mape": 0.01832921088913061,
+          "n": 3
+        },
+        "West": {
+          "mean_mape": 0.020728307396697038,
+          "n": 39
+        },
+        "Alaska": {
+          "mean_mape": 0.03628041043373798,
+          "n": 3
+        },
+        "Arizona": {
+          "mean_mape": 0.013009707295782604,
+          "n": 3
+        },
+        "Arkansas": {
+          "mean_mape": 0.0038292828397492183,
+          "n": 3
+        },
+        "California": {
+          "mean_mape": 0.016744024720814186,
+          "n": 3
+        },
+        "Colorado": {
+          "mean_mape": 0.02276840025513693,
+          "n": 3
+        },
+        "Northeast": {
+          "mean_mape": 0.01410122540851588,
+          "n": 27
+        },
+        "Connecticut": {
+          "mean_mape": 0.013453315187533309,
+          "n": 3
+        },
+        "Delaware": {
+          "mean_mape": 0.008896295143743103,
+          "n": 3
+        },
+        "Florida": {
+          "mean_mape": 0.004235694933318434,
+          "n": 3
+        },
+        "Georgia": {
+          "mean_mape": 0.016019660236432875,
+          "n": 3
+        },
+        "Hawaii": {
+          "mean_mape": 0.009570276631570547,
+          "n": 3
+        },
+        "Idaho": {
+          "mean_mape": 0.028922389718233656,
+          "n": 3
+        },
+        "Midwest": {
+          "mean_mape": 0.013965081655688457,
+          "n": 36
+        },
+        "Illinois": {
+          "mean_mape": 0.005460584957615616,
+          "n": 3
+        },
+        "Indiana": {
+          "mean_mape": 0.0014634266718017465,
+          "n": 3
+        },
+        "Iowa": {
+          "mean_mape": 0.015870201735648435,
+          "n": 3
+        },
+        "Kansas": {
+          "mean_mape": 0.018702377111132814,
+          "n": 3
+        },
+        "Kentucky": {
+          "mean_mape": 0.0030059650119223322,
+          "n": 3
+        },
+        "Louisiana": {
+          "mean_mape": 0.009506820834044182,
+          "n": 3
+        },
+        "Maine": {
+          "mean_mape": 0.03960228484344814,
+          "n": 3
+        },
+        "Maryland": {
+          "mean_mape": 0.011962208475485838,
+          "n": 3
+        },
+        "Massachusetts": {
+          "mean_mape": 0.016277192947634533,
+          "n": 3
+        },
+        "Michigan": {
+          "mean_mape": 0.010140087521423513,
+          "n": 3
+        },
+        "Minnesota": {
+          "mean_mape": 0.007351434105333689,
+          "n": 3
+        },
+        "Mississippi": {
+          "mean_mape": 0.006312836267964248,
+          "n": 3
+        },
+        "Missouri": {
+          "mean_mape": 0.02293406781478109,
+          "n": 3
+        },
+        "Montana": {
+          "mean_mape": 0.01832674080062428,
+          "n": 3
+        },
+        "Nebraska": {
+          "mean_mape": 0.01767864380104088,
+          "n": 3
+        },
+        "Nevada": {
+          "mean_mape": 0.012689199876811594,
+          "n": 3
+        },
+        "New Hampshire": {
+          "mean_mape": 0.005062302243532166,
+          "n": 3
+        },
+        "New Jersey": {
+          "mean_mape": 0.01536216974911867,
+          "n": 3
+        },
+        "New Mexico": {
+          "mean_mape": 0.013421526380900058,
+          "n": 3
+        },
+        "New York": {
+          "mean_mape": 0.00539414138577536,
+          "n": 3
+        },
+        "North Carolina": {
+          "mean_mape": 0.006224329354883256,
+          "n": 3
+        },
+        "North Dakota": {
+          "mean_mape": 0.041943088548986006,
+          "n": 3
+        },
+        "Ohio": {
+          "mean_mape": 0.004918149329254435,
+          "n": 3
+        },
+        "Oklahoma": {
+          "mean_mape": 0.025966324884377296,
+          "n": 3
+        },
+        "Oregon": {
+          "mean_mape": 0.02564941174908056,
+          "n": 3
+        },
+        "Pennsylvania": {
+          "mean_mape": 0.005045474172504358,
+          "n": 3
+        },
+        "Rhode Island": {
+          "mean_mape": 0.008391141435831945,
+          "n": 3
+        },
+        "South Carolina": {
+          "mean_mape": 0.006339456343350849,
+          "n": 3
+        },
+        "South Dakota": {
+          "mean_mape": 0.009844995379931186,
+          "n": 3
+        },
+        "Tennessee": {
+          "mean_mape": 0.006038137886854711,
+          "n": 3
+        },
+        "Texas": {
+          "mean_mape": 0.021450805793477707,
+          "n": 3
+        },
+        "Utah": {
+          "mean_mape": 0.023441016759549307,
+          "n": 3
+        },
+        "Vermont": {
+          "mean_mape": 0.018323006711264432,
+          "n": 3
+        },
+        "Virginia": {
+          "mean_mape": 0.01760365625754272,
+          "n": 3
+        },
+        "Washington": {
+          "mean_mape": 0.02721311728325196,
+          "n": 3
+        },
+        "West Virginia": {
+          "mean_mape": 0.013199929528814625,
+          "n": 3
+        },
+        "Wisconsin": {
+          "mean_mape": 0.01127392289131207,
+          "n": 3
+        },
+        "Wyoming": {
+          "mean_mape": 0.021431774251567833,
+          "n": 3
+        }
+      }
+    }
+  },
+  "age_strata": {
+    "available": false,
+    "note": "需要年龄分层观测和年龄分层预测；当前 ASFR 面板不具备"
+  },
+  "external_household_calibration": null,
+  "test_overlap_allowed": false,
+  "interpretation": "窗口稳健性和预测比较，不是因果估计；2020 若纳入，仅作为 ACS5 住房敏感性，不据此增加社会机制",
+  "uncertainty": {
+    "residual_bootstrap": true,
+    "note": "若开启，确定性 runner 的预测区间来自 calibration 内州级一步变化误差；点预测和机制规则不变。"
+  }
+}
