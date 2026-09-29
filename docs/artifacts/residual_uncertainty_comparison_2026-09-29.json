@@ -1,0 +1,388 @@
+{
+  "version": "2026-09-29",
+  "kind": "calibration_only_residual_uncertainty_comparison",
+  "point_model": "state_specific_linear_trend_from_last_two_calibration_observations",
+  "calibration_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "untouched_test_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "residual_construction": "expanding-window one-step forecast errors; each training and target year is within 2010-2017",
+  "residual_count": 700,
+  "residual_counts_by_horizon": {
+    "1": 300,
+    "2": 250,
+    "4": 150
+  },
+  "scale_methods": {
+    "pooled": "all calibration residuals at matching forecast horizon",
+    "region": "Census-region calibration residuals at matching horizon",
+    "state_shrunk": "state residuals partially pooled toward region with weight n/(n+10)"
+  },
+  "distributions": {
+    "normal": "zero-mean Gaussian using calibration-only scale",
+    "empirical_quantile": "linearly interpolated empirical residual quantiles, rescaled to target variance",
+    "bootstrap_residual": "discrete resampling of centered calibration residuals, rescaled to target variance"
+  },
+  "draws_per_state_year": 1000,
+  "results_ranked_by": [
+    "CRPS",
+    "absolute coverage gap",
+    "interval width"
+  ],
+  "results": [
+    {
+      "scale": "state_shrunk",
+      "distribution": "normal",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.345773320636255,
+      "coverage": 0.84,
+      "coverage_gap": 0.039999999999999925,
+      "mean_interval_width": 5.99769730391989,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8611111111111112,
+          "crps": 1.2873272662445283,
+          "mean_interval_width": 5.817034109517981
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 0.9629629629629629,
+          "crps": 0.6969697349317988,
+          "mean_interval_width": 4.388298808619602
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.1141249013929408,
+          "mean_interval_width": 5.487030624517547
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.717948717948718,
+          "crps": 2.1340009846311667,
+          "mean_interval_width": 7.907175123993966
+        }
+      }
+    },
+    {
+      "scale": "state_shrunk",
+      "distribution": "bootstrap_residual",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.3536534640747313,
+      "coverage": 0.8466666666666667,
+      "coverage_gap": 0.046666666666666634,
+      "mean_interval_width": 6.069315955500418,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8888888888888888,
+          "crps": 1.288511573725379,
+          "mean_interval_width": 5.696739779169551
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 0.9629629629629629,
+          "crps": 0.7183036933622358,
+          "mean_interval_width": 4.653542536622071
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.128090606906094,
+          "mean_interval_width": 5.7089829452990015
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.717948717948718,
+          "crps": 2.1312577975595683,
+          "mean_interval_width": 7.836870036200278
+        }
+      }
+    },
+    {
+      "scale": "state_shrunk",
+      "distribution": "empirical_quantile",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.3662014699271967,
+      "coverage": 0.78,
+      "coverage_gap": -0.020000000000000018,
+      "mean_interval_width": 5.122136133982073,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.7777777777777778,
+          "crps": 1.2928945567283492,
+          "mean_interval_width": 4.806098689350749
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 0.8888888888888888,
+          "crps": 0.7090376336371951,
+          "mean_interval_width": 3.8558902720540154
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8125,
+          "crps": 1.1236282408126144,
+          "mean_interval_width": 4.911074380818741
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.6666666666666666,
+          "crps": 2.1873806353756198,
+          "mean_interval_width": 6.550263068100664
+        }
+      }
+    },
+    {
+      "scale": "region",
+      "distribution": "bootstrap_residual",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.378306236236921,
+      "coverage": 0.8,
+      "coverage_gap": 0.0,
+      "mean_interval_width": 5.842445053519065,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8055555555555556,
+          "crps": 1.3210309617552631,
+          "mean_interval_width": 5.597484511895577
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 0.8518518518518519,
+          "crps": 0.7170829744087239,
+          "mean_interval_width": 4.209888091286501
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.1609868397210306,
+          "mean_interval_width": 5.960235026953802
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.6923076923076923,
+          "crps": 2.1564156973513757,
+          "mean_interval_width": 7.053821944643616
+        }
+      }
+    },
+    {
+      "scale": "region",
+      "distribution": "normal",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.3789412048990222,
+      "coverage": 0.82,
+      "coverage_gap": 0.019999999999999907,
+      "mean_interval_width": 6.154281920457998,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8611111111111112,
+          "crps": 1.354556144494715,
+          "mean_interval_width": 6.047632421027141
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 0.8518518518518519,
+          "crps": 0.7113039082859489,
+          "mean_interval_width": 4.4841686707800354
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.146315828149902,
+          "mean_interval_width": 5.655334226468254
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.717948717948718,
+          "crps": 2.1499690835417353,
+          "mean_interval_width": 8.023049331543216
+        }
+      }
+    },
+    {
+      "scale": "region",
+      "distribution": "empirical_quantile",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.3794588760745568,
+      "coverage": 0.8,
+      "coverage_gap": 0.0,
+      "mean_interval_width": 5.621350850631649,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8055555555555556,
+          "crps": 1.3257497666235654,
+          "mean_interval_width": 5.30309443431849
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 0.8518518518518519,
+          "crps": 0.7172991832466932,
+          "mean_interval_width": 4.121073855515134
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.156432460623164,
+          "mean_interval_width": 5.685638021206261
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.6923076923076923,
+          "crps": 2.161948814234938,
+          "mean_interval_width": 6.874656636986476
+        }
+      }
+    },
+    {
+      "scale": "pooled",
+      "distribution": "empirical_quantile",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.4074544624477174,
+      "coverage": 0.82,
+      "coverage_gap": 0.019999999999999907,
+      "mean_interval_width": 5.950289413771713,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8333333333333334,
+          "crps": 1.3325863629544399,
+          "mean_interval_width": 5.980789509091311
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 1.0,
+          "crps": 0.7627892294440215,
+          "mean_interval_width": 5.95319630167612
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.1526856491356186,
+          "mean_interval_width": 5.933275247961848
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.6410256410256411,
+          "crps": 2.2364317935205,
+          "mean_interval_width": 5.941063530539636
+        }
+      }
+    },
+    {
+      "scale": "pooled",
+      "distribution": "bootstrap_residual",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.407816530045032,
+      "coverage": 0.82,
+      "coverage_gap": 0.019999999999999907,
+      "mean_interval_width": 6.040535952559841,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8055555555555556,
+          "crps": 1.3207161603684583,
+          "mean_interval_width": 6.031053880681778
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 1.0,
+          "crps": 0.7732870215240413,
+          "mean_interval_width": 6.047547805302465
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.1559952102530724,
+          "mean_interval_width": 6.051475738785024
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.6666666666666666,
+          "crps": 2.23744046308189,
+          "mean_interval_width": 6.030969922425242
+        }
+      }
+    },
+    {
+      "scale": "pooled",
+      "distribution": "normal",
+      "nominal_coverage": 0.8,
+      "n": 150,
+      "mape": 0.030726304344309455,
+      "rmse": 2.987990980359535,
+      "crps": 1.4179340432620726,
+      "coverage": 0.8333333333333334,
+      "coverage_gap": 0.033333333333333326,
+      "mean_interval_width": 6.34335238427911,
+      "by_region": {
+        "Midwest": {
+          "n": 36,
+          "coverage": 0.8611111111111112,
+          "crps": 1.3422754856953545,
+          "mean_interval_width": 6.327832236264795
+        },
+        "Northeast": {
+          "n": 27,
+          "coverage": 1.0,
+          "crps": 0.8075866584186923,
+          "mean_interval_width": 6.313029105801173
+        },
+        "South": {
+          "n": 48,
+          "coverage": 0.8541666666666666,
+          "crps": 1.1594514768635502,
+          "mean_interval_width": 6.354863288859081
+        },
+        "West": {
+          "n": 39,
+          "coverage": 0.6666666666666666,
+          "crps": 2.2284532907057186,
+          "mean_interval_width": 6.364504446524776
+        }
+      }
+    }
+  ],
+  "interpretation": "Prediction-distribution comparison only; no model parameters or mechanisms were fitted on test outcomes."
+}
