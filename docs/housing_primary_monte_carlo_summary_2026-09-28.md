@@ -17,6 +17,11 @@
 | no-housing | 9 | 0.0209 | 0.956 | 0.356 | 1.824 |
 | no-household | 9 | 0.0149 | 0.674 | 0.596 | 1.880 |
 
+这里的区间是 80% 区间。当前 coverage 约为 0.36–0.60，普遍低于 0.80 名义覆盖率，
+说明 residual uncertainty 仍偏窄或分布假设过于简单。这是需要优化的预测校准问题，
+不是继续添加社会机制的理由；下一步应在 calibration 内进行 scale/分位数校准，
+并保留 untouched test 不参与调参。
+
 完整汇总：
 `docs/artifacts/housing_primary_monte_carlo_2026-09-28_summary.json`
 

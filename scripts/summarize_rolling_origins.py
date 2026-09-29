@@ -32,6 +32,8 @@ def main() -> int:
             "rmse_mean": mean(float(row["rmse"]) for row in folds),
             "crps_mean": mean(float(row["crps"]) for row in folds),
             "coverage_mean": mean(float(row["coverage"]) for row in folds),
+            "nominal_coverage": 0.8,
+            "coverage_gap_to_nominal": mean(float(row["coverage"]) for row in folds) - 0.8,
             "mean_interval_width": mean(float(row["mean_interval_width"]) for row in folds),
             "by_origin": by_origin,
         }

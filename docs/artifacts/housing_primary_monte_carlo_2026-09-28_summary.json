@@ -37,6 +37,8 @@
       "rmse_mean": 0.9769395833937777,
       "crps_mean": 0.7303634855181823,
       "coverage_mean": 0.5044444444444445,
+      "nominal_coverage": 0.8,
+      "coverage_gap_to_nominal": -0.29555555555555557,
       "mean_interval_width": 1.9076366246210221,
       "by_origin": {
         "housing_primary_monte_carlo_2026-09-27_residual.json": {
@@ -161,6 +163,8 @@
       "rmse_mean": 1.278151748070816,
       "crps_mean": 0.9735373826662773,
       "coverage_mean": 0.40222222222222226,
+      "nominal_coverage": 0.8,
+      "coverage_gap_to_nominal": -0.3977777777777778,
       "mean_interval_width": 2.1805598194148654,
       "by_origin": {
         "housing_primary_monte_carlo_2026-09-27_residual.json": {
@@ -285,6 +289,8 @@
       "rmse_mean": 0.9087144129025375,
       "crps_mean": 0.6735324976272289,
       "coverage_mean": 0.5955555555555555,
+      "nominal_coverage": 0.8,
+      "coverage_gap_to_nominal": -0.20444444444444454,
       "mean_interval_width": 1.8802562940269114,
       "by_origin": {
         "housing_primary_monte_carlo_2026-09-27_residual.json": {
@@ -409,6 +415,8 @@
       "rmse_mean": 1.2718508288561394,
       "crps_mean": 0.9561927899499137,
       "coverage_mean": 0.35555555555555557,
+      "nominal_coverage": 0.8,
+      "coverage_gap_to_nominal": -0.4444444444444445,
       "mean_interval_width": 1.8243102620835865,
       "by_origin": {
         "housing_primary_monte_carlo_2026-09-27_residual.json": {
@@ -533,6 +541,8 @@
       "rmse_mean": 0.9222867227001035,
       "crps_mean": 0.6811579033709466,
       "coverage_mean": 0.6044444444444445,
+      "nominal_coverage": 0.8,
+      "coverage_gap_to_nominal": -0.1955555555555556,
       "mean_interval_width": 1.894124453159849,
       "by_origin": {
         "housing_primary_monte_carlo_2026-09-27_residual.json": {
@@ -657,6 +667,8 @@
       "rmse_mean": 1.3923344423428619,
       "crps_mean": 1.0824460744269726,
       "coverage_mean": 0.4022222222222222,
+      "nominal_coverage": 0.8,
+      "coverage_gap_to_nominal": -0.39777777777777784,
       "mean_interval_width": 1.9225467463438457,
       "by_origin": {
         "housing_primary_monte_carlo_2026-09-27_residual.json": {
