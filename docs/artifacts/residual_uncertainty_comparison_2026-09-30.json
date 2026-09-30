@@ -1,0 +1,722 @@
+{
+  "version": "2026-09-29",
+  "kind": "calibration_only_residual_uncertainty_comparison",
+  "point_model": "state_specific_linear_trend_from_last_two_calibration_observations",
+  "calibration_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "untouched_test_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "residual_construction": "expanding-window forecast errors at horizons 1, 2 and 4; each training and target year is within 2010-2017",
+  "residual_count": 700,
+  "residual_counts_by_horizon": {
+    "1": 300,
+    "2": 250,
+    "4": 150
+  },
+  "scale_methods": {
+    "pooled": "all calibration residuals at matching forecast horizon",
+    "region": "Census-region calibration residuals at matching horizon",
+    "state_shrunk": "state residuals partially pooled toward region with weight n/(n+10)"
+  },
+  "distributions": {
+    "normal": "zero-mean Gaussian using calibration-only scale",
+    "empirical_quantile": "linearly interpolated empirical residual quantiles, rescaled to target variance",
+    "bootstrap_residual": "discrete resampling of centered calibration residuals, rescaled to target variance"
+  },
+  "draws_per_state_year": 1000,
+  "calibration_validation": {
+    "years": [
+      2016,
+      2017
+    ],
+    "folds": [
+      {
+        "validation_year": 2016,
+        "fit_through": 2015,
+        "fit_residuals": 400,
+        "validation_state_rows": 50
+      },
+      {
+        "validation_year": 2017,
+        "fit_through": 2016,
+        "fit_residuals": 550,
+        "validation_state_rows": 50
+      }
+    ],
+    "selection_rule": "minimum calibration-validation CRPS among candidates within 10 percentage points of nominal 80% coverage",
+    "coverage_tolerance": 0.1,
+    "selected_scale": "state_shrunk",
+    "selected_distribution": "normal",
+    "candidate_results": [
+      {
+        "scale": "state_shrunk",
+        "distribution": "normal",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7151873391824016,
+        "coverage": 0.82,
+        "coverage_gap": 0.019999999999999907,
+        "mean_interval_width": 3.28314763017416,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.5896554117811197,
+              "upper_95": 0.8482563516916454
+            },
+            "coverage": {
+              "lower_95": 0.74,
+              "upper_95": 0.89
+            },
+            "interval_width": {
+              "lower_95": 3.063716954172824,
+              "upper_95": 3.5317148255180633
+            }
+          }
+        }
+      },
+      {
+        "scale": "region",
+        "distribution": "empirical_quantile",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7162560401636072,
+        "coverage": 0.7,
+        "coverage_gap": -0.10000000000000009,
+        "mean_interval_width": 2.847742028777321,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.5911108050899267,
+              "upper_95": 0.8562026992550149
+            },
+            "coverage": {
+              "lower_95": 0.62,
+              "upper_95": 0.77
+            },
+            "interval_width": {
+              "lower_95": 2.7389940887145774,
+              "upper_95": 2.9617606475617984
+            }
+          }
+        }
+      },
+      {
+        "scale": "state_shrunk",
+        "distribution": "bootstrap_residual",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7162580953265154,
+        "coverage": 0.76,
+        "coverage_gap": -0.040000000000000036,
+        "mean_interval_width": 3.348903349115896,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.5977627388112283,
+              "upper_95": 0.8491770824825778
+            },
+            "coverage": {
+              "lower_95": 0.68,
+              "upper_95": 0.83
+            },
+            "interval_width": {
+              "lower_95": 3.138681911667449,
+              "upper_95": 3.5724050066336144
+            }
+          }
+        }
+      },
+      {
+        "scale": "region",
+        "distribution": "bootstrap_residual",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7165173781304766,
+        "coverage": 0.72,
+        "coverage_gap": -0.08000000000000007,
+        "mean_interval_width": 2.930809606341916,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.5906507699529415,
+              "upper_95": 0.8812408108963851
+            },
+            "coverage": {
+              "lower_95": 0.63,
+              "upper_95": 0.8
+            },
+            "interval_width": {
+              "lower_95": 2.8161729523245578,
+              "upper_95": 3.040173244928564
+            }
+          }
+        }
+      },
+      {
+        "scale": "state_shrunk",
+        "distribution": "empirical_quantile",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7183305287959519,
+        "coverage": 0.7,
+        "coverage_gap": -0.10000000000000009,
+        "mean_interval_width": 2.7466793390321746,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.5975524475932632,
+              "upper_95": 0.8841752758358172
+            },
+            "coverage": {
+              "lower_95": 0.61,
+              "upper_95": 0.77
+            },
+            "interval_width": {
+              "lower_95": 2.583237725132766,
+              "upper_95": 2.9287414179513482
+            }
+          }
+        }
+      },
+      {
+        "scale": "pooled",
+        "distribution": "empirical_quantile",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7260633634626551,
+        "coverage": 0.75,
+        "coverage_gap": -0.050000000000000044,
+        "mean_interval_width": 2.945971370789837,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.5933629834589279,
+              "upper_95": 0.8804724740121375
+            },
+            "coverage": {
+              "lower_95": 0.67,
+              "upper_95": 0.82
+            },
+            "interval_width": {
+              "lower_95": 2.9297223036184796,
+              "upper_95": 2.9614709382936777
+            }
+          }
+        }
+      },
+      {
+        "scale": "region",
+        "distribution": "normal",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7272562836004441,
+        "coverage": 0.83,
+        "coverage_gap": 0.029999999999999916,
+        "mean_interval_width": 3.342959703302367,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.613985090295279,
+              "upper_95": 0.8754380484502771
+            },
+            "coverage": {
+              "lower_95": 0.76,
+              "upper_95": 0.9
+            },
+            "interval_width": {
+              "lower_95": 3.1836670081287726,
+              "upper_95": 3.5230893418484834
+            }
+          }
+        }
+      },
+      {
+        "scale": "pooled",
+        "distribution": "bootstrap_residual",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7279568312920057,
+        "coverage": 0.76,
+        "coverage_gap": -0.040000000000000036,
+        "mean_interval_width": 2.998872643391452,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.6013654193225867,
+              "upper_95": 0.8789480291723216
+            },
+            "coverage": {
+              "lower_95": 0.69,
+              "upper_95": 0.83
+            },
+            "interval_width": {
+              "lower_95": 2.9803137554771304,
+              "upper_95": 3.017504539944538
+            }
+          }
+        }
+      },
+      {
+        "scale": "pooled",
+        "distribution": "normal",
+        "nominal_coverage": 0.8,
+        "n": 100,
+        "mape": 0.0156530324711536,
+        "rmse": 1.352472906929696,
+        "crps": 0.7324809677127113,
+        "coverage": 0.84,
+        "coverage_gap": 0.039999999999999925,
+        "mean_interval_width": 3.404992587889008,
+        "cluster_bootstrap_95": {
+          "unit": "state_cluster",
+          "draws": 1000,
+          "intervals": {
+            "crps": {
+              "lower_95": 0.6067278241967042,
+              "upper_95": 0.8849002768176839
+            },
+            "coverage": {
+              "lower_95": 0.77,
+              "upper_95": 0.91
+            },
+            "interval_width": {
+              "lower_95": 3.386475599036595,
+              "upper_95": 3.4235143069874767
+            }
+          }
+        }
+      }
+    ]
+  },
+  "final_test_result_selected_once": {
+    "scale": "state_shrunk",
+    "distribution": "normal",
+    "nominal_coverage": 0.8,
+    "n": 150,
+    "mape": 0.030726304344309455,
+    "rmse": 2.987990980359535,
+    "crps": 1.3495859705325215,
+    "coverage": 0.84,
+    "coverage_gap": 0.039999999999999925,
+    "mean_interval_width": 6.010329348661613,
+    "cluster_bootstrap_95": {
+      "unit": "state_cluster",
+      "draws": 1000,
+      "intervals": {
+        "crps": {
+          "lower_95": 1.044160463653868,
+          "upper_95": 1.6924381875297272
+        },
+        "coverage": {
+          "lower_95": 0.7533333333333333,
+          "upper_95": 0.9133333333333333
+        },
+        "interval_width": {
+          "lower_95": 5.624218445758812,
+          "upper_95": 6.412572167834239
+        }
+      }
+    },
+    "by_region": {
+      "Midwest": {
+        "n": 36,
+        "coverage": 0.8611111111111112,
+        "crps": 1.300803227008642,
+        "mean_interval_width": 5.786240183937489
+      },
+      "Northeast": {
+        "n": 27,
+        "coverage": 0.9259259259259259,
+        "crps": 0.7011534179833063,
+        "mean_interval_width": 4.367179076319961
+      },
+      "South": {
+        "n": 48,
+        "coverage": 0.875,
+        "crps": 1.1110298250129922,
+        "mean_interval_width": 5.495001885478769
+      },
+      "West": {
+        "n": 39,
+        "coverage": 0.717948717948718,
+        "crps": 2.137138603112672,
+        "mean_interval_width": 7.988995643945447
+      }
+    },
+    "by_year": {
+      "2018": {
+        "horizon": 1,
+        "n": 50,
+        "coverage": 0.9,
+        "crps": 0.5800339708544646,
+        "mean_interval_width": 3.3106552650196455
+      },
+      "2019": {
+        "horizon": 2,
+        "n": 50,
+        "coverage": 0.88,
+        "crps": 1.0958287382589946,
+        "mean_interval_width": 5.698898000129507
+      },
+      "2021": {
+        "horizon": 4,
+        "n": 50,
+        "coverage": 0.74,
+        "crps": 2.3728952024841052,
+        "mean_interval_width": 9.021434780835685
+      }
+    }
+  },
+  "fixed_method_monte_carlo_stability": {
+    "runs": 10,
+    "draws_per_state_year": 1000,
+    "purpose": "quantify finite Monte Carlo draw variability only; no method or parameter retuning",
+    "summary": {
+      "crps": {
+        "mean": 1.34269490038391,
+        "standard_deviation": 0.0033835630866296757,
+        "minimum": 1.3396872178785104,
+        "maximum": 1.3516044624907093
+      },
+      "coverage": {
+        "mean": 0.8366666666666667,
+        "standard_deviation": 0.013416407864998755,
+        "minimum": 0.82,
+        "maximum": 0.8666666666666667
+      },
+      "mean_interval_width": {
+        "mean": 6.021794896883577,
+        "standard_deviation": 0.010387305371463495,
+        "minimum": 6.006862508091763,
+        "maximum": 6.038320376905288
+      }
+    },
+    "runs_detail": [
+      {
+        "crps": 1.340967576850193,
+        "coverage": 0.8333333333333334,
+        "mean_interval_width": 6.028760676395362,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.576252262327368,
+            "mean_interval_width": 3.2798885878279678
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.9,
+            "crps": 1.095622565219875,
+            "mean_interval_width": 5.700094548470382
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.72,
+            "crps": 2.351027903003336,
+            "mean_interval_width": 9.106298892887736
+          }
+        }
+      },
+      {
+        "crps": 1.3425936412400916,
+        "coverage": 0.82,
+        "mean_interval_width": 6.017666967529876,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5818697967558805,
+            "mean_interval_width": 3.2979472843152227
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 1.0953935933900107,
+            "mean_interval_width": 5.674308789078375
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.7,
+            "crps": 2.3505175335743838,
+            "mean_interval_width": 9.080744829196028
+          }
+        }
+      },
+      {
+        "crps": 1.3441860255712572,
+        "coverage": 0.8333333333333334,
+        "mean_interval_width": 6.012293741612627,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5782162463109407,
+            "mean_interval_width": 3.269855669023141
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 1.0971592790004425,
+            "mean_interval_width": 5.688548056753155
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.74,
+            "crps": 2.3571825514023885,
+            "mean_interval_width": 9.078477499061586
+          }
+        }
+      },
+      {
+        "crps": 1.3413069468641807,
+        "coverage": 0.8666666666666667,
+        "mean_interval_width": 6.038320376905288,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.9,
+            "crps": 0.575235919198418,
+            "mean_interval_width": 3.3015844894035657
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.92,
+            "crps": 1.0978777996491726,
+            "mean_interval_width": 5.714177811569232
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.78,
+            "crps": 2.3508071217449515,
+            "mean_interval_width": 9.099198829743068
+          }
+        }
+      },
+      {
+        "crps": 1.3516044624907093,
+        "coverage": 0.82,
+        "mean_interval_width": 6.0119333516585,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5771967096557123,
+            "mean_interval_width": 3.2987060024222785
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.86,
+            "crps": 1.1149044702819508,
+            "mean_interval_width": 5.664457493166306
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.72,
+            "crps": 2.3627122075344653,
+            "mean_interval_width": 9.072636559386915
+          }
+        }
+      },
+      {
+        "crps": 1.3396872178785104,
+        "coverage": 0.8466666666666667,
+        "mean_interval_width": 6.02483214345058,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.9,
+            "crps": 0.5830657271978661,
+            "mean_interval_width": 3.313781797961268
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.9,
+            "crps": 1.0970150902121367,
+            "mean_interval_width": 5.657771985608443
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.74,
+            "crps": 2.338980836225528,
+            "mean_interval_width": 9.10294264678203
+          }
+        }
+      },
+      {
+        "crps": 1.3446045268280042,
+        "coverage": 0.8333333333333334,
+        "mean_interval_width": 6.038220020206147,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5765349975486647,
+            "mean_interval_width": 3.293581427864936
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 1.0971951735198386,
+            "mean_interval_width": 5.6907958084685974
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.74,
+            "crps": 2.36008340941551,
+            "mean_interval_width": 9.130282824284908
+          }
+        }
+      },
+      {
+        "crps": 1.3420605975610262,
+        "coverage": 0.8466666666666667,
+        "mean_interval_width": 6.024031631766977,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5722955739096056,
+            "mean_interval_width": 3.3071803754268525
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.9,
+            "crps": 1.0985956605276217,
+            "mean_interval_width": 5.679047717547088
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.76,
+            "crps": 2.3552905582458514,
+            "mean_interval_width": 9.085866802326992
+          }
+        }
+      },
+      {
+        "crps": 1.340017681427895,
+        "coverage": 0.84,
+        "mean_interval_width": 6.006862508091763,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5767307027038915,
+            "mean_interval_width": 3.2962258190363674
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.9,
+            "crps": 1.0987077289312246,
+            "mean_interval_width": 5.660129423982214
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.74,
+            "crps": 2.3446146126485687,
+            "mean_interval_width": 9.064232281256707
+          }
+        }
+      },
+      {
+        "crps": 1.3399203271272324,
+        "coverage": 0.8266666666666667,
+        "mean_interval_width": 6.015027551218653,
+        "by_year": {
+          "2018": {
+            "horizon": 1,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 0.5752038413126145,
+            "mean_interval_width": 3.293382787952628
+          },
+          "2019": {
+            "horizon": 2,
+            "n": 50,
+            "coverage": 0.88,
+            "crps": 1.0960317434700697,
+            "mean_interval_width": 5.683818816519858
+          },
+          "2021": {
+            "horizon": 4,
+            "n": 50,
+            "coverage": 0.72,
+            "crps": 2.348525396599013,
+            "mean_interval_width": 9.067881049183471
+          }
+        }
+      }
+    ]
+  },
+  "other_test_candidates_evaluated": false,
+  "interpretation": "方法仅由校准期内2016-2017滚动验证选择；随后用完整2010-2017重估，2018、2019、2021只评估一次。"
+}
