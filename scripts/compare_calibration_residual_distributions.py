@@ -180,6 +180,7 @@ def summarize_candidate(observed_rows: list[dict], calibration_rows: list[dict],
     rng = random.Random(seed)
     scores = []
     stratum: dict[str, list[dict]] = defaultdict(list)
+    by_year: dict[int, list[dict]] = defaultdict(list)
     distribution_cache = {}
     for row in observed_rows:
         history = [item for item in calibration_rows if item["state"] == row["state"]]
@@ -205,6 +206,7 @@ def summarize_candidate(observed_rows: list[dict], calibration_rows: list[dict],
         }
         scores.append(score)
         stratum[row["region"]].append(score)
+        by_year[row["year"]].append(score)
     return {
         "scale": scale_mode,
         "distribution": distribution,
@@ -226,6 +228,16 @@ def summarize_candidate(observed_rows: list[dict], calibration_rows: list[dict],
             }
             for group, items in sorted(stratum.items())
         },
+        "by_year": {
+            str(year): {
+                "horizon": year - CALIBRATION_END,
+                "n": len(items),
+                "coverage": mean(float(row["covered"]) for row in items),
+                "crps": mean(row["crps"] for row in items),
+                "mean_interval_width": mean(row["interval_width"] for row in items),
+            }
+            for year, items in sorted(by_year.items())
+        },
         "scores": scores,
     }
 
@@ -235,6 +247,7 @@ def main() -> int:
     parser.add_argument("panel", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--draws", type=int, default=1000)
+    parser.add_argument("--stability-runs", type=int, default=10)
     parser.add_argument("--seed", type=int, default=20260929)
     args = parser.parse_args()
     with args.panel.open(encoding="utf-8-sig", newline="") as handle:
@@ -300,6 +313,25 @@ def main() -> int:
         args.draws, args.seed + 88001,
     )
     final_test.pop("scores", None)
+    # Repeated simulation draws quantify Monte Carlo noise only. The selected
+    # method, residual pools, calibration data, and test rows remain fixed.
+    stability_runs = []
+    for run_index in range(args.stability_runs):
+        report = summarize_candidate(
+            observed_test, calibration, residuals, selected["scale"], selected["distribution"],
+            args.draws, args.seed + 99001 + run_index * 7919,
+        )
+        stability_runs.append({key: report[key] for key in
+                               ("crps", "coverage", "mean_interval_width", "by_year")})
+    stability_summary = {}
+    for metric in ("crps", "coverage", "mean_interval_width"):
+        values = [float(run[metric]) for run in stability_runs]
+        stability_summary[metric] = {
+            "mean": mean(values),
+            "standard_deviation": pstdev(values) if len(values) > 1 else 0.0,
+            "minimum": min(values),
+            "maximum": max(values),
+        }
     validation_results.sort(key=lambda row: (row["crps"], abs(row["coverage_gap"]), row["mean_interval_width"]))
     payload = {
         "version": "2026-09-29",
@@ -332,6 +364,13 @@ def main() -> int:
             "candidate_results": validation_results,
         },
         "final_test_result_selected_once": final_test,
+        "fixed_method_monte_carlo_stability": {
+            "runs": args.stability_runs,
+            "draws_per_state_year": args.draws,
+            "purpose": "quantify finite Monte Carlo draw variability only; no method or parameter retuning",
+            "summary": stability_summary,
+            "runs_detail": stability_runs,
+        },
         "other_test_candidates_evaluated": False,
         "interpretation": "方法仅由校准期内2016-2017滚动验证选择；随后用完整2010-2017重估，2018、2019、2021只评估一次。",
     }
