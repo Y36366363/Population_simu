@@ -78,6 +78,12 @@ def main() -> int:
         "sensitivity_test_years": artifact_data.get("sensitivity_test_years", []),
     }
 
+    # Make the repository-root invocation reproducible without requiring users
+    # to export PYTHONPATH=src first.  Installed environments still work, and
+    # the explicit root keeps this script usable from CI or another cwd.
+    source_dir = (root / "src").resolve()
+    if str(source_dir) not in sys.path:
+        sys.path.insert(0, str(source_dir))
     from population_simu.local_app import run_scenario
     api_checks = {}
     for scenario in ("family_major_countries.json", "resource_allocation_experiment.json"):
