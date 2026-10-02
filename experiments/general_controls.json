@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "name": "通用多国控制变量与机制消融架构验证",
+  "scenario": "../scenarios/family_major_countries.json",
+  "warmup_years": 2,
+  "years": 3,
+  "seeds": [20261002, 20261003, 20261004],
+  "metrics": ["population", "median_household_resources", "internal_migrants", "mean_childcare_gap", "climate_events"],
+  "arms": [
+    {"name": "unchanged_control"},
+    {"name": "us_lower_housing_pressure", "country_parameters": {"USA": {"housing_pressure": 0.25}}},
+    {"name": "us_childcare_capacity", "country_parameters": {"USA": {"childcare_capacity": 0.8}}},
+    {"name": "us_housing_and_childcare", "country_parameters": {"USA": {"housing_pressure": 0.25, "childcare_capacity": 0.8}}},
+    {"name": "no_internal_migration", "disabled_processes": ["internal_migration"]},
+    {"name": "no_new_climate_events", "disabled_processes": ["climate_events"]},
+    {"name": "china_east_services", "region_parameters": {"CHN": {"CHN-east-urban": {"school_supply": 0.85, "medical_supply": 0.85}}}}
+  ]
+}

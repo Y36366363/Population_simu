@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from copy import deepcopy
 import math
 import random
 import statistics
+from typing import Iterable, TYPE_CHECKING
 
 from .capitals import CapitalBundle, sigmoid
 from .family_config import Country, FamilyScenario, Region
@@ -14,6 +16,15 @@ from .audit import audit_history, audit_snapshot
 from .networks import FamilySocialNetwork, RegionMigrationNetwork
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
 
+if TYPE_CHECKING:
+    from .family_checkpoint import FamilyCheckpoint
+
+
+DISABLABLE_PROCESSES = frozenset({
+    "births", "deaths", "internal_migration", "international_migration",
+    "partnership", "divorce", "climate_events",
+})
+
 
 class FamilyWorld:
     """以姓氏家族及其家庭分支为核心的离散年度模拟器。"""
@@ -21,6 +32,7 @@ class FamilyWorld:
     def __init__(self, scenario: FamilyScenario):
         scenario.validate()
         self.scenario = scenario
+        self.disabled_processes: frozenset[str] = frozenset()
         self.countries = {country.id: country for country in scenario.countries}
         self.rng = random.Random(scenario.simulation.random_seed)
         self.year = scenario.simulation.start_year
@@ -63,6 +75,32 @@ class FamilyWorld:
     @property
     def living_people(self) -> list[FamilyPerson]:
         return [person for person in self.people.values() if person.alive]
+
+    def checkpoint(self) -> "FamilyCheckpoint":
+        """保存可独立恢复的完整内存状态；展示用 snapshot 不承担恢复功能。"""
+        from .family_checkpoint import FamilyCheckpoint
+
+        return FamilyCheckpoint.capture(self)
+
+    def configure_disabled_processes(self, names: Iterable[str]) -> None:
+        """替换后续年度禁用的事件过程，不回滚已经发生的事件。
+
+        climate_events 仅禁止新灾害，已有环境压力继续恢复。迁移过程关闭
+        不会禁止婚配带来的居住地变化；这些开关不是个人状态锁定。
+        """
+        if isinstance(names, (str, bytes)):
+            raise ValueError("disabled_processes 必须是过程名称的集合，不能是字符串")
+        try:
+            proposed = tuple(names)
+        except TypeError as error:
+            raise ValueError("disabled_processes 必须是过程名称的集合") from error
+        if any(not isinstance(name, str) for name in proposed):
+            raise ValueError("disabled_processes 中的过程名称必须是字符串")
+        disabled = frozenset(proposed)
+        unknown = disabled - DISABLABLE_PROCESSES
+        if unknown:
+            raise ValueError(f"未知 disabled_processes: {', '.join(sorted(unknown))}")
+        self.disabled_processes = disabled
 
     def age_sex_matrix(self) -> dict[str, dict[str, dict[int, int]]]:
         """返回国家—性别—年龄人口矩阵，作为家庭明细的宏观对账视图。"""
@@ -126,7 +164,7 @@ class FamilyWorld:
             "clans": len(self.clans),
             "countries": country_rows,
             "age_sex_matrix": self.age_sex_matrix(),
-            "region_history": self.region_history,
+            "region_history": deepcopy(self.region_history),
         }
 
     def audit(self) -> dict[str, object]:
@@ -345,7 +383,7 @@ class FamilyWorld:
         self._climate_events = {}
         for country_id, country in self.countries.items():
             config = self._environment_config(country)
-            events = self._environment.events_for_year(
+            events = {} if "climate_events" in self.disabled_processes else self._environment.events_for_year(
                 self.year,
                 country_id,
                 tuple(region.id for region in self.regions[country_id]),
@@ -1965,12 +2003,12 @@ class FamilyWorld:
         self._mature_young_adults()
         self._career_transitions()
         self._earn_resources()
-        divorces = self._divorces()
-        remarriages = self._form_family_branches()
-        births = self._births()
-        internal_migrants = self._internal_migration()
-        migrants = self._international_migration()
-        deaths = self._deaths()
+        divorces = {} if "divorce" in self.disabled_processes else self._divorces()
+        remarriages = {} if "partnership" in self.disabled_processes else self._form_family_branches()
+        births = {} if "births" in self.disabled_processes else self._births()
+        internal_migrants = {} if "internal_migration" in self.disabled_processes else self._internal_migration()
+        migrants = {} if "international_migration" in self.disabled_processes else self._international_migration()
+        deaths = {} if "deaths" in self.disabled_processes else self._deaths()
         self._update_clan_peaks()
         self._update_government_funds()
         self._capacity_cache.clear()

@@ -1,8 +1,21 @@
 # Population Sandbox
 
+## 通用控制变量与机制消融实验
+
+平台面向多种人口研究课题。一孩/多孩是示例，住房、教育、照护、迁移、灾害等实验共用完整状态分叉、参数干预、过程开关、指标与审计，不需要各写一套模拟循环。
+
+```bash
+python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
+  --output outputs/general_controls.json
+```
+
+此示例先预热四国世界，再从同一完整checkpoint恢复对照组和7个实验组，保存逐年结果、参数前后变化、配对差值与源码hash。支持7类事件过程消融及明确允许的国家、地区和全局运行参数。当前是年度、同一起点的模型内比较；尚不保证分叉后的个体随机冲击一致，也不是现实因果估计。
+
+使用方式和扩展边界见[通用实验架构](docs/experiment_architecture_2026-10-02.md)，本阶段验证见[阶段结果](docs/experiment_stage_results_2026-10-02.md)。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
-长期目标是可校准、可冻结因素的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，并同时研究后代存续、生活质量与代际上升。当前美国住房—生育研究作为第一个经验验证模块继续推进。
+长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。
 
 - [完整审计、配置说明与分阶段路线](docs/project_direction_and_audit_2026-10-02.md)
 - [本轮延续测试、修复与复现命令](docs/continuation_results_2026-10-02.md)
