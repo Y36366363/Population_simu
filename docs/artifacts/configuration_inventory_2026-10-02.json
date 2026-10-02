@@ -1,0 +1,3202 @@
+{
+  "schema_version": 1,
+  "kind": "configuration_inventory",
+  "evidence_status": "configuration_audit_only",
+  "interpretation": [
+    "Declared defaults and explicit scenario values are model settings; this audit does not establish that they were empirically estimated.",
+    "Validation confirms the existing configuration validators accept the inputs; it does not establish empirical realism or completeness of validation.",
+    "Effective configuration is the complete dataclass state returned by from_dict; actual family regions separately include engine-generated urban/rural fallbacks.",
+    "Initial populations are synthetic seeded agents at the configured start year, not observed country population counts; no simulation step is run.",
+    "A supplied age profile or OD table would still require independent source and calibration verification; absent tables use engine fallback mechanisms.",
+    "Country and region counts aggregate scenario instances, including fictional experiment arms, rather than unique real geographic entities."
+  ],
+  "source_sha256": {
+    "src/population_simu/__init__.py": "8bac2e3ab1eb9d274e2de6388d6cc2341617822a5ff40ffec5e896ca14d330df",
+    "src/population_simu/audit.py": "352283d4ae5170b6f8de34be5da77781e2d6a654cd72b88ade308f3cd9e669ae",
+    "src/population_simu/benchmarks.py": "140d061368bef8e100f276be995fd179b27f9bbe65129925ea120c86140a3ada",
+    "src/population_simu/calibration.py": "877647761d98b58933f742662aeb9c065fa8f06b737417d11b50b6eb70f394de",
+    "src/population_simu/calibration_audit.py": "248a0a48012b7f03ba907517a6748b952323417a881b08bc19d247234ad1ae3e",
+    "src/population_simu/capitals.py": "ec6b5585ae39716d69b911b1a03a20e1860340144d4c020d631598071e390fd3",
+    "src/population_simu/cli.py": "36c4763d66ea53513041540aef3e62a79e9d35ff768acfde981877a40194e450",
+    "src/population_simu/cohort_component.py": "fa6a718be4f9b037bf9f10891fdb0055ee945f5a89b9bc26bc1f809aafbba412",
+    "src/population_simu/cohort_replay.py": "55721f3c61c0f7170ff6ccc15d074ebf88a46de0d456e4cc0160f9656f4266d6",
+    "src/population_simu/config.py": "d7fd83dc4bae6b45fb3c73ec6ce6c64bfba49ce12b66b55edd9f5648bce87b9c",
+    "src/population_simu/dynasty_experiment.py": "3daae7c34918dbbdd82b6c92a7c2f46c6c0953ea27d9ef2c818ffbd3d9c808d2",
+    "src/population_simu/empirical_data.py": "50f76b76bb146ff4079461ba6d7533cbfa5d277a27119726ce3a369b147883a7",
+    "src/population_simu/environment.py": "bfb13bf6e605f14c2fe5820538600f48a37c07c9fd698d5ccc331e9c96a1f29d",
+    "src/population_simu/environment_experiment.py": "add2240015d5b26a97cb0754a38058745355c845168f151e5de7caf7adb7c825",
+    "src/population_simu/family_cli.py": "a616ba52a860023ca7d0082ad5c24f24d539f01a1171955a441f9a1f8c00a404",
+    "src/population_simu/family_config.py": "5001c43f8b9aeaccab6604db1d5751ba366cb897a30f0dbaf3cbcc27f5782b7d",
+    "src/population_simu/family_models.py": "86cb044ec2c98f0d2faad1cdaeff2bba2c56ece96d97658a1a8cfc99c07dfe28",
+    "src/population_simu/family_monte_carlo.py": "24382b99c8615c5579bb07d2cf2343a3c48e3c5b5c35f6746969d89aa9b51ca1",
+    "src/population_simu/family_world.py": "56d92c4232fea7741815f5a5d8d13e4a5eea430a8f99bd3ed91d0d6103a37505",
+    "src/population_simu/fertility.py": "a9711a3b0fa97e603625a7c569a90cbe2369d66fc4d575be2e8e8e55a29c4cb6",
+    "src/population_simu/fertility_panel.py": "17fc7a3376201463be29818241b602e74fea6abd31982267ccc40b1e58fbdcde",
+    "src/population_simu/hazards.py": "7bc4d50f31b8a9e1953e341627cbded463fd7bb19d3068efca1bcd431e3bab38",
+    "src/population_simu/household_calibration.py": "7188eb15852df8fd0f64c2033cba1911d3908886f7ad66f265432f1f9a9c987e",
+    "src/population_simu/institution_experiment.py": "ece3c8db4ef61577b849c6175b6cc932bd971034bbf61f8e8169deb0e5651ccc",
+    "src/population_simu/local_app.py": "0056430ce3459398ee0448b05c207aec5882e7178a7a59ebba0be5bd65008b31",
+    "src/population_simu/mechanisms.py": "c50ba9f70e11d9bba84ebff891053fa3eb4d132c9b827b72f0b40d6b2949f237",
+    "src/population_simu/microdata.py": "166b0230544d1f6a4cdece3f936db7e405f46bac845c9a2165eb21d4c9a10494",
+    "src/population_simu/models.py": "cd40758f532dd68fc3d73228f7b8fadbd84b3ba973d96be1a8a597d86010977d",
+    "src/population_simu/monte_carlo.py": "36222fe87d0b56da5c4efbfaa32fcd8d16972913e640607994d6e139cd8dbae4",
+    "src/population_simu/national_calibration.py": "c1e38dfac793b5ee60053699dafb39fc5566e63c0657de4b1f78787c607ef85f",
+    "src/population_simu/networks.py": "bfb729239047553de51105d44894945eab7976249ac526c76bff9e970198ffb4",
+    "src/population_simu/occupations.py": "f0ceb76f2234d9517740e89dbe2a6c365a29da4cec0892f7c48acc744a5d29e9",
+    "src/population_simu/resource_experiment.py": "e0f8bacb3045065b249ef4ac1007003cdf08e446fa7f9dfcf3a2ad4cf8b18847",
+    "src/population_simu/study_protocol.py": "badfaff386d4ff15132de0b3ca09efc80abcfbb8f3c6db998791149f3ac6c239",
+    "src/population_simu/validation.py": "2cae9418c14dde03fca452674e459447ec198485b8b7a5fa405eb8fe50c544be",
+    "src/population_simu/world.py": "6688ed7309baa1e8e67f662b4b12101aa4f61cdf6be3e817d2230d2b85d07d09",
+    "scripts/export_configuration_inventory.py": "27a4524b58c21c3ab209b99f2df1f478370260bb4e915de62ff23cbc59b76c03"
+  },
+  "summary": {
+    "configuration_modules": 2,
+    "dataclasses": 9,
+    "declared_fields": 139,
+    "required_fields": 26,
+    "fields_with_defaults": 113,
+    "scenarios": 4,
+    "family_scenarios": 2,
+    "simple_scenarios": 2,
+    "family_country_instances": 7,
+    "family_countries_using_fallback_regions": 6,
+    "family_actual_region_definitions": 16,
+    "family_country_instances_missing_all_profiles_and_od": 7
+  },
+  "configuration_modules": [
+    {
+      "module": "population_simu.config",
+      "source_path": "src/population_simu/config.py",
+      "source_sha256": "d7fd83dc4bae6b45fb3c73ec6ce6c64bfba49ce12b66b55edd9f5648bce87b9c",
+      "dataclasses": [
+        {
+          "name": "RegionConfig",
+          "field_count": 7,
+          "fields": [
+            {
+              "name": "id",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "name",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "initial_share",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "wage_index",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "housing_cost",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "education_access",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "opportunity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            }
+          ]
+        },
+        {
+          "name": "PolicyConfig",
+          "field_count": 5,
+          "fields": [
+            {
+              "name": "fertility_multiplier",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "childcare_support",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "migration_openness",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "education_investment",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "upward_mobility",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            }
+          ]
+        },
+        {
+          "name": "SimulationConfig",
+          "field_count": 7,
+          "fields": [
+            {
+              "name": "start_year",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 2025
+            },
+            {
+              "name": "years",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 50
+            },
+            {
+              "name": "initial_people",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 2000
+            },
+            {
+              "name": "random_seed",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 42
+            },
+            {
+              "name": "baseline_tfr",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.8
+            },
+            {
+              "name": "pair_formation_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.22
+            },
+            {
+              "name": "household_migration_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.025
+            }
+          ]
+        },
+        {
+          "name": "Scenario",
+          "field_count": 4,
+          "fields": [
+            {
+              "name": "name",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "simulation",
+              "type": "SimulationConfig",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "policy",
+              "type": "PolicyConfig",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "regions",
+              "type": "tuple[RegionConfig, ...]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.tuple",
+              "default_value": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "module": "population_simu.family_config",
+      "source_path": "src/population_simu/family_config.py",
+      "source_sha256": "5001c43f8b9aeaccab6604db1d5751ba366cb897a30f0dbaf3cbcc27f5782b7d",
+      "dataclasses": [
+        {
+          "name": "PolicyEra",
+          "field_count": 7,
+          "fields": [
+            {
+              "name": "start_year",
+              "type": "int",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "end_year",
+              "type": "int | None",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "name",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "max_children",
+              "type": "int | None",
+              "required": false,
+              "default_kind": "value",
+              "default_value": null
+            },
+            {
+              "name": "enforcement",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "fertility_multiplier",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "child_support",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            }
+          ]
+        },
+        {
+          "name": "Region",
+          "field_count": 17,
+          "fields": [
+            {
+              "name": "id",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "name",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "urban",
+              "type": "bool",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "initial_share",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "wage_multiplier",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "housing_cost",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "education_quality",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "job_opportunity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "amenity_supply",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "school_supply",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "childcare_supply",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "medical_supply",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "transport_access",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "safety_level",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "historical_hazard_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "population_exposure",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "recovery_cost",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.2
+            }
+          ]
+        },
+        {
+          "name": "Country",
+          "field_count": 81,
+          "fields": [
+            {
+              "name": "id",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "name",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "initial_clans",
+              "type": "int",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "initial_development",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "annual_development_gain",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "initial_urbanization",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "annual_urbanization_gain",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "education_access",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "cost_of_children",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "baseline_family_resources",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "initial_children_per_family",
+              "type": "float",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "fertility_peak_age",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 29
+            },
+            {
+              "name": "fertility_age_spread",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 16.0
+            },
+            {
+              "name": "fertility_age_profile",
+              "type": "tuple[tuple[int, float], ...]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.tuple",
+              "default_value": []
+            },
+            {
+              "name": "mortality_age_profile",
+              "type": "tuple[tuple[int, float], ...]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.tuple",
+              "default_value": []
+            },
+            {
+              "name": "migration_age_profile",
+              "type": "tuple[tuple[int, float], ...]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.tuple",
+              "default_value": []
+            },
+            {
+              "name": "social_norm_strength",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.2
+            },
+            {
+              "name": "migration_logit_temperature",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "migration_matrix",
+              "type": "dict[str, dict[str, float]]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.dict",
+              "default_value": {}
+            },
+            {
+              "name": "social_norm_sources",
+              "type": "dict[str, float]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "population_simu.family_config.Country.<lambda>",
+              "default_value": {
+                "neighbors": 0.4,
+                "kin": 0.25,
+                "colleagues": 0.2,
+                "media": 0.15
+              }
+            },
+            {
+              "name": "rich_fertility_rebound",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "institutional_openness",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "welfare_floor",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.15
+            },
+            {
+              "name": "housing_pressure",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.5
+            },
+            {
+              "name": "occupational_inheritance",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.45
+            },
+            {
+              "name": "public_education_quality",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.55
+            },
+            {
+              "name": "education_inequality",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "medical_training_years",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 7
+            },
+            {
+              "name": "medical_license_pass_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.7
+            },
+            {
+              "name": "civil_service_selectivity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.18
+            },
+            {
+              "name": "state_sector_share",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.22
+            },
+            {
+              "name": "base_unemployment_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.055
+            },
+            {
+              "name": "worker_compensation",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.45
+            },
+            {
+              "name": "property_inheritance_tax",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.05
+            },
+            {
+              "name": "housing_supply_elasticity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.45
+            },
+            {
+              "name": "political_term_years",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 5
+            },
+            {
+              "name": "faction_count",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 4
+            },
+            {
+              "name": "anti_nepotism_strength",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "assortative_mating_strength",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.65
+            },
+            {
+              "name": "elite_marriage_closure",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.45
+            },
+            {
+              "name": "soe_reform_year",
+              "type": "int | None",
+              "required": false,
+              "default_kind": "value",
+              "default_value": null
+            },
+            {
+              "name": "soe_reform_shock",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "cycle_years",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 9.0
+            },
+            {
+              "name": "cycle_amplitude",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.1
+            },
+            {
+              "name": "shock_probability",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.025
+            },
+            {
+              "name": "shock_severity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.18
+            },
+            {
+              "name": "base_divorce_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.012
+            },
+            {
+              "name": "remarriage_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.16
+            },
+            {
+              "name": "female_labor_access",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.76
+            },
+            {
+              "name": "gender_pay_gap",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.12
+            },
+            {
+              "name": "maternal_career_penalty",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.1
+            },
+            {
+              "name": "son_preference",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "public_education_reform",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "housing_reform_strength",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "high_welfare_strength",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0
+            },
+            {
+              "name": "healthcare_access",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.65
+            },
+            {
+              "name": "medical_cost_burden",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "chronic_disease_base_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.006
+            },
+            {
+              "name": "public_long_term_care",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.15
+            },
+            {
+              "name": "pension_replacement_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.3
+            },
+            {
+              "name": "retirement_age",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 65
+            },
+            {
+              "name": "childcare_capacity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "childcare_subsidy",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.2
+            },
+            {
+              "name": "grandparent_care_availability",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.45
+            },
+            {
+              "name": "dynamic_investment_strength",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "investment_need_weight",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.2
+            },
+            {
+              "name": "tax_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.18
+            },
+            {
+              "name": "education_budget_per_child",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.08
+            },
+            {
+              "name": "health_budget_per_person",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.035
+            },
+            {
+              "name": "pension_budget_per_retiree",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.06
+            },
+            {
+              "name": "technology_growth",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.012
+            },
+            {
+              "name": "automation_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.08
+            },
+            {
+              "name": "labor_shortage_wage_pressure",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.35
+            },
+            {
+              "name": "carrying_capacity_scale",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1.0
+            },
+            {
+              "name": "environmental_pressure",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.1
+            },
+            {
+              "name": "climate_shock_probability",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.02
+            },
+            {
+              "name": "climate_shock_severity",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.2
+            },
+            {
+              "name": "climate_recovery_years",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 5.0
+            },
+            {
+              "name": "resource_constraint",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.1
+            },
+            {
+              "name": "regions",
+              "type": "tuple[Region, ...]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.tuple",
+              "default_value": []
+            },
+            {
+              "name": "policies",
+              "type": "tuple[PolicyEra, ...]",
+              "required": false,
+              "default_kind": "factory",
+              "default_factory": "builtins.tuple",
+              "default_value": []
+            }
+          ]
+        },
+        {
+          "name": "FamilySimulation",
+          "field_count": 8,
+          "fields": [
+            {
+              "name": "start_year",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 1970
+            },
+            {
+              "name": "end_year",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 2100
+            },
+            {
+              "name": "random_seed",
+              "type": "int",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 42
+            },
+            {
+              "name": "adult_pairing_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.3
+            },
+            {
+              "name": "international_migration_rate",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.0015
+            },
+            {
+              "name": "resource_investment_share",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.32
+            },
+            {
+              "name": "inheritance_share",
+              "type": "float",
+              "required": false,
+              "default_kind": "value",
+              "default_value": 0.25
+            },
+            {
+              "name": "surname_rule",
+              "type": "str",
+              "required": false,
+              "default_kind": "value",
+              "default_value": "paternal"
+            }
+          ]
+        },
+        {
+          "name": "FamilyScenario",
+          "field_count": 3,
+          "fields": [
+            {
+              "name": "name",
+              "type": "str",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "simulation",
+              "type": "FamilySimulation",
+              "required": true,
+              "default_kind": "missing"
+            },
+            {
+              "name": "countries",
+              "type": "tuple[Country, ...]",
+              "required": true,
+              "default_kind": "missing"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "path": "scenarios/baseline.json",
+      "sha256": "d28c31238e01108889d5f7172aefd3ec0e6db95bcf0591bf31a10f427fff55da",
+      "scenario_type": "population_simu.config.Scenario",
+      "validation": {
+        "passed": true,
+        "method": "from_dict_then_validate"
+      },
+      "explicit_configuration": {
+        "name": "基线：中等生育与迁移开放",
+        "simulation": {
+          "start_year": 2025,
+          "years": 50,
+          "initial_people": 2000,
+          "random_seed": 42,
+          "baseline_tfr": 1.8,
+          "pair_formation_rate": 0.22,
+          "household_migration_rate": 0.025
+        },
+        "policy": {
+          "fertility_multiplier": 1.0,
+          "childcare_support": 0.3,
+          "migration_openness": 0.6,
+          "education_investment": 0.6,
+          "upward_mobility": 0.5
+        },
+        "regions": [
+          {
+            "id": "east",
+            "name": "东部都会区",
+            "initial_share": 0.35,
+            "wage_index": 1.35,
+            "housing_cost": 1.45,
+            "education_access": 0.78,
+            "opportunity": 0.75
+          },
+          {
+            "id": "central",
+            "name": "中部城市群",
+            "initial_share": 0.35,
+            "wage_index": 1.0,
+            "housing_cost": 0.9,
+            "education_access": 0.58,
+            "opportunity": 0.55
+          },
+          {
+            "id": "rural",
+            "name": "乡村地区",
+            "initial_share": 0.3,
+            "wage_index": 0.68,
+            "housing_cost": 0.45,
+            "education_access": 0.38,
+            "opportunity": 0.3
+          }
+        ]
+      },
+      "effective_configuration": {
+        "name": "基线：中等生育与迁移开放",
+        "simulation": {
+          "start_year": 2025,
+          "years": 50,
+          "initial_people": 2000,
+          "random_seed": 42,
+          "baseline_tfr": 1.8,
+          "pair_formation_rate": 0.22,
+          "household_migration_rate": 0.025
+        },
+        "policy": {
+          "fertility_multiplier": 1.0,
+          "childcare_support": 0.3,
+          "migration_openness": 0.6,
+          "education_investment": 0.6,
+          "upward_mobility": 0.5
+        },
+        "regions": [
+          {
+            "id": "east",
+            "name": "东部都会区",
+            "initial_share": 0.35,
+            "wage_index": 1.35,
+            "housing_cost": 1.45,
+            "education_access": 0.78,
+            "opportunity": 0.75
+          },
+          {
+            "id": "central",
+            "name": "中部城市群",
+            "initial_share": 0.35,
+            "wage_index": 1.0,
+            "housing_cost": 0.9,
+            "education_access": 0.58,
+            "opportunity": 0.55
+          },
+          {
+            "id": "rural",
+            "name": "乡村地区",
+            "initial_share": 0.3,
+            "wage_index": 0.68,
+            "housing_cost": 0.45,
+            "education_access": 0.38,
+            "opportunity": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "path": "scenarios/family_major_countries.json",
+      "sha256": "83cf72f1f8a72822000809fc3afa5d796607abac91534dbd5e2c2b3ce21ab6f9",
+      "scenario_type": "population_simu.family_config.FamilyScenario",
+      "validation": {
+        "passed": true,
+        "method": "from_dict_then_validate"
+      },
+      "explicit_configuration": {
+        "name": "主要国家家庭—家族时间线（机制演示版）",
+        "simulation": {
+          "start_year": 1970,
+          "end_year": 2100,
+          "random_seed": 20260805,
+          "adult_pairing_rate": 0.32,
+          "international_migration_rate": 0.0015,
+          "resource_investment_share": 0.32,
+          "inheritance_share": 0.25,
+          "surname_rule": "paternal"
+        },
+        "countries": [
+          {
+            "id": "CHN",
+            "name": "中国",
+            "initial_clans": 300,
+            "initial_development": 0.16,
+            "annual_development_gain": 0.0062,
+            "initial_urbanization": 0.18,
+            "annual_urbanization_gain": 0.0052,
+            "education_access": 0.42,
+            "cost_of_children": 0.85,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 4.8,
+            "rich_fertility_rebound": 0.62,
+            "institutional_openness": 0.38,
+            "welfare_floor": 0.24,
+            "housing_pressure": 0.86,
+            "occupational_inheritance": 0.58,
+            "public_education_quality": 0.62,
+            "education_inequality": 0.38,
+            "medical_training_years": 8,
+            "medical_license_pass_rate": 0.72,
+            "civil_service_selectivity": 0.26,
+            "state_sector_share": 0.38,
+            "base_unemployment_rate": 0.052,
+            "worker_compensation": 0.55,
+            "property_inheritance_tax": 0.03,
+            "housing_supply_elasticity": 0.38,
+            "political_term_years": 5,
+            "faction_count": 5,
+            "anti_nepotism_strength": 0.45,
+            "assortative_mating_strength": 0.72,
+            "elite_marriage_closure": 0.55,
+            "soe_reform_year": 1997,
+            "soe_reform_shock": 0.16,
+            "cycle_years": 8.5,
+            "cycle_amplitude": 0.12,
+            "shock_probability": 0.025,
+            "shock_severity": 0.2,
+            "base_divorce_rate": 0.01,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.78,
+            "gender_pay_gap": 0.12,
+            "maternal_career_penalty": 0.11,
+            "healthcare_access": 0.78,
+            "medical_cost_burden": 0.28,
+            "chronic_disease_base_rate": 0.006,
+            "public_long_term_care": 0.22,
+            "pension_replacement_rate": 0.48,
+            "retirement_age": 60,
+            "childcare_capacity": 0.45,
+            "childcare_subsidy": 0.35,
+            "grandparent_care_availability": 0.62,
+            "dynamic_investment_strength": 0.45,
+            "investment_need_weight": 0.25,
+            "son_preference": 0.05,
+            "regions": [
+              {
+                "id": "CHN-east-urban",
+                "name": "东部都市圈",
+                "urban": true,
+                "initial_share": 0.14,
+                "wage_multiplier": 1.35,
+                "housing_cost": 1.55,
+                "education_quality": 0.78,
+                "job_opportunity": 0.84
+              },
+              {
+                "id": "CHN-central-urban",
+                "name": "中部城市群",
+                "urban": true,
+                "initial_share": 0.12,
+                "wage_multiplier": 1.05,
+                "housing_cost": 1.05,
+                "education_quality": 0.64,
+                "job_opportunity": 0.66
+              },
+              {
+                "id": "CHN-rural",
+                "name": "一般乡村",
+                "urban": false,
+                "initial_share": 0.56,
+                "wage_multiplier": 0.68,
+                "housing_cost": 0.52,
+                "education_quality": 0.4,
+                "job_opportunity": 0.34
+              },
+              {
+                "id": "CHN-remote",
+                "name": "偏远地区",
+                "urban": false,
+                "initial_share": 0.18,
+                "wage_multiplier": 0.52,
+                "housing_cost": 0.4,
+                "education_quality": 0.28,
+                "job_opportunity": 0.22
+              }
+            ],
+            "policies": [
+              {
+                "start_year": 1971,
+                "end_year": 1979,
+                "name": "晚、稀、少",
+                "max_children": 3,
+                "enforcement": 0.55,
+                "fertility_multiplier": 0.82
+              },
+              {
+                "start_year": 1980,
+                "end_year": 2015,
+                "name": "独生子女为主（含例外）",
+                "max_children": 1,
+                "enforcement": 0.88,
+                "fertility_multiplier": 0.72
+              },
+              {
+                "start_year": 2016,
+                "end_year": 2020,
+                "name": "全面两孩",
+                "max_children": 2,
+                "enforcement": 0.55,
+                "fertility_multiplier": 0.93,
+                "child_support": 0.08
+              },
+              {
+                "start_year": 2021,
+                "end_year": null,
+                "name": "三孩及配套支持",
+                "max_children": 3,
+                "enforcement": 0.1,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.25
+              }
+            ]
+          },
+          {
+            "id": "IND",
+            "name": "印度",
+            "initial_clans": 300,
+            "initial_development": 0.13,
+            "annual_development_gain": 0.0048,
+            "initial_urbanization": 0.2,
+            "annual_urbanization_gain": 0.0035,
+            "education_access": 0.34,
+            "cost_of_children": 0.52,
+            "baseline_family_resources": 82.0,
+            "initial_children_per_family": 5.2,
+            "rich_fertility_rebound": 0.48,
+            "institutional_openness": 0.42,
+            "welfare_floor": 0.18,
+            "housing_pressure": 0.56,
+            "occupational_inheritance": 0.55,
+            "public_education_quality": 0.48,
+            "education_inequality": 0.52,
+            "medical_training_years": 8,
+            "medical_license_pass_rate": 0.64,
+            "civil_service_selectivity": 0.2,
+            "state_sector_share": 0.25,
+            "base_unemployment_rate": 0.072,
+            "worker_compensation": 0.32,
+            "property_inheritance_tax": 0.02,
+            "housing_supply_elasticity": 0.55,
+            "political_term_years": 5,
+            "faction_count": 6,
+            "anti_nepotism_strength": 0.28,
+            "assortative_mating_strength": 0.74,
+            "elite_marriage_closure": 0.62,
+            "cycle_years": 9.5,
+            "cycle_amplitude": 0.11,
+            "shock_probability": 0.03,
+            "shock_severity": 0.22,
+            "base_divorce_rate": 0.008,
+            "female_labor_access": 0.58,
+            "gender_pay_gap": 0.2,
+            "maternal_career_penalty": 0.16,
+            "healthcare_access": 0.48,
+            "medical_cost_burden": 0.55,
+            "chronic_disease_base_rate": 0.007,
+            "public_long_term_care": 0.08,
+            "pension_replacement_rate": 0.18,
+            "retirement_age": 60,
+            "childcare_capacity": 0.28,
+            "childcare_subsidy": 0.15,
+            "grandparent_care_availability": 0.68,
+            "dynamic_investment_strength": 0.35,
+            "investment_need_weight": 0.3,
+            "son_preference": 0.09,
+            "policies": [
+              {
+                "start_year": 1952,
+                "end_year": null,
+                "name": "国家家庭福利/计划生育项目（简化）",
+                "max_children": null,
+                "enforcement": 0.1,
+                "fertility_multiplier": 0.9,
+                "child_support": 0.04
+              }
+            ]
+          },
+          {
+            "id": "JPN",
+            "name": "日本",
+            "initial_clans": 120,
+            "initial_development": 0.58,
+            "annual_development_gain": 0.0028,
+            "initial_urbanization": 0.72,
+            "annual_urbanization_gain": 0.0016,
+            "education_access": 0.79,
+            "cost_of_children": 1.08,
+            "baseline_family_resources": 180.0,
+            "initial_children_per_family": 2.1,
+            "rich_fertility_rebound": 0.35,
+            "institutional_openness": 0.68,
+            "welfare_floor": 0.58,
+            "housing_pressure": 0.92,
+            "occupational_inheritance": 0.4,
+            "public_education_quality": 0.82,
+            "education_inequality": 0.2,
+            "medical_training_years": 8,
+            "medical_license_pass_rate": 0.82,
+            "civil_service_selectivity": 0.24,
+            "state_sector_share": 0.22,
+            "base_unemployment_rate": 0.035,
+            "worker_compensation": 0.78,
+            "property_inheritance_tax": 0.12,
+            "housing_supply_elasticity": 0.26,
+            "political_term_years": 4,
+            "faction_count": 4,
+            "anti_nepotism_strength": 0.72,
+            "assortative_mating_strength": 0.62,
+            "elite_marriage_closure": 0.38,
+            "cycle_years": 10.0,
+            "cycle_amplitude": 0.07,
+            "shock_probability": 0.018,
+            "shock_severity": 0.15,
+            "base_divorce_rate": 0.014,
+            "female_labor_access": 0.72,
+            "gender_pay_gap": 0.16,
+            "maternal_career_penalty": 0.15,
+            "high_welfare_strength": 0.35,
+            "healthcare_access": 0.92,
+            "medical_cost_burden": 0.18,
+            "chronic_disease_base_rate": 0.009,
+            "public_long_term_care": 0.62,
+            "pension_replacement_rate": 0.55,
+            "retirement_age": 65,
+            "childcare_capacity": 0.52,
+            "childcare_subsidy": 0.55,
+            "grandparent_care_availability": 0.38,
+            "dynamic_investment_strength": 0.42,
+            "investment_need_weight": 0.28,
+            "policies": [
+              {
+                "start_year": 1994,
+                "end_year": null,
+                "name": "少子化支持政策（合并简化）",
+                "max_children": null,
+                "enforcement": 0.0,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.32
+              }
+            ]
+          },
+          {
+            "id": "USA",
+            "name": "美国",
+            "initial_clans": 200,
+            "initial_development": 0.68,
+            "annual_development_gain": 0.0022,
+            "initial_urbanization": 0.74,
+            "annual_urbanization_gain": 0.0013,
+            "education_access": 0.74,
+            "cost_of_children": 0.95,
+            "baseline_family_resources": 210.0,
+            "initial_children_per_family": 2.5,
+            "rich_fertility_rebound": 0.58,
+            "institutional_openness": 0.58,
+            "welfare_floor": 0.28,
+            "housing_pressure": 0.82,
+            "occupational_inheritance": 0.5,
+            "public_education_quality": 0.68,
+            "education_inequality": 0.48,
+            "medical_training_years": 11,
+            "medical_license_pass_rate": 0.78,
+            "civil_service_selectivity": 0.22,
+            "state_sector_share": 0.18,
+            "base_unemployment_rate": 0.058,
+            "worker_compensation": 0.48,
+            "property_inheritance_tax": 0.08,
+            "housing_supply_elasticity": 0.42,
+            "political_term_years": 4,
+            "faction_count": 2,
+            "anti_nepotism_strength": 0.64,
+            "assortative_mating_strength": 0.68,
+            "elite_marriage_closure": 0.46,
+            "cycle_years": 8.0,
+            "cycle_amplitude": 0.14,
+            "shock_probability": 0.032,
+            "shock_severity": 0.24,
+            "base_divorce_rate": 0.02,
+            "female_labor_access": 0.83,
+            "gender_pay_gap": 0.15,
+            "maternal_career_penalty": 0.1,
+            "healthcare_access": 0.84,
+            "medical_cost_burden": 0.48,
+            "chronic_disease_base_rate": 0.008,
+            "public_long_term_care": 0.25,
+            "pension_replacement_rate": 0.4,
+            "retirement_age": 67,
+            "childcare_capacity": 0.38,
+            "childcare_subsidy": 0.25,
+            "grandparent_care_availability": 0.3,
+            "dynamic_investment_strength": 0.5,
+            "investment_need_weight": 0.22,
+            "policies": []
+          }
+        ]
+      },
+      "effective_configuration": {
+        "name": "主要国家家庭—家族时间线（机制演示版）",
+        "simulation": {
+          "start_year": 1970,
+          "end_year": 2100,
+          "random_seed": 20260805,
+          "adult_pairing_rate": 0.32,
+          "international_migration_rate": 0.0015,
+          "resource_investment_share": 0.32,
+          "inheritance_share": 0.25,
+          "surname_rule": "paternal"
+        },
+        "countries": [
+          {
+            "id": "CHN",
+            "name": "中国",
+            "initial_clans": 300,
+            "initial_development": 0.16,
+            "annual_development_gain": 0.0062,
+            "initial_urbanization": 0.18,
+            "annual_urbanization_gain": 0.0052,
+            "education_access": 0.42,
+            "cost_of_children": 0.85,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 4.8,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.62,
+            "institutional_openness": 0.38,
+            "welfare_floor": 0.24,
+            "housing_pressure": 0.86,
+            "occupational_inheritance": 0.58,
+            "public_education_quality": 0.62,
+            "education_inequality": 0.38,
+            "medical_training_years": 8,
+            "medical_license_pass_rate": 0.72,
+            "civil_service_selectivity": 0.26,
+            "state_sector_share": 0.38,
+            "base_unemployment_rate": 0.052,
+            "worker_compensation": 0.55,
+            "property_inheritance_tax": 0.03,
+            "housing_supply_elasticity": 0.38,
+            "political_term_years": 5,
+            "faction_count": 5,
+            "anti_nepotism_strength": 0.45,
+            "assortative_mating_strength": 0.72,
+            "elite_marriage_closure": 0.55,
+            "soe_reform_year": 1997,
+            "soe_reform_shock": 0.16,
+            "cycle_years": 8.5,
+            "cycle_amplitude": 0.12,
+            "shock_probability": 0.025,
+            "shock_severity": 0.2,
+            "base_divorce_rate": 0.01,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.78,
+            "gender_pay_gap": 0.12,
+            "maternal_career_penalty": 0.11,
+            "son_preference": 0.05,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.0,
+            "healthcare_access": 0.78,
+            "medical_cost_burden": 0.28,
+            "chronic_disease_base_rate": 0.006,
+            "public_long_term_care": 0.22,
+            "pension_replacement_rate": 0.48,
+            "retirement_age": 60,
+            "childcare_capacity": 0.45,
+            "childcare_subsidy": 0.35,
+            "grandparent_care_availability": 0.62,
+            "dynamic_investment_strength": 0.45,
+            "investment_need_weight": 0.25,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [
+              {
+                "id": "CHN-east-urban",
+                "name": "东部都市圈",
+                "urban": true,
+                "initial_share": 0.14,
+                "wage_multiplier": 1.35,
+                "housing_cost": 1.55,
+                "education_quality": 0.78,
+                "job_opportunity": 0.84,
+                "amenity_supply": 0.5,
+                "school_supply": 0.5,
+                "childcare_supply": 0.5,
+                "medical_supply": 0.5,
+                "transport_access": 0.5,
+                "safety_level": 0.5,
+                "historical_hazard_rate": 0.5,
+                "population_exposure": 0.5,
+                "recovery_cost": 0.2
+              },
+              {
+                "id": "CHN-central-urban",
+                "name": "中部城市群",
+                "urban": true,
+                "initial_share": 0.12,
+                "wage_multiplier": 1.05,
+                "housing_cost": 1.05,
+                "education_quality": 0.64,
+                "job_opportunity": 0.66,
+                "amenity_supply": 0.5,
+                "school_supply": 0.5,
+                "childcare_supply": 0.5,
+                "medical_supply": 0.5,
+                "transport_access": 0.5,
+                "safety_level": 0.5,
+                "historical_hazard_rate": 0.5,
+                "population_exposure": 0.5,
+                "recovery_cost": 0.2
+              },
+              {
+                "id": "CHN-rural",
+                "name": "一般乡村",
+                "urban": false,
+                "initial_share": 0.56,
+                "wage_multiplier": 0.68,
+                "housing_cost": 0.52,
+                "education_quality": 0.4,
+                "job_opportunity": 0.34,
+                "amenity_supply": 0.5,
+                "school_supply": 0.5,
+                "childcare_supply": 0.5,
+                "medical_supply": 0.5,
+                "transport_access": 0.5,
+                "safety_level": 0.5,
+                "historical_hazard_rate": 0.5,
+                "population_exposure": 0.5,
+                "recovery_cost": 0.2
+              },
+              {
+                "id": "CHN-remote",
+                "name": "偏远地区",
+                "urban": false,
+                "initial_share": 0.18,
+                "wage_multiplier": 0.52,
+                "housing_cost": 0.4,
+                "education_quality": 0.28,
+                "job_opportunity": 0.22,
+                "amenity_supply": 0.5,
+                "school_supply": 0.5,
+                "childcare_supply": 0.5,
+                "medical_supply": 0.5,
+                "transport_access": 0.5,
+                "safety_level": 0.5,
+                "historical_hazard_rate": 0.5,
+                "population_exposure": 0.5,
+                "recovery_cost": 0.2
+              }
+            ],
+            "policies": [
+              {
+                "start_year": 1971,
+                "end_year": 1979,
+                "name": "晚、稀、少",
+                "max_children": 3,
+                "enforcement": 0.55,
+                "fertility_multiplier": 0.82,
+                "child_support": 0.0
+              },
+              {
+                "start_year": 1980,
+                "end_year": 2015,
+                "name": "独生子女为主（含例外）",
+                "max_children": 1,
+                "enforcement": 0.88,
+                "fertility_multiplier": 0.72,
+                "child_support": 0.0
+              },
+              {
+                "start_year": 2016,
+                "end_year": 2020,
+                "name": "全面两孩",
+                "max_children": 2,
+                "enforcement": 0.55,
+                "fertility_multiplier": 0.93,
+                "child_support": 0.08
+              },
+              {
+                "start_year": 2021,
+                "end_year": null,
+                "name": "三孩及配套支持",
+                "max_children": 3,
+                "enforcement": 0.1,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.25
+              }
+            ]
+          },
+          {
+            "id": "IND",
+            "name": "印度",
+            "initial_clans": 300,
+            "initial_development": 0.13,
+            "annual_development_gain": 0.0048,
+            "initial_urbanization": 0.2,
+            "annual_urbanization_gain": 0.0035,
+            "education_access": 0.34,
+            "cost_of_children": 0.52,
+            "baseline_family_resources": 82.0,
+            "initial_children_per_family": 5.2,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.48,
+            "institutional_openness": 0.42,
+            "welfare_floor": 0.18,
+            "housing_pressure": 0.56,
+            "occupational_inheritance": 0.55,
+            "public_education_quality": 0.48,
+            "education_inequality": 0.52,
+            "medical_training_years": 8,
+            "medical_license_pass_rate": 0.64,
+            "civil_service_selectivity": 0.2,
+            "state_sector_share": 0.25,
+            "base_unemployment_rate": 0.072,
+            "worker_compensation": 0.32,
+            "property_inheritance_tax": 0.02,
+            "housing_supply_elasticity": 0.55,
+            "political_term_years": 5,
+            "faction_count": 6,
+            "anti_nepotism_strength": 0.28,
+            "assortative_mating_strength": 0.74,
+            "elite_marriage_closure": 0.62,
+            "soe_reform_year": null,
+            "soe_reform_shock": 0.0,
+            "cycle_years": 9.5,
+            "cycle_amplitude": 0.11,
+            "shock_probability": 0.03,
+            "shock_severity": 0.22,
+            "base_divorce_rate": 0.008,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.58,
+            "gender_pay_gap": 0.2,
+            "maternal_career_penalty": 0.16,
+            "son_preference": 0.09,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.0,
+            "healthcare_access": 0.48,
+            "medical_cost_burden": 0.55,
+            "chronic_disease_base_rate": 0.007,
+            "public_long_term_care": 0.08,
+            "pension_replacement_rate": 0.18,
+            "retirement_age": 60,
+            "childcare_capacity": 0.28,
+            "childcare_subsidy": 0.15,
+            "grandparent_care_availability": 0.68,
+            "dynamic_investment_strength": 0.35,
+            "investment_need_weight": 0.3,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [],
+            "policies": [
+              {
+                "start_year": 1952,
+                "end_year": null,
+                "name": "国家家庭福利/计划生育项目（简化）",
+                "max_children": null,
+                "enforcement": 0.1,
+                "fertility_multiplier": 0.9,
+                "child_support": 0.04
+              }
+            ]
+          },
+          {
+            "id": "JPN",
+            "name": "日本",
+            "initial_clans": 120,
+            "initial_development": 0.58,
+            "annual_development_gain": 0.0028,
+            "initial_urbanization": 0.72,
+            "annual_urbanization_gain": 0.0016,
+            "education_access": 0.79,
+            "cost_of_children": 1.08,
+            "baseline_family_resources": 180.0,
+            "initial_children_per_family": 2.1,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.35,
+            "institutional_openness": 0.68,
+            "welfare_floor": 0.58,
+            "housing_pressure": 0.92,
+            "occupational_inheritance": 0.4,
+            "public_education_quality": 0.82,
+            "education_inequality": 0.2,
+            "medical_training_years": 8,
+            "medical_license_pass_rate": 0.82,
+            "civil_service_selectivity": 0.24,
+            "state_sector_share": 0.22,
+            "base_unemployment_rate": 0.035,
+            "worker_compensation": 0.78,
+            "property_inheritance_tax": 0.12,
+            "housing_supply_elasticity": 0.26,
+            "political_term_years": 4,
+            "faction_count": 4,
+            "anti_nepotism_strength": 0.72,
+            "assortative_mating_strength": 0.62,
+            "elite_marriage_closure": 0.38,
+            "soe_reform_year": null,
+            "soe_reform_shock": 0.0,
+            "cycle_years": 10.0,
+            "cycle_amplitude": 0.07,
+            "shock_probability": 0.018,
+            "shock_severity": 0.15,
+            "base_divorce_rate": 0.014,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.72,
+            "gender_pay_gap": 0.16,
+            "maternal_career_penalty": 0.15,
+            "son_preference": 0.0,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.35,
+            "healthcare_access": 0.92,
+            "medical_cost_burden": 0.18,
+            "chronic_disease_base_rate": 0.009,
+            "public_long_term_care": 0.62,
+            "pension_replacement_rate": 0.55,
+            "retirement_age": 65,
+            "childcare_capacity": 0.52,
+            "childcare_subsidy": 0.55,
+            "grandparent_care_availability": 0.38,
+            "dynamic_investment_strength": 0.42,
+            "investment_need_weight": 0.28,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [],
+            "policies": [
+              {
+                "start_year": 1994,
+                "end_year": null,
+                "name": "少子化支持政策（合并简化）",
+                "max_children": null,
+                "enforcement": 0.0,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.32
+              }
+            ]
+          },
+          {
+            "id": "USA",
+            "name": "美国",
+            "initial_clans": 200,
+            "initial_development": 0.68,
+            "annual_development_gain": 0.0022,
+            "initial_urbanization": 0.74,
+            "annual_urbanization_gain": 0.0013,
+            "education_access": 0.74,
+            "cost_of_children": 0.95,
+            "baseline_family_resources": 210.0,
+            "initial_children_per_family": 2.5,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.58,
+            "institutional_openness": 0.58,
+            "welfare_floor": 0.28,
+            "housing_pressure": 0.82,
+            "occupational_inheritance": 0.5,
+            "public_education_quality": 0.68,
+            "education_inequality": 0.48,
+            "medical_training_years": 11,
+            "medical_license_pass_rate": 0.78,
+            "civil_service_selectivity": 0.22,
+            "state_sector_share": 0.18,
+            "base_unemployment_rate": 0.058,
+            "worker_compensation": 0.48,
+            "property_inheritance_tax": 0.08,
+            "housing_supply_elasticity": 0.42,
+            "political_term_years": 4,
+            "faction_count": 2,
+            "anti_nepotism_strength": 0.64,
+            "assortative_mating_strength": 0.68,
+            "elite_marriage_closure": 0.46,
+            "soe_reform_year": null,
+            "soe_reform_shock": 0.0,
+            "cycle_years": 8.0,
+            "cycle_amplitude": 0.14,
+            "shock_probability": 0.032,
+            "shock_severity": 0.24,
+            "base_divorce_rate": 0.02,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.83,
+            "gender_pay_gap": 0.15,
+            "maternal_career_penalty": 0.1,
+            "son_preference": 0.0,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.0,
+            "healthcare_access": 0.84,
+            "medical_cost_burden": 0.48,
+            "chronic_disease_base_rate": 0.008,
+            "public_long_term_care": 0.25,
+            "pension_replacement_rate": 0.4,
+            "retirement_age": 67,
+            "childcare_capacity": 0.38,
+            "childcare_subsidy": 0.25,
+            "grandparent_care_availability": 0.3,
+            "dynamic_investment_strength": 0.5,
+            "investment_need_weight": 0.22,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [],
+            "policies": []
+          }
+        ]
+      },
+      "initialization": {
+        "year": 1970,
+        "steps_run": 0,
+        "initial_population": 3899,
+        "initial_households": 920,
+        "initial_clans": 920,
+        "initial_structure_audit": {
+          "ok": true,
+          "issues": []
+        },
+        "countries": [
+          {
+            "country_id": "CHN",
+            "initial_population": 1418,
+            "initial_households": 300,
+            "initial_clans": 300,
+            "region_source": "configured_regions",
+            "actual_region_count": 4,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "CHN-east-urban",
+                  "name": "东部都市圈",
+                  "urban": true,
+                  "initial_share": 0.14,
+                  "wage_multiplier": 1.35,
+                  "housing_cost": 1.55,
+                  "education_quality": 0.78,
+                  "job_opportunity": 0.84,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "CHN-central-urban",
+                  "name": "中部城市群",
+                  "urban": true,
+                  "initial_share": 0.12,
+                  "wage_multiplier": 1.05,
+                  "housing_cost": 1.05,
+                  "education_quality": 0.64,
+                  "job_opportunity": 0.66,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "CHN-rural",
+                  "name": "一般乡村",
+                  "urban": false,
+                  "initial_share": 0.56,
+                  "wage_multiplier": 0.68,
+                  "housing_cost": 0.52,
+                  "education_quality": 0.4,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "CHN-remote",
+                  "name": "偏远地区",
+                  "urban": false,
+                  "initial_share": 0.18,
+                  "wage_multiplier": 0.52,
+                  "housing_cost": 0.4,
+                  "education_quality": 0.28,
+                  "job_opportunity": 0.22,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          },
+          {
+            "country_id": "IND",
+            "initial_population": 1406,
+            "initial_households": 300,
+            "initial_clans": 300,
+            "region_source": "engine_urban_rural_fallback",
+            "actual_region_count": 2,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "IND-urban",
+                  "name": "印度城市",
+                  "urban": true,
+                  "initial_share": 0.2,
+                  "wage_multiplier": 1.18,
+                  "housing_cost": 1.196,
+                  "education_quality": 0.6,
+                  "job_opportunity": 0.72,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "IND-rural",
+                  "name": "印度乡村",
+                  "urban": false,
+                  "initial_share": 0.8,
+                  "wage_multiplier": 0.72,
+                  "housing_cost": 0.676,
+                  "education_quality": 0.3,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          },
+          {
+            "country_id": "JPN",
+            "initial_population": 378,
+            "initial_households": 120,
+            "initial_clans": 120,
+            "region_source": "engine_urban_rural_fallback",
+            "actual_region_count": 2,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "JPN-urban",
+                  "name": "日本城市",
+                  "urban": true,
+                  "initial_share": 0.72,
+                  "wage_multiplier": 1.18,
+                  "housing_cost": 1.322,
+                  "education_quality": 0.94,
+                  "job_opportunity": 0.72,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "JPN-rural",
+                  "name": "日本乡村",
+                  "urban": false,
+                  "initial_share": 0.28,
+                  "wage_multiplier": 0.72,
+                  "housing_cost": 0.712,
+                  "education_quality": 0.6399999999999999,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          },
+          {
+            "country_id": "USA",
+            "initial_population": 697,
+            "initial_households": 200,
+            "initial_clans": 200,
+            "region_source": "engine_urban_rural_fallback",
+            "actual_region_count": 2,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "USA-urban",
+                  "name": "美国城市",
+                  "urban": true,
+                  "initial_share": 0.74,
+                  "wage_multiplier": 1.18,
+                  "housing_cost": 1.287,
+                  "education_quality": 0.8,
+                  "job_opportunity": 0.72,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "USA-rural",
+                  "name": "美国乡村",
+                  "urban": false,
+                  "initial_share": 0.26,
+                  "wage_multiplier": 0.72,
+                  "housing_cost": 0.702,
+                  "education_quality": 0.5,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "path": "scenarios/low_fertility.json",
+      "sha256": "06385c518860c6f77ef0a644c82560a4851ac7e055f239999e470d1de15bd1c5",
+      "scenario_type": "population_simu.config.Scenario",
+      "validation": {
+        "passed": true,
+        "method": "from_dict_then_validate"
+      },
+      "explicit_configuration": {
+        "name": "低生育：长期低于更替水平",
+        "simulation": {
+          "start_year": 2025,
+          "years": 50,
+          "initial_people": 2000,
+          "random_seed": 42,
+          "baseline_tfr": 1.2,
+          "pair_formation_rate": 0.18,
+          "household_migration_rate": 0.025
+        },
+        "policy": {
+          "fertility_multiplier": 0.9,
+          "childcare_support": 0.1,
+          "migration_openness": 0.25,
+          "education_investment": 0.6,
+          "upward_mobility": 0.5
+        },
+        "regions": [
+          {
+            "id": "east",
+            "name": "东部都会区",
+            "initial_share": 0.35,
+            "wage_index": 1.35,
+            "housing_cost": 1.45,
+            "education_access": 0.78,
+            "opportunity": 0.75
+          },
+          {
+            "id": "central",
+            "name": "中部城市群",
+            "initial_share": 0.35,
+            "wage_index": 1.0,
+            "housing_cost": 0.9,
+            "education_access": 0.58,
+            "opportunity": 0.55
+          },
+          {
+            "id": "rural",
+            "name": "乡村地区",
+            "initial_share": 0.3,
+            "wage_index": 0.68,
+            "housing_cost": 0.45,
+            "education_access": 0.38,
+            "opportunity": 0.3
+          }
+        ]
+      },
+      "effective_configuration": {
+        "name": "低生育：长期低于更替水平",
+        "simulation": {
+          "start_year": 2025,
+          "years": 50,
+          "initial_people": 2000,
+          "random_seed": 42,
+          "baseline_tfr": 1.2,
+          "pair_formation_rate": 0.18,
+          "household_migration_rate": 0.025
+        },
+        "policy": {
+          "fertility_multiplier": 0.9,
+          "childcare_support": 0.1,
+          "migration_openness": 0.25,
+          "education_investment": 0.6,
+          "upward_mobility": 0.5
+        },
+        "regions": [
+          {
+            "id": "east",
+            "name": "东部都会区",
+            "initial_share": 0.35,
+            "wage_index": 1.35,
+            "housing_cost": 1.45,
+            "education_access": 0.78,
+            "opportunity": 0.75
+          },
+          {
+            "id": "central",
+            "name": "中部城市群",
+            "initial_share": 0.35,
+            "wage_index": 1.0,
+            "housing_cost": 0.9,
+            "education_access": 0.58,
+            "opportunity": 0.55
+          },
+          {
+            "id": "rural",
+            "name": "乡村地区",
+            "initial_share": 0.3,
+            "wage_index": 0.68,
+            "housing_cost": 0.45,
+            "education_access": 0.38,
+            "opportunity": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "path": "scenarios/resource_allocation_experiment.json",
+      "sha256": "2c4063977ef74f78d8972492fc909c117a3fd8c0552f8e0232f92bf22471fb93",
+      "scenario_type": "population_simu.family_config.FamilyScenario",
+      "validation": {
+        "passed": true,
+        "method": "from_dict_then_validate"
+      },
+      "explicit_configuration": {
+        "name": "固定家庭资源下的一孩/二孩/三孩对照",
+        "simulation": {
+          "start_year": 2000,
+          "end_year": 2080,
+          "random_seed": 41,
+          "adult_pairing_rate": 0.34,
+          "international_migration_rate": 0.0,
+          "resource_investment_share": 0.4,
+          "inheritance_share": 0.25,
+          "surname_rule": "paternal"
+        },
+        "countries": [
+          {
+            "id": "ONE",
+            "name": "一孩资源集中组",
+            "initial_clans": 300,
+            "initial_development": 0.35,
+            "annual_development_gain": 0.004,
+            "initial_urbanization": 0.45,
+            "annual_urbanization_gain": 0.002,
+            "education_access": 0.6,
+            "cost_of_children": 0.75,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 3.0,
+            "rich_fertility_rebound": 0.0,
+            "institutional_openness": 0.5,
+            "welfare_floor": 0.15,
+            "housing_pressure": 0.7,
+            "occupational_inheritance": 0.5,
+            "policies": [
+              {
+                "start_year": 2000,
+                "end_year": null,
+                "name": "严格一孩实验",
+                "max_children": 1,
+                "enforcement": 1.0,
+                "fertility_multiplier": 1.0
+              }
+            ]
+          },
+          {
+            "id": "TWO",
+            "name": "二孩平衡组",
+            "initial_clans": 300,
+            "initial_development": 0.35,
+            "annual_development_gain": 0.004,
+            "initial_urbanization": 0.45,
+            "annual_urbanization_gain": 0.002,
+            "education_access": 0.6,
+            "cost_of_children": 0.75,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 3.0,
+            "rich_fertility_rebound": 0.0,
+            "institutional_openness": 0.5,
+            "welfare_floor": 0.15,
+            "housing_pressure": 0.7,
+            "occupational_inheritance": 0.5,
+            "policies": [
+              {
+                "start_year": 2000,
+                "end_year": null,
+                "name": "严格二孩实验",
+                "max_children": 2,
+                "enforcement": 1.0,
+                "fertility_multiplier": 1.0
+              }
+            ]
+          },
+          {
+            "id": "THREE",
+            "name": "三孩分散组",
+            "initial_clans": 300,
+            "initial_development": 0.35,
+            "annual_development_gain": 0.004,
+            "initial_urbanization": 0.45,
+            "annual_urbanization_gain": 0.002,
+            "education_access": 0.6,
+            "cost_of_children": 0.75,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 3.0,
+            "rich_fertility_rebound": 0.0,
+            "institutional_openness": 0.5,
+            "welfare_floor": 0.15,
+            "housing_pressure": 0.7,
+            "occupational_inheritance": 0.5,
+            "policies": [
+              {
+                "start_year": 2000,
+                "end_year": null,
+                "name": "严格三孩实验",
+                "max_children": 3,
+                "enforcement": 1.0,
+                "fertility_multiplier": 1.0
+              }
+            ]
+          }
+        ]
+      },
+      "effective_configuration": {
+        "name": "固定家庭资源下的一孩/二孩/三孩对照",
+        "simulation": {
+          "start_year": 2000,
+          "end_year": 2080,
+          "random_seed": 41,
+          "adult_pairing_rate": 0.34,
+          "international_migration_rate": 0.0,
+          "resource_investment_share": 0.4,
+          "inheritance_share": 0.25,
+          "surname_rule": "paternal"
+        },
+        "countries": [
+          {
+            "id": "ONE",
+            "name": "一孩资源集中组",
+            "initial_clans": 300,
+            "initial_development": 0.35,
+            "annual_development_gain": 0.004,
+            "initial_urbanization": 0.45,
+            "annual_urbanization_gain": 0.002,
+            "education_access": 0.6,
+            "cost_of_children": 0.75,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 3.0,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.0,
+            "institutional_openness": 0.5,
+            "welfare_floor": 0.15,
+            "housing_pressure": 0.7,
+            "occupational_inheritance": 0.5,
+            "public_education_quality": 0.55,
+            "education_inequality": 0.35,
+            "medical_training_years": 7,
+            "medical_license_pass_rate": 0.7,
+            "civil_service_selectivity": 0.18,
+            "state_sector_share": 0.22,
+            "base_unemployment_rate": 0.055,
+            "worker_compensation": 0.45,
+            "property_inheritance_tax": 0.05,
+            "housing_supply_elasticity": 0.45,
+            "political_term_years": 5,
+            "faction_count": 4,
+            "anti_nepotism_strength": 0.35,
+            "assortative_mating_strength": 0.65,
+            "elite_marriage_closure": 0.45,
+            "soe_reform_year": null,
+            "soe_reform_shock": 0.0,
+            "cycle_years": 9.0,
+            "cycle_amplitude": 0.1,
+            "shock_probability": 0.025,
+            "shock_severity": 0.18,
+            "base_divorce_rate": 0.012,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.76,
+            "gender_pay_gap": 0.12,
+            "maternal_career_penalty": 0.1,
+            "son_preference": 0.0,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.0,
+            "healthcare_access": 0.65,
+            "medical_cost_burden": 0.35,
+            "chronic_disease_base_rate": 0.006,
+            "public_long_term_care": 0.15,
+            "pension_replacement_rate": 0.3,
+            "retirement_age": 65,
+            "childcare_capacity": 0.35,
+            "childcare_subsidy": 0.2,
+            "grandparent_care_availability": 0.45,
+            "dynamic_investment_strength": 0.35,
+            "investment_need_weight": 0.2,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [],
+            "policies": [
+              {
+                "start_year": 2000,
+                "end_year": null,
+                "name": "严格一孩实验",
+                "max_children": 1,
+                "enforcement": 1.0,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.0
+              }
+            ]
+          },
+          {
+            "id": "TWO",
+            "name": "二孩平衡组",
+            "initial_clans": 300,
+            "initial_development": 0.35,
+            "annual_development_gain": 0.004,
+            "initial_urbanization": 0.45,
+            "annual_urbanization_gain": 0.002,
+            "education_access": 0.6,
+            "cost_of_children": 0.75,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 3.0,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.0,
+            "institutional_openness": 0.5,
+            "welfare_floor": 0.15,
+            "housing_pressure": 0.7,
+            "occupational_inheritance": 0.5,
+            "public_education_quality": 0.55,
+            "education_inequality": 0.35,
+            "medical_training_years": 7,
+            "medical_license_pass_rate": 0.7,
+            "civil_service_selectivity": 0.18,
+            "state_sector_share": 0.22,
+            "base_unemployment_rate": 0.055,
+            "worker_compensation": 0.45,
+            "property_inheritance_tax": 0.05,
+            "housing_supply_elasticity": 0.45,
+            "political_term_years": 5,
+            "faction_count": 4,
+            "anti_nepotism_strength": 0.35,
+            "assortative_mating_strength": 0.65,
+            "elite_marriage_closure": 0.45,
+            "soe_reform_year": null,
+            "soe_reform_shock": 0.0,
+            "cycle_years": 9.0,
+            "cycle_amplitude": 0.1,
+            "shock_probability": 0.025,
+            "shock_severity": 0.18,
+            "base_divorce_rate": 0.012,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.76,
+            "gender_pay_gap": 0.12,
+            "maternal_career_penalty": 0.1,
+            "son_preference": 0.0,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.0,
+            "healthcare_access": 0.65,
+            "medical_cost_burden": 0.35,
+            "chronic_disease_base_rate": 0.006,
+            "public_long_term_care": 0.15,
+            "pension_replacement_rate": 0.3,
+            "retirement_age": 65,
+            "childcare_capacity": 0.35,
+            "childcare_subsidy": 0.2,
+            "grandparent_care_availability": 0.45,
+            "dynamic_investment_strength": 0.35,
+            "investment_need_weight": 0.2,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [],
+            "policies": [
+              {
+                "start_year": 2000,
+                "end_year": null,
+                "name": "严格二孩实验",
+                "max_children": 2,
+                "enforcement": 1.0,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.0
+              }
+            ]
+          },
+          {
+            "id": "THREE",
+            "name": "三孩分散组",
+            "initial_clans": 300,
+            "initial_development": 0.35,
+            "annual_development_gain": 0.004,
+            "initial_urbanization": 0.45,
+            "annual_urbanization_gain": 0.002,
+            "education_access": 0.6,
+            "cost_of_children": 0.75,
+            "baseline_family_resources": 100.0,
+            "initial_children_per_family": 3.0,
+            "fertility_peak_age": 29,
+            "fertility_age_spread": 16.0,
+            "fertility_age_profile": [],
+            "mortality_age_profile": [],
+            "migration_age_profile": [],
+            "social_norm_strength": 0.2,
+            "migration_logit_temperature": 0.35,
+            "migration_matrix": {},
+            "social_norm_sources": {
+              "neighbors": 0.4,
+              "kin": 0.25,
+              "colleagues": 0.2,
+              "media": 0.15
+            },
+            "rich_fertility_rebound": 0.0,
+            "institutional_openness": 0.5,
+            "welfare_floor": 0.15,
+            "housing_pressure": 0.7,
+            "occupational_inheritance": 0.5,
+            "public_education_quality": 0.55,
+            "education_inequality": 0.35,
+            "medical_training_years": 7,
+            "medical_license_pass_rate": 0.7,
+            "civil_service_selectivity": 0.18,
+            "state_sector_share": 0.22,
+            "base_unemployment_rate": 0.055,
+            "worker_compensation": 0.45,
+            "property_inheritance_tax": 0.05,
+            "housing_supply_elasticity": 0.45,
+            "political_term_years": 5,
+            "faction_count": 4,
+            "anti_nepotism_strength": 0.35,
+            "assortative_mating_strength": 0.65,
+            "elite_marriage_closure": 0.45,
+            "soe_reform_year": null,
+            "soe_reform_shock": 0.0,
+            "cycle_years": 9.0,
+            "cycle_amplitude": 0.1,
+            "shock_probability": 0.025,
+            "shock_severity": 0.18,
+            "base_divorce_rate": 0.012,
+            "remarriage_rate": 0.16,
+            "female_labor_access": 0.76,
+            "gender_pay_gap": 0.12,
+            "maternal_career_penalty": 0.1,
+            "son_preference": 0.0,
+            "public_education_reform": 0.0,
+            "housing_reform_strength": 0.0,
+            "high_welfare_strength": 0.0,
+            "healthcare_access": 0.65,
+            "medical_cost_burden": 0.35,
+            "chronic_disease_base_rate": 0.006,
+            "public_long_term_care": 0.15,
+            "pension_replacement_rate": 0.3,
+            "retirement_age": 65,
+            "childcare_capacity": 0.35,
+            "childcare_subsidy": 0.2,
+            "grandparent_care_availability": 0.45,
+            "dynamic_investment_strength": 0.35,
+            "investment_need_weight": 0.2,
+            "tax_rate": 0.18,
+            "education_budget_per_child": 0.08,
+            "health_budget_per_person": 0.035,
+            "pension_budget_per_retiree": 0.06,
+            "technology_growth": 0.012,
+            "automation_rate": 0.08,
+            "labor_shortage_wage_pressure": 0.35,
+            "carrying_capacity_scale": 1.0,
+            "environmental_pressure": 0.1,
+            "climate_shock_probability": 0.02,
+            "climate_shock_severity": 0.2,
+            "climate_recovery_years": 5.0,
+            "resource_constraint": 0.1,
+            "regions": [],
+            "policies": [
+              {
+                "start_year": 2000,
+                "end_year": null,
+                "name": "严格三孩实验",
+                "max_children": 3,
+                "enforcement": 1.0,
+                "fertility_multiplier": 1.0,
+                "child_support": 0.0
+              }
+            ]
+          }
+        ]
+      },
+      "initialization": {
+        "year": 2000,
+        "steps_run": 0,
+        "initial_population": 2907,
+        "initial_households": 900,
+        "initial_clans": 900,
+        "initial_structure_audit": {
+          "ok": true,
+          "issues": []
+        },
+        "countries": [
+          {
+            "country_id": "ONE",
+            "initial_population": 848,
+            "initial_households": 300,
+            "initial_clans": 300,
+            "region_source": "engine_urban_rural_fallback",
+            "actual_region_count": 2,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "ONE-urban",
+                  "name": "一孩资源集中组城市",
+                  "urban": true,
+                  "initial_share": 0.45,
+                  "wage_multiplier": 1.18,
+                  "housing_cost": 1.2449999999999999,
+                  "education_quality": 0.67,
+                  "job_opportunity": 0.72,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "ONE-rural",
+                  "name": "一孩资源集中组乡村",
+                  "urban": false,
+                  "initial_share": 0.55,
+                  "wage_multiplier": 0.72,
+                  "housing_cost": 0.69,
+                  "education_quality": 0.37000000000000005,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          },
+          {
+            "country_id": "TWO",
+            "initial_population": 977,
+            "initial_households": 300,
+            "initial_clans": 300,
+            "region_source": "engine_urban_rural_fallback",
+            "actual_region_count": 2,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "TWO-urban",
+                  "name": "二孩平衡组城市",
+                  "urban": true,
+                  "initial_share": 0.45,
+                  "wage_multiplier": 1.18,
+                  "housing_cost": 1.2449999999999999,
+                  "education_quality": 0.67,
+                  "job_opportunity": 0.72,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "TWO-rural",
+                  "name": "二孩平衡组乡村",
+                  "urban": false,
+                  "initial_share": 0.55,
+                  "wage_multiplier": 0.72,
+                  "housing_cost": 0.69,
+                  "education_quality": 0.37000000000000005,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          },
+          {
+            "country_id": "THREE",
+            "initial_population": 1082,
+            "initial_households": 300,
+            "initial_clans": 300,
+            "region_source": "engine_urban_rural_fallback",
+            "actual_region_count": 2,
+            "actual_regions": [
+              {
+                "definition": {
+                  "id": "THREE-urban",
+                  "name": "三孩分散组城市",
+                  "urban": true,
+                  "initial_share": 0.45,
+                  "wage_multiplier": 1.18,
+                  "housing_cost": 1.2449999999999999,
+                  "education_quality": 0.67,
+                  "job_opportunity": 0.72,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              },
+              {
+                "definition": {
+                  "id": "THREE-rural",
+                  "name": "三孩分散组乡村",
+                  "urban": false,
+                  "initial_share": 0.55,
+                  "wage_multiplier": 0.72,
+                  "housing_cost": 0.69,
+                  "education_quality": 0.37000000000000005,
+                  "job_opportunity": 0.34,
+                  "amenity_supply": 0.5,
+                  "school_supply": 0.5,
+                  "childcare_supply": 0.5,
+                  "medical_supply": 0.5,
+                  "transport_access": 0.5,
+                  "safety_level": 0.5,
+                  "historical_hazard_rate": 0.5,
+                  "population_exposure": 0.5,
+                  "recovery_cost": 0.2
+                },
+                "derived_service_index": 0.5
+              }
+            ],
+            "age_profiles_and_od": {
+              "fertility_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "mortality_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_age_profile": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "age_rate_points": 0
+              },
+              "migration_matrix": {
+                "explicit_key_present": false,
+                "missing_or_empty": true,
+                "status": "absent_or_empty",
+                "origin_count": 0,
+                "configured_od_entries": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

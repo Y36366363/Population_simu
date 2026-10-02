@@ -1,5 +1,7 @@
 # Feature Freeze：首个可证伪 household study
 
+> 2026-10-02口径更新：本文保留早期研究计划，未完成的控制变量、真正cohort基准和正式hazard不能当作已实现。当前结果是GFR（旧列名`asfr_15_44`）。固定2017起点和扩窗rolling是两份评价设计；既往“untouched”窗口已经反复查看。旧rolling遗漏2021及信息集问题已修复。以[项目审计](project_direction_and_audit_2026-10-02.md)和[延续测试](continuation_results_2026-10-02.md)为当前状态，主规格数据门槛继续有效。
+
 ## 决策
 
 冻结所有新机制；只做数据接入、参数估计、历史回放、模型比较、消融和审计。

@@ -7,6 +7,7 @@
 
 from __future__ import annotations
 
+import math
 from random import Random
 from statistics import median, pstdev
 from typing import Callable, Iterable, Mapping
@@ -67,6 +68,25 @@ def _bootstrap_mean(values: list[float], seed: int, draws: int = 2000) -> dict[s
         "lower_95": means[min(len(means) - 1, int(0.025 * draws))],
         "upper_95": means[min(len(means) - 1, int(0.975 * draws))],
     }
+
+
+def _bootstrap_pooled_rmse(
+    scores: list[Mapping[str, object]], seed: int, draws: int,
+) -> dict[str, float | int]:
+    """Pool squared errors before taking roots, including in fold bootstrap draws."""
+    if not scores or draws < 100:
+        raise ValueError("RMSE bootstrap 需要非空折叠且 draws 至少为 100")
+
+    def pooled(selected: list[Mapping[str, object]]) -> float:
+        return math.sqrt(sum(float(row["squared_error_sum"]) for row in selected) /
+                         sum(int(row["n_predictions"]) for row in selected))
+
+    rng = Random(seed)
+    estimates = sorted(pooled([scores[rng.randrange(len(scores))] for _ in scores])
+                       for _ in range(draws))
+    return {"n_folds": len(scores), "draws": draws, "mean": pooled(scores),
+            "lower_95": estimates[min(draws - 1, int(0.025 * draws))],
+            "upper_95": estimates[min(draws - 1, int(0.975 * draws))]}
 
 
 def _validate_forecast_coverage(
@@ -140,7 +160,7 @@ def _augment_residual_uncertainty(
 
 
 def fixed_trend_runner(metric: str = "population") -> Runner:
-    """固定趋势基准：按实体最近两点的线性增量外推。"""
+    """固定趋势基准：按实体最近两点的年均线性增量和实际日历跨度外推。"""
     def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
         entities = sorted({str(row.get("entity", "all")) for row in train})
         output: list[dict[str, object]] = []
@@ -151,9 +171,12 @@ def fixed_trend_runner(metric: str = "population") -> Runner:
                 continue
             last = float(rows[-1][metric])
             previous = float(rows[-2][metric]) if len(rows) > 1 and metric in rows[-2] else last
-            increment = last - previous
-            for offset, year in enumerate(years, start=1):
-                output.append({"entity": entity, "year": year, metric: max(0.0, last + increment * offset)})
+            last_year = int(rows[-1]["year"])
+            elapsed = last_year - int(rows[-2]["year"]) if len(rows) > 1 else 1
+            increment = (last - previous) / max(1, elapsed)
+            for year in years:
+                output.append({"entity": entity, "year": year,
+                               metric: max(0.0, last + increment * (year - last_year))})
         return output
     return run
 
@@ -175,12 +198,14 @@ def wpp_style_runner(metric: str = "population", damping: float = 0.85) -> Runne
                           key=lambda row: int(row["year"]))
             if not rows or metric not in rows[-1]:
                 continue
-            history = [float(row[metric]) for row in rows[-6:] if metric in row]
-            increment = (history[-1] - history[0]) / max(1, len(history) - 1)
-            level = history[-1]
+            history = [row for row in rows[-6:] if metric in row]
+            last_year = int(history[-1]["year"])
+            increment = (float(history[-1][metric]) - float(history[0][metric])) / max(
+                1, last_year - int(history[0]["year"]))
+            level = float(history[-1][metric])
             for year in years:
-                level = max(0.0, level + damping * increment)
-                output.append({"entity": entity, "year": year, metric: level})
+                output.append({"entity": entity, "year": year,
+                               metric: max(0.0, level + damping * increment * (year - last_year))})
         return output
     return run
 
@@ -212,12 +237,14 @@ def reduced_form_runner(metric: str = "asfr_15_44",
             ordered = sorted(entity_rows, key=lambda r: int(r["year"]))
             last = float(ordered[-1][metric])
             previous = float(ordered[-2][metric]) if len(ordered) > 1 else last
-            trend = last - previous
+            last_year = int(ordered[-1]["year"])
+            elapsed = last_year - int(ordered[-2]["year"]) if len(ordered) > 1 else 1
+            trend = (last - previous) / max(1, elapsed)
             entity_x = float(ordered[-1][treatment])
             level = last + beta * (xbar - entity_x)
-            for offset, year in enumerate(years, start=1):
+            for year in years:
                 output.append({"entity": entity, "year": year,
-                               metric: max(0.0, level + trend * offset)})
+                               metric: max(0.0, level + trend * (year - last_year))})
         return output
     return run
 
@@ -239,6 +266,9 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
     fixed_calibration = calibration
 
     def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
+        if not use_household_mechanisms:
+            # Same calendar-time trend as the control, with no household events.
+            return list(fixed_trend_runner(metric)(train, years, seed))
         calibration = fixed_calibration or calibrate_household_parameters(train)
         output = []
         for entity in sorted({str(r.get("entity", "all")) for r in train}):
@@ -246,16 +276,6 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
             if not rows or metric not in rows[-1]:
                 continue
             last = rows[-1]
-            if not use_household_mechanisms:
-                # Strict ablation: retain the same observed endpoint and
-                # forecast contract, but skip World household formation,
-                # marriage, fertility and migration events entirely.
-                previous = float(rows[-2][metric]) if len(rows) > 1 and metric in rows[-2] else float(last[metric])
-                increment = float(last[metric]) - previous
-                for offset, year in enumerate(years, start=1):
-                    output.append({"entity": entity, "year": year, metric:
-                                   max(0.0, float(last[metric]) + increment * offset)})
-                continue
             start = int(last["year"])
             initial_people = 1200
             # Ablation fixes burden at the calibrated reference, removing the
@@ -382,7 +402,7 @@ def compare_models_rolling(
                                   horizon=horizon, step=step, group="entity")
     if baseline is not None and baseline not in models:
         raise ValueError("baseline 必须是 models 中的模型名")
-    fold_scores: dict[str, list[dict[str, float | int]]] = {name: [] for name in models}
+    fold_scores: dict[str, list[dict[str, object]]] = {name: [] for name in models}
     for fold_index, (train, test) in enumerate(folds):
         years = sorted({int(row["year"]) for row in test})
         for name, runner in models.items():
@@ -398,12 +418,25 @@ def compare_models_rolling(
                 _validate_forecast_coverage(test, sample, metric)
             point = _median_forecast(samples, metric)
             errors = replay_errors_by_group(test, point, group="entity", metrics=(metric,))
+            point_by_key = {(str(row.get("entity", "all")), int(row["year"])):
+                            float(row[metric]) for row in point}
+            squared_errors = [
+                (point_by_key[(str(row.get("entity", "all")), int(row["year"]))]
+                 - float(row[metric])) ** 2
+                for row in test if "year" in row and metric in row
+            ]
             crps = crps_metrics(test, samples, metrics=(metric,), group="entity")[metric]["mean_crps"]
             interval = interval_metrics(test, samples, metrics=(metric,), group="entity")[metric]
             fold_scores[name].append({
+                "train_end_year": max(int(row["year"]) for row in train),
                 "origin_year": min(years),
+                "forecast_years": years,
+                "calendar_horizons": [year - max(int(row["year"]) for row in train)
+                                      for year in years],
                 "mape": _mean_error(errors, "mape"),
-                "rmse": _mean_error(errors, "rmse"),
+                "rmse": math.sqrt(sum(squared_errors) / len(squared_errors)),
+                "squared_error_sum": sum(squared_errors),
+                "n_predictions": len(squared_errors),
                 "crps": float(crps),
                 "coverage": float(interval["coverage"]),
                 "mean_interval_width": float(interval["mean_interval_width"]),
@@ -411,7 +444,6 @@ def compare_models_rolling(
     result: dict[str, dict[str, object]] = {}
     for name, scores in fold_scores.items():
         mape = [float(row["mape"]) for row in scores]
-        rmse = [float(row["rmse"]) for row in scores]
         crps = [float(row["crps"]) for row in scores]
         coverage = [float(row["coverage"]) for row in scores]
         interval_width = [float(row["mean_interval_width"]) for row in scores]
@@ -419,7 +451,7 @@ def compare_models_rolling(
             "folds": scores,
             "summary": {
                 "mape": _bootstrap_mean(mape, seed + 11, bootstrap_draws),
-                "rmse": _bootstrap_mean(rmse, seed + 17, bootstrap_draws),
+                "rmse": _bootstrap_pooled_rmse(scores, seed + 17, bootstrap_draws),
                 "crps": _bootstrap_mean(crps, seed + 23, bootstrap_draws),
                 "coverage": _bootstrap_mean(coverage, seed + 29, bootstrap_draws),
                 "mean_interval_width": _bootstrap_mean(interval_width, seed + 37, bootstrap_draws),

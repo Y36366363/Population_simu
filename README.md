@@ -1,5 +1,15 @@
 # Population Sandbox
 
+## 2026-10-02 audit and project direction / 当前入口
+
+长期目标是可校准、可冻结因素的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，并同时研究后代存续、生活质量与代际上升。当前美国住房—生育研究作为第一个经验验证模块继续推进。
+
+- [完整审计、配置说明与分阶段路线](docs/project_direction_and_audit_2026-10-02.md)
+- [本轮延续测试、修复与复现命令](docs/continuation_results_2026-10-02.md)
+- [全部场景和默认配置清单](docs/artifacts/configuration_inventory_2026-10-02.json)
+
+**历史结果勘误：** 9月旧rolling报告漏评2021，部分runner按观测序号而非日历跨度推进，household还使用了目标年的真实住房。本轮修复并另存结果；旧表不代表修复后的同信息集预测表现。固定2017起点与逐步扩窗回测分开报告。旧字段`asfr_15_44`实际是总出生÷15—44岁女性人口的一般生育率（GFR），不是正式年龄别/孩次生育率。当前地图仍为示意关系图，引擎仍按年推进。
+
 An empirical and simulation framework for studying how housing and childcare burdens are associated with fertility outcomes across U.S. states and years.
 
 > [Open the interactive sandbox](https://Y36366363.github.io/Population_simu/)

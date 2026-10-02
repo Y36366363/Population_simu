@@ -1,5 +1,7 @@
 # Housing-primary rolling-origin results · 2026-09-21
 
+> 2026-10-02审计勘误：本文保留旧实现结果。旧rolling切分未评估2021，部分预测按列表序号而非日历跨度推进，household使用了目标年真实住房，旧rolling RMSE也需纠正。不能将本文理解为固定2010—2017训练后的完整留出验证。新结果与解释见[延续测试](continuation_results_2026-10-02.md)和[全局审计](project_direction_and_audit_2026-10-02.md)。
+
 This is a predictive replication report, not a causal estimate. The primary outcome is state-year `ASFR_15_44`; calibration uses 2010–2017 and the untouched test years are 2018, 2019 and 2021. 2020 is excluded from the primary specification.
 
 ## Overall rolling-origin diagnostics

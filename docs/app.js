@@ -320,8 +320,8 @@ const regionTemplates = [
   {id: 'EA', name: '东亚', x: .81, y: .37, share: .23, development: .72, wage: 1.03, housing: 1.12, education: .77, fertility: .73, school: .76, medical: .72, transport: .74, safety: .68, hazard: .58, exposure: .62, recovery: .35}
 ];
 
-const worldState = {result: null, selectedRegion: 'EA', frame: null, playback: null, uncertainty: null};
-const pythonState = {data: null, selectedCountry: null};
+const worldState = {result: null, parameters: null, selectedRegion: 'EA', frame: null, playback: null, uncertainty: null, exportingFrames: false};
+const pythonState = {data: null, parameters: null, selectedCountry: null};
 const variantState = {data: null, report: null};
 
 function weightedChoice(random, items, weightKey) {
@@ -588,7 +588,7 @@ function renderWorldStats() {
     ['跨区域迁徙', numberFormat(result.totalMigrations)],
     ['区域资源差距', gap.toFixed(1)]
   ].map(([label, value]) => `<div class="world-stat"><span>${label}</span><strong>${value}</strong></div>`).join('');
-  document.getElementById('world-summary').textContent = `${worldParams().years} 年 · ${numberFormat(initial.families)} 个初始家庭`;
+  document.getElementById('world-summary').textContent = `${worldState.parameters.years} 年 · ${numberFormat(initial.families)} 个初始家庭`;
   document.getElementById('system-feedback').innerHTML = [
     ['税收收入', final.taxRevenue.toFixed(1)],
     ['公共支出', final.publicSpending.toFixed(1)],
@@ -669,7 +669,7 @@ function renderWorldTimeline() {
   const maxValue = Math.max(...data.map(row => row[metric]));
   const padding = Math.max(.01, (maxValue - minValue) * .12);
   const yLow = Math.max(0, minValue - padding), yHigh = maxValue + padding;
-  const x = year => margin.left + year / Math.max(1, worldParams().years) * plotWidth;
+  const x = year => margin.left + year / Math.max(1, worldState.parameters.years) * plotWidth;
   const y = value => margin.top + plotHeight - (value - yLow) / Math.max(.001, yHigh - yLow) * plotHeight;
   let content = '';
   for (let tick = 0; tick <= 4; tick += 1) {
@@ -694,7 +694,7 @@ function renderWorldTimeline() {
     if (frame) content += `<line class="chart-frame-marker" x1="${x(frame.year)}" y1="${margin.top}" x2="${x(frame.year)}" y2="${height - margin.bottom}"></line>`;
   }
   [0, .25, .5, .75, 1].forEach(fraction => {
-    const year = Math.round(worldParams().years * fraction);
+    const year = Math.round(worldState.parameters.years * fraction);
     content += `<text class="chart-axis" x="${x(year)}" y="${height - 11}" text-anchor="middle">${year} 年</text>`;
   });
   svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
@@ -834,6 +834,7 @@ async function runLocalEngine() {
     if (!response.ok || payload.ok === false) throw new Error(payload.error || `HTTP ${response.status}`);
     const snapshot = payload.snapshot;
     pythonState.data = payload;
+    pythonState.parameters = Object.freeze({scenario, years, seed});
     document.getElementById('engine-download').disabled = false;
     const countries = [...new Set(payload.history.map(row => row.country))];
     pythonState.selectedCountry = pythonState.selectedCountry && countries.includes(pythonState.selectedCountry)
@@ -860,9 +861,8 @@ async function runLocalEngine() {
 }
 
 async function downloadPythonCsv() {
-  if (!pythonState.data) return;
-  const scenario = document.getElementById('engine-scenario').value;
-  const years = worldParams().years, seed = worldParams().seed;
+  if (!pythonState.data || !pythonState.parameters) return;
+  const {scenario, years, seed} = pythonState.parameters;
   const url = `${localApiUrl('api/run.csv')}?scenario=${encodeURIComponent(scenario)}&years=${years}&seed=${seed}`;
   const response = await fetch(url, {headers: {'Accept': 'text/csv'}});
   if (!response.ok) throw new Error(`CSV HTTP ${response.status}`);
@@ -944,15 +944,23 @@ function renderPythonResults() {
 
 function runWorldExperiment() {
   const button = document.getElementById('world-run');
+  const parameters = Object.freeze({...worldParams()});
+  if (worldState.playback) clearInterval(worldState.playback);
+  worldState.playback = null;
+  document.getElementById('timeline-play').textContent = '播放时间线';
   button.disabled = true; button.textContent = '模拟家庭迁徙中…';
   scheduleUi(() => {
     try {
-      worldState.result = simulateWorld(worldParams());
+      worldState.result = simulateWorld(parameters);
+      worldState.parameters = parameters;
+      worldState.uncertainty = null;
       worldState.frame = null;
       renderWorld();
       document.getElementById('world-summary').dataset.error = '';
     } catch (error) {
       worldState.result = null;
+      worldState.parameters = null;
+      worldState.uncertainty = null;
       document.getElementById('world-summary').textContent = `模拟失败：${error.message}`;
       document.getElementById('world-summary').dataset.error = 'true';
     } finally {
@@ -963,6 +971,7 @@ function runWorldExperiment() {
 }
 
 function toggleTimelinePlayback() {
+  if (worldState.exportingFrames) return;
   const button = document.getElementById('timeline-play');
   if (worldState.playback) { clearInterval(worldState.playback); worldState.playback = null; button.textContent = '播放时间线'; return; }
   if (!worldState.result?.history?.length) return;
@@ -978,14 +987,29 @@ function toggleTimelinePlayback() {
 function exportTimelinePng() {
   const svg = document.getElementById('world-timeline');
   const xml = new XMLSerializer().serializeToString(svg);
-  const image = new Image(); const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 520;
-  image.onload = () => { const ctx = canvas.getContext('2d'); ctx.fillStyle = '#f7faf7'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.drawImage(image, 0, 0, canvas.width, canvas.height); canvas.toBlob(blob => { const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `population_simu_frame_${worldState.frame ?? 0}.png`; link.click(); URL.revokeObjectURL(url); }); };
-  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(xml)}`;
+  const frame = worldState.frame ?? 0;
+  return new Promise((resolve, reject) => {
+    const image = new Image(); const canvas = document.createElement('canvas'); canvas.width = 1200; canvas.height = 520;
+    image.onerror = () => reject(new Error('无法生成时间线图片'));
+    image.onload = () => {
+      try {
+        const ctx = canvas.getContext('2d'); ctx.fillStyle = '#f7faf7';
+        ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(blob => {
+          if (!blob) { reject(new Error('无法生成 PNG 文件')); return; }
+          const url = URL.createObjectURL(blob); const link = document.createElement('a');
+          link.href = url; link.download = `population_simu_frame_${frame}.png`;
+          link.click(); URL.revokeObjectURL(url); resolve();
+        });
+      } catch (error) { reject(error); }
+    };
+    image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(xml)}`;
+  });
 }
 
 function runWorldUncertainty() {
-  if (!worldState.result) return;
-  const params = worldParams(); const runs = [];
+  if (!worldState.result || !worldState.parameters) return;
+  const params = worldState.parameters; const runs = [];
   for (let i = 0; i < 20; i += 1) runs.push(simulateWorld({...params, seed: params.seed + i + 1}).history);
   const metrics = ['families', 'migrations', 'resources', 'children', 'mobility', 'taxRevenue', 'fiscalBalance', 'capacityPressure', 'technology', 'environmentalStress', 'climateEvents'];
   worldState.uncertainty = {};
@@ -996,17 +1020,31 @@ function runWorldUncertainty() {
   renderWorldTimeline(); document.getElementById('timeline-frame-label').textContent = '已显示 20 次运行的 10–90% 区间';
 }
 
-function exportBatchPng() {
-  if (!worldState.result) return;
-  const frames = worldState.result.history.map((_, index) => index);
+async function exportBatchPng() {
+  if (!worldState.result || worldState.exportingFrames) return;
+  const result = worldState.result;
+  const frames = result.history.map((_, index) => index);
   const old = worldState.frame;
-  frames.forEach((index, order) => { worldState.frame = index; renderWorldTimeline(); setTimeout(() => exportTimelinePng(), order * 220); });
-  setTimeout(() => { worldState.frame = old; renderWorldTimeline(); }, frames.length * 220 + 250);
+  const button = document.getElementById('timeline-batch-png');
+  worldState.exportingFrames = true; button.disabled = true;
+  if (worldState.playback) clearInterval(worldState.playback);
+  worldState.playback = null;
+  document.getElementById('timeline-play').textContent = '播放时间线';
+  try {
+    for (const index of frames) {
+      if (worldState.result !== result) break;
+      worldState.frame = index; renderWorldTimeline();
+      await exportTimelinePng();
+    }
+  } finally {
+    worldState.exportingFrames = false; button.disabled = false;
+    if (worldState.result === result) { worldState.frame = old; renderWorldTimeline(); }
+  }
 }
 
 function exportReplay() {
   if (!worldState.result) return;
-  const payload = {version: '2026-09-12', kind: 'population_simu_browser_replay', parameters: worldParams(), result: worldState.result, uncertainty: worldState.uncertainty};
+  const payload = {version: '2026-09-12', kind: 'population_simu_browser_replay', parameters: worldState.parameters, result: worldState.result, uncertainty: worldState.uncertainty};
   const html = `<!doctype html><meta charset="utf-8"><title>Population Simu Replay</title><style>body{font:16px system-ui;margin:2rem;color:#173326}button{padding:.6rem 1rem}pre{white-space:pre-wrap}</style><h1>Population Simu · 分享回放</h1><button id="play">播放</button><span id="year"></span><pre id="out"></pre><script>const p=${JSON.stringify(payload)};let i=0,t;function draw(){const r=p.result.history[i];document.querySelector('#year').textContent=' '+r.year+' 年';document.querySelector('#out').textContent=JSON.stringify(r,null,2)}document.querySelector('#play').onclick=()=>{if(t){clearInterval(t);t=null;return}t=setInterval(()=>{draw();i=(i+1)%p.result.history.length},350);draw()};draw();<\\/script>`;
   downloadText(`population_simu_replay_${payload.parameters.seed}.html`, html, 'text/html');
 }
@@ -1071,8 +1109,8 @@ Object.keys(worldDefaults).forEach(id => document.getElementById(id).addEventLis
 document.getElementById('world-run').addEventListener('click', runWorldExperiment);
 document.getElementById('variant-load').addEventListener('click', loadVariantArtifact);
 document.getElementById('timeline-play').addEventListener('click', toggleTimelinePlayback);
-document.getElementById('timeline-frame-png').addEventListener('click', exportTimelinePng);
-document.getElementById('timeline-batch-png').addEventListener('click', exportBatchPng);
+document.getElementById('timeline-frame-png').addEventListener('click', () => exportTimelinePng().catch(error => { document.getElementById('timeline-frame-label').textContent = `导出失败：${error.message}`; }));
+document.getElementById('timeline-batch-png').addEventListener('click', () => exportBatchPng().catch(error => { document.getElementById('timeline-frame-label').textContent = `导出失败：${error.message}`; }));
 document.getElementById('timeline-uncertainty').addEventListener('click', runWorldUncertainty);
 document.getElementById('timeline-replay-export').addEventListener('click', exportReplay);
 document.getElementById('scenario-save').addEventListener('click', () => {
@@ -1092,7 +1130,7 @@ document.getElementById('scenario-file').addEventListener('change', async event 
   event.target.value = '';
 });
 document.getElementById('scenario-export').addEventListener('click', () => {
-  const payload = currentScenarioPayload(); payload.result = worldState.result;
+  const payload = currentScenarioPayload(); payload.result = worldState.result; payload.resultParameters = worldState.parameters;
   downloadText(`population_simu_${payload.parameters.seed}.json`, JSON.stringify(payload, null, 2));
 });
 document.getElementById('engine-run').addEventListener('click', runLocalEngine);

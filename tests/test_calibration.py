@@ -1,4 +1,13 @@
+import contextlib
+import csv
+import io
+import json
+from pathlib import Path
+import runpy
+import sys
+import tempfile
 import unittest
+from unittest.mock import Mock, patch
 
 from population_simu.benchmarks import (
     compare_models,
@@ -96,6 +105,23 @@ class CalibrationTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual([round(x["asfr_15_44"], 6) for x in first], [64.0, 65.0])
 
+    def test_forecasts_use_calendar_time_across_missing_observation_years(self):
+        rows = [{"entity": "A", "year": year, "asfr_15_44": value,
+                 "housing_cost_burden": 0.35}
+                for year, value in ((2015, 62.0), (2017, 58.0))]
+        runners = {
+            "trend": fixed_trend_runner("asfr_15_44"),
+            "cohort_proxy": wpp_style_runner("asfr_15_44", damping=1.0),
+            "reduced_form": reduced_form_runner(),
+            "no_household": household_simulator_runner(use_household_mechanisms=False),
+        }
+        for name, runner in runners.items():
+            with self.subTest(model=name):
+                sparse = runner(rows, [2018, 2019, 2021], 7)
+                dense = runner(rows, [2018, 2019, 2020, 2021], 7)
+                self.assertEqual([row["asfr_15_44"] for row in sparse], [56.0, 54.0, 50.0])
+                self.assertEqual(sparse[-1], dense[-1])
+
     def test_replay_errors_aligns_by_year(self):
         observed = [{"year": 2000, "population": 10}, {"year": 2001, "population": 12}]
         simulated = [{"year": 2000, "population": 9}, {"year": 2001, "population": 13}]
@@ -175,9 +201,68 @@ class CalibrationTests(unittest.TestCase):
     def test_rolling_origin_uses_only_past_years(self):
         rows = [{"year": year, "population": year} for year in range(2000, 2008)]
         folds = rolling_origin_splits(rows, initial_train_years=3, horizon=2)
-        self.assertEqual(len(folds), 3)
+        self.assertEqual(len(folds), 4)
         self.assertLess(max(r["year"] for r in folds[0][0]), min(r["year"] for r in folds[0][1]))
-        self.assertEqual([r["year"] for r in folds[-1][1]], [2005, 2006])
+        self.assertEqual([r["year"] for r in folds[-1][1]], [2006, 2007])
+
+    def test_rolling_origin_includes_last_year_after_calendar_gap(self):
+        rows = [{"entity": state, "year": year, "population": year}
+                for state in ("A", "B") for year in (2016, 2017, 2018, 2019, 2021)]
+        folds = rolling_origin_splits(rows, initial_train_years=2, horizon=1, group="entity")
+        self.assertEqual([sorted({r["year"] for r in test}) for _, test in folds],
+                         [[2018], [2019], [2021]])
+        self.assertEqual(max(r["year"] for r in folds[-1][0]), 2019)
+        self.assertEqual(len(folds[-1][1]), 2)
+
+    def test_rolling_horizon_and_step_count_observed_years(self):
+        rows = [{"year": year} for year in (2014, 2015, 2016, 2018, 2019, 2021, 2022)]
+        folds = rolling_origin_splits(rows, initial_train_years=3, horizon=2, step=2)
+        self.assertEqual([[r["year"] for r in test] for _, test in folds],
+                         [[2018, 2019], [2021, 2022]])
+        self.assertEqual(max(r["year"] for r in folds[-1][0]), 2019)
+
+    def test_cross_validation_cli_reports_information_set_and_actual_folds(self):
+        script = Path(__file__).resolve().parents[1] / "scripts/run_frozen_cross_validation.py"
+        main = runpy.run_path(str(script))["main"]
+        with tempfile.TemporaryDirectory() as directory:
+            panel = Path(directory) / "panel.csv"
+            output = Path(directory) / "report.json"
+            with panel.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=("entity", "state", "year", "asfr_15_44", "housing_cost_burden"))
+                writer.writeheader()
+                for year in (2016, 2017, 2018, 2019, 2021):
+                    writer.writerow({"entity": "A", "state": "01", "year": year,
+                                     "asfr_15_44": 60 - (year - 2016), "housing_cost_burden": 0.35})
+            for conditional in (False, True):
+                command = [str(script), str(panel), "--output", str(output),
+                           "--initial", "4", "--replicates", "1", "--bootstrap-draws", "100"]
+                if conditional:
+                    command.append("--conditional-housing-replay")
+                runner_spy = Mock(wraps=household_simulator_runner)
+                with (patch.object(sys, "argv", command),
+                      patch.dict(main.__globals__, {"household_simulator_runner": runner_spy}),
+                      contextlib.redirect_stdout(io.StringIO())):
+                    self.assertEqual(main(), 0)
+                future_housing = runner_spy.call_args_list[0].kwargs["future_housing"]
+                if conditional:
+                    self.assertIn(("A", 2021), future_housing)
+                else:
+                    self.assertIsNone(future_housing)
+                artifact = json.loads(output.read_text())
+                self.assertEqual(artifact["evaluation_design"], "expanding_window")
+                self.assertEqual(artifact["untouched_test_years"], [])
+                self.assertEqual(artifact["evaluated_years"], [2021])
+                self.assertEqual(artifact["fold_designs"]["4"][0]["calendar_horizons"], {"2021": 2})
+                self.assertEqual(artifact["information_set"]["equal_observed_information"], not conditional)
+                self.assertEqual(artifact["information_set"]["future_observed_housing_models"],
+                                 ["household"] if conditional else [])
+
+            external = Path(directory) / "external.json"
+            external.write_text(json.dumps({"years": [2017]}))
+            command = [str(script), str(panel), "--output", str(output), "--initial", "1",
+                       "--household-calibration-json", str(external)]
+            with patch.object(sys, "argv", command), self.assertRaisesRegex(SystemExit, "2016"):
+                main()
 
     def test_leave_one_group_out_reports_each_entity(self):
         rows = [{"entity": entity, "year": 2000, "population": value}
@@ -235,6 +320,24 @@ class CalibrationTests(unittest.TestCase):
         self.assertIn("win_rate", result["damped"]["vs_baseline"])
         self.assertIn("relative_improvement", result["damped"]["vs_baseline"])
         self.assertGreaterEqual(result["damped"]["vs_baseline"]["win_rate"], 0)
+
+    def test_rolling_rmse_pools_squared_errors_before_taking_root(self):
+        observed = [{"entity": entity, "year": year, "population": 100.0}
+                    for entity in ("A", "B") for year in range(2000, 2004)]
+
+        def unequal_errors(train, years, seed):
+            return [{"entity": entity, "year": year,
+                     "population": 100.0 + multiplier * (1 if year == 2002 else 3)}
+                    for year in years for entity, multiplier in (("A", 1), ("B", 3))]
+
+        result = compare_models_rolling(observed, {"unequal": unequal_errors},
+                                        initial_train_years=2, replicates=1, bootstrap_draws=100)
+        scores = result["unequal"]["folds"]
+        self.assertAlmostEqual(scores[0]["rmse"], 5 ** 0.5)
+        self.assertAlmostEqual(scores[1]["rmse"], 45 ** 0.5)
+        # Pooled RMSE is 5, rather than mean absolute error 4 or mean fold RMSE.
+        self.assertAlmostEqual(result["unequal"]["summary"]["rmse"]["mean"], 5.0)
+        self.assertEqual(sum(score["n_predictions"] for score in scores), 4)
 
     def test_residual_uncertainty_makes_deterministic_intervals_non_degenerate(self):
         observed = [

@@ -162,8 +162,9 @@ def rolling_origin_splits(
 ) -> list[tuple[list[Mapping[str, object]], list[Mapping[str, object]]]]:
     """生成 expanding-window 回测折叠。
 
-    每一折只使用 cutoff 之前的数据训练，并预测紧随其后的 ``horizon`` 年；
-    这是人口预测中比随机打乱更合适的时间序列交叉验证方式。
+    每一折只使用 cutoff 之前的数据训练，并预测紧随其后的 ``horizon`` 个
+    共同观测年份。``step`` 也按共同观测年份计数；缺年时这不等于日历跨度。
+    包含最后一个完整窗口，不要求测试窗口后还存在一个未使用的观测年。
     """
     if initial_train_years < 1 or horizon < 1 or step < 1:
         raise ValueError("initial_train_years、horizon 和 step 必须为正数")
@@ -178,11 +179,11 @@ def rolling_origin_splits(
     ])) if groups else []
     folds: list[tuple[list[Mapping[str, object]], list[Mapping[str, object]]]] = []
     index = initial_train_years
-    while index + horizon < len(common_years):
+    while index + horizon <= len(common_years):
         cutoff = common_years[index]
-        end = common_years[index + horizon]
+        forecast_years = set(common_years[index:index + horizon])
         train = [row for row in source if int(row["year"]) < cutoff]
-        validation = [row for row in source if cutoff <= int(row["year"]) < end]
+        validation = [row for row in source if int(row["year"]) in forecast_years]
         if train and validation:
             folds.append((train, validation))
         index += step

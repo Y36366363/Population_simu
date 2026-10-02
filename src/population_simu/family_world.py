@@ -1471,7 +1471,13 @@ class FamilyWorld:
                 if self.rng.random() >= hazard_to_probability(pairing_hazard):
                     continue
                 men.remove(man)
-                primary = man if self.scenario.simulation.surname_rule == "paternal" else self.rng.choice((woman, man))
+                surname_rule = self.scenario.simulation.surname_rule
+                if surname_rule == "paternal":
+                    primary = man
+                elif surname_rule == "maternal":
+                    primary = woman
+                else:
+                    primary = self.rng.choice((woman, man))
                 origins = (self.households[woman.household_id], self.households[man.household_id])
                 inheritance = 0.0
                 for origin in origins:

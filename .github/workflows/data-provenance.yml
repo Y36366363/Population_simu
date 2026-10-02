@@ -20,5 +20,14 @@ jobs:
           python-version: "3.11"
       - name: Validate observed-data provenance
         run: python scripts/check_data_provenance.py
-      - name: Test the provenance guard
-        run: python -m unittest tests.test_data_provenance
+      - name: Run the full Python regression suite
+        run: python scripts/run_tests.py
+      - name: Set up Node.js for browser regressions
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check browser regressions and static assets
+        run: |
+          node --check docs/app.js
+          node scripts/check_browser_regressions.js
+          python scripts/check_static_site.py docs

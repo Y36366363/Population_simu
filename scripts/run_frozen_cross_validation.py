@@ -1,4 +1,4 @@
-"""Run pre-specified rolling-origin robustness checks for the frozen study."""
+"""Run expanding-window checks; these are not a fixed-2017 holdout evaluation."""
 from __future__ import annotations
 
 import argparse
@@ -35,13 +35,15 @@ def main() -> int:
     parser.add_argument("--replicates", type=int, default=20)
     parser.add_argument("--bootstrap-draws", type=int, default=1000)
     parser.add_argument("--household-calibration-json", type=Path,
-                        help="optional external artifact; do not use if it overlaps the untouched test")
+                        help="optional external artifact; must precede every rolling forecast unless explicitly auditing overlap")
     parser.add_argument("--allow-test-overlap", action="store_true",
-                        help="仅用于外部验证；允许 artifact 年份与 test 重叠并在报告中标记")
+                        help="仅用于外部验证；允许 artifact 包含某个 rolling 训练端点后的年份，并明确标记")
     parser.add_argument("--include-2020-sensitivity", action="store_true",
                         help="把带 ACS5 住房估计的 2020 面板作为敏感性测试年记录；不改变主规格")
     parser.add_argument("--residual-uncertainty", action="store_true",
-                        help="对确定性基准加入校准期一步变化误差的预测不确定性；不改变点预测或机制")
+                        help="加入fold训练期相邻变化尺度的高斯预测误差；有限抽样会使中位数点预测波动，机制不变")
+    parser.add_argument("--conditional-housing-replay", action="store_true",
+                        help="仅用于条件回放：household 读取预测年份的真实住房；其他基准无该信息，不能解释为公平事前预测比较")
     args = parser.parse_args()
     with args.panel.open(encoding="utf-8-sig", newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -49,15 +51,48 @@ def main() -> int:
         row["year"] = int(row["year"])
         row["asfr_15_44"] = float(row["asfr_15_44"])
         row["region"] = region_for_state(row.get("state", ""))
-    future_housing = {(str(r["entity"]), int(r["year"])): float(r["housing_cost_burden"])
-                      for r in rows if r.get("housing_cost_burden") not in (None, "")}
+    # Keep the ACS5 sensitivity year out even if a combined panel was supplied.
+    if not args.include_2020_sensitivity:
+        rows = [row for row in rows if row["year"] != 2020]
+    fold_sets = {
+        initial: rolling_origin_splits(rows, initial_train_years=initial,
+                                       horizon=1, group="entity")
+        for initial in args.initial
+    }
+    fold_designs = {
+        str(initial): [
+            {
+                "train_years": sorted({int(row["year"]) for row in train}),
+                "train_end_year": max(int(row["year"]) for row in train),
+                "test_years": sorted({int(row["year"]) for row in test}),
+                "calendar_horizons": {
+                    str(year): year - max(int(row["year"]) for row in train)
+                    for year in sorted({int(row["year"]) for row in test})
+                },
+                "train_rows": len(train), "test_rows": len(test),
+            }
+            for train, test in folds
+        ]
+        for initial, folds in fold_sets.items()
+    }
+    future_housing = (
+        {(str(r["entity"]), int(r["year"])): float(r["housing_cost_burden"])
+         for r in rows if r.get("housing_cost_burden") not in (None, "")}
+        if args.conditional_housing_replay else None
+    )
     external_calibration = None
+    external_future_years = []
     if args.household_calibration_json:
         artifact = json.loads(args.household_calibration_json.read_text(encoding="utf-8"))
-        overlap_years = {2018, 2019, 2021} | ({2020} if args.include_2020_sensitivity else set())
-        overlap = set(artifact.get("years", ())) & overlap_years
-        if overlap and not args.allow_test_overlap:
-            raise SystemExit(f"外部校准 artifact 与 untouched test 重叠：{sorted(overlap)}；"
+        earliest_train_end = min(fold["train_end_year"]
+                                 for folds in fold_designs.values() for fold in folds)
+        artifact_years = artifact.get("years", artifact.get("calibration_years", ()))
+        if not artifact_years:
+            raise SystemExit("外部校准 artifact 缺少 years/calibration_years，无法审计训练时间范围")
+        external_future_years = sorted(int(year) for year in artifact_years
+                                       if int(year) > earliest_train_end)
+        if external_future_years and not args.allow_test_overlap:
+            raise SystemExit(f"外部校准 artifact 晚于最早 rolling 训练端点 {earliest_train_end}：{external_future_years}；"
                              "如仅做外部验证，请显式加入 --allow-test-overlap")
         external_calibration = HouseholdCalibration.from_dict(artifact)
     models = {
@@ -93,8 +128,7 @@ def main() -> int:
     # an age field; aggregate ASFR cannot be retrofitted into age-specific error.
     strata_reports = {}
     for initial in args.initial:
-        folds = rolling_origin_splits(rows, initial_train_years=initial,
-                                      horizon=1, group="entity")
+        folds = fold_sets[initial]
         by_model: dict[str, dict[str, list[float]]] = {
             name: defaultdict(list) for name in models
         }
@@ -126,8 +160,20 @@ def main() -> int:
 
     result = {
         "panel": str(args.panel),
-        "calibration_years": list(range(2010, 2018)),
-        "untouched_test_years": [2018, 2019, 2021],
+        "evaluation_design": "expanding_window",
+        "fixed_2017_holdout": False,
+        "training_years_vary_by_fold": True,
+        "calibration_years": sorted({year for folds in fold_designs.values()
+                                     for fold in folds for year in fold["train_years"]}),
+        "untouched_test_years": [],
+        "evaluated_years": sorted({year for folds in fold_designs.values()
+                                   for fold in folds for year in fold["test_years"]}),
+        "fold_designs": fold_designs,
+        "horizon_definition": "one observed target year per fold; calendar horizons may exceed one when observations are missing",
+        "metric_definitions": {
+            "rmse": "sqrt(sum of squared errors / number of state-year predictions), pooled within each fold and across folds; interval resamples whole folds",
+            "mape": "mean entity MAPE per fold, then mean across folds",
+        },
         "sensitivity_test_years": [2020] if args.include_2020_sensitivity else [],
         "excluded_years": [] if args.include_2020_sensitivity else [2020],
         "reports": reports,
@@ -138,10 +184,22 @@ def main() -> int:
         "external_household_calibration": str(args.household_calibration_json)
         if args.household_calibration_json else None,
         "test_overlap_allowed": bool(args.allow_test_overlap),
-        "interpretation": "窗口稳健性和预测比较，不是因果估计；2020 若纳入，仅作为 ACS5 住房敏感性，不据此增加社会机制",
+        "external_calibration_future_years": external_future_years,
+        "information_set": {
+            "conditional_housing_replay": bool(args.conditional_housing_replay),
+            "future_observed_housing_models": ["household"] if args.conditional_housing_replay else [],
+            "equal_observed_information": not args.conditional_housing_replay and not external_future_years,
+            "external_calibration_uses_future_of_early_folds": bool(external_future_years),
+            "note": ("household uses target-year observed housing; baselines do not. Conditional replay, not equal-information ex-ante forecasting."
+                     if args.conditional_housing_replay else
+                     "Default runners use only each fold's training observations; later folds may train on earlier evaluation years."),
+        },
+        "interpretation": "逐步扩窗回测；早期测试年可进入后续训练，不是固定2017起点的 untouched holdout。不同 initial 的重复目标年份不是独立证据。2020若纳入仅作ACS5敏感性；不是因果估计。",
         "uncertainty": {
             "residual_bootstrap": bool(args.residual_uncertainty),
-            "note": "若开启，确定性 runner 的预测区间来自 calibration 内州级一步变化误差；点预测和机制规则不变。",
+            "common_residual_noise_across_models": False,
+            "calendar_horizon_adjusted": False,
+            "note": "若开启，区间来自各fold训练期州级相邻观测变化的高斯误差。残差seed按模型名区分，有限抽样的中位数点预测会波动；尺度尚未按日历跨度校准。",
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

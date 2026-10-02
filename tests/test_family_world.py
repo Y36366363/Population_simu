@@ -1,5 +1,7 @@
 import json
 import unittest
+from dataclasses import replace
+from unittest.mock import patch
 
 from population_simu.family_config import FamilyScenario
 from population_simu.family_world import FamilyWorld
@@ -49,6 +51,41 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertEqual(len(world.clans), 30)
         self.assertEqual(len(world.households), 30)
         self.assertEqual({len(clan.branch_ids) for clan in world.clans.values()}, {1})
+
+    def test_new_family_branch_respects_surname_rule(self):
+        for rule, primary_sex in (
+            ("maternal", "F"), ("paternal", "M"), ("random", "F"), ("random", "M")
+        ):
+            with self.subTest(rule=rule, primary_sex=primary_sex):
+                scenario = family_scenario(initial_clans=2, initial_children_per_family=0)
+                scenario = replace(
+                    scenario, simulation=replace(scenario.simulation, surname_rule=rule)
+                )
+                world = FamilyWorld(scenario)
+                maternal_home, paternal_home = world.households.values()
+                woman = world._new_person(maternal_home, 25, "F")
+                man = world._new_person(paternal_home, 25, "M")
+                primary = woman if primary_sex == "F" else man
+                # Force pairing; the random surname draw deliberately picks the
+                # father for deterministic rules, exposing a maternal fallback.
+                random_parent = primary if rule == "random" else man
+                with patch.object(world.rng, "random", return_value=0.0), patch.object(
+                    world.rng, "choice", return_value=random_parent
+                ) as surname_choice:
+                    world._form_family_branches()
+
+                self.assertEqual(woman.household_id, man.household_id)
+                self.assertNotIn(woman.household_id, (maternal_home.id, paternal_home.id))
+                branch = world.households[woman.household_id]
+                self.assertEqual(branch.clan_id, primary.clan_id)
+                self.assertEqual(branch.surname, primary.surname)
+                self.assertIn(branch.id, world.clans[primary.clan_id].branch_ids)
+                self.assertEqual(woman.clan_id, maternal_home.clan_id)
+                self.assertEqual(man.clan_id, paternal_home.clan_id)
+                if rule == "random":
+                    surname_choice.assert_called_once_with((woman, man))
+                else:
+                    surname_choice.assert_not_called()
 
     def test_strict_child_cap_applies_to_seed_and_births(self):
         world = FamilyWorld(family_scenario(max_children=1))
