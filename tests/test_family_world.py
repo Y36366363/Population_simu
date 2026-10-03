@@ -117,6 +117,24 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertEqual(snapshot["region_history"][0]["year"], 2000)
         self.assertEqual(len(snapshot["region_history"][0]["regions"]), 2)
 
+    def test_annual_region_population_flow_ledger_closes(self):
+        world = FamilyWorld(family_scenario(seed=71))
+        opening = len(world.living_people)
+        world.step()
+        self.assertEqual(len(world.population_flow_history), 1)
+        ledger = world.population_flow_history[0]
+        self.assertEqual(ledger["year"], 2001)
+        self.assertTrue(ledger["all_regions_balanced"])
+        self.assertEqual(sum(row["opening_population"] for row in ledger["regions"]), opening)
+        self.assertEqual(
+            sum(row["closing_population"] for row in ledger["regions"]),
+            len(world.living_people),
+        )
+        for row in ledger["regions"]:
+            self.assertTrue(row["balanced"], row)
+            self.assertEqual(row["closing_population"], row["expected_population"])
+        json.dumps(ledger, allow_nan=False)
+
     def test_fertility_age_profile_is_configurable(self):
         world = FamilyWorld(family_scenario(fertility_peak_age=27, fertility_age_spread=10))
         country = world.countries["TST"]

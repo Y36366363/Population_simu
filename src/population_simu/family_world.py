@@ -41,6 +41,7 @@ class FamilyWorld:
         self.people: dict[int, FamilyPerson] = {}
         self.history: list[FamilyYearStats] = []
         self.region_history: list[dict[str, object]] = []
+        self.population_flow_history: list[dict[str, object]] = []
         self.next_clan_id = 1
         self.next_household_id = 1
         self.next_person_id = 1
@@ -1945,6 +1946,93 @@ class FamilyWorld:
                     person.partnered = False
         return deaths
 
+    def _population_locations(self) -> dict[int, tuple[str, str]]:
+        """Return living-person geography without exposing mutable model objects."""
+        return {
+            person.id: (person.country_id, person.region_id)
+            for person in self.living_people
+        }
+
+    def _population_flow_ledger(
+        self,
+        opening: dict[int, tuple[str, str]],
+        stages: list[tuple[str, dict[int, tuple[str, str]], dict[int, tuple[str, str]]]],
+    ) -> dict[str, object]:
+        """Build an event-stage regional population reconciliation for one year.
+
+        Stage snapshots observe the existing engine; they do not consume random
+        draws or change process behavior.  Any future unclassified addition,
+        removal, or relocation remains visible under ``other`` instead of being
+        silently forced into a known mechanism.
+        """
+        fields = (
+            "births", "deaths", "internal_migration_in", "internal_migration_out",
+            "international_migration_in", "international_migration_out",
+            "partnership_relocation_in", "partnership_relocation_out",
+            "divorce_relocation_in", "divorce_relocation_out",
+            "other_in", "other_out",
+        )
+        flows = {
+            (country_id, region.id): {name: 0 for name in fields}
+            for country_id, regions in self.regions.items()
+            for region in regions
+        }
+
+        for process, before, after in stages:
+            added = after.keys() - before.keys()
+            removed = before.keys() - after.keys()
+            if process == "births":
+                for person_id in added:
+                    flows[after[person_id]]["births"] += 1
+            else:
+                for person_id in added:
+                    flows[after[person_id]]["other_in"] += 1
+            if process == "deaths":
+                for person_id in removed:
+                    flows[before[person_id]]["deaths"] += 1
+            else:
+                for person_id in removed:
+                    flows[before[person_id]]["other_out"] += 1
+
+            if process in {"internal_migration", "international_migration"}:
+                prefix = process
+            elif process in {"partnership", "divorce"}:
+                prefix = f"{process}_relocation"
+            else:
+                prefix = "other"
+            for person_id in before.keys() & after.keys():
+                origin, destination = before[person_id], after[person_id]
+                if origin == destination:
+                    continue
+                flows[origin][f"{prefix}_out"] += 1
+                flows[destination][f"{prefix}_in"] += 1
+
+        closing = self._population_locations()
+        opening_counts: dict[tuple[str, str], int] = defaultdict(int)
+        closing_counts: dict[tuple[str, str], int] = defaultdict(int)
+        for location in opening.values():
+            opening_counts[location] += 1
+        for location in closing.values():
+            closing_counts[location] += 1
+        rows = []
+        for location in sorted(flows):
+            values = flows[location]
+            inflows = sum(value for name, value in values.items() if name.endswith("_in"))
+            outflows = sum(value for name, value in values.items() if name.endswith("_out"))
+            expected = opening_counts[location] + values["births"] - values["deaths"] + inflows - outflows
+            country_id, region_id = location
+            rows.append({
+                "country": country_id,
+                "region": region_id,
+                "opening_population": opening_counts[location],
+                **values,
+                "closing_population": closing_counts[location],
+                "expected_population": expected,
+                "balanced": closing_counts[location] == expected,
+            })
+        return {"year": self.year, "regions": rows,
+                "all_regions_balanced": all(row["balanced"] for row in rows)}
+
     def _transfer_estate_if_last_adult(self, person: FamilyPerson) -> None:
         household = self.households.get(person.household_id)
         if household is None or household.property_value <= 0:
@@ -1987,6 +2075,7 @@ class FamilyWorld:
             self.clans[clan_id].peak_living_members = max(self.clans[clan_id].peak_living_members, count)
 
     def step(self) -> list[FamilyYearStats]:
+        opening_locations = self._population_locations()
         self.year += 1
         self._capacity_cache.clear()
         for household in self.households.values():
@@ -2003,12 +2092,34 @@ class FamilyWorld:
         self._mature_young_adults()
         self._career_transitions()
         self._earn_resources()
+        stages = []
+        before = self._population_locations()
         divorces = {} if "divorce" in self.disabled_processes else self._divorces()
+        after = self._population_locations()
+        stages.append(("divorce", before, after))
+        before = after
         remarriages = {} if "partnership" in self.disabled_processes else self._form_family_branches()
+        after = self._population_locations()
+        stages.append(("partnership", before, after))
+        before = after
         births = {} if "births" in self.disabled_processes else self._births()
+        after = self._population_locations()
+        stages.append(("births", before, after))
+        before = after
         internal_migrants = {} if "internal_migration" in self.disabled_processes else self._internal_migration()
+        after = self._population_locations()
+        stages.append(("internal_migration", before, after))
+        before = after
         migrants = {} if "international_migration" in self.disabled_processes else self._international_migration()
+        after = self._population_locations()
+        stages.append(("international_migration", before, after))
+        before = after
         deaths = {} if "deaths" in self.disabled_processes else self._deaths()
+        after = self._population_locations()
+        stages.append(("deaths", before, after))
+        self.population_flow_history.append(
+            self._population_flow_ledger(opening_locations, stages)
+        )
         self._update_clan_peaks()
         self._update_government_funds()
         self._capacity_cache.clear()

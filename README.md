@@ -11,6 +11,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 此示例先预热四国世界，再从同一完整checkpoint恢复对照组和7个实验组，保存逐年结果、参数前后变化、配对差值与源码hash。支持7类事件过程消融及明确允许的国家、地区和全局运行参数。当前是年度、同一起点的模型内比较；尚不保证分叉后的个体随机冲击一致，也不是现实因果估计。
 
+实验分支现在同时生成逐地区人口流量账本，将出生、死亡、国内迁移、国际迁移和婚配/离婚搬家分别入账，并逐年检查地区期末人口闭合。它仍是年度过程阶段聚合，不是带稳定事件随机键的完整事件溯源协议。
+
 使用方式和扩展边界见[通用实验架构](docs/experiment_architecture_2026-10-02.md)，本阶段验证见[阶段结果](docs/experiment_stage_results_2026-10-02.md)。
 
 ## 2026-10-02 audit and project direction / 当前入口

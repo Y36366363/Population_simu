@@ -174,7 +174,7 @@ Listed process suppressions are added to any already disabled processes.
 
 
 def audit_experiment_world(world: FamilyWorld, *, previous_population=None, stats=None) -> dict:
-    """Fail-fast structural checks and global population flow reconciliation."""
+    """Fail-fast structural checks and global/regional population reconciliation."""
     issues = list(world.audit()["issues"])
     for row in (stats if stats is not None else [r for r in world.history if r.year == world.year]):
         for name in AVAILABLE_METRICS:
@@ -212,6 +212,7 @@ def audit_experiment_world(world: FamilyWorld, *, previous_population=None, stat
             if spouse is None or not spouse.alive or spouse.spouse_id != person.id:
                 issues.append(f"person {person.id} has asymmetric spouse reference")
     balance = None
+    regional_balance = None
     if previous_population is not None:
         births = sum(row.births for row in stats)
         deaths = sum(row.deaths for row in stats)
@@ -222,7 +223,14 @@ def audit_experiment_world(world: FamilyWorld, *, previous_population=None, stat
                    "balanced": population == expected}
         if population != expected:
             issues.append("global population does not equal previous + births - deaths")
-    return {"year": world.year, "ok": not issues, "issues": issues, "population_balance": balance}
+        if not world.population_flow_history or world.population_flow_history[-1]["year"] != world.year:
+            issues.append("regional population flow ledger missing for annual step")
+        else:
+            regional_balance = deepcopy(world.population_flow_history[-1])
+            if not regional_balance["all_regions_balanced"]:
+                issues.append("regional population flow ledger does not close")
+    return {"year": world.year, "ok": not issues, "issues": issues,
+            "population_balance": balance, "regional_population_balance": regional_balance}
 
 
 def _history_row(row):
@@ -333,7 +341,8 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
                          "uncertainty": "paired seed mean, range and sample SD; not confidence intervals",
                          "region_policy": "country parameter changes do not rebuild existing regions",
                          "climate_ablation": "no new climate events; existing stress continues to recover",
-                         "migration_ablation": "migration processes only; partnership-related moves remain possible"},
+                         "migration_ablation": "migration processes only; partnership-related moves remain possible",
+                         "regional_flow_ledger": "event-stage births, deaths and relocations; every region must close annually"},
             "configuration": {"scenario": asdict(scenario), "arms": [asdict(arm) for arm in arms],
                               "years": years, "warmup_years": warmup_years,
                               "seeds": list(seeds), "metrics": list(metrics)},

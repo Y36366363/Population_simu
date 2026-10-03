@@ -195,6 +195,17 @@ class ExperimentContractsTests(unittest.TestCase):
         for row in result["history"]:
             for field in fields:
                 self.assertEqual(row[field], 0, (row["year"], row["country"], field))
+        for audit in result["audits"][1:]:
+            ledger = audit["regional_population_balance"]
+            self.assertTrue(ledger["all_regions_balanced"])
+            for region in ledger["regions"]:
+                for field in (
+                    "births", "deaths", "internal_migration_in", "internal_migration_out",
+                    "international_migration_in", "international_migration_out",
+                    "partnership_relocation_in", "partnership_relocation_out",
+                    "divorce_relocation_in", "divorce_relocation_out",
+                ):
+                    self.assertEqual(region[field], 0, (audit["year"], region, field))
         totals = {}
         for row in result["history"]:
             totals[row["year"]] = totals.get(row["year"], 0) + row["population"]
@@ -282,6 +293,16 @@ class ExperimentContractsTests(unittest.TestCase):
                         self.assertEqual(balance["population"], balance["expected_population"])
                         self.assertEqual(balance["population"],
                                          balance["previous_population"] + balance["births"] - balance["deaths"])
+                        regional = audit["regional_population_balance"]
+                        self.assertTrue(regional["all_regions_balanced"])
+                        self.assertEqual(
+                            sum(row["closing_population"] for row in regional["regions"]),
+                            balance["population"],
+                        )
+                        self.assertTrue(all(
+                            row["closing_population"] == row["expected_population"]
+                            for row in regional["regions"]
+                        ))
         self.assertTrue(all(row["sample_sd"] is None for row in report["summary"]))
         # Reports must be portable JSON; NaN/Infinity must never leak into artifacts.
         json.dumps(report, allow_nan=False)
