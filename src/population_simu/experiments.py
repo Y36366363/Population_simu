@@ -48,6 +48,13 @@ REGION_PARAMETERS = REGION_RATIOS | {"wage_multiplier", "housing_cost"}
 SIMULATION_PARAMETERS = frozenset({"adult_pairing_rate", "international_migration_rate",
                                    "resource_investment_share", "inheritance_share"})
 PROCESSES = DISABLABLE_PROCESSES
+FROZEN_PATH_COUNTRY_PARAMETERS = frozenset({
+    "shock_probability", "shock_severity",
+    "climate_shock_probability", "climate_shock_severity",
+})
+FROZEN_PATH_REGION_PARAMETERS = frozenset({
+    "historical_hazard_rate", "population_exposure",
+})
 AVAILABLE_METRICS = frozenset(item.name for item in fields(FamilyYearStats)
                             if item.name not in {"year", "country_id", "policy"})
 DEFAULT_METRICS = ("population", "births", "deaths", "median_household_resources",
@@ -175,7 +182,8 @@ Listed process suppressions are added to any already disabled processes.
 
 def audit_experiment_world(world: FamilyWorld, *, previous_population=None, stats=None) -> dict:
     """Fail-fast structural checks and global/regional population reconciliation."""
-    issues = list(world.audit()["issues"])
+    world_audit = world.audit()
+    issues = list(world_audit["issues"])
     for row in (stats if stats is not None else [r for r in world.history if r.year == world.year]):
         for name in AVAILABLE_METRICS:
             value = getattr(row, name)
@@ -230,7 +238,8 @@ def audit_experiment_world(world: FamilyWorld, *, previous_population=None, stat
             if not regional_balance["all_regions_balanced"]:
                 issues.append("regional population flow ledger does not close")
     return {"year": world.year, "ok": not issues, "issues": issues,
-            "population_balance": balance, "regional_population_balance": regional_balance}
+            "population_balance": balance, "regional_population_balance": regional_balance,
+            "transfer_ledger": deepcopy(world_audit["transfer_ledger"])}
 
 
 def _history_row(row):
@@ -253,7 +262,8 @@ def _run_branch(world, years):
             raise ValueError(f"experiment audit failed at {world.year}: {audit['issues'][:8]}")
         history.extend(_history_row(row) for row in stats)
         audits.append(audit)
-    return {"history": history, "audits": audits}
+    return {"history": history, "audits": audits,
+            "transfer_ledger_summary": world.transfer_ledger.summary()}
 
 
 def source_hashes():
@@ -263,7 +273,8 @@ def source_hashes():
 
 def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years: int,
                    seeds: list[int], warmup_years: int = 0,
-                   metrics: tuple[str, ...] = DEFAULT_METRICS) -> dict:
+                   metrics: tuple[str, ...] = DEFAULT_METRICS,
+                   freeze_exogenous_path: bool = False) -> dict:
     """Run baseline and general interventions from identical full checkpoints."""
     code_hashes = source_hashes()
     if type(years) is not int or years < 1 or type(warmup_years) is not int or warmup_years < 0:
@@ -274,10 +285,32 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
         raise ValueError("unknown or empty metrics")
     if len(set(metrics)) != len(metrics):
         raise ValueError("duplicate metrics")
+    if type(freeze_exogenous_path) is not bool:
+        raise ValueError("freeze_exogenous_path must be a boolean")
     if not arms:
         raise ValueError("at least one treatment arm is required")
     for arm in arms:
         _validate_arm(arm)
+        if freeze_exogenous_path:
+            country_conflicts = {
+                parameter
+                for patch in arm.country_parameters.values()
+                for parameter in patch
+                if parameter in FROZEN_PATH_COUNTRY_PARAMETERS
+            }
+            region_conflicts = {
+                parameter
+                for regions in arm.region_parameters.values()
+                for patch in regions.values()
+                for parameter in patch
+                if parameter in FROZEN_PATH_REGION_PARAMETERS
+            }
+            conflicts = sorted(country_conflicts | region_conflicts)
+            if conflicts:
+                raise ValueError(
+                    "frozen exogenous paths cannot be combined with interventions on "
+                    + ", ".join(conflicts)
+                )
     if len({arm.name for arm in arms}) != len(arms):
         raise ValueError("duplicate arm name")
     scenario.validate()
@@ -296,11 +329,17 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
         for arm in arms:
             branch = checkpoint.restore()
             branches[arm.name] = (branch, apply_intervention(branch, arm))
-        baseline = _run_branch(checkpoint.restore(), years)
+        baseline_world = checkpoint.restore()
+        if freeze_exogenous_path:
+            baseline_world.begin_exogenous_path_recording()
+        baseline = _run_branch(baseline_world, years)
+        frozen_path = baseline_world.freeze_exogenous_path() if freeze_exogenous_path else None
         controls = {(row["country"], row["year"]): row for row in baseline["history"]}
         treatments = {}
         for arm in arms:
             branch, intervention = branches[arm.name]
+            if frozen_path is not None:
+                branch.configure_exogenous_path(frozen_path)
             treatment = _run_branch(branch, years)
             treatment["intervention"] = intervention
             treatment["starting_checkpoint_fingerprint"] = checkpoint.fingerprint
@@ -317,6 +356,9 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
                                         "value": row[metric], "difference": difference})
         runs.append({"seed": seed, "checkpoint_fingerprint": checkpoint.fingerprint,
                      "start_year": checkpoint.year, "warmup_audits": warmup["audits"],
+                     "frozen_exogenous_path": (
+                         frozen_path.as_dict() if frozen_path is not None else None
+                     ),
                      "baseline": baseline, "arms": treatments})
     grouped = defaultdict(list)
     for row in differences:
@@ -336,7 +378,12 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
             "metadata": {"engine": "FamilyWorld", "time_step": "year",
                          "python_version": platform.python_version(),
                          "same_checkpoint_per_seed": True,
-                         "event_aligned_common_random_numbers": False, "causal_estimate": False,
+                         "event_aligned_common_random_numbers": freeze_exogenous_path,
+                         "event_alignment_scope": (
+                             "economic and climate exogenous events only"
+                             if freeze_exogenous_path else "none"
+                         ),
+                         "causal_estimate": False,
                          "checkpoint_storage": "in_memory_same_code",
                          "uncertainty": "paired seed mean, range and sample SD; not confidence intervals",
                          "region_policy": "country parameter changes do not rebuild existing regions",
@@ -345,7 +392,8 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
                          "regional_flow_ledger": "event-stage births, deaths and relocations; every region must close annually"},
             "configuration": {"scenario": asdict(scenario), "arms": [asdict(arm) for arm in arms],
                               "years": years, "warmup_years": warmup_years,
-                              "seeds": list(seeds), "metrics": list(metrics)},
+                              "seeds": list(seeds), "metrics": list(metrics),
+                              "freeze_exogenous_path": freeze_exogenous_path},
             "source_sha256": code_hashes, "runs": runs,
             "paired_differences": differences, "summary": summary}
 
@@ -355,7 +403,8 @@ def run_spec(path: Path) -> dict:
     spec_bytes = path.read_bytes()
     spec = json.loads(spec_bytes)
     _mapping(spec, "spec")
-    allowed = {"schema_version", "name", "scenario", "years", "warmup_years", "seeds", "metrics", "arms"}
+    allowed = {"schema_version", "name", "scenario", "years", "warmup_years", "seeds",
+               "metrics", "arms", "freeze_exogenous_path"}
     if set(spec) - allowed or type(spec.get("schema_version")) is not int or spec["schema_version"] != 1:
         raise ValueError("unsupported experiment spec fields or version")
     scenario_path = (path.parent / spec["scenario"]).resolve()
@@ -369,7 +418,8 @@ def run_spec(path: Path) -> dict:
     report = run_experiment(FamilyScenario.from_dict(json.loads(scenario_bytes)), arms,
                             years=spec["years"], seeds=spec["seeds"],
                             warmup_years=spec.get("warmup_years", 0),
-                            metrics=tuple(spec.get("metrics", DEFAULT_METRICS)))
+                            metrics=tuple(spec.get("metrics", DEFAULT_METRICS)),
+                            freeze_exogenous_path=spec.get("freeze_exogenous_path", False))
     report["spec"] = {"name": spec.get("name", path.stem),
                       "sha256": hashlib.sha256(spec_bytes).hexdigest(),
                       "scenario_sha256": hashlib.sha256(scenario_bytes).hexdigest(),

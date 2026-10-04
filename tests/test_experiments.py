@@ -226,6 +226,49 @@ class ExperimentContractsTests(unittest.TestCase):
             self.assertEqual(left["arms"], right["arms"])
         self.assertEqual(asdict(scenario), before)
 
+    def test_frozen_exogenous_path_is_saved_and_replayed_across_ablation(self):
+        report = run_experiment(
+            small_scenario(),
+            [ExperimentArm("no-births", disabled_processes=("births",))],
+            years=2,
+            seeds=[19],
+            metrics=("population",),
+            freeze_exogenous_path=True,
+        )
+        self.assertTrue(report["metadata"]["event_aligned_common_random_numbers"])
+        self.assertEqual(report["metadata"]["event_alignment_scope"],
+                         "economic and climate exogenous events only")
+        run = report["runs"][0]
+        frozen = run["frozen_exogenous_path"]
+        self.assertEqual(frozen["kind"], "frozen_exogenous_path")
+        # Two annual steps: two countries plus four regions per step.
+        self.assertEqual(len(frozen["values"]), 12)
+        baseline = {(row["country"], row["year"]): row for row in run["baseline"]["history"]}
+        treatment = {(row["country"], row["year"]): row
+                     for row in run["arms"]["no-births"]["history"]}
+        for key in baseline:
+            self.assertEqual(baseline[key]["economic_cycle_index"],
+                             treatment[key]["economic_cycle_index"])
+            self.assertEqual(baseline[key]["climate_events"], treatment[key]["climate_events"])
+        json.dumps(report, allow_nan=False)
+
+    def test_frozen_path_rejects_conflicting_shock_intervention(self):
+        arms = [
+            ExperimentArm(
+                "different-shock",
+                country_parameters={"A": {"shock_probability": 0.9}},
+            ),
+            ExperimentArm(
+                "different-exposure",
+                region_parameters={"A": {"urban": {"population_exposure": 0.9}}},
+            ),
+        ]
+        for arm in arms:
+            with self.subTest(arm=arm.name), self.assertRaisesRegex(
+                    ValueError, "frozen exogenous paths"):
+                run_experiment(small_scenario(), [arm], years=1, seeds=[19],
+                               metrics=("population",), freeze_exogenous_path=True)
+
     def test_warmup_forks_at_the_requested_year_without_reseeding(self):
         report = run_experiment(small_scenario(), [ExperimentArm("noop")],
                                 years=2, seeds=[43], warmup_years=1,
@@ -324,7 +367,7 @@ class ExperimentContractsTests(unittest.TestCase):
             {"seeds": []}, {"seeds": [11, 11]}, {"seeds": [True]}, {"seeds": [-1]},
             {"seeds": [1.5]}, {"years": 0}, {"years": -1}, {"years": True},
             {"years": 1.5}, {"warmup_years": -1}, {"warmup_years": True},
-            {"warmup_years": 0.5},
+            {"warmup_years": 0.5}, {"freeze_exogenous_path": 1},
         ]
         for changes in invalid:
             settings = {"years": 1, "seeds": [11], "warmup_years": 0, **changes}

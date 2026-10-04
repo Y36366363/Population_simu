@@ -4,6 +4,7 @@
   "scenario": "../scenarios/family_major_countries.json",
   "warmup_years": 2,
   "years": 3,
+  "freeze_exogenous_path": true,
   "seeds": [20261002, 20261003, 20261004],
   "metrics": ["population", "median_household_resources", "internal_migrants", "mean_childcare_gap", "climate_events"],
   "arms": [

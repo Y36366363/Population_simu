@@ -6,7 +6,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-import random
+
+from .event_random import EventKey, EventRandom, ExogenousPath
 
 
 @dataclass(frozen=True)
@@ -33,6 +34,7 @@ class EnvironmentalProcess:
 
     def __init__(self, seed: int):
         self.seed = int(seed)
+        self._random = EventRandom(self.seed)
 
     def events_for_year(
         self,
@@ -43,37 +45,54 @@ class EnvironmentalProcess:
         *,
         hazard_history: dict[str, float] | None = None,
         population_exposure: dict[str, float] | None = None,
+        exogenous_path: ExogenousPath | None = None,
     ) -> dict[str, ClimateEvent]:
         events: dict[str, ClimateEvent] = {}
-        for index, region_id in enumerate(region_ids):
-            # 不使用 Python hash，确保跨进程、跨平台复现。
-            stream_seed = (
-                self.seed
-                + 1009 * year
-                + 10007 * index
-                + 7919 * sum(ord(char) for char in f"{country_id}:{region_id}")
-            )
-            rng = random.Random(stream_seed)
+        for region_id in region_ids:
+            key = EventKey("climate_event", year, country_id, region_id)
             history_multiplier = 0.5 + 1.0 * max(
                 0.0, min(1.0, (hazard_history or {}).get(region_id, 0.5))
             )
             probability = max(0.0, min(1.0, config.event_probability * history_multiplier))
-            if rng.random() >= probability:
-                continue
             exposure = max(
                 0.0,
                 min(1.0, (population_exposure or {}).get(region_id, 0.5)),
             )
-            severity = max(
-                0.0,
-                min(1.0, config.event_severity * (0.70 + 0.60 * rng.random())),
-            )
-            severity = min(1.0, severity * (0.60 + 0.80 * exposure))
+
+            def draw_event() -> dict[str, object]:
+                rng = self._random.stream(key)
+                if rng.random() >= probability:
+                    return {"occurred": False}
+                severity = max(
+                    0.0,
+                    min(1.0, config.event_severity * (0.70 + 0.60 * rng.random())),
+                )
+                return {
+                    "occurred": True,
+                    "kind": self._KINDS[int(rng.random() * len(self._KINDS))],
+                    "severity": min(1.0, severity * (0.60 + 0.80 * exposure)),
+                }
+
+            outcome = (exogenous_path.resolve(key, draw_event)
+                       if exogenous_path is not None else draw_event())
+            if not isinstance(outcome, dict) or type(outcome.get("occurred")) is not bool:
+                raise ValueError(f"invalid frozen climate event for {key.token}")
+            if not outcome["occurred"]:
+                if set(outcome) != {"occurred"}:
+                    raise ValueError(f"invalid non-event climate payload for {key.token}")
+                continue
+            if set(outcome) != {"occurred", "kind", "severity"}:
+                raise ValueError(f"invalid climate event fields for {key.token}")
+            if outcome["kind"] not in self._KINDS:
+                raise ValueError(f"invalid climate event kind for {key.token}")
+            severity = outcome["severity"]
+            if type(severity) not in (int, float) or not 0.0 <= severity <= 1.0:
+                raise ValueError(f"invalid climate event severity for {key.token}")
             events[region_id] = ClimateEvent(
                 year=year,
                 region_id=region_id,
-                kind=self._KINDS[int(rng.random() * len(self._KINDS))],
-                severity=severity,
+                kind=outcome["kind"],
+                severity=float(severity),
             )
         return events
 

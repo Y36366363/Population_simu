@@ -12,9 +12,12 @@ from .family_config import Country, FamilyScenario, Region
 from .family_models import Clan, FamilyBranch, FamilyPerson, FamilyYearStats
 from .hazards import AgeRateProfile, duration_hazard, hazard_to_probability, softmax_weights
 from .environment import EnvironmentalConfig, EnvironmentalProcess
+from .event_random import EventKey, EventRandom, ExogenousPath
 from .audit import audit_history, audit_snapshot
 from .networks import FamilySocialNetwork, RegionMigrationNetwork
 from .occupations import BASE_OCCUPATION_WEIGHT, INHERITANCE_CHANNEL, OCCUPATIONS
+from .transfer_ledger import TransferLedger
+from .genealogy import BilateralGenealogy
 
 if TYPE_CHECKING:
     from .family_checkpoint import FamilyCheckpoint
@@ -42,6 +45,7 @@ class FamilyWorld:
         self.history: list[FamilyYearStats] = []
         self.region_history: list[dict[str, object]] = []
         self.population_flow_history: list[dict[str, object]] = []
+        self.transfer_ledger = TransferLedger()
         self.next_clan_id = 1
         self.next_household_id = 1
         self.next_person_id = 1
@@ -56,6 +60,8 @@ class FamilyWorld:
         self._technology: dict[str, float] = {country.id: 1.0 for country in scenario.countries}
         self._capacity_cache: dict[tuple[int, str, str], float] = {}
         self._environment = EnvironmentalProcess(scenario.simulation.random_seed + 1_000_003)
+        self._event_random = EventRandom(scenario.simulation.random_seed + 2_000_003)
+        self._exogenous_path = ExogenousPath()
         self._environmental_stress: dict[tuple[str, str], float] = {
             (country.id, region.id): country.environmental_pressure
             for country in scenario.countries
@@ -82,6 +88,26 @@ class FamilyWorld:
         from .family_checkpoint import FamilyCheckpoint
 
         return FamilyCheckpoint.capture(self)
+
+    def begin_exogenous_path_recording(self) -> None:
+        """Record subsequently realized exogenous events without changing their draws."""
+        self._exogenous_path = ExogenousPath(record_missing=True)
+
+    def freeze_exogenous_path(self) -> ExogenousPath:
+        """Return an immutable-in-use, strict replay copy of recorded exogenous events."""
+        return self._exogenous_path.freeze()
+
+    def configure_exogenous_path(self, path: ExogenousPath) -> None:
+        """Use a strict frozen path for subsequent exogenous event lookups."""
+        if not isinstance(path, ExogenousPath) or not path.strict:
+            raise ValueError("configured exogenous path must be a strict frozen path")
+        self._exogenous_path = ExogenousPath.from_dict(path.as_dict())
+
+    def genealogy(self, person_id: int, *, max_generations: int | None = None) -> dict[str, object]:
+        """Query maternal and paternal ancestry plus descendants without mutating the world."""
+        return BilateralGenealogy(self.people).query(
+            person_id, max_generations=max_generations
+        )
 
     def configure_disabled_processes(self, names: Iterable[str]) -> None:
         """替换后续年度禁用的事件过程，不回滚已经发生的事件。
@@ -172,8 +198,11 @@ class FamilyWorld:
         """返回当前状态和年度历史的结构性审计结果。"""
         snapshot_issues = audit_snapshot(self.snapshot())
         history_issues = audit_history(row.flat_dict() for row in self.history)
-        issues = snapshot_issues + history_issues
-        return {"ok": not issues, "issues": issues}
+        transfer_audit = self.transfer_ledger.audit()
+        issues = snapshot_issues + history_issues + [
+            f"transfer ledger: {issue}" for issue in transfer_audit["issues"]
+        ]
+        return {"ok": not issues, "issues": issues, "transfer_ledger": transfer_audit}
 
     def _region_snapshot(self) -> dict[str, object]:
         """聚合当前地区状态，保持与年度国家结果相同的可序列化契约。"""
@@ -265,8 +294,18 @@ class FamilyWorld:
                 2 * math.pi * elapsed / max(2.0, country.cycle_years) + phase
             )
             residual = self._shock_residual[country.id] * 0.58
-            if self.rng.random() < country.shock_probability:
-                residual += country.shock_severity * self.rng.uniform(0.65, 1.25)
+            event_key = EventKey("economic_shock", self.year, country.id)
+
+            def draw_shock() -> float:
+                rng = self._event_random.stream(event_key)
+                if rng.random() >= country.shock_probability:
+                    return 0.0
+                return country.shock_severity * rng.uniform(0.65, 1.25)
+
+            shock = self._exogenous_path.resolve(event_key, draw_shock)
+            if type(shock) not in (int, float) or not math.isfinite(shock) or shock < 0:
+                raise ValueError(f"invalid frozen economic shock for {event_key.token}")
+            residual += float(shock)
             self._shock_residual[country.id] = residual
             cycle = max(-0.55, min(0.30, cyclical - residual))
             self._economic_cycle[country.id] = cycle
@@ -397,6 +436,7 @@ class FamilyWorld:
                     region.id: region.population_exposure
                     for region in self.regions[country_id]
                 },
+                exogenous_path=self._exogenous_path,
             )
             for region in self.regions[country_id]:
                 key = (country_id, region.id)
@@ -804,13 +844,29 @@ class FamilyWorld:
                 * household.formal_childcare_coverage
                 * (1 - 0.82 * country.childcare_subsidy)
             )
+            before_resources = household.resources
             household.resources = max(0.1, household.resources - childcare_fee)
             household.capitals.financial = household.resources
+            self.transfer_ledger.record(
+                year=self.year,
+                kind="formal_childcare_fee",
+                sender=f"household:{household.id}",
+                receiver=f"childcare_provider:{household.country_id}",
+                cash_amount=before_resources - household.resources,
+            )
             for grandparent_id, contribution in contribution_by_grandparent.items():
                 grandparent = self.people[grandparent_id]
                 origin = self.households.get(grandparent.household_id)
                 if origin is None:
                     continue
+                self.transfer_ledger.record(
+                    year=self.year,
+                    kind="grandparent_care",
+                    sender=f"person:{grandparent_id}",
+                    receiver=f"household:{household.id}",
+                    resource_kind="care_time",
+                    resource_amount=contribution,
+                )
                 origin.capitals.care_time = max(
                     0.02, origin.capitals.care_time - 0.012 * contribution
                 )
@@ -925,6 +981,14 @@ class FamilyWorld:
                 )
                 investments[household.country_id].append(effective)
                 allocated.append(effective)
+                self.transfer_ledger.record(
+                    year=self.year,
+                    kind="child_investment",
+                    sender=f"household:{household.id}",
+                    receiver=f"person:{child.id}",
+                    resource_kind="development_investment",
+                    resource_amount=effective,
+                )
                 school_progress = (
                     min(1.0, child.education_years / max(1.0, child.age - 5))
                     if child.age >= 6
@@ -1519,10 +1583,12 @@ class FamilyWorld:
                     primary = self.rng.choice((woman, man))
                 origins = (self.households[woman.household_id], self.households[man.household_id])
                 inheritance = 0.0
+                formation_transfers: list[tuple[int, float, float]] = []
                 for origin in origins:
                     transfer = origin.resources * self.scenario.simulation.inheritance_share
                     origin.resources -= transfer
                     inheritance += transfer
+                    housing_gift = 0.0
                     if origin.property_value > 0:
                         housing_gift = (
                             origin.property_value
@@ -1532,6 +1598,7 @@ class FamilyWorld:
                         )
                         origin.property_value = max(0.0, origin.property_value - housing_gift)
                         inheritance += housing_gift
+                    formation_transfers.append((origin.id, transfer, housing_gift))
                     origin.capitals.financial = origin.resources
                 generation = max(origin.generation for origin in origins) + 1
                 development = country.development_at(self.year, self.scenario.simulation.start_year)
@@ -1556,6 +1623,16 @@ class FamilyWorld:
                     capitals=new_capitals,
                     region_id=woman.region_id,
                 )
+                for origin_id, cash_transfer, housing_gift in formation_transfers:
+                    self.transfer_ledger.record(
+                        year=self.year,
+                        kind="household_formation_transfer",
+                        sender=f"household:{origin_id}",
+                        receiver=f"household:{new_home.id}",
+                        cash_amount=cash_transfer,
+                        resource_kind="property_value" if housing_gift > 0 else "none",
+                        resource_amount=housing_gift,
+                    )
                 self.clans[primary.clan_id].branch_ids.append(new_home.id)
                 self._move_person(woman, new_home)
                 self._move_person(man, new_home)
@@ -1638,6 +1715,13 @@ class FamilyWorld:
                 parent_ids=(household.id,),
                 capitals=new_capitals,
                 region_id=household.region_id,
+            )
+            self.transfer_ledger.record(
+                year=self.year,
+                kind="divorce_asset_split",
+                sender=f"household:{household.id}",
+                receiver=f"household:{new_home.id}",
+                cash_amount=transferred,
             )
             self.clans[leaver.clan_id].branch_ids.append(new_home.id)
             self._move_person(leaver, new_home)
@@ -2061,6 +2145,14 @@ class FamilyWorld:
                 continue
             destination.property_value += share
             destination.property_count += 1 / len(heirs)
+            self.transfer_ledger.record(
+                year=self.year,
+                kind="estate_transfer",
+                sender=f"household:{household.id}",
+                receiver=f"household:{destination.id}",
+                resource_kind="property_value",
+                resource_amount=share,
+            )
             destination.capitals.housing = min(
                 1.0, destination.capitals.housing + 0.24 / (len(heirs) ** 0.45)
             )
