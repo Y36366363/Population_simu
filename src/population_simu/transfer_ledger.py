@@ -37,14 +37,25 @@ class TransferRecord:
 class TransferLedger:
     """Append-only bilateral ledger; it observes transfers and never creates them."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, strict_entities: bool = False) -> None:
         self.records: list[TransferRecord] = []
+        self.entities: set[str] = set()
+        self.strict_entities = bool(strict_entities)
+
+    def register_entity(self, entity: str) -> None:
+        if not isinstance(entity, str) or not entity or ":" not in entity:
+            raise ValueError("ledger entity must be a typed nonempty identifier")
+        self.entities.add(entity)
 
     def record(self, *, year: int, kind: str, sender: str, receiver: str,
                cash_amount: float = 0.0, resource_kind: str = "none",
                resource_amount: float = 0.0) -> TransferRecord | None:
         if cash_amount == 0 and resource_amount == 0:
             return None
+        if self.strict_entities:
+            missing = {sender, receiver} - self.entities
+            if missing:
+                raise ValueError(f"unregistered transfer counterparties: {sorted(missing)}")
         entry = TransferRecord(
             year=year,
             kind=kind,
@@ -67,13 +78,27 @@ class TransferLedger:
             and (resource_kind is None or row.resource_kind == resource_kind)
         ]
 
-    def audit(self) -> dict[str, object]:
+    def audit(self, *, valid_entities: set[str] | None = None,
+              year_range: tuple[int, int] | None = None) -> dict[str, object]:
         issues: list[str] = []
         for index, row in enumerate(self.records):
             try:
                 TransferRecord(**asdict(row))
             except (TypeError, ValueError) as error:
                 issues.append(f"record {index}: {error}")
+                continue
+            if valid_entities is not None:
+                for role, entity in (("sender", row.sender), ("receiver", row.receiver)):
+                    if entity not in valid_entities:
+                        issues.append(f"record {index}: unknown {role} {entity}")
+            if year_range is not None and not year_range[0] <= row.year <= year_range[1]:
+                issues.append(
+                    f"record {index}: year {row.year} outside {year_range[0]}..{year_range[1]}"
+                )
+            if self.strict_entities:
+                for role, entity in (("sender", row.sender), ("receiver", row.receiver)):
+                    if entity not in self.entities:
+                        issues.append(f"record {index}: unregistered {role} {entity}")
         return {"ok": not issues, "record_count": len(self.records), "issues": issues}
 
     def summary(self) -> list[dict[str, object]]:
@@ -101,6 +126,7 @@ class TransferLedger:
             "schema_version": 1,
             "kind": "bilateral_transfer_ledger",
             "records": [asdict(row) for row in self.records],
+            "entities": sorted(self.entities),
             "units": {
                 "cash_amount": "model monetary units",
                 "resource_amount": "kind-specific; do not sum across resource kinds",

@@ -39,6 +39,23 @@ class EventRandomTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             ExogenousPath({first.token: float("nan")})
 
+    def test_path_manifest_fingerprints_and_rejects_noncanonical_keys(self):
+        key = EventKey("economic_shock", 2002, "A")
+        path = ExogenousPath({key.token: 0.25}, strict=True)
+        self.assertEqual(path.manifest(), {
+            "sha256": path.sha256,
+            "events": 1,
+            "counts_by_process": {"economic_shock": 1},
+            "year_min": 2002,
+            "year_max": 2002,
+        })
+        changed = ExogenousPath({key.token: 0.26}, strict=True)
+        self.assertNotEqual(path.sha256, changed.sha256)
+        malformed = path.as_dict()
+        malformed["values"] = {'["economic_shock", 2002, "A", "", ""]': 0.25}
+        with self.assertRaisesRegex(ValueError, "six fields"):
+            ExogenousPath.from_dict(malformed)
+
     def test_climate_draws_are_stable_when_region_order_changes(self):
         config = EnvironmentalConfig(event_probability=1.0, event_severity=0.4)
         process = EnvironmentalProcess(123)

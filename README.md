@@ -15,6 +15,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 使用方式和扩展边界见[通用实验架构](docs/experiment_architecture_2026-10-02.md)，本阶段验证见[阶段结果](docs/experiment_stage_results_2026-10-02.md)。
 
+2026-10-05 的[结构与准确性边界验证](docs/simulation_validation_2026-10-05.md)在四国情景上完成10年×3 seed压力测试，并重新运行美国州—年预测比较。结构守恒和复现检查全部通过，但真实面板上完整household模型的短期误差仍明显高于naive和cohort proxy；因此工程可靠性提升不被解释为现实预测准确率提升。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
 长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。

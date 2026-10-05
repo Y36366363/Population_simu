@@ -239,7 +239,8 @@ def audit_experiment_world(world: FamilyWorld, *, previous_population=None, stat
                 issues.append("regional population flow ledger does not close")
     return {"year": world.year, "ok": not issues, "issues": issues,
             "population_balance": balance, "regional_population_balance": regional_balance,
-            "transfer_ledger": deepcopy(world_audit["transfer_ledger"])}
+            "transfer_ledger": deepcopy(world_audit["transfer_ledger"]),
+            "genealogy": deepcopy(world_audit["genealogy"])}
 
 
 def _history_row(row):
@@ -358,6 +359,9 @@ def run_experiment(scenario: FamilyScenario, arms: list[ExperimentArm], *, years
                      "start_year": checkpoint.year, "warmup_audits": warmup["audits"],
                      "frozen_exogenous_path": (
                          frozen_path.as_dict() if frozen_path is not None else None
+                     ),
+                     "frozen_exogenous_path_manifest": (
+                         frozen_path.manifest() if frozen_path is not None else None
                      ),
                      "baseline": baseline, "arms": treatments})
     grouped = defaultdict(list)

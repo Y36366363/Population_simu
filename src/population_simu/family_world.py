@@ -45,7 +45,9 @@ class FamilyWorld:
         self.history: list[FamilyYearStats] = []
         self.region_history: list[dict[str, object]] = []
         self.population_flow_history: list[dict[str, object]] = []
-        self.transfer_ledger = TransferLedger()
+        self.transfer_ledger = TransferLedger(strict_entities=True)
+        for country_id in self.countries:
+            self.transfer_ledger.register_entity(f"childcare_provider:{country_id}")
         self.next_clan_id = 1
         self.next_household_id = 1
         self.next_person_id = 1
@@ -198,11 +200,26 @@ class FamilyWorld:
         """返回当前状态和年度历史的结构性审计结果。"""
         snapshot_issues = audit_snapshot(self.snapshot())
         history_issues = audit_history(row.flat_dict() for row in self.history)
-        transfer_audit = self.transfer_ledger.audit()
+        active_entities = (
+            {f"household:{household_id}" for household_id in self.households}
+            | {f"person:{person_id}" for person_id in self.people}
+            | {f"childcare_provider:{country_id}" for country_id in self.countries}
+        )
+        transfer_audit = self.transfer_ledger.audit(
+            year_range=(self.scenario.simulation.start_year, self.year),
+        )
+        unregistered_active = sorted(active_entities - self.transfer_ledger.entities)
+        if unregistered_active:
+            transfer_audit["ok"] = False
+            transfer_audit["issues"].append(
+                f"active entities missing from registry: {unregistered_active[:8]}"
+            )
+        genealogy_audit = BilateralGenealogy(self.people).audit()
         issues = snapshot_issues + history_issues + [
             f"transfer ledger: {issue}" for issue in transfer_audit["issues"]
-        ]
-        return {"ok": not issues, "issues": issues, "transfer_ledger": transfer_audit}
+        ] + [f"genealogy: {issue}" for issue in genealogy_audit["issues"]]
+        return {"ok": not issues, "issues": issues, "transfer_ledger": transfer_audit,
+                "genealogy": genealogy_audit}
 
     def _region_snapshot(self) -> dict[str, object]:
         """聚合当前地区状态，保持与年度国家结果相同的可序列化契约。"""
@@ -577,6 +594,7 @@ class FamilyWorld:
             ),
         )
         self.households[household.id] = household
+        self.transfer_ledger.register_entity(f"household:{household.id}")
         self.next_household_id += 1
         return household
 
@@ -655,6 +673,7 @@ class FamilyWorld:
             father_id=father_id,
         )
         self.people[person.id] = person
+        self.transfer_ledger.register_entity(f"person:{person.id}")
         household.member_ids.append(person.id)
         self.next_person_id += 1
         return person

@@ -16,6 +16,47 @@ class BilateralGenealogy:
                 if parent_id is not None:
                     self._children[parent_id].add(child.id)
 
+    def audit(self) -> dict[str, object]:
+        """Check referential, role and acyclic pedigree invariants."""
+        issues: list[str] = []
+        for child in self.people.values():
+            if child.mother_id is not None and child.mother_id == child.father_id:
+                issues.append(f"person {child.id} has the same mother and father")
+            for role, parent_id, expected_sex in (
+                ("mother", child.mother_id, "F"), ("father", child.father_id, "M")
+            ):
+                if parent_id is None:
+                    continue
+                if parent_id == child.id:
+                    issues.append(f"person {child.id} is their own {role}")
+                    continue
+                parent = self.people.get(parent_id)
+                if parent is None:
+                    issues.append(f"person {child.id} references missing {role} {parent_id}")
+                elif parent.sex != expected_sex:
+                    issues.append(
+                        f"person {child.id} {role} {parent_id} has sex {parent.sex}, expected {expected_sex}"
+                    )
+
+        state: dict[int, int] = {}
+
+        def visit(person_id: int) -> None:
+            if state.get(person_id) == 1:
+                issues.append(f"ancestry cycle reaches person {person_id}")
+                return
+            if state.get(person_id) == 2 or person_id not in self.people:
+                return
+            state[person_id] = 1
+            person = self.people[person_id]
+            for parent_id in (person.mother_id, person.father_id):
+                if parent_id is not None:
+                    visit(parent_id)
+            state[person_id] = 2
+
+        for person_id in sorted(self.people):
+            visit(person_id)
+        return {"ok": not issues, "people": len(self.people), "issues": sorted(set(issues))}
+
     def _ancestors_from(self, parent_id: int | None, side: str,
                         max_generations: int | None) -> dict[int, dict[str, object]]:
         found: dict[int, dict[str, object]] = {}

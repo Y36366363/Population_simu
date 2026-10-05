@@ -38,6 +38,22 @@ class EventKey:
             ensure_ascii=False, separators=(",", ":"),
         )
 
+    @classmethod
+    def from_token(cls, token: str) -> "EventKey":
+        try:
+            values = json.loads(token)
+        except (TypeError, json.JSONDecodeError) as error:
+            raise ValueError("invalid event key token") from error
+        if not isinstance(values, list) or len(values) != 6:
+            raise ValueError("event key token must contain six fields")
+        try:
+            key = cls(*values)
+        except (TypeError, ValueError) as error:
+            raise ValueError("invalid event key token fields") from error
+        if key.token != token:
+            raise ValueError("event key token is not canonical")
+        return key
+
 
 class EventRandom:
     """Create deterministic independent streams from a root seed and EventKey."""
@@ -92,6 +108,32 @@ class ExogenousPath:
     def freeze(self) -> "ExogenousPath":
         return ExogenousPath(self._values, strict=True)
 
+    @property
+    def sha256(self) -> str:
+        payload = json.dumps(
+            {"format": "frozen-exogenous-path-v1", "values": self._values},
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+        return hashlib.sha256(payload).hexdigest()
+
+    def manifest(self) -> dict[str, object]:
+        counts: dict[str, int] = {}
+        years: list[int] = []
+        for token in self._values:
+            key = EventKey.from_token(token)
+            counts[key.process] = counts.get(key.process, 0) + 1
+            years.append(key.year)
+        return {
+            "sha256": self.sha256,
+            "events": len(self._values),
+            "counts_by_process": dict(sorted(counts.items())),
+            "year_min": min(years) if years else None,
+            "year_max": max(years) if years else None,
+        }
+
     def as_dict(self) -> dict[str, object]:
         return {"schema_version": 1, "kind": "frozen_exogenous_path",
                 "values": deepcopy(self._values)}
@@ -105,7 +147,9 @@ class ExogenousPath:
         values = payload["values"]
         if not isinstance(values, dict):
             raise ValueError("exogenous path values must be a mapping")
-        return cls(values, strict=True)
+        path = cls(values, strict=True)
+        path.manifest()  # Reject malformed or non-canonical keys at the load boundary.
+        return path
 
     def __len__(self) -> int:
         return len(self._values)

@@ -3,9 +3,13 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 from pathlib import Path
 from collections import defaultdict
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from population_simu.benchmarks import (
     compare_models_rolling, fixed_trend_runner, household_simulator_runner,
@@ -159,7 +163,25 @@ def main() -> int:
         }
 
     result = {
+        "schema_version": 1,
+        "kind": "housing_primary_rolling_origin",
         "panel": str(args.panel),
+        "provenance": {
+            "panel_sha256": hashlib.sha256(args.panel.read_bytes()).hexdigest(),
+            "runner_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+            "model_source_sha256": {
+                name: hashlib.sha256(
+                    (Path(__file__).resolve().parents[1] / "src" / "population_simu" / name).read_bytes()
+                ).hexdigest()
+                for name in ("benchmarks.py", "calibration.py", "household_calibration.py")
+            },
+        },
+        "run_configuration": {
+            "initial_train_years": list(args.initial),
+            "replicates": args.replicates,
+            "bootstrap_draws": args.bootstrap_draws,
+            "residual_uncertainty": bool(args.residual_uncertainty),
+        },
         "evaluation_design": "expanding_window",
         "fixed_2017_holdout": False,
         "training_years_vary_by_fold": True,

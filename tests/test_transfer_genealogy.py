@@ -6,7 +6,7 @@ from population_simu.genealogy import BilateralGenealogy
 from population_simu.transfer_ledger import TransferLedger, TransferRecord
 
 
-def person(person_id, *, mother=None, father=None):
+def person(person_id, *, mother=None, father=None, sex=None):
     return FamilyPerson(
         id=person_id,
         clan_id=1,
@@ -14,7 +14,7 @@ def person(person_id, *, mother=None, father=None):
         country_id="A",
         household_id=1,
         age=30,
-        sex="F" if person_id % 2 else "M",
+        sex=sex or ("F" if person_id % 2 else "M"),
         innate_potential=0.5,
         region_id="urban",
         mother_id=mother,
@@ -63,6 +63,25 @@ class TransferLedgerTests(unittest.TestCase):
             TransferRecord(2001, "gift", "household:1", "household:2",
                            resource_amount=1)
 
+    def test_audit_checks_counterparties_and_years(self):
+        ledger = TransferLedger()
+        ledger.record(year=2002, kind="gift", sender="household:1",
+                      receiver="person:2", cash_amount=1)
+        audit = ledger.audit(valid_entities={"household:1"}, year_range=(2000, 2001))
+        self.assertFalse(audit["ok"])
+        self.assertEqual(len(audit["issues"]), 2)
+
+    def test_strict_registry_preserves_historical_counterparties(self):
+        ledger = TransferLedger(strict_entities=True)
+        ledger.register_entity("household:1")
+        ledger.register_entity("household:2")
+        ledger.record(year=2001, kind="gift", sender="household:1",
+                      receiver="household:2", cash_amount=1)
+        self.assertTrue(ledger.audit(year_range=(2001, 2002))["ok"])
+        with self.assertRaisesRegex(ValueError, "unregistered"):
+            ledger.record(year=2002, kind="gift", sender="household:1",
+                          receiver="household:3", cash_amount=1)
+
 
 class BilateralGenealogyTests(unittest.TestCase):
     def test_separates_maternal_and_paternal_ancestry_and_finds_descendants(self):
@@ -101,6 +120,24 @@ class BilateralGenealogyTests(unittest.TestCase):
         self.assertEqual({row["person_id"] for row in limited["ancestors"]}, {2, 3})
         with self.assertRaises(ValueError):
             BilateralGenealogy(people).query(1, max_generations=0)
+
+    def test_genealogy_audit_detects_role_errors_and_cycles(self):
+        valid = {
+            1: person(1, mother=2, father=3),
+            2: person(2, sex="F"),
+            3: person(3, sex="M"),
+        }
+        self.assertTrue(BilateralGenealogy(valid).audit()["ok"])
+        invalid = {
+            1: person(1, mother=2, father=3),
+            2: person(2, mother=1, sex="M"),
+            3: person(3, sex="F"),
+        }
+        audit = BilateralGenealogy(invalid).audit()
+        self.assertFalse(audit["ok"])
+        self.assertTrue(any("cycle" in issue for issue in audit["issues"]))
+        self.assertTrue(any("expected F" in issue or "expected M" in issue
+                            for issue in audit["issues"]))
 
 
 if __name__ == "__main__":
