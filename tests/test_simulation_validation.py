@@ -21,6 +21,11 @@ class SimulationValidationTests(unittest.TestCase):
             self.assertTrue(run["all_regional_balances_closed"])
             self.assertTrue(run["all_transfer_audits_passed"])
             self.assertTrue(run["all_genealogy_audits_passed"])
+            self.assertEqual(len(run["resource_trajectory"]), 2)
+            self.assertGreater(run["runtime_seconds"], 0)
+            self.assertLessEqual(run["max_population_observed"], 20_000)
+            self.assertIn("minimum_resource_floor", run)
+            self.assertGreaterEqual(run["minimum_resource_floor"]["cash_amount"], 0)
         json.dumps(report, allow_nan=False)
 
     def test_validation_design_rejects_invalid_replication(self):
@@ -29,9 +34,17 @@ class SimulationValidationTests(unittest.TestCase):
             {"years": 2, "seeds": []},
             {"years": 2, "seeds": [7, 7]},
             {"years": 2, "seeds": [True]},
+            {"years": 2, "seeds": [7], "max_population": 0},
+            {"years": 2, "seeds": [7], "max_seconds_per_run": True},
         ):
             with self.subTest(settings=settings), self.assertRaises(ValueError):
                 validate_scenario(small_scenario(), **settings)
+
+    def test_validation_fails_fast_when_a_resource_budget_is_exceeded(self):
+        with self.assertRaisesRegex(ValueError, "budget exceeded"):
+            validate_scenario(
+                small_scenario(), years=2, seeds=[7], max_transfer_records=1
+            )
 
 
 if __name__ == "__main__":

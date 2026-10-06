@@ -46,6 +46,7 @@ class FamilyWorld:
         self.region_history: list[dict[str, object]] = []
         self.population_flow_history: list[dict[str, object]] = []
         self.transfer_ledger = TransferLedger(strict_entities=True)
+        self.transfer_ledger.register_entity("system:minimum_resource_floor")
         for country_id in self.countries:
             self.transfer_ledger.register_entity(f"childcare_provider:{country_id}")
         self.next_clan_id = 1
@@ -1652,6 +1653,14 @@ class FamilyWorld:
                         resource_kind="property_value" if housing_gift > 0 else "none",
                         resource_amount=housing_gift,
                     )
+                floor_top_up = new_home.resources - inheritance
+                self.transfer_ledger.record(
+                    year=self.year,
+                    kind="minimum_resource_floor",
+                    sender="system:minimum_resource_floor",
+                    receiver=f"household:{new_home.id}",
+                    cash_amount=max(0.0, floor_top_up),
+                )
                 self.clans[primary.clan_id].branch_ids.append(new_home.id)
                 self._move_person(woman, new_home)
                 self._move_person(man, new_home)
@@ -1716,6 +1725,7 @@ class FamilyWorld:
             leaver = man if self.rng.random() < 0.70 else woman
             custodian = woman if self.rng.random() < 0.70 else man
             split_share = 0.50
+            resources_before_split = household.resources
             transferred = max(0.1, household.resources * split_share)
             household.resources = max(0.1, household.resources - transferred)
             household.capitals.financial = household.resources
@@ -1740,7 +1750,17 @@ class FamilyWorld:
                 kind="divorce_asset_split",
                 sender=f"household:{household.id}",
                 receiver=f"household:{new_home.id}",
-                cash_amount=transferred,
+                cash_amount=resources_before_split - household.resources,
+            )
+            self.transfer_ledger.record(
+                year=self.year,
+                kind="minimum_resource_floor",
+                sender="system:minimum_resource_floor",
+                receiver=f"household:{new_home.id}",
+                cash_amount=max(
+                    0.0,
+                    transferred - (resources_before_split - household.resources),
+                ),
             )
             self.clans[leaver.clan_id].branch_ids.append(new_home.id)
             self._move_person(leaver, new_home)

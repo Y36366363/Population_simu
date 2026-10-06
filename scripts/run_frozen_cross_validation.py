@@ -18,6 +18,7 @@ from population_simu.benchmarks import (
 )
 from population_simu.calibration import replay_errors_by_group, rolling_origin_splits
 from population_simu.household_calibration import HouseholdCalibration
+from population_simu.evidence_strength import assess_rolling_origin_evidence
 
 
 REGIONS = {
@@ -173,7 +174,8 @@ def main() -> int:
                 name: hashlib.sha256(
                     (Path(__file__).resolve().parents[1] / "src" / "population_simu" / name).read_bytes()
                 ).hexdigest()
-                for name in ("benchmarks.py", "calibration.py", "household_calibration.py")
+                for name in ("benchmarks.py", "calibration.py", "household_calibration.py",
+                             "evidence_strength.py")
             },
         },
         "run_configuration": {
@@ -222,6 +224,13 @@ def main() -> int:
             "common_residual_noise_across_models": False,
             "calendar_horizon_adjusted": False,
             "note": "若开启，区间来自各fold训练期州级相邻观测变化的高斯误差。残差seed按模型名区分，有限抽样的中位数点预测会波动；尺度尚未按日历跨度校准。",
+        },
+        "evidence_strength": {
+            **assess_rolling_origin_evidence(fold_designs[str(args.initial[-1])]),
+            "additional_limitations": [
+                "2020 is excluded from the primary specification",
+                "age-marital-parity outcomes remain unavailable",
+            ],
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

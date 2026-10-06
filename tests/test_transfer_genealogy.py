@@ -82,6 +82,22 @@ class TransferLedgerTests(unittest.TestCase):
             ledger.record(year=2002, kind="gift", sender="household:1",
                           receiver="household:3", cash_amount=1)
 
+    def test_system_floor_is_an_explicit_counterparty_not_a_hidden_transfer(self):
+        ledger = TransferLedger(strict_entities=True)
+        for entity in ("system:minimum_resource_floor", "household:2"):
+            ledger.register_entity(entity)
+        ledger.record(
+            year=2001,
+            kind="minimum_resource_floor",
+            sender="system:minimum_resource_floor",
+            receiver="household:2",
+            cash_amount=0.08,
+        )
+        row = ledger.query(kind="minimum_resource_floor")[0]
+        self.assertEqual(row.sender, "system:minimum_resource_floor")
+        self.assertEqual(row.cash_amount, 0.08)
+        self.assertTrue(ledger.audit()["ok"])
+
 
 class BilateralGenealogyTests(unittest.TestCase):
     def test_separates_maternal_and_paternal_ancestry_and_finds_descendants(self):
