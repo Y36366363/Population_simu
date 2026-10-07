@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from population_simu.simulation_validation import validate_scenario
+from population_simu.simulation_validation import validate_ledger_archiving, validate_scenario
 
 from tests.test_experiments import small_scenario
 
@@ -45,6 +45,15 @@ class SimulationValidationTests(unittest.TestCase):
             validate_scenario(
                 small_scenario(), years=2, seeds=[7], max_transfer_records=1
             )
+
+    def test_annual_ledger_archiving_is_trajectory_equivalent(self):
+        report = validate_ledger_archiving(small_scenario(), years=2, seed=7)
+        self.assertTrue(report["all_checks_passed"])
+        self.assertTrue(all(report["equivalence"].values()))
+        self.assertEqual(report["full_ledger"]["record_count"],
+                         report["archived_ledger"]["record_count"])
+        self.assertEqual(report["archived_ledger"]["resident_records"], 0)
+        self.assertLess(report["archived_ledger"]["compression_ratio_vs_full_json"], 1)
 
 
 if __name__ == "__main__":

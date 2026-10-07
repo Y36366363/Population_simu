@@ -42,6 +42,20 @@ def checkpoint_scenario(**overrides):
 
 
 class FamilyCheckpointTests(unittest.TestCase):
+    def test_archived_ledger_survives_checkpoint_and_continuation(self):
+        world = FamilyWorld(checkpoint_scenario())
+        world.run(2002)
+        world.transfer_ledger.archive_before(2003)
+        before_summary = world.transfer_ledger.summary()
+        before_count = world.transfer_ledger.record_count
+        restored = world.checkpoint().restore()
+        self.assertEqual(restored.transfer_ledger.summary(), before_summary)
+        self.assertEqual(restored.transfer_ledger.record_count, before_count)
+        self.assertTrue(restored.transfer_ledger.audit()["ok"])
+        world.step()
+        restored.step()
+        self.assertEqual(fingerprint_world(restored), fingerprint_world(world))
+
     def test_warmed_checkpoint_restores_complete_identical_continuation(self):
         world = FamilyWorld(checkpoint_scenario())
         world.run(2005)

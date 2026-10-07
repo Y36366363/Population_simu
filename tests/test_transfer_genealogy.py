@@ -1,5 +1,6 @@
 import json
 import unittest
+from dataclasses import replace
 
 from population_simu.family_models import FamilyPerson
 from population_simu.genealogy import BilateralGenealogy
@@ -97,6 +98,46 @@ class TransferLedgerTests(unittest.TestCase):
         self.assertEqual(row.sender, "system:minimum_resource_floor")
         self.assertEqual(row.cash_amount, 0.08)
         self.assertTrue(ledger.audit()["ok"])
+
+    def test_archived_partition_preserves_queries_summaries_and_counts(self):
+        ledger = TransferLedger(strict_entities=True)
+        for entity in ("household:1", "household:2"):
+            ledger.register_entity(entity)
+        ledger.record(year=2001, kind="gift", sender="household:1",
+                      receiver="household:2", cash_amount=2)
+        ledger.record(year=2002, kind="gift", sender="household:2",
+                      receiver="household:1", cash_amount=3)
+        expected_summary = ledger.summary()
+        manifest = ledger.archive_before(2002)
+        self.assertEqual(manifest["record_count"], 1)
+        self.assertEqual(ledger.record_count, 2)
+        self.assertEqual(len(ledger.records), 1)
+        self.assertEqual(len(ledger.query(entity="household:2")), 2)
+        self.assertEqual(ledger.summary(), expected_summary)
+        self.assertTrue(ledger.audit()["ok"])
+
+    def test_archive_checksum_corruption_is_detected(self):
+        ledger = TransferLedger()
+        ledger.record(year=2001, kind="gift", sender="household:1",
+                      receiver="household:2", cash_amount=2)
+        ledger.archive_before(2002)
+        ledger.archives[0] = replace(ledger.archives[0], compressed_payload=b"broken")
+        self.assertFalse(ledger.audit()["ok"])
+        with self.assertRaisesRegex(ValueError, "checksum"):
+            ledger.query()
+
+    def test_archive_summary_corruption_is_detected(self):
+        ledger = TransferLedger()
+        ledger.record(year=2001, kind="gift", sender="household:1",
+                      receiver="household:2", cash_amount=2)
+        ledger.archive_before(2002)
+        ledger.archives[0] = replace(
+            ledger.archives[0],
+            summary_rows=((2001, "gift", "", 1, 999.0, 0.0),),
+        )
+        audit = ledger.audit()
+        self.assertFalse(audit["ok"])
+        self.assertTrue(any("summary mismatch" in issue for issue in audit["issues"]))
 
 
 class BilateralGenealogyTests(unittest.TestCase):

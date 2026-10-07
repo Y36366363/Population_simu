@@ -32,7 +32,9 @@ def _advance(world: FamilyWorld, years: int, *, budgets: dict[str, float | int])
             "population": len(world.living_people),
             "households": len(world.households),
             "registered_ledger_entities": len(world.transfer_ledger.entities),
-            "transfer_records": len(world.transfer_ledger.records),
+            "transfer_records": world.transfer_ledger.record_count,
+            "resident_transfer_records": len(world.transfer_ledger.records),
+            "transfer_archive_bytes": world.transfer_ledger.archive_bytes,
             "step_seconds": round(time.perf_counter() - step_started, 6),
             "cumulative_seconds": round(elapsed, 6),
         }
@@ -106,7 +108,7 @@ def validate_scenario(scenario: FamilyScenario, *, years: int,
             "expected_path_events": expected_events,
             "transfer_records": world.transfer_ledger.audit()["record_count"],
             "transfer_summary_rows": len(transfer_summary),
-            "transfer_kinds": sorted({row.kind for row in world.transfer_ledger.records}),
+            "transfer_kinds": sorted({str(row["kind"]) for row in transfer_summary}),
             "minimum_resource_floor": {
                 "records": sum(int(row["records"]) for row in floor_rows),
                 "cash_amount": sum(float(row["cash_amount"]) for row in floor_rows),
@@ -211,3 +213,121 @@ def validate_scenario_file(path: Path, *, years: int, seeds: list[int],
                            **budgets: float | int) -> dict[str, object]:
     scenario = FamilyScenario.from_dict(json.loads(path.read_text(encoding="utf-8")))
     return validate_scenario(scenario, years=years, seeds=seeds, **budgets)
+
+
+def validate_ledger_archiving(scenario: FamilyScenario, *, years: int, seed: int) -> dict[str, object]:
+    """Compare full and annually archived ledgers under identical simulation paths."""
+    if type(years) is not int or years < 2 or type(seed) is not int or seed < 0:
+        raise ValueError("archiving validation requires years >= 2 and a nonnegative seed")
+    if scenario.simulation.start_year + years > scenario.simulation.end_year:
+        raise ValueError("archiving validation exceeds scenario end_year")
+    seeded = deepcopy(replace(
+        scenario, simulation=replace(scenario.simulation, random_seed=seed)
+    ))
+    full = FamilyWorld(seeded)
+    compact = FamilyWorld(deepcopy(seeded))
+    full.begin_exogenous_path_recording()
+    compact.begin_exogenous_path_recording()
+    archive_manifests = []
+    checkpoints = []
+    full_step_seconds = 0.0
+    compact_step_seconds = 0.0
+    milestone_years = {max(2, years // 4), max(2, years // 2), years}
+    for elapsed_years in range(1, years + 1):
+        started = time.perf_counter()
+        full.step()
+        full_step_seconds += time.perf_counter() - started
+        started = time.perf_counter()
+        compact.step()
+        compact_step_seconds += time.perf_counter() - started
+        manifest = compact.transfer_ledger.archive_before(compact.year + 1)
+        if manifest is not None:
+            archive_manifests.append(manifest)
+        if [asdict(row) for row in full.history] != [asdict(row) for row in compact.history]:
+            raise ValueError(f"ledger archiving changed model history in {compact.year}")
+        if elapsed_years in milestone_years:
+            full_bytes = full.transfer_ledger.resident_json_bytes
+            compact_bytes = compact.transfer_ledger.storage_bytes
+            checkpoints.append({
+                "elapsed_years": elapsed_years,
+                "year": full.year,
+                "population": len(full.living_people),
+                "households": len(full.households),
+                "transfer_records": full.transfer_ledger.record_count,
+                "full_canonical_json_bytes": full_bytes,
+                "archived_payload_bytes": compact_bytes,
+                "archived_to_full_storage_ratio": compact_bytes / full_bytes if full_bytes else 0.0,
+                "full_cumulative_step_seconds": round(full_step_seconds, 6),
+                "archived_cumulative_step_seconds": round(compact_step_seconds, 6),
+            })
+    full_summary = full.transfer_ledger.summary()
+    compact_summary = compact.transfer_ledger.summary()
+    same_people = {key: asdict(value) for key, value in full.people.items()} == {
+        key: asdict(value) for key, value in compact.people.items()
+    }
+    same_households = {key: asdict(value) for key, value in full.households.items()} == {
+        key: asdict(value) for key, value in compact.households.items()
+    }
+    same_paths = full.freeze_exogenous_path().as_dict() == compact.freeze_exogenous_path().as_dict()
+    same_summaries = full_summary == compact_summary
+    same_rng = full.rng.getstate() == compact.rng.getstate()
+    same_internal_drivers = all(
+        getattr(full, name) == getattr(compact, name)
+        for name in (
+            "_shock_residual", "_economic_cycle", "_technology",
+            "_environmental_stress", "_government_funds", "_regional_transfers",
+        )
+    )
+    sample_entity = next(iter(full.transfer_ledger.entities))
+    same_entity_query = [asdict(row) for row in full.transfer_ledger.query(entity=sample_entity)] == [
+        asdict(row) for row in compact.transfer_ledger.query(entity=sample_entity)
+    ]
+    full_payload_bytes = full.transfer_ledger.resident_json_bytes
+    report = {
+        "schema_version": 1,
+        "kind": "transfer_ledger_archiving_validation",
+        "scope": "storage representation equivalence; not empirical validation",
+        "configuration": {"scenario": scenario.name, "years": years, "seed": seed},
+        "source_sha256": source_hashes(),
+        "equivalence": {
+            "history": True,
+            "people": same_people,
+            "households": same_households,
+            "exogenous_path": same_paths,
+            "transfer_summary": same_summaries,
+            "legacy_rng_state": same_rng,
+            "internal_driver_state": same_internal_drivers,
+            "sample_entity_query": same_entity_query,
+        },
+        "full_ledger": {
+            "record_count": full.transfer_ledger.record_count,
+            "resident_records": len(full.transfer_ledger.records),
+            "estimated_canonical_json_bytes": full_payload_bytes,
+            "audit_ok": full.transfer_ledger.audit()["ok"],
+        },
+        "archived_ledger": {
+            "record_count": compact.transfer_ledger.record_count,
+            "resident_records": len(compact.transfer_ledger.records),
+            "archive_count": len(compact.transfer_ledger.archives),
+            "compressed_bytes": compact.transfer_ledger.archive_bytes,
+            "estimated_payload_bytes": compact.transfer_ledger.storage_bytes,
+            "compression_ratio_vs_full_json": (
+                compact.transfer_ledger.storage_bytes / full_payload_bytes
+                if full_payload_bytes else 0.0
+            ),
+            "audit_ok": compact.transfer_ledger.audit()["ok"],
+            "archive_manifests": archive_manifests,
+        },
+        "scaling_checkpoints": checkpoints,
+        "runtime_note": "wall-clock measurements are machine-specific and are not accuracy evidence",
+    }
+    report["all_checks_passed"] = (
+        all(report["equivalence"].values())
+        and report["full_ledger"]["audit_ok"]
+        and report["archived_ledger"]["audit_ok"]
+        and report["full_ledger"]["record_count"] == report["archived_ledger"]["record_count"]
+    )
+    if not report["all_checks_passed"]:
+        raise ValueError("ledger archiving equivalence failed")
+    json.dumps(report, ensure_ascii=False, allow_nan=False)
+    return report

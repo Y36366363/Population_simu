@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "kind": "transfer_ledger_archiving_validation",
+  "scope": "storage representation equivalence; not empirical validation",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 20,
+    "seed": 20261007
+  },
+  "source_sha256": {
+    "src/population_simu/__init__.py": "8bac2e3ab1eb9d274e2de6388d6cc2341617822a5ff40ffec5e896ca14d330df",
+    "src/population_simu/audit.py": "352283d4ae5170b6f8de34be5da77781e2d6a654cd72b88ade308f3cd9e669ae",
+    "src/population_simu/benchmarks.py": "140d061368bef8e100f276be995fd179b27f9bbe65129925ea120c86140a3ada",
+    "src/population_simu/calibration.py": "877647761d98b58933f742662aeb9c065fa8f06b737417d11b50b6eb70f394de",
+    "src/population_simu/calibration_audit.py": "248a0a48012b7f03ba907517a6748b952323417a881b08bc19d247234ad1ae3e",
+    "src/population_simu/capitals.py": "ec6b5585ae39716d69b911b1a03a20e1860340144d4c020d631598071e390fd3",
+    "src/population_simu/cli.py": "36c4763d66ea53513041540aef3e62a79e9d35ff768acfde981877a40194e450",
+    "src/population_simu/cohort_component.py": "fa6a718be4f9b037bf9f10891fdb0055ee945f5a89b9bc26bc1f809aafbba412",
+    "src/population_simu/cohort_replay.py": "55721f3c61c0f7170ff6ccc15d074ebf88a46de0d456e4cc0160f9656f4266d6",
+    "src/population_simu/config.py": "d7fd83dc4bae6b45fb3c73ec6ce6c64bfba49ce12b66b55edd9f5648bce87b9c",
+    "src/population_simu/dynasty_experiment.py": "3daae7c34918dbbdd82b6c92a7c2f46c6c0953ea27d9ef2c818ffbd3d9c808d2",
+    "src/population_simu/empirical_data.py": "50f76b76bb146ff4079461ba6d7533cbfa5d277a27119726ce3a369b147883a7",
+    "src/population_simu/environment.py": "809c399ee50bbc00ff28c5036daaeced0aa8080bfecf88f1d49c18330ffa9c73",
+    "src/population_simu/environment_experiment.py": "add2240015d5b26a97cb0754a38058745355c845168f151e5de7caf7adb7c825",
+    "src/population_simu/event_random.py": "cbaab451fb6509ad006a861c8af20499ae84963f542e3e42108b5581a3d0a295",
+    "src/population_simu/evidence_strength.py": "3b196b71ff9a23bee6ef6690b92fe9169d49bbb124373cd61e2071799a324529",
+    "src/population_simu/experiments.py": "b67539448a34c4533147d4c75da843f790f3ba77c4a5dba17589ec935557b427",
+    "src/population_simu/family_checkpoint.py": "9aeda878fc38b2ed8e570fadc0a1cbcae0c42ae45ba62f0b793b34aeb9129b4c",
+    "src/population_simu/family_cli.py": "a616ba52a860023ca7d0082ad5c24f24d539f01a1171955a441f9a1f8c00a404",
+    "src/population_simu/family_config.py": "5001c43f8b9aeaccab6604db1d5751ba366cb897a30f0dbaf3cbcc27f5782b7d",
+    "src/population_simu/family_models.py": "86cb044ec2c98f0d2faad1cdaeff2bba2c56ece96d97658a1a8cfc99c07dfe28",
+    "src/population_simu/family_monte_carlo.py": "24382b99c8615c5579bb07d2cf2343a3c48e3c5b5c35f6746969d89aa9b51ca1",
+    "src/population_simu/family_world.py": "00669cc2ac3483e1a74cac38b80dd4ac5002d6b71d7c2b0cd825cd8ed99c13d3",
+    "src/population_simu/fertility.py": "a9711a3b0fa97e603625a7c569a90cbe2369d66fc4d575be2e8e8e55a29c4cb6",
+    "src/population_simu/fertility_panel.py": "17fc7a3376201463be29818241b602e74fea6abd31982267ccc40b1e58fbdcde",
+    "src/population_simu/genealogy.py": "ca645e40da36900cf4ffa679a534ab59bfa86c51ee4acaa9c3b55dddd7f63c39",
+    "src/population_simu/hazards.py": "7bc4d50f31b8a9e1953e341627cbded463fd7bb19d3068efca1bcd431e3bab38",
+    "src/population_simu/household_calibration.py": "7188eb15852df8fd0f64c2033cba1911d3908886f7ad66f265432f1f9a9c987e",
+    "src/population_simu/institution_experiment.py": "ece3c8db4ef61577b849c6175b6cc932bd971034bbf61f8e8169deb0e5651ccc",
+    "src/population_simu/local_app.py": "0056430ce3459398ee0448b05c207aec5882e7178a7a59ebba0be5bd65008b31",
+    "src/population_simu/mechanisms.py": "c50ba9f70e11d9bba84ebff891053fa3eb4d132c9b827b72f0b40d6b2949f237",
+    "src/population_simu/microdata.py": "166b0230544d1f6a4cdece3f936db7e405f46bac845c9a2165eb21d4c9a10494",
+    "src/population_simu/models.py": "cd40758f532dd68fc3d73228f7b8fadbd84b3ba973d96be1a8a597d86010977d",
+    "src/population_simu/monte_carlo.py": "36222fe87d0b56da5c4efbfaa32fcd8d16972913e640607994d6e139cd8dbae4",
+    "src/population_simu/national_calibration.py": "c1e38dfac793b5ee60053699dafb39fc5566e63c0657de4b1f78787c607ef85f",
+    "src/population_simu/networks.py": "bfb729239047553de51105d44894945eab7976249ac526c76bff9e970198ffb4",
+    "src/population_simu/occupations.py": "f0ceb76f2234d9517740e89dbe2a6c365a29da4cec0892f7c48acc744a5d29e9",
+    "src/population_simu/resource_experiment.py": "e0f8bacb3045065b249ef4ac1007003cdf08e446fa7f9dfcf3a2ad4cf8b18847",
+    "src/population_simu/simulation_validation.py": "a1235b45c974cc0ad94fcb60f7f52daf9038cd5a28afb6ed4c4d7ac1ee214c87",
+    "src/population_simu/study_protocol.py": "badfaff386d4ff15132de0b3ca09efc80abcfbb8f3c6db998791149f3ac6c239",
+    "src/population_simu/transfer_ledger.py": "7661976b5d120dc8d4248c91ffb53e8f9c19925848183240ca031414059e8832",
+    "src/population_simu/validation.py": "2cae9418c14dde03fca452674e459447ec198485b8b7a5fa405eb8fe50c544be",
+    "src/population_simu/world.py": "6688ed7309baa1e8e67f662b4b12101aa4f61cdf6be3e817d2230d2b85d07d09"
+  },
+  "equivalence": {
+    "history": true,
+    "people": true,
+    "households": true,
+    "exogenous_path": true,
+    "transfer_summary": true,
+    "legacy_rng_state": true,
+    "internal_driver_state": true,
+    "sample_entity_query": true
+  },
+  "full_ledger": {
+    "record_count": 48129,
+    "resident_records": 48129,
+    "estimated_canonical_json_bytes": 8917258,
+    "audit_ok": true
+  },
+  "archived_ledger": {
+    "record_count": 48129,
+    "resident_records": 0,
+    "archive_count": 20,
+    "compressed_bytes": 731099,
+    "estimated_payload_bytes": 731101,
+    "compression_ratio_vs_full_json": 0.0819871983069235,
+    "audit_ok": true,
+    "archive_manifests": [
+      {
+        "min_year": 1971,
+        "max_year": 1971,
+        "record_count": 2556,
+        "compressed_bytes": 31558,
+        "compressed_sha256": "c5d16897e62a20504e4a87c6d2b008c42a466657312afec39765e9402e2cb93a"
+      },
+      {
+        "min_year": 1972,
+        "max_year": 1972,
+        "record_count": 2654,
+        "compressed_bytes": 36324,
+        "compressed_sha256": "731a40b03b89c5565475b850267b87ece5eafe8d2792d3554d252f33b760232d"
+      },
+      {
+        "min_year": 1973,
+        "max_year": 1973,
+        "record_count": 2699,
+        "compressed_bytes": 37613,
+        "compressed_sha256": "75e240d8c16d6861f8207831d3ba87de63eeb8becbbdd831a4558736d8a2f36b"
+      },
+      {
+        "min_year": 1974,
+        "max_year": 1974,
+        "record_count": 2745,
+        "compressed_bytes": 38985,
+        "compressed_sha256": "96172dfba1d7c010c47211383bf02b99b77e67e6719025d4b50ab94c1af602b3"
+      },
+      {
+        "min_year": 1975,
+        "max_year": 1975,
+        "record_count": 2735,
+        "compressed_bytes": 39836,
+        "compressed_sha256": "82999739da7b1661aa81a9838c6a6cef107c70596f466d4e912e7f13ac69a35e"
+      },
+      {
+        "min_year": 1976,
+        "max_year": 1976,
+        "record_count": 2665,
+        "compressed_bytes": 39717,
+        "compressed_sha256": "ad04a07159412d9133c0ee75fbb01bd1a8cd0903390815441dbb475a9485711b"
+      },
+      {
+        "min_year": 1977,
+        "max_year": 1977,
+        "record_count": 2608,
+        "compressed_bytes": 39592,
+        "compressed_sha256": "f25fa8d5604920cafaac1d56c04276357b41792ddf465694659c630de6f44337"
+      },
+      {
+        "min_year": 1978,
+        "max_year": 1978,
+        "record_count": 2553,
+        "compressed_bytes": 39386,
+        "compressed_sha256": "4c3dd9c234ce996f634d2b4a4dcb76f080504452cf82004629b387d7c7d25bd0"
+      },
+      {
+        "min_year": 1979,
+        "max_year": 1979,
+        "record_count": 2491,
+        "compressed_bytes": 38844,
+        "compressed_sha256": "f66c303611ef1a4c69602d068361ecf60f877782f96cf84f942b578c7894c42c"
+      },
+      {
+        "min_year": 1980,
+        "max_year": 1980,
+        "record_count": 2455,
+        "compressed_bytes": 39005,
+        "compressed_sha256": "f19c863cd10ee918cd727fd6e9b0ed75c74a3494208b83931114419895a5d1c5"
+      },
+      {
+        "min_year": 1981,
+        "max_year": 1981,
+        "record_count": 2376,
+        "compressed_bytes": 37777,
+        "compressed_sha256": "de82b49002591222a014ff4ab92536c8bddaeb6929dfd3df323e8a317a809b1b"
+      },
+      {
+        "min_year": 1982,
+        "max_year": 1982,
+        "record_count": 2285,
+        "compressed_bytes": 36859,
+        "compressed_sha256": "4d81da81ecede8df6227153af836d708d575df77031dac71f7a9fb28123c5cbd"
+      },
+      {
+        "min_year": 1983,
+        "max_year": 1983,
+        "record_count": 2225,
+        "compressed_bytes": 36159,
+        "compressed_sha256": "6ab609af78b0d42c0085323d6cbc4e3815f5c40e775555d5b0dab547e02ceb93"
+      },
+      {
+        "min_year": 1984,
+        "max_year": 1984,
+        "record_count": 2202,
+        "compressed_bytes": 35499,
+        "compressed_sha256": "f24a76d8b4e6f9f40ebefbc8459c799ea3c154c07a109d84aed420557cbfe0dd"
+      },
+      {
+        "min_year": 1985,
+        "max_year": 1985,
+        "record_count": 2202,
+        "compressed_bytes": 35538,
+        "compressed_sha256": "f1ed4343e13ff411e6d1b603738b51c1dc4132059bf90267259f42f2e7f4cf23"
+      },
+      {
+        "min_year": 1986,
+        "max_year": 1986,
+        "record_count": 2157,
+        "compressed_bytes": 34557,
+        "compressed_sha256": "d1702e538caea3aa1ea1fdee444abbf651ab366eb2a894e2b10c0e76bbd5c62f"
+      },
+      {
+        "min_year": 1987,
+        "max_year": 1987,
+        "record_count": 2100,
+        "compressed_bytes": 33787,
+        "compressed_sha256": "6adb900ad0f06b041ee9194483ad90f7311af280486be9cd08ea0e15c7bb6af0"
+      },
+      {
+        "min_year": 1988,
+        "max_year": 1988,
+        "record_count": 2142,
+        "compressed_bytes": 33769,
+        "compressed_sha256": "01654718acdde3096276f2489e444cd705aaa01a4a7b992c6cd8af834f4baba4"
+      },
+      {
+        "min_year": 1989,
+        "max_year": 1989,
+        "record_count": 2134,
+        "compressed_bytes": 33211,
+        "compressed_sha256": "df98b44a216e09f1f07985f24af115e83d235d502a73a810084f8b0ba7f9b4e4"
+      },
+      {
+        "min_year": 1990,
+        "max_year": 1990,
+        "record_count": 2145,
+        "compressed_bytes": 33083,
+        "compressed_sha256": "2b6825c2ffc2c549422f37a2cc4ed59bdeeaced7bf0a177aa59d1b5449bee090"
+      }
+    ]
+  },
+  "scaling_checkpoints": [
+    {
+      "elapsed_years": 5,
+      "year": 1975,
+      "population": 4153,
+      "households": 984,
+      "transfer_records": 13389,
+      "full_canonical_json_bytes": 2473516,
+      "archived_payload_bytes": 184318,
+      "archived_to_full_storage_ratio": 0.07451659904362859,
+      "full_cumulative_step_seconds": 4.162544,
+      "archived_cumulative_step_seconds": 4.22006
+    },
+    {
+      "elapsed_years": 10,
+      "year": 1980,
+      "population": 4314,
+      "households": 1098,
+      "transfer_records": 26161,
+      "full_canonical_json_bytes": 4845152,
+      "archived_payload_bytes": 380862,
+      "archived_to_full_storage_ratio": 0.07860682182932548,
+      "full_cumulative_step_seconds": 8.349973,
+      "archived_cumulative_step_seconds": 8.406862
+    },
+    {
+      "elapsed_years": 20,
+      "year": 1990,
+      "population": 4675,
+      "households": 1689,
+      "transfer_records": 48129,
+      "full_canonical_json_bytes": 8917258,
+      "archived_payload_bytes": 731101,
+      "archived_to_full_storage_ratio": 0.0819871983069235,
+      "full_cumulative_step_seconds": 18.241314,
+      "archived_cumulative_step_seconds": 18.302777
+    }
+  ],
+  "runtime_note": "wall-clock measurements are machine-specific and are not accuracy evidence",
+  "all_checks_passed": true
+}
