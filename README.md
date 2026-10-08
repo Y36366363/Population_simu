@@ -21,6 +21,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 2026-10-07 的[长周期账本归档与等价性探索](docs/ledger_archiving_exploration_2026-10-07.md)在同一 seed 的完整/年度归档双轨中运行20年；人口、家庭、随机状态、外生路径、内部驱动、摘要和查询全部等价。48,129条转移记录的编码载荷由约8.92 MB降至0.73 MB，但该结果只证明当前规模下的存储表示可压缩，不证明现实准确性或总内存同比下降。
 
+2026-10-08 的[多 seed 50 年资源预算、归档恢复与外部复核](docs/fifty_year_archive_validation_2026-10-08.md)完成3个seed的50年运行，并在第25年验证含归档checkpoint的立即恢复和一年继续轨迹。全部预设预算通过；随后冻结住房rolling-origin结果与10月6日字节级一致，完整household仍弱于短期基线，数据证据等级没有提升。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
 长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。

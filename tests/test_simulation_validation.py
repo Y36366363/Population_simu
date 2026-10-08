@@ -1,7 +1,11 @@
 import json
 import unittest
 
-from population_simu.simulation_validation import validate_ledger_archiving, validate_scenario
+from population_simu.simulation_validation import (
+    validate_archived_resource_budget,
+    validate_ledger_archiving,
+    validate_scenario,
+)
 
 from tests.test_experiments import small_scenario
 
@@ -54,6 +58,29 @@ class SimulationValidationTests(unittest.TestCase):
                          report["archived_ledger"]["record_count"])
         self.assertEqual(report["archived_ledger"]["resident_records"], 0)
         self.assertLess(report["archived_ledger"]["compression_ratio_vs_full_json"], 1)
+
+    def test_multi_seed_archive_budget_restores_and_continues(self):
+        report = validate_archived_resource_budget(
+            small_scenario(), years=4, seeds=[7, 8], restore_after_years=2,
+            max_seconds_per_seed=10,
+        )
+        self.assertTrue(report["all_checks_passed"])
+        self.assertEqual(len(report["runs"]), 2)
+        for run in report["runs"]:
+            self.assertTrue(run["path_complete"])
+            self.assertTrue(run["final_archive_audit_ok"])
+            self.assertTrue(run["all_population_balances_closed"])
+            self.assertTrue(run["all_regional_balances_closed"])
+            self.assertTrue(run["restore_check"]["immediate_roundtrip_identical"])
+            self.assertTrue(run["restore_check"]["one_year_continuation_identical"])
+            self.assertEqual(run["resident_transfer_records"], 0)
+
+    def test_multi_seed_archive_budget_fails_closed(self):
+        with self.assertRaisesRegex(ValueError, "budget exceeded"):
+            validate_archived_resource_budget(
+                small_scenario(), years=3, seeds=[7], restore_after_years=1,
+                max_population=1,
+            )
 
 
 if __name__ == "__main__":
