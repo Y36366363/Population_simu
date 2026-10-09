@@ -23,6 +23,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 2026-10-08 的[多 seed 50 年资源预算、归档恢复与外部复核](docs/fifty_year_archive_validation_2026-10-08.md)完成3个seed的50年运行，并在第25年验证含归档checkpoint的立即恢复和一年继续轨迹。全部预设预算通过；随后冻结住房rolling-origin结果与10月6日字节级一致，完整household仍弱于短期基线，数据证据等级没有提升。
 
+2026-10-09 的[50年模拟阶段耗时归因](docs/runtime_phase_profile_2026-10-09.md)显示后25年每年step约为前25年的2.14倍；年度汇总和生育合计解释约97.3%的增量，核心热点是家庭社会规范计算中的重复全表扫描。账本归档不是瓶颈；外部数据门槛未变化，因此未增加社会机制。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
 长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。

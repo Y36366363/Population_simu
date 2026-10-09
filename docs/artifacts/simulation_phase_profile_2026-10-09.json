@@ -1,0 +1,1693 @@
+{
+  "schema_version": 1,
+  "kind": "family_world_phase_profile",
+  "scope": "runtime attribution for existing phases; not empirical or causal validation",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 50,
+    "split_after_years": 25,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true,
+    "profiler": "cProfile deterministic instrumentation"
+  },
+  "source_sha256": {
+    "src/population_simu/__init__.py": "8bac2e3ab1eb9d274e2de6388d6cc2341617822a5ff40ffec5e896ca14d330df",
+    "src/population_simu/audit.py": "352283d4ae5170b6f8de34be5da77781e2d6a654cd72b88ade308f3cd9e669ae",
+    "src/population_simu/benchmarks.py": "140d061368bef8e100f276be995fd179b27f9bbe65129925ea120c86140a3ada",
+    "src/population_simu/calibration.py": "877647761d98b58933f742662aeb9c065fa8f06b737417d11b50b6eb70f394de",
+    "src/population_simu/calibration_audit.py": "248a0a48012b7f03ba907517a6748b952323417a881b08bc19d247234ad1ae3e",
+    "src/population_simu/capitals.py": "ec6b5585ae39716d69b911b1a03a20e1860340144d4c020d631598071e390fd3",
+    "src/population_simu/cli.py": "36c4763d66ea53513041540aef3e62a79e9d35ff768acfde981877a40194e450",
+    "src/population_simu/cohort_component.py": "fa6a718be4f9b037bf9f10891fdb0055ee945f5a89b9bc26bc1f809aafbba412",
+    "src/population_simu/cohort_replay.py": "55721f3c61c0f7170ff6ccc15d074ebf88a46de0d456e4cc0160f9656f4266d6",
+    "src/population_simu/config.py": "d7fd83dc4bae6b45fb3c73ec6ce6c64bfba49ce12b66b55edd9f5648bce87b9c",
+    "src/population_simu/dynasty_experiment.py": "3daae7c34918dbbdd82b6c92a7c2f46c6c0953ea27d9ef2c818ffbd3d9c808d2",
+    "src/population_simu/empirical_data.py": "50f76b76bb146ff4079461ba6d7533cbfa5d277a27119726ce3a369b147883a7",
+    "src/population_simu/environment.py": "809c399ee50bbc00ff28c5036daaeced0aa8080bfecf88f1d49c18330ffa9c73",
+    "src/population_simu/environment_experiment.py": "add2240015d5b26a97cb0754a38058745355c845168f151e5de7caf7adb7c825",
+    "src/population_simu/event_random.py": "cbaab451fb6509ad006a861c8af20499ae84963f542e3e42108b5581a3d0a295",
+    "src/population_simu/evidence_strength.py": "3b196b71ff9a23bee6ef6690b92fe9169d49bbb124373cd61e2071799a324529",
+    "src/population_simu/experiments.py": "b67539448a34c4533147d4c75da843f790f3ba77c4a5dba17589ec935557b427",
+    "src/population_simu/family_checkpoint.py": "9aeda878fc38b2ed8e570fadc0a1cbcae0c42ae45ba62f0b793b34aeb9129b4c",
+    "src/population_simu/family_cli.py": "a616ba52a860023ca7d0082ad5c24f24d539f01a1171955a441f9a1f8c00a404",
+    "src/population_simu/family_config.py": "5001c43f8b9aeaccab6604db1d5751ba366cb897a30f0dbaf3cbcc27f5782b7d",
+    "src/population_simu/family_models.py": "86cb044ec2c98f0d2faad1cdaeff2bba2c56ece96d97658a1a8cfc99c07dfe28",
+    "src/population_simu/family_monte_carlo.py": "24382b99c8615c5579bb07d2cf2343a3c48e3c5b5c35f6746969d89aa9b51ca1",
+    "src/population_simu/family_world.py": "00669cc2ac3483e1a74cac38b80dd4ac5002d6b71d7c2b0cd825cd8ed99c13d3",
+    "src/population_simu/fertility.py": "a9711a3b0fa97e603625a7c569a90cbe2369d66fc4d575be2e8e8e55a29c4cb6",
+    "src/population_simu/fertility_panel.py": "17fc7a3376201463be29818241b602e74fea6abd31982267ccc40b1e58fbdcde",
+    "src/population_simu/genealogy.py": "ca645e40da36900cf4ffa679a534ab59bfa86c51ee4acaa9c3b55dddd7f63c39",
+    "src/population_simu/hazards.py": "7bc4d50f31b8a9e1953e341627cbded463fd7bb19d3068efca1bcd431e3bab38",
+    "src/population_simu/household_calibration.py": "7188eb15852df8fd0f64c2033cba1911d3908886f7ad66f265432f1f9a9c987e",
+    "src/population_simu/institution_experiment.py": "ece3c8db4ef61577b849c6175b6cc932bd971034bbf61f8e8169deb0e5651ccc",
+    "src/population_simu/local_app.py": "0056430ce3459398ee0448b05c207aec5882e7178a7a59ebba0be5bd65008b31",
+    "src/population_simu/mechanisms.py": "c50ba9f70e11d9bba84ebff891053fa3eb4d132c9b827b72f0b40d6b2949f237",
+    "src/population_simu/microdata.py": "166b0230544d1f6a4cdece3f936db7e405f46bac845c9a2165eb21d4c9a10494",
+    "src/population_simu/models.py": "cd40758f532dd68fc3d73228f7b8fadbd84b3ba973d96be1a8a597d86010977d",
+    "src/population_simu/monte_carlo.py": "36222fe87d0b56da5c4efbfaa32fcd8d16972913e640607994d6e139cd8dbae4",
+    "src/population_simu/national_calibration.py": "c1e38dfac793b5ee60053699dafb39fc5566e63c0657de4b1f78787c607ef85f",
+    "src/population_simu/networks.py": "bfb729239047553de51105d44894945eab7976249ac526c76bff9e970198ffb4",
+    "src/population_simu/occupations.py": "f0ceb76f2234d9517740e89dbe2a6c365a29da4cec0892f7c48acc744a5d29e9",
+    "src/population_simu/performance_profiling.py": "1a2969c636bd86a18d6a4b54e2e72210cedcd3fd016eff10f7e50789cd8d215b",
+    "src/population_simu/resource_experiment.py": "e0f8bacb3045065b249ef4ac1007003cdf08e446fa7f9dfcf3a2ad4cf8b18847",
+    "src/population_simu/simulation_validation.py": "59ace1ec29478447ad2b2f44982be499e8ca4bdabce00d67004827470b2e15e2",
+    "src/population_simu/study_protocol.py": "badfaff386d4ff15132de0b3ca09efc80abcfbb8f3c6db998791149f3ac6c239",
+    "src/population_simu/transfer_ledger.py": "7661976b5d120dc8d4248c91ffb53e8f9c19925848183240ca031414059e8832",
+    "src/population_simu/validation.py": "2cae9418c14dde03fca452674e459447ec198485b8b7a5fa405eb8fe50c544be",
+    "src/population_simu/world.py": "6688ed7309baa1e8e67f662b4b12101aa4f61cdf6be3e817d2230d2b85d07d09"
+  },
+  "runs": [
+    {
+      "seed": 20261006,
+      "early": {
+        "years": 25,
+        "start_year": 1970,
+        "end_year": 1995,
+        "end_population": 4981,
+        "end_households": 2064,
+        "end_transfer_records": 59577,
+        "wall_seconds": 40.14595,
+        "step_cumulative_seconds": 39.561507,
+        "step_seconds_per_year": 1.58246,
+        "archive_cumulative_seconds": 0.572669,
+        "archive_seconds_per_year": 0.022907,
+        "unattributed_step_seconds": 0.075651,
+        "phases": {
+          "_update_environment": {
+            "calls": 25,
+            "self_seconds": 0.000466,
+            "cumulative_seconds": 0.010536,
+            "seconds_per_year": 0.000421,
+            "share_of_step": 0.000266
+          },
+          "_update_economic_cycle": {
+            "calls": 25,
+            "self_seconds": 0.000385,
+            "cumulative_seconds": 0.003243,
+            "seconds_per_year": 0.00013,
+            "share_of_step": 8.2e-05
+          },
+          "_health_and_care": {
+            "calls": 25,
+            "self_seconds": 0.099133,
+            "cumulative_seconds": 0.200396,
+            "seconds_per_year": 0.008016,
+            "share_of_step": 0.005065
+          },
+          "_update_childcare_support": {
+            "calls": 25,
+            "self_seconds": 0.045128,
+            "cumulative_seconds": 0.100091,
+            "seconds_per_year": 0.004004,
+            "share_of_step": 0.00253
+          },
+          "_allocate_resources": {
+            "calls": 25,
+            "self_seconds": 0.224478,
+            "cumulative_seconds": 0.481549,
+            "seconds_per_year": 0.019262,
+            "share_of_step": 0.012172
+          },
+          "_mature_young_adults": {
+            "calls": 25,
+            "self_seconds": 0.010468,
+            "cumulative_seconds": 0.076377,
+            "seconds_per_year": 0.003055,
+            "share_of_step": 0.001931
+          },
+          "_career_transitions": {
+            "calls": 25,
+            "self_seconds": 0.06068,
+            "cumulative_seconds": 0.122629,
+            "seconds_per_year": 0.004905,
+            "share_of_step": 0.0031
+          },
+          "_earn_resources": {
+            "calls": 25,
+            "self_seconds": 0.267502,
+            "cumulative_seconds": 0.758582,
+            "seconds_per_year": 0.030343,
+            "share_of_step": 0.019175
+          },
+          "_divorces": {
+            "calls": 25,
+            "self_seconds": 0.051987,
+            "cumulative_seconds": 0.122407,
+            "seconds_per_year": 0.004896,
+            "share_of_step": 0.003094
+          },
+          "_form_family_branches": {
+            "calls": 25,
+            "self_seconds": 0.651343,
+            "cumulative_seconds": 1.143607,
+            "seconds_per_year": 0.045744,
+            "share_of_step": 0.028907
+          },
+          "_births": {
+            "calls": 25,
+            "self_seconds": 0.089031,
+            "cumulative_seconds": 13.286987,
+            "seconds_per_year": 0.531479,
+            "share_of_step": 0.335856
+          },
+          "_internal_migration": {
+            "calls": 25,
+            "self_seconds": 0.048997,
+            "cumulative_seconds": 0.128396,
+            "seconds_per_year": 0.005136,
+            "share_of_step": 0.003245
+          },
+          "_international_migration": {
+            "calls": 25,
+            "self_seconds": 0.02182,
+            "cumulative_seconds": 0.025605,
+            "seconds_per_year": 0.001024,
+            "share_of_step": 0.000647
+          },
+          "_deaths": {
+            "calls": 25,
+            "self_seconds": 0.041412,
+            "cumulative_seconds": 0.260287,
+            "seconds_per_year": 0.010411,
+            "share_of_step": 0.006579
+          },
+          "_population_locations": {
+            "calls": 225,
+            "self_seconds": 0.11237,
+            "cumulative_seconds": 0.14879,
+            "seconds_per_year": 0.005952,
+            "share_of_step": 0.003761
+          },
+          "_update_clan_peaks": {
+            "calls": 25,
+            "self_seconds": 0.008838,
+            "cumulative_seconds": 0.013839,
+            "seconds_per_year": 0.000554,
+            "share_of_step": 0.00035
+          },
+          "_update_government_funds": {
+            "calls": 25,
+            "self_seconds": 0.033299,
+            "cumulative_seconds": 0.230847,
+            "seconds_per_year": 0.009234,
+            "share_of_step": 0.005835
+          },
+          "_summaries": {
+            "calls": 25,
+            "self_seconds": 0.122259,
+            "cumulative_seconds": 22.133033,
+            "seconds_per_year": 0.885321,
+            "share_of_step": 0.559459
+          },
+          "_region_snapshot": {
+            "calls": 25,
+            "self_seconds": 0.03872,
+            "cumulative_seconds": 0.238657,
+            "seconds_per_year": 0.009546,
+            "share_of_step": 0.006033
+          }
+        },
+        "nested_diagnostics": {
+          "_population_flow_ledger": {
+            "calls": 25,
+            "self_seconds": 0.062288,
+            "cumulative_seconds": 0.075784,
+            "seconds_per_year": 0.003031
+          },
+          "_desired_children": {
+            "calls": 41396,
+            "self_seconds": 15.891372,
+            "cumulative_seconds": 34.348486,
+            "seconds_per_year": 1.373939
+          },
+          "_region_capacity_pressure": {
+            "calls": 45193,
+            "self_seconds": 0.009459,
+            "cumulative_seconds": 0.317229,
+            "seconds_per_year": 0.012689
+          },
+          "living_people": {
+            "calls": 694,
+            "self_seconds": 0.101042,
+            "cumulative_seconds": 0.101135,
+            "seconds_per_year": 0.004045
+          },
+          "same_region": {
+            "calls": 112715344,
+            "self_seconds": 5.752663,
+            "cumulative_seconds": 5.752663,
+            "seconds_per_year": 0.230107
+          },
+          "same_kin": {
+            "calls": 56378370,
+            "self_seconds": 2.57585,
+            "cumulative_seconds": 2.57585,
+            "seconds_per_year": 0.103034
+          },
+          "shares_occupation": {
+            "calls": 5485899,
+            "self_seconds": 1.31259,
+            "cumulative_seconds": 8.146272,
+            "seconds_per_year": 0.325851
+          }
+        }
+      },
+      "late": {
+        "years": 25,
+        "start_year": 1995,
+        "end_year": 2020,
+        "end_population": 5778,
+        "end_households": 3159,
+        "end_transfer_records": 111808,
+        "wall_seconds": 85.294765,
+        "step_cumulative_seconds": 84.783862,
+        "step_seconds_per_year": 3.391354,
+        "archive_cumulative_seconds": 0.49597,
+        "archive_seconds_per_year": 0.019839,
+        "unattributed_step_seconds": 0.101303,
+        "phases": {
+          "_update_environment": {
+            "calls": 25,
+            "self_seconds": 0.000468,
+            "cumulative_seconds": 0.010756,
+            "seconds_per_year": 0.00043,
+            "share_of_step": 0.000127
+          },
+          "_update_economic_cycle": {
+            "calls": 25,
+            "self_seconds": 0.000398,
+            "cumulative_seconds": 0.003285,
+            "seconds_per_year": 0.000131,
+            "share_of_step": 3.9e-05
+          },
+          "_health_and_care": {
+            "calls": 25,
+            "self_seconds": 0.167065,
+            "cumulative_seconds": 0.326879,
+            "seconds_per_year": 0.013075,
+            "share_of_step": 0.003855
+          },
+          "_update_childcare_support": {
+            "calls": 25,
+            "self_seconds": 0.070686,
+            "cumulative_seconds": 0.161632,
+            "seconds_per_year": 0.006465,
+            "share_of_step": 0.001906
+          },
+          "_allocate_resources": {
+            "calls": 25,
+            "self_seconds": 0.160204,
+            "cumulative_seconds": 0.320516,
+            "seconds_per_year": 0.012821,
+            "share_of_step": 0.00378
+          },
+          "_mature_young_adults": {
+            "calls": 25,
+            "self_seconds": 0.007586,
+            "cumulative_seconds": 0.045823,
+            "seconds_per_year": 0.001833,
+            "share_of_step": 0.00054
+          },
+          "_career_transitions": {
+            "calls": 25,
+            "self_seconds": 0.084479,
+            "cumulative_seconds": 0.162662,
+            "seconds_per_year": 0.006506,
+            "share_of_step": 0.001919
+          },
+          "_earn_resources": {
+            "calls": 25,
+            "self_seconds": 0.483279,
+            "cumulative_seconds": 1.245191,
+            "seconds_per_year": 0.049808,
+            "share_of_step": 0.014687
+          },
+          "_divorces": {
+            "calls": 25,
+            "self_seconds": 0.087299,
+            "cumulative_seconds": 0.187998,
+            "seconds_per_year": 0.00752,
+            "share_of_step": 0.002217
+          },
+          "_form_family_branches": {
+            "calls": 25,
+            "self_seconds": 0.734476,
+            "cumulative_seconds": 1.275121,
+            "seconds_per_year": 0.051005,
+            "share_of_step": 0.01504
+          },
+          "_births": {
+            "calls": 25,
+            "self_seconds": 0.10582,
+            "cumulative_seconds": 22.176982,
+            "seconds_per_year": 0.887079,
+            "share_of_step": 0.261571
+          },
+          "_internal_migration": {
+            "calls": 25,
+            "self_seconds": 0.098575,
+            "cumulative_seconds": 0.254048,
+            "seconds_per_year": 0.010162,
+            "share_of_step": 0.002996
+          },
+          "_international_migration": {
+            "calls": 25,
+            "self_seconds": 0.040526,
+            "cumulative_seconds": 0.04819,
+            "seconds_per_year": 0.001928,
+            "share_of_step": 0.000568
+          },
+          "_deaths": {
+            "calls": 25,
+            "self_seconds": 0.063023,
+            "cumulative_seconds": 0.343326,
+            "seconds_per_year": 0.013733,
+            "share_of_step": 0.004049
+          },
+          "_population_locations": {
+            "calls": 225,
+            "self_seconds": 0.154315,
+            "cumulative_seconds": 0.222061,
+            "seconds_per_year": 0.008882,
+            "share_of_step": 0.002619
+          },
+          "_update_clan_peaks": {
+            "calls": 25,
+            "self_seconds": 0.010324,
+            "cumulative_seconds": 0.016288,
+            "seconds_per_year": 0.000652,
+            "share_of_step": 0.000192
+          },
+          "_update_government_funds": {
+            "calls": 25,
+            "self_seconds": 0.050901,
+            "cumulative_seconds": 0.304168,
+            "seconds_per_year": 0.012167,
+            "share_of_step": 0.003588
+          },
+          "_summaries": {
+            "calls": 25,
+            "self_seconds": 0.21119,
+            "cumulative_seconds": 57.26366,
+            "seconds_per_year": 2.290546,
+            "share_of_step": 0.675408
+          },
+          "_region_snapshot": {
+            "calls": 25,
+            "self_seconds": 0.056372,
+            "cumulative_seconds": 0.313975,
+            "seconds_per_year": 0.012559,
+            "share_of_step": 0.003703
+          }
+        },
+        "nested_diagnostics": {
+          "_population_flow_ledger": {
+            "calls": 25,
+            "self_seconds": 0.080859,
+            "cumulative_seconds": 0.098824,
+            "seconds_per_year": 0.003953
+          },
+          "_desired_children": {
+            "calls": 50525,
+            "self_seconds": 37.181045,
+            "cumulative_seconds": 78.057124,
+            "seconds_per_year": 3.122285
+          },
+          "_region_capacity_pressure": {
+            "calls": 56396,
+            "self_seconds": 0.012048,
+            "cumulative_seconds": 0.42141,
+            "seconds_per_year": 0.016856
+          },
+          "living_people": {
+            "calls": 697,
+            "self_seconds": 0.15748,
+            "cumulative_seconds": 0.157575,
+            "seconds_per_year": 0.006303
+          },
+          "same_region": {
+            "calls": 268323663,
+            "self_seconds": 14.170945,
+            "cumulative_seconds": 14.170945,
+            "seconds_per_year": 0.566838
+          },
+          "same_kin": {
+            "calls": 134187094,
+            "self_seconds": 6.278235,
+            "cumulative_seconds": 6.278235,
+            "seconds_per_year": 0.251129
+          },
+          "shares_occupation": {
+            "calls": 11948636,
+            "self_seconds": 2.862525,
+            "cumulative_seconds": 16.690928,
+            "seconds_per_year": 0.667637
+          }
+        }
+      },
+      "step_late_to_early_ratio": 2.14309,
+      "population_late_to_early_endpoint_ratio": 1.160008,
+      "households_late_to_early_endpoint_ratio": 1.530523,
+      "phase_growth": {
+        "_update_environment": {
+          "early_seconds_per_year": 0.000421,
+          "late_seconds_per_year": 0.00043,
+          "absolute_increase_seconds_per_year": 9e-06,
+          "late_to_early_ratio": 1.021378
+        },
+        "_update_economic_cycle": {
+          "early_seconds_per_year": 0.00013,
+          "late_seconds_per_year": 0.000131,
+          "absolute_increase_seconds_per_year": 1e-06,
+          "late_to_early_ratio": 1.007692
+        },
+        "_health_and_care": {
+          "early_seconds_per_year": 0.008016,
+          "late_seconds_per_year": 0.013075,
+          "absolute_increase_seconds_per_year": 0.005059,
+          "late_to_early_ratio": 1.631113
+        },
+        "_update_childcare_support": {
+          "early_seconds_per_year": 0.004004,
+          "late_seconds_per_year": 0.006465,
+          "absolute_increase_seconds_per_year": 0.002461,
+          "late_to_early_ratio": 1.614635
+        },
+        "_allocate_resources": {
+          "early_seconds_per_year": 0.019262,
+          "late_seconds_per_year": 0.012821,
+          "absolute_increase_seconds_per_year": -0.006441,
+          "late_to_early_ratio": 0.665611
+        },
+        "_mature_young_adults": {
+          "early_seconds_per_year": 0.003055,
+          "late_seconds_per_year": 0.001833,
+          "absolute_increase_seconds_per_year": -0.001222,
+          "late_to_early_ratio": 0.6
+        },
+        "_career_transitions": {
+          "early_seconds_per_year": 0.004905,
+          "late_seconds_per_year": 0.006506,
+          "absolute_increase_seconds_per_year": 0.001601,
+          "late_to_early_ratio": 1.326402
+        },
+        "_earn_resources": {
+          "early_seconds_per_year": 0.030343,
+          "late_seconds_per_year": 0.049808,
+          "absolute_increase_seconds_per_year": 0.019465,
+          "late_to_early_ratio": 1.641499
+        },
+        "_divorces": {
+          "early_seconds_per_year": 0.004896,
+          "late_seconds_per_year": 0.00752,
+          "absolute_increase_seconds_per_year": 0.002624,
+          "late_to_early_ratio": 1.535948
+        },
+        "_form_family_branches": {
+          "early_seconds_per_year": 0.045744,
+          "late_seconds_per_year": 0.051005,
+          "absolute_increase_seconds_per_year": 0.005261,
+          "late_to_early_ratio": 1.11501
+        },
+        "_births": {
+          "early_seconds_per_year": 0.531479,
+          "late_seconds_per_year": 0.887079,
+          "absolute_increase_seconds_per_year": 0.3556,
+          "late_to_early_ratio": 1.669076
+        },
+        "_internal_migration": {
+          "early_seconds_per_year": 0.005136,
+          "late_seconds_per_year": 0.010162,
+          "absolute_increase_seconds_per_year": 0.005026,
+          "late_to_early_ratio": 1.978583
+        },
+        "_international_migration": {
+          "early_seconds_per_year": 0.001024,
+          "late_seconds_per_year": 0.001928,
+          "absolute_increase_seconds_per_year": 0.000904,
+          "late_to_early_ratio": 1.882812
+        },
+        "_deaths": {
+          "early_seconds_per_year": 0.010411,
+          "late_seconds_per_year": 0.013733,
+          "absolute_increase_seconds_per_year": 0.003322,
+          "late_to_early_ratio": 1.319086
+        },
+        "_population_locations": {
+          "early_seconds_per_year": 0.005952,
+          "late_seconds_per_year": 0.008882,
+          "absolute_increase_seconds_per_year": 0.00293,
+          "late_to_early_ratio": 1.492272
+        },
+        "_update_clan_peaks": {
+          "early_seconds_per_year": 0.000554,
+          "late_seconds_per_year": 0.000652,
+          "absolute_increase_seconds_per_year": 9.8e-05,
+          "late_to_early_ratio": 1.176895
+        },
+        "_update_government_funds": {
+          "early_seconds_per_year": 0.009234,
+          "late_seconds_per_year": 0.012167,
+          "absolute_increase_seconds_per_year": 0.002933,
+          "late_to_early_ratio": 1.31763
+        },
+        "_summaries": {
+          "early_seconds_per_year": 0.885321,
+          "late_seconds_per_year": 2.290546,
+          "absolute_increase_seconds_per_year": 1.405225,
+          "late_to_early_ratio": 2.587249
+        },
+        "_region_snapshot": {
+          "early_seconds_per_year": 0.009546,
+          "late_seconds_per_year": 0.012559,
+          "absolute_increase_seconds_per_year": 0.003013,
+          "late_to_early_ratio": 1.31563
+        }
+      }
+    },
+    {
+      "seed": 20261007,
+      "early": {
+        "years": 25,
+        "start_year": 1970,
+        "end_year": 1995,
+        "end_population": 4982,
+        "end_households": 2072,
+        "end_transfer_records": 59719,
+        "wall_seconds": 41.691977,
+        "step_cumulative_seconds": 41.076672,
+        "step_seconds_per_year": 1.643067,
+        "archive_cumulative_seconds": 0.601757,
+        "archive_seconds_per_year": 0.02407,
+        "unattributed_step_seconds": 0.082877,
+        "phases": {
+          "_update_environment": {
+            "calls": 25,
+            "self_seconds": 0.000485,
+            "cumulative_seconds": 0.011001,
+            "seconds_per_year": 0.00044,
+            "share_of_step": 0.000268
+          },
+          "_update_economic_cycle": {
+            "calls": 25,
+            "self_seconds": 0.000399,
+            "cumulative_seconds": 0.003336,
+            "seconds_per_year": 0.000133,
+            "share_of_step": 8.1e-05
+          },
+          "_health_and_care": {
+            "calls": 25,
+            "self_seconds": 0.101472,
+            "cumulative_seconds": 0.204614,
+            "seconds_per_year": 0.008185,
+            "share_of_step": 0.004981
+          },
+          "_update_childcare_support": {
+            "calls": 25,
+            "self_seconds": 0.048232,
+            "cumulative_seconds": 0.106838,
+            "seconds_per_year": 0.004274,
+            "share_of_step": 0.002601
+          },
+          "_allocate_resources": {
+            "calls": 25,
+            "self_seconds": 0.232309,
+            "cumulative_seconds": 0.49577,
+            "seconds_per_year": 0.019831,
+            "share_of_step": 0.012069
+          },
+          "_mature_young_adults": {
+            "calls": 25,
+            "self_seconds": 0.011186,
+            "cumulative_seconds": 0.079451,
+            "seconds_per_year": 0.003178,
+            "share_of_step": 0.001934
+          },
+          "_career_transitions": {
+            "calls": 25,
+            "self_seconds": 0.06342,
+            "cumulative_seconds": 0.125608,
+            "seconds_per_year": 0.005024,
+            "share_of_step": 0.003058
+          },
+          "_earn_resources": {
+            "calls": 25,
+            "self_seconds": 0.2814,
+            "cumulative_seconds": 0.790289,
+            "seconds_per_year": 0.031612,
+            "share_of_step": 0.019239
+          },
+          "_divorces": {
+            "calls": 25,
+            "self_seconds": 0.053646,
+            "cumulative_seconds": 0.126503,
+            "seconds_per_year": 0.00506,
+            "share_of_step": 0.00308
+          },
+          "_form_family_branches": {
+            "calls": 25,
+            "self_seconds": 0.657516,
+            "cumulative_seconds": 1.156161,
+            "seconds_per_year": 0.046246,
+            "share_of_step": 0.028146
+          },
+          "_births": {
+            "calls": 25,
+            "self_seconds": 0.095014,
+            "cumulative_seconds": 13.865705,
+            "seconds_per_year": 0.554628,
+            "share_of_step": 0.337557
+          },
+          "_internal_migration": {
+            "calls": 25,
+            "self_seconds": 0.052745,
+            "cumulative_seconds": 0.135775,
+            "seconds_per_year": 0.005431,
+            "share_of_step": 0.003305
+          },
+          "_international_migration": {
+            "calls": 25,
+            "self_seconds": 0.023153,
+            "cumulative_seconds": 0.027052,
+            "seconds_per_year": 0.001082,
+            "share_of_step": 0.000659
+          },
+          "_deaths": {
+            "calls": 25,
+            "self_seconds": 0.04361,
+            "cumulative_seconds": 0.272765,
+            "seconds_per_year": 0.010911,
+            "share_of_step": 0.00664
+          },
+          "_population_locations": {
+            "calls": 225,
+            "self_seconds": 0.126446,
+            "cumulative_seconds": 0.173522,
+            "seconds_per_year": 0.006941,
+            "share_of_step": 0.004224
+          },
+          "_update_clan_peaks": {
+            "calls": 25,
+            "self_seconds": 0.009451,
+            "cumulative_seconds": 0.014824,
+            "seconds_per_year": 0.000593,
+            "share_of_step": 0.000361
+          },
+          "_update_government_funds": {
+            "calls": 25,
+            "self_seconds": 0.036165,
+            "cumulative_seconds": 0.242954,
+            "seconds_per_year": 0.009718,
+            "share_of_step": 0.005915
+          },
+          "_summaries": {
+            "calls": 25,
+            "self_seconds": 0.131026,
+            "cumulative_seconds": 22.913617,
+            "seconds_per_year": 0.916545,
+            "share_of_step": 0.557826
+          },
+          "_region_snapshot": {
+            "calls": 25,
+            "self_seconds": 0.041169,
+            "cumulative_seconds": 0.248009,
+            "seconds_per_year": 0.00992,
+            "share_of_step": 0.006038
+          }
+        },
+        "nested_diagnostics": {
+          "_population_flow_ledger": {
+            "calls": 25,
+            "self_seconds": 0.067948,
+            "cumulative_seconds": 0.083121,
+            "seconds_per_year": 0.003325
+          },
+          "_desired_children": {
+            "calls": 41367,
+            "self_seconds": 16.201973,
+            "cumulative_seconds": 35.670835,
+            "seconds_per_year": 1.426833
+          },
+          "_region_capacity_pressure": {
+            "calls": 45186,
+            "self_seconds": 0.009933,
+            "cumulative_seconds": 0.334433,
+            "seconds_per_year": 0.013377
+          },
+          "living_people": {
+            "calls": 694,
+            "self_seconds": 0.119991,
+            "cumulative_seconds": 0.120084,
+            "seconds_per_year": 0.004803
+          },
+          "same_region": {
+            "calls": 111814359,
+            "self_seconds": 6.050323,
+            "cumulative_seconds": 6.050323,
+            "seconds_per_year": 0.242013
+          },
+          "same_kin": {
+            "calls": 55927863,
+            "self_seconds": 2.768909,
+            "cumulative_seconds": 2.768909,
+            "seconds_per_year": 0.110756
+          },
+          "shares_occupation": {
+            "calls": 5500375,
+            "self_seconds": 1.378917,
+            "cumulative_seconds": 8.557402,
+            "seconds_per_year": 0.342296
+          }
+        }
+      },
+      "late": {
+        "years": 25,
+        "start_year": 1995,
+        "end_year": 2020,
+        "end_population": 5818,
+        "end_households": 3142,
+        "end_transfer_records": 114758,
+        "wall_seconds": 88.274839,
+        "step_cumulative_seconds": 87.710595,
+        "step_seconds_per_year": 3.508424,
+        "archive_cumulative_seconds": 0.547288,
+        "archive_seconds_per_year": 0.021892,
+        "unattributed_step_seconds": 0.112007,
+        "phases": {
+          "_update_environment": {
+            "calls": 25,
+            "self_seconds": 0.00049,
+            "cumulative_seconds": 0.011191,
+            "seconds_per_year": 0.000448,
+            "share_of_step": 0.000128
+          },
+          "_update_economic_cycle": {
+            "calls": 25,
+            "self_seconds": 0.000409,
+            "cumulative_seconds": 0.00346,
+            "seconds_per_year": 0.000138,
+            "share_of_step": 3.9e-05
+          },
+          "_health_and_care": {
+            "calls": 25,
+            "self_seconds": 0.176976,
+            "cumulative_seconds": 0.345415,
+            "seconds_per_year": 0.013817,
+            "share_of_step": 0.003938
+          },
+          "_update_childcare_support": {
+            "calls": 25,
+            "self_seconds": 0.076762,
+            "cumulative_seconds": 0.174358,
+            "seconds_per_year": 0.006974,
+            "share_of_step": 0.001988
+          },
+          "_allocate_resources": {
+            "calls": 25,
+            "self_seconds": 0.17757,
+            "cumulative_seconds": 0.360966,
+            "seconds_per_year": 0.014439,
+            "share_of_step": 0.004115
+          },
+          "_mature_young_adults": {
+            "calls": 25,
+            "self_seconds": 0.008671,
+            "cumulative_seconds": 0.052789,
+            "seconds_per_year": 0.002112,
+            "share_of_step": 0.000602
+          },
+          "_career_transitions": {
+            "calls": 25,
+            "self_seconds": 0.087646,
+            "cumulative_seconds": 0.169998,
+            "seconds_per_year": 0.0068,
+            "share_of_step": 0.001938
+          },
+          "_earn_resources": {
+            "calls": 25,
+            "self_seconds": 0.504427,
+            "cumulative_seconds": 1.29987,
+            "seconds_per_year": 0.051995,
+            "share_of_step": 0.01482
+          },
+          "_divorces": {
+            "calls": 25,
+            "self_seconds": 0.088605,
+            "cumulative_seconds": 0.191339,
+            "seconds_per_year": 0.007654,
+            "share_of_step": 0.002181
+          },
+          "_form_family_branches": {
+            "calls": 25,
+            "self_seconds": 0.803182,
+            "cumulative_seconds": 1.390082,
+            "seconds_per_year": 0.055603,
+            "share_of_step": 0.015849
+          },
+          "_births": {
+            "calls": 25,
+            "self_seconds": 0.109929,
+            "cumulative_seconds": 23.372426,
+            "seconds_per_year": 0.934897,
+            "share_of_step": 0.266472
+          },
+          "_internal_migration": {
+            "calls": 25,
+            "self_seconds": 0.100373,
+            "cumulative_seconds": 0.266102,
+            "seconds_per_year": 0.010644,
+            "share_of_step": 0.003034
+          },
+          "_international_migration": {
+            "calls": 25,
+            "self_seconds": 0.04409,
+            "cumulative_seconds": 0.05193,
+            "seconds_per_year": 0.002077,
+            "share_of_step": 0.000592
+          },
+          "_deaths": {
+            "calls": 25,
+            "self_seconds": 0.073054,
+            "cumulative_seconds": 0.372627,
+            "seconds_per_year": 0.014905,
+            "share_of_step": 0.004248
+          },
+          "_population_locations": {
+            "calls": 225,
+            "self_seconds": 0.172673,
+            "cumulative_seconds": 0.246747,
+            "seconds_per_year": 0.00987,
+            "share_of_step": 0.002813
+          },
+          "_update_clan_peaks": {
+            "calls": 25,
+            "self_seconds": 0.012189,
+            "cumulative_seconds": 0.019832,
+            "seconds_per_year": 0.000793,
+            "share_of_step": 0.000226
+          },
+          "_update_government_funds": {
+            "calls": 25,
+            "self_seconds": 0.058097,
+            "cumulative_seconds": 0.332776,
+            "seconds_per_year": 0.013311,
+            "share_of_step": 0.003794
+          },
+          "_summaries": {
+            "calls": 25,
+            "self_seconds": 0.224164,
+            "cumulative_seconds": 58.605267,
+            "seconds_per_year": 2.344211,
+            "share_of_step": 0.668166
+          },
+          "_region_snapshot": {
+            "calls": 25,
+            "self_seconds": 0.059624,
+            "cumulative_seconds": 0.331414,
+            "seconds_per_year": 0.013257,
+            "share_of_step": 0.003778
+          }
+        },
+        "nested_diagnostics": {
+          "_population_flow_ledger": {
+            "calls": 25,
+            "self_seconds": 0.09025,
+            "cumulative_seconds": 0.113774,
+            "seconds_per_year": 0.004551
+          },
+          "_desired_children": {
+            "calls": 50087,
+            "self_seconds": 38.168608,
+            "cumulative_seconds": 80.512622,
+            "seconds_per_year": 3.220505
+          },
+          "_region_capacity_pressure": {
+            "calls": 55736,
+            "self_seconds": 0.012413,
+            "cumulative_seconds": 0.433735,
+            "seconds_per_year": 0.017349
+          },
+          "living_people": {
+            "calls": 700,
+            "self_seconds": 0.180535,
+            "cumulative_seconds": 0.18063,
+            "seconds_per_year": 0.007225
+          },
+          "same_region": {
+            "calls": 266733589,
+            "self_seconds": 14.820337,
+            "cumulative_seconds": 14.820337,
+            "seconds_per_year": 0.592813
+          },
+          "same_kin": {
+            "calls": 133391838,
+            "self_seconds": 6.780775,
+            "cumulative_seconds": 6.780775,
+            "seconds_per_year": 0.271231
+          },
+          "shares_occupation": {
+            "calls": 11772681,
+            "self_seconds": 2.944325,
+            "cumulative_seconds": 16.912323,
+            "seconds_per_year": 0.676493
+          }
+        }
+      },
+      "step_late_to_early_ratio": 2.13529,
+      "population_late_to_early_endpoint_ratio": 1.167804,
+      "households_late_to_early_endpoint_ratio": 1.516409,
+      "phase_growth": {
+        "_update_environment": {
+          "early_seconds_per_year": 0.00044,
+          "late_seconds_per_year": 0.000448,
+          "absolute_increase_seconds_per_year": 8e-06,
+          "late_to_early_ratio": 1.018182
+        },
+        "_update_economic_cycle": {
+          "early_seconds_per_year": 0.000133,
+          "late_seconds_per_year": 0.000138,
+          "absolute_increase_seconds_per_year": 5e-06,
+          "late_to_early_ratio": 1.037594
+        },
+        "_health_and_care": {
+          "early_seconds_per_year": 0.008185,
+          "late_seconds_per_year": 0.013817,
+          "absolute_increase_seconds_per_year": 0.005632,
+          "late_to_early_ratio": 1.688088
+        },
+        "_update_childcare_support": {
+          "early_seconds_per_year": 0.004274,
+          "late_seconds_per_year": 0.006974,
+          "absolute_increase_seconds_per_year": 0.0027,
+          "late_to_early_ratio": 1.631727
+        },
+        "_allocate_resources": {
+          "early_seconds_per_year": 0.019831,
+          "late_seconds_per_year": 0.014439,
+          "absolute_increase_seconds_per_year": -0.005392,
+          "late_to_early_ratio": 0.728102
+        },
+        "_mature_young_adults": {
+          "early_seconds_per_year": 0.003178,
+          "late_seconds_per_year": 0.002112,
+          "absolute_increase_seconds_per_year": -0.001066,
+          "late_to_early_ratio": 0.664569
+        },
+        "_career_transitions": {
+          "early_seconds_per_year": 0.005024,
+          "late_seconds_per_year": 0.0068,
+          "absolute_increase_seconds_per_year": 0.001776,
+          "late_to_early_ratio": 1.353503
+        },
+        "_earn_resources": {
+          "early_seconds_per_year": 0.031612,
+          "late_seconds_per_year": 0.051995,
+          "absolute_increase_seconds_per_year": 0.020383,
+          "late_to_early_ratio": 1.644787
+        },
+        "_divorces": {
+          "early_seconds_per_year": 0.00506,
+          "late_seconds_per_year": 0.007654,
+          "absolute_increase_seconds_per_year": 0.002594,
+          "late_to_early_ratio": 1.512648
+        },
+        "_form_family_branches": {
+          "early_seconds_per_year": 0.046246,
+          "late_seconds_per_year": 0.055603,
+          "absolute_increase_seconds_per_year": 0.009357,
+          "late_to_early_ratio": 1.202331
+        },
+        "_births": {
+          "early_seconds_per_year": 0.554628,
+          "late_seconds_per_year": 0.934897,
+          "absolute_increase_seconds_per_year": 0.380269,
+          "late_to_early_ratio": 1.685629
+        },
+        "_internal_migration": {
+          "early_seconds_per_year": 0.005431,
+          "late_seconds_per_year": 0.010644,
+          "absolute_increase_seconds_per_year": 0.005213,
+          "late_to_early_ratio": 1.95986
+        },
+        "_international_migration": {
+          "early_seconds_per_year": 0.001082,
+          "late_seconds_per_year": 0.002077,
+          "absolute_increase_seconds_per_year": 0.000995,
+          "late_to_early_ratio": 1.919593
+        },
+        "_deaths": {
+          "early_seconds_per_year": 0.010911,
+          "late_seconds_per_year": 0.014905,
+          "absolute_increase_seconds_per_year": 0.003994,
+          "late_to_early_ratio": 1.366053
+        },
+        "_population_locations": {
+          "early_seconds_per_year": 0.006941,
+          "late_seconds_per_year": 0.00987,
+          "absolute_increase_seconds_per_year": 0.002929,
+          "late_to_early_ratio": 1.421985
+        },
+        "_update_clan_peaks": {
+          "early_seconds_per_year": 0.000593,
+          "late_seconds_per_year": 0.000793,
+          "absolute_increase_seconds_per_year": 0.0002,
+          "late_to_early_ratio": 1.337268
+        },
+        "_update_government_funds": {
+          "early_seconds_per_year": 0.009718,
+          "late_seconds_per_year": 0.013311,
+          "absolute_increase_seconds_per_year": 0.003593,
+          "late_to_early_ratio": 1.369726
+        },
+        "_summaries": {
+          "early_seconds_per_year": 0.916545,
+          "late_seconds_per_year": 2.344211,
+          "absolute_increase_seconds_per_year": 1.427666,
+          "late_to_early_ratio": 2.557661
+        },
+        "_region_snapshot": {
+          "early_seconds_per_year": 0.00992,
+          "late_seconds_per_year": 0.013257,
+          "absolute_increase_seconds_per_year": 0.003337,
+          "late_to_early_ratio": 1.336391
+        }
+      }
+    },
+    {
+      "seed": 20261008,
+      "early": {
+        "years": 25,
+        "start_year": 1970,
+        "end_year": 1995,
+        "end_population": 4923,
+        "end_households": 2015,
+        "end_transfer_records": 57890,
+        "wall_seconds": 39.888909,
+        "step_cumulative_seconds": 39.304115,
+        "step_seconds_per_year": 1.572165,
+        "archive_cumulative_seconds": 0.57154,
+        "archive_seconds_per_year": 0.022862,
+        "unattributed_step_seconds": 0.080233,
+        "phases": {
+          "_update_environment": {
+            "calls": 25,
+            "self_seconds": 0.000461,
+            "cumulative_seconds": 0.010607,
+            "seconds_per_year": 0.000424,
+            "share_of_step": 0.00027
+          },
+          "_update_economic_cycle": {
+            "calls": 25,
+            "self_seconds": 0.000389,
+            "cumulative_seconds": 0.003247,
+            "seconds_per_year": 0.00013,
+            "share_of_step": 8.3e-05
+          },
+          "_health_and_care": {
+            "calls": 25,
+            "self_seconds": 0.099798,
+            "cumulative_seconds": 0.200145,
+            "seconds_per_year": 0.008006,
+            "share_of_step": 0.005092
+          },
+          "_update_childcare_support": {
+            "calls": 25,
+            "self_seconds": 0.04402,
+            "cumulative_seconds": 0.096718,
+            "seconds_per_year": 0.003869,
+            "share_of_step": 0.002461
+          },
+          "_allocate_resources": {
+            "calls": 25,
+            "self_seconds": 0.237179,
+            "cumulative_seconds": 0.496505,
+            "seconds_per_year": 0.01986,
+            "share_of_step": 0.012632
+          },
+          "_mature_young_adults": {
+            "calls": 25,
+            "self_seconds": 0.012002,
+            "cumulative_seconds": 0.083198,
+            "seconds_per_year": 0.003328,
+            "share_of_step": 0.002117
+          },
+          "_career_transitions": {
+            "calls": 25,
+            "self_seconds": 0.060489,
+            "cumulative_seconds": 0.12185,
+            "seconds_per_year": 0.004874,
+            "share_of_step": 0.0031
+          },
+          "_earn_resources": {
+            "calls": 25,
+            "self_seconds": 0.272953,
+            "cumulative_seconds": 0.767723,
+            "seconds_per_year": 0.030709,
+            "share_of_step": 0.019533
+          },
+          "_divorces": {
+            "calls": 25,
+            "self_seconds": 0.053118,
+            "cumulative_seconds": 0.122706,
+            "seconds_per_year": 0.004908,
+            "share_of_step": 0.003122
+          },
+          "_form_family_branches": {
+            "calls": 25,
+            "self_seconds": 0.651102,
+            "cumulative_seconds": 1.134161,
+            "seconds_per_year": 0.045366,
+            "share_of_step": 0.028856
+          },
+          "_births": {
+            "calls": 25,
+            "self_seconds": 0.092218,
+            "cumulative_seconds": 13.233336,
+            "seconds_per_year": 0.529333,
+            "share_of_step": 0.336691
+          },
+          "_internal_migration": {
+            "calls": 25,
+            "self_seconds": 0.049667,
+            "cumulative_seconds": 0.127177,
+            "seconds_per_year": 0.005087,
+            "share_of_step": 0.003236
+          },
+          "_international_migration": {
+            "calls": 25,
+            "self_seconds": 0.022534,
+            "cumulative_seconds": 0.026323,
+            "seconds_per_year": 0.001053,
+            "share_of_step": 0.00067
+          },
+          "_deaths": {
+            "calls": 25,
+            "self_seconds": 0.041719,
+            "cumulative_seconds": 0.256938,
+            "seconds_per_year": 0.010278,
+            "share_of_step": 0.006537
+          },
+          "_population_locations": {
+            "calls": 225,
+            "self_seconds": 0.127097,
+            "cumulative_seconds": 0.171432,
+            "seconds_per_year": 0.006857,
+            "share_of_step": 0.004362
+          },
+          "_update_clan_peaks": {
+            "calls": 25,
+            "self_seconds": 0.009602,
+            "cumulative_seconds": 0.014738,
+            "seconds_per_year": 0.00059,
+            "share_of_step": 0.000375
+          },
+          "_update_government_funds": {
+            "calls": 25,
+            "self_seconds": 0.034598,
+            "cumulative_seconds": 0.23284,
+            "seconds_per_year": 0.009314,
+            "share_of_step": 0.005924
+          },
+          "_summaries": {
+            "calls": 25,
+            "self_seconds": 0.125144,
+            "cumulative_seconds": 21.889666,
+            "seconds_per_year": 0.875587,
+            "share_of_step": 0.556931
+          },
+          "_region_snapshot": {
+            "calls": 25,
+            "self_seconds": 0.039659,
+            "cumulative_seconds": 0.234573,
+            "seconds_per_year": 0.009383,
+            "share_of_step": 0.005968
+          }
+        },
+        "nested_diagnostics": {
+          "_population_flow_ledger": {
+            "calls": 25,
+            "self_seconds": 0.065761,
+            "cumulative_seconds": 0.080193,
+            "seconds_per_year": 0.003208
+          },
+          "_desired_children": {
+            "calls": 41096,
+            "self_seconds": 15.645911,
+            "cumulative_seconds": 34.057846,
+            "seconds_per_year": 1.362314
+          },
+          "_region_capacity_pressure": {
+            "calls": 44586,
+            "self_seconds": 0.009467,
+            "cumulative_seconds": 0.331902,
+            "seconds_per_year": 0.013276
+          },
+          "living_people": {
+            "calls": 688,
+            "self_seconds": 0.112401,
+            "cumulative_seconds": 0.112486,
+            "seconds_per_year": 0.004499
+          },
+          "same_region": {
+            "calls": 110354558,
+            "self_seconds": 5.634464,
+            "cumulative_seconds": 5.634464,
+            "seconds_per_year": 0.225379
+          },
+          "same_kin": {
+            "calls": 55197827,
+            "self_seconds": 2.569343,
+            "cumulative_seconds": 2.569343,
+            "seconds_per_year": 0.102774
+          },
+          "shares_occupation": {
+            "calls": 5468155,
+            "self_seconds": 1.304002,
+            "cumulative_seconds": 8.204925,
+            "seconds_per_year": 0.328197
+          }
+        }
+      },
+      "late": {
+        "years": 25,
+        "start_year": 1995,
+        "end_year": 2020,
+        "end_population": 5726,
+        "end_households": 3103,
+        "end_transfer_records": 111811,
+        "wall_seconds": 81.141138,
+        "step_cumulative_seconds": 80.617824,
+        "step_seconds_per_year": 3.224713,
+        "archive_cumulative_seconds": 0.506828,
+        "archive_seconds_per_year": 0.020273,
+        "unattributed_step_seconds": 0.104663,
+        "phases": {
+          "_update_environment": {
+            "calls": 25,
+            "self_seconds": 0.000456,
+            "cumulative_seconds": 0.010522,
+            "seconds_per_year": 0.000421,
+            "share_of_step": 0.000131
+          },
+          "_update_economic_cycle": {
+            "calls": 25,
+            "self_seconds": 0.000393,
+            "cumulative_seconds": 0.003243,
+            "seconds_per_year": 0.00013,
+            "share_of_step": 4e-05
+          },
+          "_health_and_care": {
+            "calls": 25,
+            "self_seconds": 0.16712,
+            "cumulative_seconds": 0.324339,
+            "seconds_per_year": 0.012974,
+            "share_of_step": 0.004023
+          },
+          "_update_childcare_support": {
+            "calls": 25,
+            "self_seconds": 0.071366,
+            "cumulative_seconds": 0.16385,
+            "seconds_per_year": 0.006554,
+            "share_of_step": 0.002032
+          },
+          "_allocate_resources": {
+            "calls": 25,
+            "self_seconds": 0.162452,
+            "cumulative_seconds": 0.328742,
+            "seconds_per_year": 0.01315,
+            "share_of_step": 0.004078
+          },
+          "_mature_young_adults": {
+            "calls": 25,
+            "self_seconds": 0.007647,
+            "cumulative_seconds": 0.046562,
+            "seconds_per_year": 0.001862,
+            "share_of_step": 0.000578
+          },
+          "_career_transitions": {
+            "calls": 25,
+            "self_seconds": 0.082772,
+            "cumulative_seconds": 0.161437,
+            "seconds_per_year": 0.006457,
+            "share_of_step": 0.002002
+          },
+          "_earn_resources": {
+            "calls": 25,
+            "self_seconds": 0.479858,
+            "cumulative_seconds": 1.235789,
+            "seconds_per_year": 0.049432,
+            "share_of_step": 0.015329
+          },
+          "_divorces": {
+            "calls": 25,
+            "self_seconds": 0.082819,
+            "cumulative_seconds": 0.180608,
+            "seconds_per_year": 0.007224,
+            "share_of_step": 0.00224
+          },
+          "_form_family_branches": {
+            "calls": 25,
+            "self_seconds": 0.760286,
+            "cumulative_seconds": 1.310363,
+            "seconds_per_year": 0.052415,
+            "share_of_step": 0.016254
+          },
+          "_births": {
+            "calls": 25,
+            "self_seconds": 0.102823,
+            "cumulative_seconds": 20.965295,
+            "seconds_per_year": 0.838612,
+            "share_of_step": 0.260058
+          },
+          "_internal_migration": {
+            "calls": 25,
+            "self_seconds": 0.092123,
+            "cumulative_seconds": 0.242965,
+            "seconds_per_year": 0.009719,
+            "share_of_step": 0.003014
+          },
+          "_international_migration": {
+            "calls": 25,
+            "self_seconds": 0.038825,
+            "cumulative_seconds": 0.04641,
+            "seconds_per_year": 0.001856,
+            "share_of_step": 0.000576
+          },
+          "_deaths": {
+            "calls": 25,
+            "self_seconds": 0.061525,
+            "cumulative_seconds": 0.33754,
+            "seconds_per_year": 0.013502,
+            "share_of_step": 0.004187
+          },
+          "_population_locations": {
+            "calls": 225,
+            "self_seconds": 0.159237,
+            "cumulative_seconds": 0.221274,
+            "seconds_per_year": 0.008851,
+            "share_of_step": 0.002745
+          },
+          "_update_clan_peaks": {
+            "calls": 25,
+            "self_seconds": 0.01098,
+            "cumulative_seconds": 0.017115,
+            "seconds_per_year": 0.000685,
+            "share_of_step": 0.000212
+          },
+          "_update_government_funds": {
+            "calls": 25,
+            "self_seconds": 0.051553,
+            "cumulative_seconds": 0.301488,
+            "seconds_per_year": 0.01206,
+            "share_of_step": 0.00374
+          },
+          "_summaries": {
+            "calls": 25,
+            "self_seconds": 0.204461,
+            "cumulative_seconds": 54.304014,
+            "seconds_per_year": 2.172161,
+            "share_of_step": 0.673598
+          },
+          "_region_snapshot": {
+            "calls": 25,
+            "self_seconds": 0.056345,
+            "cumulative_seconds": 0.311605,
+            "seconds_per_year": 0.012464,
+            "share_of_step": 0.003865
+          }
+        },
+        "nested_diagnostics": {
+          "_population_flow_ledger": {
+            "calls": 25,
+            "self_seconds": 0.084363,
+            "cumulative_seconds": 0.104999,
+            "seconds_per_year": 0.0042
+          },
+          "_desired_children": {
+            "calls": 49581,
+            "self_seconds": 35.705201,
+            "cumulative_seconds": 73.917773,
+            "seconds_per_year": 2.956711
+          },
+          "_region_capacity_pressure": {
+            "calls": 55274,
+            "self_seconds": 0.011349,
+            "cumulative_seconds": 0.419241,
+            "seconds_per_year": 0.01677
+          },
+          "living_people": {
+            "calls": 698,
+            "self_seconds": 0.153559,
+            "cumulative_seconds": 0.153648,
+            "seconds_per_year": 0.006146
+          },
+          "same_region": {
+            "calls": 259842739,
+            "self_seconds": 13.436629,
+            "cumulative_seconds": 13.436629,
+            "seconds_per_year": 0.537465
+          },
+          "same_kin": {
+            "calls": 129946160,
+            "self_seconds": 6.115913,
+            "cumulative_seconds": 6.115913,
+            "seconds_per_year": 0.244637
+          },
+          "shares_occupation": {
+            "calls": 11191462,
+            "self_seconds": 2.627539,
+            "cumulative_seconds": 15.176359,
+            "seconds_per_year": 0.607054
+          }
+        }
+      },
+      "step_late_to_early_ratio": 2.051129,
+      "population_late_to_early_endpoint_ratio": 1.163112,
+      "households_late_to_early_endpoint_ratio": 1.53995,
+      "phase_growth": {
+        "_update_environment": {
+          "early_seconds_per_year": 0.000424,
+          "late_seconds_per_year": 0.000421,
+          "absolute_increase_seconds_per_year": -3e-06,
+          "late_to_early_ratio": 0.992925
+        },
+        "_update_economic_cycle": {
+          "early_seconds_per_year": 0.00013,
+          "late_seconds_per_year": 0.00013,
+          "absolute_increase_seconds_per_year": 0.0,
+          "late_to_early_ratio": 1.0
+        },
+        "_health_and_care": {
+          "early_seconds_per_year": 0.008006,
+          "late_seconds_per_year": 0.012974,
+          "absolute_increase_seconds_per_year": 0.004968,
+          "late_to_early_ratio": 1.620535
+        },
+        "_update_childcare_support": {
+          "early_seconds_per_year": 0.003869,
+          "late_seconds_per_year": 0.006554,
+          "absolute_increase_seconds_per_year": 0.002685,
+          "late_to_early_ratio": 1.693978
+        },
+        "_allocate_resources": {
+          "early_seconds_per_year": 0.01986,
+          "late_seconds_per_year": 0.01315,
+          "absolute_increase_seconds_per_year": -0.00671,
+          "late_to_early_ratio": 0.662135
+        },
+        "_mature_young_adults": {
+          "early_seconds_per_year": 0.003328,
+          "late_seconds_per_year": 0.001862,
+          "absolute_increase_seconds_per_year": -0.001466,
+          "late_to_early_ratio": 0.559495
+        },
+        "_career_transitions": {
+          "early_seconds_per_year": 0.004874,
+          "late_seconds_per_year": 0.006457,
+          "absolute_increase_seconds_per_year": 0.001583,
+          "late_to_early_ratio": 1.324785
+        },
+        "_earn_resources": {
+          "early_seconds_per_year": 0.030709,
+          "late_seconds_per_year": 0.049432,
+          "absolute_increase_seconds_per_year": 0.018723,
+          "late_to_early_ratio": 1.609691
+        },
+        "_divorces": {
+          "early_seconds_per_year": 0.004908,
+          "late_seconds_per_year": 0.007224,
+          "absolute_increase_seconds_per_year": 0.002316,
+          "late_to_early_ratio": 1.471883
+        },
+        "_form_family_branches": {
+          "early_seconds_per_year": 0.045366,
+          "late_seconds_per_year": 0.052415,
+          "absolute_increase_seconds_per_year": 0.007049,
+          "late_to_early_ratio": 1.155381
+        },
+        "_births": {
+          "early_seconds_per_year": 0.529333,
+          "late_seconds_per_year": 0.838612,
+          "absolute_increase_seconds_per_year": 0.309279,
+          "late_to_early_ratio": 1.584281
+        },
+        "_internal_migration": {
+          "early_seconds_per_year": 0.005087,
+          "late_seconds_per_year": 0.009719,
+          "absolute_increase_seconds_per_year": 0.004632,
+          "late_to_early_ratio": 1.910556
+        },
+        "_international_migration": {
+          "early_seconds_per_year": 0.001053,
+          "late_seconds_per_year": 0.001856,
+          "absolute_increase_seconds_per_year": 0.000803,
+          "late_to_early_ratio": 1.762583
+        },
+        "_deaths": {
+          "early_seconds_per_year": 0.010278,
+          "late_seconds_per_year": 0.013502,
+          "absolute_increase_seconds_per_year": 0.003224,
+          "late_to_early_ratio": 1.31368
+        },
+        "_population_locations": {
+          "early_seconds_per_year": 0.006857,
+          "late_seconds_per_year": 0.008851,
+          "absolute_increase_seconds_per_year": 0.001994,
+          "late_to_early_ratio": 1.290798
+        },
+        "_update_clan_peaks": {
+          "early_seconds_per_year": 0.00059,
+          "late_seconds_per_year": 0.000685,
+          "absolute_increase_seconds_per_year": 9.5e-05,
+          "late_to_early_ratio": 1.161017
+        },
+        "_update_government_funds": {
+          "early_seconds_per_year": 0.009314,
+          "late_seconds_per_year": 0.01206,
+          "absolute_increase_seconds_per_year": 0.002746,
+          "late_to_early_ratio": 1.294825
+        },
+        "_summaries": {
+          "early_seconds_per_year": 0.875587,
+          "late_seconds_per_year": 2.172161,
+          "absolute_increase_seconds_per_year": 1.296574,
+          "late_to_early_ratio": 2.480805
+        },
+        "_region_snapshot": {
+          "early_seconds_per_year": 0.009383,
+          "late_seconds_per_year": 0.012464,
+          "absolute_increase_seconds_per_year": 0.003081,
+          "late_to_early_ratio": 1.32836
+        }
+      }
+    }
+  ],
+  "phase_growth_ranking": [
+    {
+      "phase": "_summaries",
+      "median_absolute_increase_seconds_per_year": 1.405225,
+      "median_late_to_early_ratio": 2.557661
+    },
+    {
+      "phase": "_births",
+      "median_absolute_increase_seconds_per_year": 0.3556,
+      "median_late_to_early_ratio": 1.669076
+    },
+    {
+      "phase": "_earn_resources",
+      "median_absolute_increase_seconds_per_year": 0.019465,
+      "median_late_to_early_ratio": 1.641499
+    },
+    {
+      "phase": "_form_family_branches",
+      "median_absolute_increase_seconds_per_year": 0.007049,
+      "median_late_to_early_ratio": 1.155381
+    },
+    {
+      "phase": "_health_and_care",
+      "median_absolute_increase_seconds_per_year": 0.005059,
+      "median_late_to_early_ratio": 1.631113
+    },
+    {
+      "phase": "_internal_migration",
+      "median_absolute_increase_seconds_per_year": 0.005026,
+      "median_late_to_early_ratio": 1.95986
+    },
+    {
+      "phase": "_deaths",
+      "median_absolute_increase_seconds_per_year": 0.003322,
+      "median_late_to_early_ratio": 1.319086
+    },
+    {
+      "phase": "_region_snapshot",
+      "median_absolute_increase_seconds_per_year": 0.003081,
+      "median_late_to_early_ratio": 1.32836
+    },
+    {
+      "phase": "_update_government_funds",
+      "median_absolute_increase_seconds_per_year": 0.002933,
+      "median_late_to_early_ratio": 1.31763
+    },
+    {
+      "phase": "_population_locations",
+      "median_absolute_increase_seconds_per_year": 0.002929,
+      "median_late_to_early_ratio": 1.421985
+    },
+    {
+      "phase": "_update_childcare_support",
+      "median_absolute_increase_seconds_per_year": 0.002685,
+      "median_late_to_early_ratio": 1.631727
+    },
+    {
+      "phase": "_divorces",
+      "median_absolute_increase_seconds_per_year": 0.002594,
+      "median_late_to_early_ratio": 1.512648
+    },
+    {
+      "phase": "_career_transitions",
+      "median_absolute_increase_seconds_per_year": 0.001601,
+      "median_late_to_early_ratio": 1.326402
+    },
+    {
+      "phase": "_international_migration",
+      "median_absolute_increase_seconds_per_year": 0.000904,
+      "median_late_to_early_ratio": 1.882812
+    },
+    {
+      "phase": "_update_clan_peaks",
+      "median_absolute_increase_seconds_per_year": 9.8e-05,
+      "median_late_to_early_ratio": 1.176895
+    },
+    {
+      "phase": "_update_environment",
+      "median_absolute_increase_seconds_per_year": 8e-06,
+      "median_late_to_early_ratio": 1.018182
+    },
+    {
+      "phase": "_update_economic_cycle",
+      "median_absolute_increase_seconds_per_year": 1e-06,
+      "median_late_to_early_ratio": 1.007692
+    },
+    {
+      "phase": "_mature_young_adults",
+      "median_absolute_increase_seconds_per_year": -0.001222,
+      "median_late_to_early_ratio": 0.6
+    },
+    {
+      "phase": "_allocate_resources",
+      "median_absolute_increase_seconds_per_year": -0.006441,
+      "median_late_to_early_ratio": 0.665611
+    }
+  ],
+  "median_step_late_to_early_ratio": 2.13529,
+  "interpretation_boundary": [
+    "profiler timings are machine- and load-specific",
+    "ranked direct step phases are additive; nested diagnostics are excluded from ranking",
+    "association with entity growth does not identify causal model effects",
+    "runtime profiling does not improve historical predictive validity"
+  ]
+}
