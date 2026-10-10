@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "kind": "world_fingerprint_capture",
+  "label": "merged-social-scan",
+  "scope": "strict implementation equivalence; timings are machine-specific",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "scenario_sha256": "83cf72f1f8a72822000809fc3afa5d796607abac91534dbd5e2c2b3ce21ab6f9",
+    "years": 20,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true
+  },
+  "family_world_sha256": "8b3c3442479011587133df2deb7e2b32dfee9e5305ce063599462c5bca8bec0e",
+  "runs": [
+    {
+      "seed": 20261006,
+      "yearly_fingerprints": [
+        {
+          "year": 1971,
+          "fingerprint": "b1e3820ed40b980780aefa148546d6af5ebe0a7f70c3310eee07fb53dd4da14c"
+        },
+        {
+          "year": 1972,
+          "fingerprint": "7989caedb8ed6c52987771e4c66a244badc4793eb969c4e5e1ff7fd5c2792854"
+        },
+        {
+          "year": 1973,
+          "fingerprint": "ee2d7a8bf20e8f31edc7cd4774852b7ca9cc6501397f7f93ee8fc6b0cac8595c"
+        },
+        {
+          "year": 1974,
+          "fingerprint": "2b594c605091ac0064a1acc2d595495f579a72a4644a3e1211e11ef856e83b00"
+        },
+        {
+          "year": 1975,
+          "fingerprint": "b0ac6f074f5bbf98ef9e7370882a740cf459f672063b1252c5f3bbb5bb90248f"
+        },
+        {
+          "year": 1976,
+          "fingerprint": "bc829428ab4e7a424cfa3026ffaf7ac8ed1423e54cef0fa1a8bdb3b1b259847c"
+        },
+        {
+          "year": 1977,
+          "fingerprint": "e8d6d046f53842d5496f3f0bbe9314a123e12236c0b30592ca78dcd41a4b9a10"
+        },
+        {
+          "year": 1978,
+          "fingerprint": "1190553b786b029f2aea9ba4f5d1420e76e0e94d72e85be8d13b4fa809b31e04"
+        },
+        {
+          "year": 1979,
+          "fingerprint": "97a8749aa3f38deda629ee1aa1eb6e4617d4cad6696867a07ce45d0a3cef3b08"
+        },
+        {
+          "year": 1980,
+          "fingerprint": "15ee0cd9ee46060b64bdd3e95026898c29a5c99d4e1a0d6a990d9f8621ab2cc2"
+        },
+        {
+          "year": 1981,
+          "fingerprint": "0cee1af1d57c02781c1d66b4f4e3ae5b83c6b434041b5f2015b364a4c0daee02"
+        },
+        {
+          "year": 1982,
+          "fingerprint": "b7366954511fa027d78baa62b425f1e79e80d8bbfc29c64bee11a918b16717da"
+        },
+        {
+          "year": 1983,
+          "fingerprint": "fb010558c197dd03e7b6b57d2790f9ad877796c20bf26d35f33a4c7dcf316a34"
+        },
+        {
+          "year": 1984,
+          "fingerprint": "fd644343bb709f6016cc099ccd41a9d24e49046eabcc8eacf0015110d99a17c5"
+        },
+        {
+          "year": 1985,
+          "fingerprint": "459cd956f9c1856413dc513efd2939ba99cfea0986f018a8a381bd607fafe400"
+        },
+        {
+          "year": 1986,
+          "fingerprint": "d871e9c47c2f6f98c438af9985c852ebcf3e28165b98b432d4f036b7de31c36c"
+        },
+        {
+          "year": 1987,
+          "fingerprint": "dfcf6b5ffe3cf3a87fac25d9be6ae96bb29c84a33741ba99e184a1beaaac8e85"
+        },
+        {
+          "year": 1988,
+          "fingerprint": "38a4603c4a200d1cb4973fab973d3f53ab7405865388bbd0ccce3e9234ffda9f"
+        },
+        {
+          "year": 1989,
+          "fingerprint": "d16c9bc8e970c8902fda17de84a2efddc01acb192d69d6c581b77940751a5388"
+        },
+        {
+          "year": 1990,
+          "fingerprint": "0ef1eb9440780c1b249a4f72d867c755618c9d47fdfad9da83727c5b595265b1"
+        }
+      ],
+      "final_population": 4690,
+      "final_households": 1683,
+      "transfer_records": 48699,
+      "rng_state_sha256": "ef94cf49499a44fd68ed5406a420ee8c74f42fc1b13a8f579129366a8b3673cd",
+      "step_seconds": 19.117517,
+      "step_seconds_per_year": 0.955876
+    },
+    {
+      "seed": 20261007,
+      "yearly_fingerprints": [
+        {
+          "year": 1971,
+          "fingerprint": "ef2d64f34b2cc8b040109f282da69b2ca16f4c80f8d1dae9e6da9348a88ac3f3"
+        },
+        {
+          "year": 1972,
+          "fingerprint": "8067a3f96c32118f4c7735f9a0e53d2cca60592861db1c36e456c9fcbf9b4337"
+        },
+        {
+          "year": 1973,
+          "fingerprint": "bff92db42e0c53efa28b3918b37304833ff42421553316377e515d0ee5588069"
+        },
+        {
+          "year": 1974,
+          "fingerprint": "f7f00e8304229e1b458d1e6e3307517484eeb8184fe4b3c23c5aa24c93b4f483"
+        },
+        {
+          "year": 1975,
+          "fingerprint": "3cd15164c7b36b14a7707168596b881b079989d3411ee329f999ef8e53e95275"
+        },
+        {
+          "year": 1976,
+          "fingerprint": "b77d236e7a8bf61593d534131200ca7bec5422d7aa2e14aeaef8d4cb75fac46b"
+        },
+        {
+          "year": 1977,
+          "fingerprint": "a533420dc17bb1b7eb8e258e6544d0f8e2e279ca316860e5c78858cf04d71a47"
+        },
+        {
+          "year": 1978,
+          "fingerprint": "440ea727490e3f975a6316f42606ad640b27e0081acf50bbef71df6b600110c1"
+        },
+        {
+          "year": 1979,
+          "fingerprint": "3a5e46e8517e4a6c8b3f5d901b668105c596866c64cba9f6a04e373ca093d737"
+        },
+        {
+          "year": 1980,
+          "fingerprint": "e2576dff0cc34745a12082f1d17cb000e98f1a6f1d9194f2dcb08d5ba5318acf"
+        },
+        {
+          "year": 1981,
+          "fingerprint": "9b526947a06a56732e42c420be62140fef22400c35f103b7b1374eaa7878ffdf"
+        },
+        {
+          "year": 1982,
+          "fingerprint": "0e3099b8a9ae100fe1bae0b569bda18a66e97cb70aff24cc1a589ffe2029e5bc"
+        },
+        {
+          "year": 1983,
+          "fingerprint": "b4e77aeb2cea7ffff6a105ebf2d64694c294f68f9ce0a795547598e24be24d7d"
+        },
+        {
+          "year": 1984,
+          "fingerprint": "99133d20784151476540e1d3c5fff1f8b62a67bebc22dd15e36c4dd720cd2050"
+        },
+        {
+          "year": 1985,
+          "fingerprint": "8f0fc74391e5dcf66c57992a47911a25b72489f844599f89d4d70fd04748b650"
+        },
+        {
+          "year": 1986,
+          "fingerprint": "d4dbc7767ced1554365bb9010fe33526257298e0f6b318653a52de2838fbf157"
+        },
+        {
+          "year": 1987,
+          "fingerprint": "065b8856e28ce45d47a4298f44f528e354aa2908622fb94549fe4f0b3fe0eb24"
+        },
+        {
+          "year": 1988,
+          "fingerprint": "d12dccbd24ada1e74f849833d74c65910680e13bd478f8a0a2c6fdbbf70d91c2"
+        },
+        {
+          "year": 1989,
+          "fingerprint": "7aca9ae58cd176e3c18b8901925e8bddb2c323a5dd25fca148e45cc55bac7bf6"
+        },
+        {
+          "year": 1990,
+          "fingerprint": "b1cc76866ab52160da418e183d1405037c6fcc7444024ca4b885d9d833462c65"
+        }
+      ],
+      "final_population": 4675,
+      "final_households": 1689,
+      "transfer_records": 48129,
+      "rng_state_sha256": "05a492080f7ec3ae14b3fe4d55bd970b4ae203d68563d6ede612f16468bd9624",
+      "step_seconds": 19.923317,
+      "step_seconds_per_year": 0.996166
+    },
+    {
+      "seed": 20261008,
+      "yearly_fingerprints": [
+        {
+          "year": 1971,
+          "fingerprint": "ebd59054331712ce6a4ac7a4a2aa5b7dedeeec874047768570700f7e5347a9f9"
+        },
+        {
+          "year": 1972,
+          "fingerprint": "5837c066fdc06018d228b246567f041418e931ac7f0cac68db3b3aeb9b400fd9"
+        },
+        {
+          "year": 1973,
+          "fingerprint": "bb41cf97d9124a80f29edf75b3c14171db862dac3fa021b666c6b78fdb0e9458"
+        },
+        {
+          "year": 1974,
+          "fingerprint": "0d205eaac31b8dce583a1caef1ed4bfd9e6539f3bc39169e56eef8edb6f0401e"
+        },
+        {
+          "year": 1975,
+          "fingerprint": "0b50e3cb859b616d4e3ec9be314945ac8cb187f3165ecc4fc19b2a6763d315d9"
+        },
+        {
+          "year": 1976,
+          "fingerprint": "c8a248795fe7e118a3e9ebfadbe5b19ad2756bfc81efaa6a92e4734357dc659b"
+        },
+        {
+          "year": 1977,
+          "fingerprint": "84c7b82c6d2da226ac9377fb988c6e022010c6f3d1f7bca03ab9e58ae6745fb0"
+        },
+        {
+          "year": 1978,
+          "fingerprint": "a9bd424a1158ea389d1625aa6e1ad81f17e62a6395a530d8db7a654a70d42d80"
+        },
+        {
+          "year": 1979,
+          "fingerprint": "f727ada4054d3ee3a23af0b44d2374f96eda8af60270f16ee69232c060b27fde"
+        },
+        {
+          "year": 1980,
+          "fingerprint": "08106e5c3fd6b7d87cc07f7350dd15f2975d4ecf6b737ef354679ca7a1d252d3"
+        },
+        {
+          "year": 1981,
+          "fingerprint": "31be53f4a18146c10cbd1666f0e906e8dd6aac2385c2eae824151ba97734111b"
+        },
+        {
+          "year": 1982,
+          "fingerprint": "bdd8461a800cf02e994c428ec59547bf4b60c235d84e8afce231a1a93d1ffa96"
+        },
+        {
+          "year": 1983,
+          "fingerprint": "1fac097b8a082d1c9cf50c83fd9fdd5b1ac02098d823a5327229ac9443434240"
+        },
+        {
+          "year": 1984,
+          "fingerprint": "9e5374510ecc61cfcb7ffd9050c8a19d1482762f70bfd51da1bc2835972ddbd3"
+        },
+        {
+          "year": 1985,
+          "fingerprint": "ff0afbd0460c3bb66d41b0755c184a0c1678d872ff798a7332272815154fece8"
+        },
+        {
+          "year": 1986,
+          "fingerprint": "5d7e171d7692b4781b308c39d395056fc5ff170422a092c1a66598f0ca0fed7a"
+        },
+        {
+          "year": 1987,
+          "fingerprint": "4fdb7a49899a8ba0a25e175a8ca92c109aa64848c78963046c8b3c8553ee0bb6"
+        },
+        {
+          "year": 1988,
+          "fingerprint": "3f15f0bdfc7a0be83db4ca17c7c9bdd74e8ad58ff41031e9987070527e9fd481"
+        },
+        {
+          "year": 1989,
+          "fingerprint": "785c2c2d4fbad3e12bf05592bcc1a01d0ac8116068852cd42d09b7f8ef8b7124"
+        },
+        {
+          "year": 1990,
+          "fingerprint": "8de9f71ed4de8b2fc32c726b78cfc0c7099e39e345a18ef99865d180484efb9b"
+        }
+      ],
+      "final_population": 4600,
+      "final_households": 1653,
+      "transfer_records": 47135,
+      "rng_state_sha256": "bc4d947502e14baec4f7d7a214b3a14265ee121adeb775a5d1ec6b46bf8d7508",
+      "step_seconds": 18.567847,
+      "step_seconds_per_year": 0.928392
+    }
+  ]
+}

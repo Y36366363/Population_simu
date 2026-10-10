@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "strict_refactor_equivalence",
+  "scope": "state equivalence and same-session timing; not empirical validation",
+  "baseline": "docs/artifacts/desired_children_fingerprint_baseline_2026-10-10.json",
+  "candidate": "docs/artifacts/desired_children_fingerprint_candidate_2026-10-10.json",
+  "baseline_family_world_sha256": "00669cc2ac3483e1a74cac38b80dd4ac5002d6b71d7c2b0cd825cd8ed99c13d3",
+  "candidate_family_world_sha256": "8b3c3442479011587133df2deb7e2b32dfee9e5305ce063599462c5bca8bec0e",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "scenario_sha256": "83cf72f1f8a72822000809fc3afa5d796607abac91534dbd5e2c2b3ce21ab6f9",
+    "years": 20,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true
+  },
+  "comparisons": [
+    {
+      "seed": 20261006,
+      "modeled_fields_equal": {
+        "yearly_fingerprints": true,
+        "final_population": true,
+        "final_households": true,
+        "transfer_records": true,
+        "rng_state_sha256": true
+      },
+      "baseline_step_seconds": 19.027351,
+      "candidate_step_seconds": 19.117517,
+      "candidate_to_baseline_runtime_ratio": 1.0047387573814137,
+      "runtime_reduction_share": -0.004738757381413716
+    },
+    {
+      "seed": 20261007,
+      "modeled_fields_equal": {
+        "yearly_fingerprints": true,
+        "final_population": true,
+        "final_households": true,
+        "transfer_records": true,
+        "rng_state_sha256": true
+      },
+      "baseline_step_seconds": 19.110926,
+      "candidate_step_seconds": 19.923317,
+      "candidate_to_baseline_runtime_ratio": 1.0425092431418552,
+      "runtime_reduction_share": -0.042509243141855224
+    },
+    {
+      "seed": 20261008,
+      "modeled_fields_equal": {
+        "yearly_fingerprints": true,
+        "final_population": true,
+        "final_households": true,
+        "transfer_records": true,
+        "rng_state_sha256": true
+      },
+      "baseline_step_seconds": 18.774351,
+      "candidate_step_seconds": 18.567847,
+      "candidate_to_baseline_runtime_ratio": 0.9890007382944955,
+      "runtime_reduction_share": 0.01099926170550447
+    }
+  ],
+  "all_modeled_states_equal": true,
+  "source_changed": true,
+  "timing_note": "wall-clock results are machine-specific and were not used to relax equivalence"
+}

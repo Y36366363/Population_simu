@@ -1878,43 +1878,47 @@ class FamilyWorld:
         amenity_gap = max(0.0, 0.58 - region.service_index)
         amenity_penalty = 0.32 * amenity_gap * (1.0 + 0.65 * household.childcare_gap)
         capacity_penalty = 0.22 * max(0.0, self._region_capacity_pressure(country, region) - 1.0)
-        peer_households = [
-            other for other in self.households.values()
-            if self._social_network.same_region(household, other)
-            and other.children_ever_born > 0
-        ]
-        neighbor_norm = (
-            statistics.fmean(other.children_ever_born for other in peer_households)
-            if peer_households else country.initial_children_per_family
-        )
-        kin_households = [
-            other for other in self.households.values()
-            if self._social_network.same_kin(household, other)
-            and other.children_ever_born > 0
-        ]
-        kin_norm = (
-            statistics.fmean(other.children_ever_born for other in kin_households)
-            if kin_households else neighbor_norm
-        )
+        # Compute the three social-norm samples in one ordered pass.  Each
+        # sample preserves the former dict iteration order and predicate, but
+        # the shared regional relation is evaluated only once per household.
+        peer_households = []
+        kin_households = []
+        colleague_households = []
         household_occupations = {
             self.people[pid].occupation
             for pid in household.member_ids
             if self.people[pid].alive and self.people[pid].age >= 22
         }
-        colleague_households = [
-            other for other in self.households.values()
-            if other.id != household.id
-            and self._social_network.same_region(household, other)
-            and other.children_ever_born > 0
-            and self._social_network.shares_occupation(
-                household_occupations,
-                (
-                    self.people[pid]
-                    for pid in other.member_ids
-                    if self.people[pid].alive and self.people[pid].age >= 22
-                ),
-            )
-        ]
+        for other in self.households.values():
+            same_region = self._social_network.same_region(household, other)
+            same_kin = self._social_network.same_kin(household, other)
+            has_children = other.children_ever_born > 0
+            if same_region and has_children:
+                peer_households.append(other)
+            if same_kin and has_children:
+                kin_households.append(other)
+            if (
+                other.id != household.id
+                and same_region
+                and has_children
+                and self._social_network.shares_occupation(
+                    household_occupations,
+                    (
+                        self.people[pid]
+                        for pid in other.member_ids
+                        if self.people[pid].alive and self.people[pid].age >= 22
+                    ),
+                )
+            ):
+                colleague_households.append(other)
+        neighbor_norm = (
+            statistics.fmean(other.children_ever_born for other in peer_households)
+            if peer_households else country.initial_children_per_family
+        )
+        kin_norm = (
+            statistics.fmean(other.children_ever_born for other in kin_households)
+            if kin_households else neighbor_norm
+        )
         colleague_norm = (
             statistics.fmean(other.children_ever_born for other in colleague_households)
             if colleague_households else neighbor_norm

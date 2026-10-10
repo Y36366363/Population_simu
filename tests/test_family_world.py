@@ -349,6 +349,33 @@ class FamilyWorldTests(unittest.TestCase):
             baseline._desired_children(next(iter(baseline.households.values())), baseline.countries["TST"]),
         )
 
+    def test_desired_children_scans_households_once_for_all_social_norms(self):
+        world = FamilyWorld(family_scenario())
+        home = next(iter(world.households.values()))
+        original = world._social_network
+
+        class CountingNetwork:
+            def __init__(self):
+                self.region_calls = 0
+                self.kin_calls = 0
+
+            def same_region(self, household, other):
+                self.region_calls += 1
+                return original.same_region(household, other)
+
+            def same_kin(self, household, other):
+                self.kin_calls += 1
+                return original.same_kin(household, other)
+
+            def shares_occupation(self, occupations, other_people):
+                return original.shares_occupation(occupations, other_people)
+
+        counter = CountingNetwork()
+        world._social_network = counter
+        world._desired_children(home, world.countries["TST"])
+        self.assertEqual(counter.region_calls, len(world.households))
+        self.assertEqual(counter.kin_calls, len(world.households))
+
 
 if __name__ == "__main__":
     unittest.main()

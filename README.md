@@ -25,6 +25,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 2026-10-09 的[50年模拟阶段耗时归因](docs/runtime_phase_profile_2026-10-09.md)显示后25年每年step约为前25年的2.14倍；年度汇总和生育合计解释约97.3%的增量，核心热点是家庭社会规范计算中的重复全表扫描。账本归档不是瓶颈；外部数据门槛未变化，因此未增加社会机制。
 
+2026-10-10 的[生育社会规范扫描严格等价重构](docs/desired_children_refactor_2026-10-10.md)将邻居、亲属和同事样本合并为一次有序家庭遍历；3个seed×20年的60个逐年完整fingerprint、RNG和账本完全不变。后25年同地区判断减半、单seed profile 的step约下降3.5%，但短周期wall-clock没有稳定改善，因此只称为小幅后期优化。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
 长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。
