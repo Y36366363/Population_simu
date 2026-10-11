@@ -27,6 +27,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 2026-10-10 的[生育社会规范扫描严格等价重构](docs/desired_children_refactor_2026-10-10.md)将邻居、亲属和同事样本合并为一次有序家庭遍历；3个seed×20年的60个逐年完整fingerprint、RNG和账本完全不变。后25年同地区判断减半、单seed profile 的step约下降3.5%，但短周期wall-clock没有稳定改善，因此只称为小幅后期优化。
 
+2026-10-11 的[三 seed 长周期验证](docs/desired_children_multiseed_validation_2026-10-11.md)把同配置50年profile扩展到全部3个seed：六个分段终态和保留调用计数全部一致，`same_region`前后半段总调用均约减半；cProfile step秒/年中位数分别下降约8.9%和7.8%。后25年仍约为前25年的2.15倍，说明常数成本下降但长期复杂度形状未改变；外部数据门禁亦无变化。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
 长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "kind": "matched_family_world_phase_profile_comparison",
+  "scope": "strict state/call equivalence plus machine-specific timing diagnostics",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 50,
+    "split_after_years": 25,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true,
+    "profiler": "cProfile deterministic instrumentation"
+  },
+  "changed_source_files": [
+    "src/population_simu/family_world.py"
+  ],
+  "rows": [
+    {
+      "seed": 20261006,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "preserved_diagnostic_calls_equal": true,
+      "merged_scan_call_relation_ok": true,
+      "baseline_step_seconds_per_year": 1.58246,
+      "candidate_step_seconds_per_year": 1.452157,
+      "candidate_to_baseline_step_ratio": 0.917658,
+      "same_region_calls": {
+        "baseline": 112715344,
+        "candidate": 56378370,
+        "reduction_fraction": 0.499816
+      },
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.895275,
+        "_births": 0.918181
+      }
+    },
+    {
+      "seed": 20261006,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "preserved_diagnostic_calls_equal": true,
+      "merged_scan_call_relation_ok": true,
+      "baseline_step_seconds_per_year": 3.391354,
+      "candidate_step_seconds_per_year": 3.126654,
+      "candidate_to_baseline_step_ratio": 0.921949,
+      "same_region_calls": {
+        "baseline": 268323663,
+        "candidate": 134187094,
+        "reduction_fraction": 0.499906
+      },
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.909481,
+        "_births": 0.920974
+      }
+    },
+    {
+      "seed": 20261007,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "preserved_diagnostic_calls_equal": true,
+      "merged_scan_call_relation_ok": true,
+      "baseline_step_seconds_per_year": 1.643067,
+      "candidate_step_seconds_per_year": 1.444837,
+      "candidate_to_baseline_step_ratio": 0.879354,
+      "same_region_calls": {
+        "baseline": 111814359,
+        "candidate": 55927863,
+        "reduction_fraction": 0.499815
+      },
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.870122,
+        "_births": 0.866229
+      }
+    },
+    {
+      "seed": 20261007,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "preserved_diagnostic_calls_equal": true,
+      "merged_scan_call_relation_ok": true,
+      "baseline_step_seconds_per_year": 3.508424,
+      "candidate_step_seconds_per_year": 3.051387,
+      "candidate_to_baseline_step_ratio": 0.869732,
+      "same_region_calls": {
+        "baseline": 266733589,
+        "candidate": 133391838,
+        "reduction_fraction": 0.499906
+      },
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.864767,
+        "_births": 0.852173
+      }
+    },
+    {
+      "seed": 20261008,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "preserved_diagnostic_calls_equal": true,
+      "merged_scan_call_relation_ok": true,
+      "baseline_step_seconds_per_year": 1.572165,
+      "candidate_step_seconds_per_year": 1.431884,
+      "candidate_to_baseline_step_ratio": 0.910772,
+      "same_region_calls": {
+        "baseline": 110354558,
+        "candidate": 55197827,
+        "reduction_fraction": 0.499814
+      },
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.894481,
+        "_births": 0.905681
+      }
+    },
+    {
+      "seed": 20261008,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "preserved_diagnostic_calls_equal": true,
+      "merged_scan_call_relation_ok": true,
+      "baseline_step_seconds_per_year": 3.224713,
+      "candidate_step_seconds_per_year": 3.128843,
+      "candidate_to_baseline_step_ratio": 0.97027,
+      "same_region_calls": {
+        "baseline": 259842739,
+        "candidate": 129946160,
+        "reduction_fraction": 0.499905
+      },
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.954257,
+        "_births": 0.978187
+      }
+    }
+  ],
+  "aggregate": {
+    "all_state_endpoints_equal": true,
+    "all_preserved_diagnostic_calls_equal": true,
+    "all_merged_scan_call_relations_hold": true,
+    "median_candidate_to_baseline_step_ratio": {
+      "early": 0.910772,
+      "late": 0.921949
+    },
+    "total_same_region_calls": {
+      "early": {
+        "baseline": 334884261,
+        "candidate": 167504060,
+        "reduction_fraction": 0.499815
+      },
+      "late": {
+        "baseline": 794899991,
+        "candidate": 397525092,
+        "reduction_fraction": 0.499906
+      }
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "timing_is_not_an_acceptance_gate": true
+  },
+  "interpretation_boundary": [
+    "endpoint equality is weaker than the separate yearly full-fingerprint equivalence test",
+    "cProfile timing is machine- and load-specific and is not a correctness gate",
+    "this comparison validates an implementation refactor, not demographic realism"
+  ]
+}
