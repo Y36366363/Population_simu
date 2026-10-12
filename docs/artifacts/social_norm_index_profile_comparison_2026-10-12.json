@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "kind": "phase_local_social_norm_index_profile_comparison",
+  "scope": "implementation equivalence and machine-specific runtime diagnostics",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 50,
+    "split_after_years": 25,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true,
+    "profiler": "cProfile deterministic instrumentation"
+  },
+  "rows": [
+    {
+      "seed": 20261006,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "pairwise_network_calls_removed": true,
+      "index_builds_exactly_twice_per_year": true,
+      "baseline_step_seconds_per_year": 1.452157,
+      "candidate_step_seconds_per_year": 0.481022,
+      "candidate_to_baseline_step_ratio": 0.331247,
+      "baseline_pairwise_calls": {
+        "same_region": 56378370,
+        "same_kin": 56378370,
+        "shares_occupation": 5485899
+      },
+      "candidate_index_build_calls": 50
+    },
+    {
+      "seed": 20261006,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "pairwise_network_calls_removed": true,
+      "index_builds_exactly_twice_per_year": true,
+      "baseline_step_seconds_per_year": 3.126654,
+      "candidate_step_seconds_per_year": 0.887622,
+      "candidate_to_baseline_step_ratio": 0.283889,
+      "baseline_pairwise_calls": {
+        "same_region": 134187094,
+        "same_kin": 134187094,
+        "shares_occupation": 11948636
+      },
+      "candidate_index_build_calls": 50
+    },
+    {
+      "seed": 20261007,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "pairwise_network_calls_removed": true,
+      "index_builds_exactly_twice_per_year": true,
+      "baseline_step_seconds_per_year": 1.444837,
+      "candidate_step_seconds_per_year": 0.520348,
+      "candidate_to_baseline_step_ratio": 0.360143,
+      "baseline_pairwise_calls": {
+        "same_region": 55927863,
+        "same_kin": 55927863,
+        "shares_occupation": 5500375
+      },
+      "candidate_index_build_calls": 50
+    },
+    {
+      "seed": 20261007,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "pairwise_network_calls_removed": true,
+      "index_builds_exactly_twice_per_year": true,
+      "baseline_step_seconds_per_year": 3.051387,
+      "candidate_step_seconds_per_year": 0.887938,
+      "candidate_to_baseline_step_ratio": 0.290995,
+      "baseline_pairwise_calls": {
+        "same_region": 133391838,
+        "same_kin": 133391838,
+        "shares_occupation": 11772681
+      },
+      "candidate_index_build_calls": 50
+    },
+    {
+      "seed": 20261008,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "pairwise_network_calls_removed": true,
+      "index_builds_exactly_twice_per_year": true,
+      "baseline_step_seconds_per_year": 1.431884,
+      "candidate_step_seconds_per_year": 0.515206,
+      "candidate_to_baseline_step_ratio": 0.35981,
+      "baseline_pairwise_calls": {
+        "same_region": 55197827,
+        "same_kin": 55197827,
+        "shares_occupation": 5468155
+      },
+      "candidate_index_build_calls": 50
+    },
+    {
+      "seed": 20261008,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "pairwise_network_calls_removed": true,
+      "index_builds_exactly_twice_per_year": true,
+      "baseline_step_seconds_per_year": 3.128843,
+      "candidate_step_seconds_per_year": 0.783697,
+      "candidate_to_baseline_step_ratio": 0.250475,
+      "baseline_pairwise_calls": {
+        "same_region": 129946160,
+        "same_kin": 129946160,
+        "shares_occupation": 11191462
+      },
+      "candidate_index_build_calls": 50
+    }
+  ],
+  "aggregate": {
+    "all_state_endpoints_equal": true,
+    "all_desired_children_calls_equal": true,
+    "all_pairwise_network_calls_removed": true,
+    "all_index_build_counts_exact": true,
+    "median_candidate_to_baseline_step_ratio": {
+      "early": 0.35981,
+      "late": 0.283889
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "timing_is_not_an_acceptance_gate": true
+  },
+  "interpretation_boundary": [
+    "yearly complete-state fingerprints are checked in a separate artifact",
+    "profile timings are machine- and load-specific",
+    "runtime improvement does not establish empirical or causal validity"
+  ]
+}

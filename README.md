@@ -29,6 +29,8 @@ python3 scripts/run_controlled_experiment.py experiments/general_controls.json \
 
 2026-10-11 的[三 seed 长周期验证](docs/desired_children_multiseed_validation_2026-10-11.md)把同配置50年profile扩展到全部3个seed：六个分段终态和保留调用计数全部一致，`same_region`前后半段总调用均约减半；cProfile step秒/年中位数分别下降约8.9%和7.8%。后25年仍约为前25年的2.15倍，说明常数成本下降但长期复杂度形状未改变；外部数据门禁亦无变化。
 
+2026-10-12 的[社会规范阶段索引严格等价验证](docs/social_norm_phase_index_2026-10-12.md)在生育和年末汇总前分别建立一次有序、非持久索引，同时保留生育循环内动态资格。3个seed×30年的90个逐年完整fingerprint、RNG和账本完全相同；50年profile的step秒/年中位数在前后半段分别下降约64.0%和71.6%，后半程/前半程增长比降至1.71。该结果只提高内部计算可扩展性，外部数据与因果证据等级不变。
+
 ## 2026-10-02 audit and project direction / 当前入口
 
 长期目标是可校准、可控制变量和消融机制的多国人口与家庭空间沙盘，优先覆盖大国和重要地区，支持迁移、住房、教育、照护、代际发展等多种研究。当前美国住房—生育研究作为第一个经验验证模块继续推进。

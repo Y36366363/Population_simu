@@ -5,7 +5,7 @@ from copy import deepcopy
 import math
 import random
 import statistics
-from typing import Iterable, TYPE_CHECKING
+from typing import Iterable, NamedTuple, TYPE_CHECKING
 
 from .capitals import CapitalBundle, sigmoid
 from .family_config import Country, FamilyScenario, Region
@@ -27,6 +27,14 @@ DISABLABLE_PROCESSES = frozenset({
     "births", "deaths", "internal_migration", "international_migration",
     "partnership", "divorce", "climate_events",
 })
+
+
+class _SocialNormIndex(NamedTuple):
+    """Ordered, phase-local candidates; never persisted in world state."""
+
+    by_region: dict[tuple[str, str], tuple[FamilyBranch, ...]]
+    by_clan: dict[int, tuple[FamilyBranch, ...]]
+    adult_occupations: dict[int, frozenset[str]]
 
 
 class FamilyWorld:
@@ -1854,7 +1862,38 @@ class FamilyWorld:
             migrants[household.country_id] += len(living)
         return migrants
 
-    def _desired_children(self, household: FamilyBranch, country: Country) -> float:
+    def _build_social_norm_index(self) -> _SocialNormIndex:
+        """Index the current phase without changing household iteration order.
+
+        The index deliberately stores all households, including those that have
+        no children yet. Births earlier in the same loop can make such a family
+        eligible for the next family's norm, so eligibility remains a dynamic
+        predicate in ``_desired_children``. Regions, clans, and adult
+        occupations do not change during either the births or summaries phase.
+        """
+        by_region: dict[tuple[str, str], list[FamilyBranch]] = defaultdict(list)
+        by_clan: dict[int, list[FamilyBranch]] = defaultdict(list)
+        adult_occupations: dict[int, frozenset[str]] = {}
+        for other in self.households.values():
+            by_region[(other.country_id, other.region_id)].append(other)
+            by_clan[other.clan_id].append(other)
+            adult_occupations[other.id] = frozenset(
+                self.people[pid].occupation
+                for pid in other.member_ids
+                if self.people[pid].alive and self.people[pid].age >= 22
+            )
+        return _SocialNormIndex(
+            by_region={key: tuple(values) for key, values in by_region.items()},
+            by_clan={key: tuple(values) for key, values in by_clan.items()},
+            adult_occupations=adult_occupations,
+        )
+
+    def _desired_children(
+        self,
+        household: FamilyBranch,
+        country: Country,
+        social_norm_index: _SocialNormIndex | None = None,
+    ) -> float:
         development = country.development_at(self.year, self.scenario.simulation.start_year)
         urbanization = country.urbanization_at(self.year, self.scenario.simulation.start_year)
         ratio = household.resources / max(1.0, country.baseline_family_resources)
@@ -1878,39 +1917,63 @@ class FamilyWorld:
         amenity_gap = max(0.0, 0.58 - region.service_index)
         amenity_penalty = 0.32 * amenity_gap * (1.0 + 0.65 * household.childcare_gap)
         capacity_penalty = 0.22 * max(0.0, self._region_capacity_pressure(country, region) - 1.0)
-        # Compute the three social-norm samples in one ordered pass.  Each
-        # sample preserves the former dict iteration order and predicate, but
-        # the shared regional relation is evaluated only once per household.
+        # A direct call retains the full ordered scan for diagnostics and
+        # callers outside an annual event phase. Births and summaries pass a
+        # phase-local index that preserves this order while excluding unrelated
+        # regions/clans before the scan.
         peer_households = []
         kin_households = []
         colleague_households = []
-        household_occupations = {
-            self.people[pid].occupation
-            for pid in household.member_ids
-            if self.people[pid].alive and self.people[pid].age >= 22
-        }
-        for other in self.households.values():
-            same_region = self._social_network.same_region(household, other)
-            same_kin = self._social_network.same_kin(household, other)
-            has_children = other.children_ever_born > 0
-            if same_region and has_children:
-                peer_households.append(other)
-            if same_kin and has_children:
-                kin_households.append(other)
-            if (
-                other.id != household.id
-                and same_region
-                and has_children
-                and self._social_network.shares_occupation(
-                    household_occupations,
-                    (
-                        self.people[pid]
-                        for pid in other.member_ids
-                        if self.people[pid].alive and self.people[pid].age >= 22
-                    ),
-                )
-            ):
-                colleague_households.append(other)
+        if social_norm_index is None:
+            household_occupations = {
+                self.people[pid].occupation
+                for pid in household.member_ids
+                if self.people[pid].alive and self.people[pid].age >= 22
+            }
+            for other in self.households.values():
+                same_region = self._social_network.same_region(household, other)
+                same_kin = self._social_network.same_kin(household, other)
+                has_children = other.children_ever_born > 0
+                if same_region and has_children:
+                    peer_households.append(other)
+                if same_kin and has_children:
+                    kin_households.append(other)
+                if (
+                    other.id != household.id
+                    and same_region
+                    and has_children
+                    and self._social_network.shares_occupation(
+                        household_occupations,
+                        (
+                            self.people[pid]
+                            for pid in other.member_ids
+                            if self.people[pid].alive and self.people[pid].age >= 22
+                        ),
+                    )
+                ):
+                    colleague_households.append(other)
+        else:
+            household_occupations = social_norm_index.adult_occupations[household.id]
+            region_households = social_norm_index.by_region.get(
+                (household.country_id, household.region_id), ()
+            )
+            for other in region_households:
+                has_children = other.children_ever_born > 0
+                if has_children:
+                    peer_households.append(other)
+                if (
+                    other.id != household.id
+                    and has_children
+                    and household_occupations.intersection(
+                        social_norm_index.adult_occupations[other.id]
+                    )
+                ):
+                    colleague_households.append(other)
+            kin_households.extend(
+                other
+                for other in social_norm_index.by_clan.get(household.clan_id, ())
+                if other.id != household.id and other.children_ever_born > 0
+            )
         neighbor_norm = (
             statistics.fmean(other.children_ever_born for other in peer_households)
             if peer_households else country.initial_children_per_family
@@ -1957,6 +2020,7 @@ class FamilyWorld:
 
     def _births(self) -> dict[str, int]:
         births: dict[str, int] = defaultdict(int)
+        social_norm_index = self._build_social_norm_index()
         for household in list(self.households.values()):
             members = [self.people[pid] for pid in household.member_ids if self.people[pid].alive]
             women = [p for p in members if p.sex == "F" and p.partnered and 18 <= p.age <= 44]
@@ -1967,7 +2031,7 @@ class FamilyWorld:
             father = men[0]
             country = self.countries[household.country_id]
             policy = country.policy_at(self.year)
-            desired = self._desired_children(household, country)
+            desired = self._desired_children(household, country, social_norm_index)
             gap = max(0.0, desired - household.children_ever_born)
             profile = AgeRateProfile.from_pairs(country.fertility_age_profile)
             age_factor = profile.rate(mother.age) if profile else self._fertility_age_factor(mother.age, country)
@@ -2290,6 +2354,7 @@ class FamilyWorld:
         internal_migrants: dict[str, int],
     ) -> list[FamilyYearStats]:
         summaries = []
+        social_norm_index = self._build_social_norm_index()
         people_by_country: dict[str, list[FamilyPerson]] = defaultdict(list)
         homes_by_country: dict[str, list[FamilyBranch]] = defaultdict(list)
         clan_counts: dict[int, int] = defaultdict(int)
@@ -2384,7 +2449,11 @@ class FamilyWorld:
             ]
             capacity_pressure = statistics.fmean(region_pressures) if region_pressures else 0.0
             fertility_gaps = [
-                max(0.0, self._desired_children(home, country) - home.children_ever_born)
+                max(
+                    0.0,
+                    self._desired_children(home, country, social_norm_index)
+                    - home.children_ever_born,
+                )
                 for home in homes
                 if any(
                     self.people[pid].alive and self.people[pid].partnered

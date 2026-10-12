@@ -376,6 +376,48 @@ class FamilyWorldTests(unittest.TestCase):
         self.assertEqual(counter.region_calls, len(world.households))
         self.assertEqual(counter.kin_calls, len(world.households))
 
+    def test_phase_local_social_norm_index_is_exact_and_rebuilt(self):
+        world = FamilyWorld(family_scenario())
+        index = world._build_social_norm_index()
+        for home in world.households.values():
+            country = world.countries[home.country_id]
+            self.assertEqual(
+                world._desired_children(home, country),
+                world._desired_children(home, country, index),
+            )
+
+        original = world._build_social_norm_index
+        builds = 0
+
+        def counted_build():
+            nonlocal builds
+            builds += 1
+            return original()
+
+        world._build_social_norm_index = counted_build
+        world.step()
+        self.assertEqual(builds, 2)
+        self.assertNotIn("_social_norm_index", vars(world))
+
+    def test_social_norm_index_keeps_birth_eligibility_dynamic(self):
+        world = FamilyWorld(family_scenario())
+        homes = list(world.households.values())
+        donor = homes[0]
+        target = next(
+            home for home in homes
+            if home.id != donor.id
+            and home.country_id == donor.country_id
+            and home.region_id == donor.region_id
+        )
+        donor.children_ever_born = 0
+        index = world._build_social_norm_index()
+        donor.children_ever_born = 1
+        country = world.countries[target.country_id]
+        self.assertEqual(
+            world._desired_children(target, country),
+            world._desired_children(target, country, index),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -42,6 +42,7 @@ STEP_PHASES = (
 # the other helpers are called inside one or more direct step phases.
 NESTED_DIAGNOSTICS = (
     "_population_flow_ledger",
+    "_build_social_norm_index",
     "_desired_children",
     "_region_capacity_pressure",
     "living_people",
