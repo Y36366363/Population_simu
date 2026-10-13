@@ -412,6 +412,7 @@ class FamilyWorldTests(unittest.TestCase):
         donor.children_ever_born = 0
         index = world._build_social_norm_index()
         donor.children_ever_born = 1
+        index.record_birth(donor, previous_children=0)
         country = world.countries[target.country_id]
         self.assertEqual(
             world._desired_children(target, country),

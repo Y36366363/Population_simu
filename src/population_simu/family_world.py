@@ -30,11 +30,29 @@ DISABLABLE_PROCESSES = frozenset({
 
 
 class _SocialNormIndex(NamedTuple):
-    """Ordered, phase-local candidates; never persisted in world state."""
+    """Phase-local exact integer aggregates; never persisted in world state."""
 
-    by_region: dict[tuple[str, str], tuple[FamilyBranch, ...]]
-    by_clan: dict[int, tuple[FamilyBranch, ...]]
     adult_occupations: dict[int, frozenset[str]]
+    region_totals: dict[tuple[str, str], list[int]]
+    clan_totals: dict[int, list[int]]
+    colleague_totals: dict[tuple[str, str, frozenset[str]], list[int]]
+    signatures_by_region: dict[tuple[str, str], tuple[frozenset[str], ...]]
+
+    def record_birth(self, household: FamilyBranch, previous_children: int) -> None:
+        """Update aggregates immediately after one modeled birth."""
+        region_key = (household.country_id, household.region_id)
+        for totals in (self.region_totals[region_key], self.clan_totals[household.clan_id]):
+            if previous_children == 0:
+                totals[0] += 1
+            totals[1] += 1
+        occupations = self.adult_occupations[household.id]
+        if occupations:
+            for signature in self.signatures_by_region[region_key]:
+                if signature.intersection(occupations):
+                    totals = self.colleague_totals[(*region_key, signature)]
+                    if previous_children == 0:
+                        totals[0] += 1
+                    totals[1] += 1
 
 
 class FamilyWorld:
@@ -1865,27 +1883,57 @@ class FamilyWorld:
     def _build_social_norm_index(self) -> _SocialNormIndex:
         """Index the current phase without changing household iteration order.
 
-        The index deliberately stores all households, including those that have
-        no children yet. Births earlier in the same loop can make such a family
-        eligible for the next family's norm, so eligibility remains a dynamic
-        predicate in ``_desired_children``. Regions, clans, and adult
-        occupations do not change during either the births or summaries phase.
+        Births earlier in the same loop update the integer counts and sums via
+        ``record_birth`` before the next household is evaluated. Regions,
+        clans, and adult occupations do not change during either phase.
         """
-        by_region: dict[tuple[str, str], list[FamilyBranch]] = defaultdict(list)
-        by_clan: dict[int, list[FamilyBranch]] = defaultdict(list)
         adult_occupations: dict[int, frozenset[str]] = {}
+        households_by_region: dict[tuple[str, str], list[FamilyBranch]] = defaultdict(list)
         for other in self.households.values():
-            by_region[(other.country_id, other.region_id)].append(other)
-            by_clan[other.clan_id].append(other)
+            households_by_region[(other.country_id, other.region_id)].append(other)
             adult_occupations[other.id] = frozenset(
                 self.people[pid].occupation
                 for pid in other.member_ids
                 if self.people[pid].alive and self.people[pid].age >= 22
             )
+        signatures_by_region = {
+            key: tuple(dict.fromkeys(adult_occupations[home.id] for home in homes))
+            for key, homes in households_by_region.items()
+        }
+        region_totals: dict[tuple[str, str], list[int]] = {
+            key: [0, 0] for key in households_by_region
+        }
+        clan_totals: dict[int, list[int]] = {
+            clan_id: [0, 0] for clan_id in self.clans
+        }
+        colleague_totals: dict[tuple[str, str, frozenset[str]], list[int]] = {
+            (*region_key, signature): [0, 0]
+            for region_key, signatures in signatures_by_region.items()
+            for signature in signatures
+        }
+        for region_key, homes in households_by_region.items():
+            signatures = signatures_by_region[region_key]
+            for other in homes:
+                children = other.children_ever_born
+                if children <= 0:
+                    continue
+                region_totals[region_key][0] += 1
+                region_totals[region_key][1] += children
+                clan_totals[other.clan_id][0] += 1
+                clan_totals[other.clan_id][1] += children
+                occupations = adult_occupations[other.id]
+                if occupations:
+                    for signature in signatures:
+                        if signature.intersection(occupations):
+                            totals = colleague_totals[(*region_key, signature)]
+                            totals[0] += 1
+                            totals[1] += children
         return _SocialNormIndex(
-            by_region={key: tuple(values) for key, values in by_region.items()},
-            by_clan={key: tuple(values) for key, values in by_clan.items()},
             adult_occupations=adult_occupations,
+            region_totals=region_totals,
+            clan_totals=clan_totals,
+            colleague_totals=colleague_totals,
+            signatures_by_region=signatures_by_region,
         )
 
     def _desired_children(
@@ -1954,38 +2002,39 @@ class FamilyWorld:
                     colleague_households.append(other)
         else:
             household_occupations = social_norm_index.adult_occupations[household.id]
-            region_households = social_norm_index.by_region.get(
-                (household.country_id, household.region_id), ()
+            region_key = (household.country_id, household.region_id)
+            peer_count, peer_sum = social_norm_index.region_totals[region_key]
+            kin_count, kin_sum = social_norm_index.clan_totals[household.clan_id]
+            own_children = household.children_ever_born
+            if own_children > 0:
+                kin_count -= 1
+                kin_sum -= own_children
+            colleague_count, colleague_sum = social_norm_index.colleague_totals[
+                (*region_key, household_occupations)
+            ]
+            if own_children > 0 and household_occupations:
+                colleague_count -= 1
+                colleague_sum -= own_children
+            neighbor_norm = (
+                peer_sum / peer_count if peer_count else country.initial_children_per_family
             )
-            for other in region_households:
-                has_children = other.children_ever_born > 0
-                if has_children:
-                    peer_households.append(other)
-                if (
-                    other.id != household.id
-                    and has_children
-                    and household_occupations.intersection(
-                        social_norm_index.adult_occupations[other.id]
-                    )
-                ):
-                    colleague_households.append(other)
-            kin_households.extend(
-                other
-                for other in social_norm_index.by_clan.get(household.clan_id, ())
-                if other.id != household.id and other.children_ever_born > 0
+            kin_norm = kin_sum / kin_count if kin_count else neighbor_norm
+            colleague_norm = (
+                colleague_sum / colleague_count if colleague_count else neighbor_norm
             )
-        neighbor_norm = (
-            statistics.fmean(other.children_ever_born for other in peer_households)
-            if peer_households else country.initial_children_per_family
-        )
-        kin_norm = (
-            statistics.fmean(other.children_ever_born for other in kin_households)
-            if kin_households else neighbor_norm
-        )
-        colleague_norm = (
-            statistics.fmean(other.children_ever_born for other in colleague_households)
-            if colleague_households else neighbor_norm
-        )
+        if social_norm_index is None:
+            neighbor_norm = (
+                statistics.fmean(other.children_ever_born for other in peer_households)
+                if peer_households else country.initial_children_per_family
+            )
+            kin_norm = (
+                statistics.fmean(other.children_ever_born for other in kin_households)
+                if kin_households else neighbor_norm
+            )
+            colleague_norm = (
+                statistics.fmean(other.children_ever_born for other in colleague_households)
+                if colleague_households else neighbor_norm
+            )
         source_values = {
             "neighbors": neighbor_norm,
             "kin": kin_norm,
@@ -2067,7 +2116,9 @@ class FamilyWorld:
             # 子女按当前家庭主姓归入该家族；跨国迁移不改变姓氏家族。
             child.clan_id = household.clan_id
             child.surname = household.surname
+            previous_children = household.children_ever_born
             household.children_ever_born += 1
+            social_norm_index.record_birth(household, previous_children)
             household.years_since_last_birth = 0
             clan = self.clans[household.clan_id]
             clan.total_births += 1
@@ -2141,7 +2192,8 @@ class FamilyWorld:
         """Return living-person geography without exposing mutable model objects."""
         return {
             person.id: (person.country_id, person.region_id)
-            for person in self.living_people
+            for person in self.people.values()
+            if person.alive
         }
 
     def _population_flow_ledger(

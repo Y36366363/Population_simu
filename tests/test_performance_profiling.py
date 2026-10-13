@@ -18,6 +18,10 @@ class PerformanceProfilingTests(unittest.TestCase):
             self.assertEqual(run["late"]["years"], 2)
             self.assertEqual(run["late"]["end_year"], 2004)
             self.assertEqual(run["late"]["phases"]["_births"]["calls"], 2)
+            self.assertEqual(
+                run["late"]["nested_diagnostics"]["record_birth"]["calls"],
+                run["late"]["modeled_births"],
+            )
             self.assertGreater(
                 run["late"]["nested_diagnostics"]["_desired_children"]["calls"], 0
             )

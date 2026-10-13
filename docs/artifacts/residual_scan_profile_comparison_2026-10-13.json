@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "kind": "exact_social_norm_aggregate_profile_comparison",
+  "scope": "strict structural checks and machine-specific timing diagnostics",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 50,
+    "split_after_years": 25,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true,
+    "profiler": "cProfile deterministic instrumentation"
+  },
+  "rows": [
+    {
+      "seed": 20261006,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "index_build_calls_equal": true,
+      "birth_updates_match_modeled_births": true,
+      "modeled_births": 1256,
+      "candidate_to_baseline_step_ratio": 1.089683,
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 1.072126,
+        "_births": 1.090613
+      }
+    },
+    {
+      "seed": 20261006,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "index_build_calls_equal": true,
+      "birth_updates_match_modeled_births": true,
+      "modeled_births": 987,
+      "candidate_to_baseline_step_ratio": 1.008381,
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.997617,
+        "_births": 1.045692
+      }
+    },
+    {
+      "seed": 20261007,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "index_build_calls_equal": true,
+      "birth_updates_match_modeled_births": true,
+      "modeled_births": 1320,
+      "candidate_to_baseline_step_ratio": 0.954651,
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.936832,
+        "_births": 0.962345
+      }
+    },
+    {
+      "seed": 20261007,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "index_build_calls_equal": true,
+      "birth_updates_match_modeled_births": true,
+      "modeled_births": 1052,
+      "candidate_to_baseline_step_ratio": 1.025538,
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 1.048898,
+        "_births": 1.060109
+      }
+    },
+    {
+      "seed": 20261008,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "index_build_calls_equal": true,
+      "birth_updates_match_modeled_births": true,
+      "modeled_births": 1244,
+      "candidate_to_baseline_step_ratio": 0.787176,
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 0.893546,
+        "_births": 0.839601
+      }
+    },
+    {
+      "seed": 20261008,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "desired_children_calls_equal": true,
+      "index_build_calls_equal": true,
+      "birth_updates_match_modeled_births": true,
+      "modeled_births": 1030,
+      "candidate_to_baseline_step_ratio": 1.095659,
+      "candidate_to_baseline_phase_ratio": {
+        "_summaries": 1.103495,
+        "_births": 1.094061
+      }
+    }
+  ],
+  "aggregate": {
+    "all_state_endpoints_equal": true,
+    "all_desired_children_calls_equal": true,
+    "all_index_build_calls_equal": true,
+    "all_birth_updates_match_modeled_births": true,
+    "median_candidate_to_baseline_step_ratio": {
+      "early": 0.954651,
+      "late": 1.025538
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "timing_is_not_an_acceptance_gate": true
+  },
+  "interpretation_boundary": [
+    "yearly complete-state fingerprints are checked separately",
+    "integer count/sum equivalence applies to current small integer child counts",
+    "timings are machine-specific and do not establish empirical validity"
+  ]
+}

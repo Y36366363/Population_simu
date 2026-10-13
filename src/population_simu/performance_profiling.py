@@ -43,6 +43,7 @@ STEP_PHASES = (
 NESTED_DIAGNOSTICS = (
     "_population_flow_ledger",
     "_build_social_norm_index",
+    "record_birth",
     "_desired_children",
     "_region_capacity_pressure",
     "living_people",
@@ -69,6 +70,7 @@ def _profile_entries(profile: cProfile.Profile) -> dict[str, dict[str, float | i
 
 
 def _profile_segment(world: FamilyWorld, years: int) -> dict[str, object]:
+    history_start = len(world.history)
     profiler = cProfile.Profile()
     started = time.perf_counter()
     profiler.enable()
@@ -77,6 +79,7 @@ def _profile_segment(world: FamilyWorld, years: int) -> dict[str, object]:
         world.transfer_ledger.archive_before(world.year + 1)
     profiler.disable()
     wall_seconds = time.perf_counter() - started
+    modeled_births = sum(row.births for row in world.history[history_start:])
     entries = _profile_entries(profiler)
     step_seconds = float(entries["step"]["cumulative_seconds"])
     phases = {}
@@ -109,6 +112,7 @@ def _profile_segment(world: FamilyWorld, years: int) -> dict[str, object]:
         "end_population": len(world.living_people),
         "end_households": len(world.households),
         "end_transfer_records": world.transfer_ledger.record_count,
+        "modeled_births": modeled_births,
         "wall_seconds": round(wall_seconds, 6),
         "step_cumulative_seconds": round(step_seconds, 6),
         "step_seconds_per_year": round(step_seconds / years, 6),
