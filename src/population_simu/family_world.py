@@ -1552,6 +1552,16 @@ class FamilyWorld:
                 household.resources = max(0.1, household.resources - uninsured_cost)
                 household.capitals.debt = min(1.0, household.capitals.debt + uninsured_cost / 100)
 
+    @staticmethod
+    def _men_by_woman_age(
+        men: list[FamilyPerson],
+    ) -> dict[int, tuple[FamilyPerson, ...]]:
+        """Keep shuffled male order while excluding impossible age windows once."""
+        return {
+            woman_age: tuple(man for man in men if abs(man.age - woman_age) <= 9)
+            for woman_age in range(22, 51)
+        }
+
     def _form_family_branches(self) -> dict[str, int]:
         pools: dict[str, dict[str, list[FamilyPerson]]] = defaultdict(lambda: {"F": [], "M": []})
         remarriages: dict[str, int] = defaultdict(int)
@@ -1563,12 +1573,13 @@ class FamilyWorld:
             self.rng.shuffle(sexes["F"])
             self.rng.shuffle(sexes["M"])
             men = sexes["M"]
+            men_by_woman_age = self._men_by_woman_age(men)
             country = self.countries[country_id]
             for woman in sexes["F"]:
                 compatible = [
                     man
-                    for man in men
-                    if abs(man.age - woman.age) <= 9
+                    for man in men_by_woman_age[woman.age]
+                    if not man.partnered
                     and man.household_id != woman.household_id
                     and not (
                         man.mother_id is not None and man.mother_id == woman.mother_id
@@ -1619,7 +1630,6 @@ class FamilyWorld:
                 pairing_hazard = duration_hazard(pairing_rate * formation_gate, woman.marriage_count, 0.015)
                 if self.rng.random() >= hazard_to_probability(pairing_hazard):
                     continue
-                men.remove(man)
                 surname_rule = self.scenario.simulation.surname_rule
                 if surname_rule == "paternal":
                     primary = man

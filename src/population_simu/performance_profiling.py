@@ -44,6 +44,7 @@ NESTED_DIAGNOSTICS = (
     "_population_flow_ledger",
     "_build_social_norm_index",
     "record_birth",
+    "_men_by_woman_age",
     "_desired_children",
     "_region_capacity_pressure",
     "living_people",

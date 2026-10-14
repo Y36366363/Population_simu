@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "kind": "exact_marriage_age_window_profile_comparison",
+  "scope": "matching-order structural checks and machine-specific timing",
+  "configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 50,
+    "split_after_years": 25,
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "annual_ledger_archiving": true,
+    "profiler": "cProfile deterministic instrumentation"
+  },
+  "rows": [
+    {
+      "seed": 20261006,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "pairing_phase_calls_equal": true,
+      "age_window_builds_cover_each_year": true,
+      "age_window_build_calls": 100,
+      "country_pools_per_year": 4,
+      "candidate_to_baseline_pairing_ratio": 0.847034,
+      "candidate_to_baseline_step_ratio": 0.856533
+    },
+    {
+      "seed": 20261006,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "pairing_phase_calls_equal": true,
+      "age_window_builds_cover_each_year": true,
+      "age_window_build_calls": 100,
+      "country_pools_per_year": 4,
+      "candidate_to_baseline_pairing_ratio": 0.891171,
+      "candidate_to_baseline_step_ratio": 1.076957
+    },
+    {
+      "seed": 20261007,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "pairing_phase_calls_equal": true,
+      "age_window_builds_cover_each_year": true,
+      "age_window_build_calls": 100,
+      "country_pools_per_year": 4,
+      "candidate_to_baseline_pairing_ratio": 1.027119,
+      "candidate_to_baseline_step_ratio": 1.075649
+    },
+    {
+      "seed": 20261007,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "pairing_phase_calls_equal": true,
+      "age_window_builds_cover_each_year": true,
+      "age_window_build_calls": 100,
+      "country_pools_per_year": 4,
+      "candidate_to_baseline_pairing_ratio": 0.873654,
+      "candidate_to_baseline_step_ratio": 0.959812
+    },
+    {
+      "seed": 20261008,
+      "segment": "early",
+      "state_endpoints_equal": true,
+      "pairing_phase_calls_equal": true,
+      "age_window_builds_cover_each_year": true,
+      "age_window_build_calls": 100,
+      "country_pools_per_year": 4,
+      "candidate_to_baseline_pairing_ratio": 0.820987,
+      "candidate_to_baseline_step_ratio": 0.953396
+    },
+    {
+      "seed": 20261008,
+      "segment": "late",
+      "state_endpoints_equal": true,
+      "pairing_phase_calls_equal": true,
+      "age_window_builds_cover_each_year": true,
+      "age_window_build_calls": 100,
+      "country_pools_per_year": 4,
+      "candidate_to_baseline_pairing_ratio": 0.869583,
+      "candidate_to_baseline_step_ratio": 0.93811
+    }
+  ],
+  "aggregate": {
+    "all_state_endpoints_equal": true,
+    "all_pairing_phase_calls_equal": true,
+    "all_age_window_builds_cover_each_year": true,
+    "country_pool_count_stable": true,
+    "country_pools_per_year": 4,
+    "median_candidate_to_baseline_pairing_ratio": {
+      "early": 0.847034,
+      "late": 0.873654
+    },
+    "median_candidate_to_baseline_step_ratio": {
+      "early": 0.953396,
+      "late": 0.959812
+    }
+  },
+  "acceptance": {
+    "passed": true,
+    "timing_is_not_an_acceptance_gate": true
+  },
+  "interpretation_boundary": [
+    "yearly full-state and RNG fingerprints are checked separately",
+    "the index preserves shuffled order and performs no approximate matching",
+    "runtime results do not validate marriage behavior against observations"
+  ]
+}

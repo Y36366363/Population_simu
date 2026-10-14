@@ -1,4 +1,5 @@
 import json
+import random
 import unittest
 from dataclasses import replace
 from unittest.mock import patch
@@ -418,6 +419,39 @@ class FamilyWorldTests(unittest.TestCase):
             world._desired_children(target, country),
             world._desired_children(target, country, index),
         )
+
+    def test_age_window_index_preserves_active_male_candidate_order(self):
+        world = FamilyWorld(family_scenario())
+        women = [
+            person for person in world.living_people
+            if person.sex == "F" and 22 <= person.age <= 50 and not person.partnered
+        ]
+        active = [
+            person for person in world.living_people
+            if person.sex == "M" and 22 <= person.age <= 50 and not person.partnered
+        ]
+        random.Random(731).shuffle(active)
+        indexed = world._men_by_woman_age(active)
+        for woman in women:
+            old = [
+                man for man in active
+                if abs(man.age - woman.age) <= 9
+                and man.household_id != woman.household_id
+                and not (man.mother_id is not None and man.mother_id == woman.mother_id)
+                and not (man.father_id is not None and man.father_id == woman.father_id)
+            ]
+            new = [
+                man for man in indexed[woman.age]
+                if not man.partnered
+                and man.household_id != woman.household_id
+                and not (man.mother_id is not None and man.mother_id == woman.mother_id)
+                and not (man.father_id is not None and man.father_id == woman.father_id)
+            ]
+            self.assertEqual([man.id for man in old], [man.id for man in new])
+            if old:
+                selected = old[0]
+                active.remove(selected)
+                selected.partnered = True
 
 
 if __name__ == "__main__":
