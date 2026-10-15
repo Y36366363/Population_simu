@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "kind": "read_only_marriage_matching_cost_summary",
+  "source_configuration": {
+    "scenario": "主要国家家庭—家族时间线（机制演示版）",
+    "years": 50,
+    "checkpoints": [
+      25,
+      50
+    ],
+    "seeds": [
+      20261006,
+      20261007,
+      20261008
+    ],
+    "repeats": 11,
+    "annual_ledger_archiving": true
+  },
+  "source_acceptance": {
+    "all_paired_years_equal": true,
+    "all_audits_read_only": true,
+    "timing_is_not_an_acceptance_gate": true
+  },
+  "checkpoints": [
+    {
+      "year": 1995,
+      "seed_count": 3,
+      "median_counts": {
+        "women": 463,
+        "men": 414,
+        "age_window_candidates": 53842,
+        "weights_evaluated": 53654
+      },
+      "rejection": {
+        "same_household": {
+          "median_candidates_rejected": 125,
+          "median_rejection_rate": 0.00221659
+        },
+        "shared_mother": {
+          "median_candidates_rejected": 47,
+          "median_rejection_rate": 0.00082442
+        },
+        "shared_father": {
+          "median_candidates_rejected": 0,
+          "median_rejection_rate": 0.0
+        }
+      },
+      "stages": {
+        "active_filter": {
+          "median_ms": 1.478292,
+          "median_ns_per_input": 25.874,
+          "median_share_of_measured_stages": 0.045838
+        },
+        "different_household_filter": {
+          "median_ms": 1.307333,
+          "median_ns_per_input": 23.25,
+          "median_share_of_measured_stages": 0.040557
+        },
+        "maternal_kin_filter": {
+          "median_ms": 3.42575,
+          "median_ns_per_input": 60.554,
+          "median_share_of_measured_stages": 0.10708
+        },
+        "paternal_kin_filter": {
+          "median_ms": 3.241125,
+          "median_ns_per_input": 56.899,
+          "median_share_of_measured_stages": 0.100498
+        },
+        "weight_calculation": {
+          "median_ms": 22.771083,
+          "median_ns_per_input": 400.6,
+          "median_share_of_measured_stages": 0.70625
+        }
+      }
+    },
+    {
+      "year": 2020,
+      "seed_count": 3,
+      "median_counts": {
+        "women": 319,
+        "men": 293,
+        "age_window_candidates": 24792,
+        "weights_evaluated": 24729
+      },
+      "rejection": {
+        "same_household": {
+          "median_candidates_rejected": 41,
+          "median_rejection_rate": 0.00158804
+        },
+        "shared_mother": {
+          "median_candidates_rejected": 11,
+          "median_rejection_rate": 0.00042674
+        },
+        "shared_father": {
+          "median_candidates_rejected": 1,
+          "median_rejection_rate": 5.28e-05
+        }
+      },
+      "stages": {
+        "active_filter": {
+          "median_ms": 0.592959,
+          "median_ns_per_input": 23.917,
+          "median_share_of_measured_stages": 0.042577
+        },
+        "different_household_filter": {
+          "median_ms": 0.524208,
+          "median_ns_per_input": 21.144,
+          "median_share_of_measured_stages": 0.037872
+        },
+        "maternal_kin_filter": {
+          "median_ms": 1.468209,
+          "median_ns_per_input": 59.329,
+          "median_share_of_measured_stages": 0.106773
+        },
+        "paternal_kin_filter": {
+          "median_ms": 1.347208,
+          "median_ns_per_input": 55.619,
+          "median_share_of_measured_stages": 0.099893
+        },
+        "weight_calculation": {
+          "median_ms": 9.818125,
+          "median_ns_per_input": 397.924,
+          "median_share_of_measured_stages": 0.714009
+        }
+      }
+    }
+  ],
+  "interpretation_boundary": [
+    "timing shares cover only sequential dry-run stages, not the production phase",
+    "low rejection rates do not imply kinship checks can be removed",
+    "weight timing does not authorize formula, ordering, or RNG changes"
+  ]
+}
