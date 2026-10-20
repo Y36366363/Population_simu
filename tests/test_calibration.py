@@ -105,6 +105,36 @@ class CalibrationTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual([round(x["asfr_15_44"], 6) for x in first], [64.0, 65.0])
 
+    def test_household_dynamic_exposure_is_explicit_candidate(self):
+        rows = [{"entity": "A", "year": year, "asfr_15_44": 60.0,
+                 "housing_cost_burden": 0.35, "births_15_44": 60000,
+                 "female_15_44": 1000000} for year in (2016, 2017)]
+        runner = household_simulator_runner(
+            calibration=HouseholdCalibration(),
+            exposure_denominator="dynamic_female_15_44",
+            independent_scale_paths=3,
+        )
+        first = runner(rows, [2018, 2019], 7)
+        second = runner(rows, [2018, 2019], 8)
+        self.assertEqual([row["year"] for row in first], [2018, 2019])
+        self.assertTrue(all(row["exposure_denominator"] == "dynamic_female_15_44"
+                            for row in first + second))
+        self.assertTrue(all(row["asfr_15_44"] >= 0 for row in first + second))
+
+    def test_household_dynamic_exposure_requires_independent_scale(self):
+        with self.assertRaisesRegex(ValueError, "独立尺度"):
+            household_simulator_runner(exposure_denominator="dynamic_female_15_44")
+
+    def test_household_fixed_denominator_can_use_independent_scale(self):
+        rows = [{"entity": "A", "year": year, "asfr_15_44": 60.0,
+                 "housing_cost_burden": 0.35, "births_15_44": 60000,
+                 "female_15_44": 1000000} for year in (2016, 2017)]
+        forecast = household_simulator_runner(
+            calibration=HouseholdCalibration(), independent_scale_paths=3,
+        )(rows, [2018], 7)
+        self.assertEqual(len(forecast), 1)
+        self.assertNotIn("exposure_denominator", forecast[0])
+
     def test_forecasts_use_calendar_time_across_missing_observation_years(self):
         rows = [{"entity": "A", "year": year, "asfr_15_44": value,
                  "housing_cost_burden": 0.35}

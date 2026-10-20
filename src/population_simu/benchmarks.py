@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import math
+import hashlib
 from random import Random
 from statistics import median, pstdev
 from typing import Callable, Iterable, Mapping
@@ -252,7 +253,10 @@ def reduced_form_runner(metric: str = "asfr_15_44",
 def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                                *, use_housing: bool = True,
                                use_household_mechanisms: bool = True,
-                               future_housing: Mapping[tuple[str, int], float] | None = None) -> Runner:
+                               future_housing: Mapping[tuple[str, int], float] | None = None,
+                               exposure_denominator: str = "initial_female_share",
+                               independent_scale_paths: int = 0,
+                               independent_scale_seed: int = 700_000) -> Runner:
     """Adapt the frozen household World to the state-year forecast contract.
 
     The adapter uses only existing World mechanisms.  It calibrates a scale
@@ -264,6 +268,23 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
     from .household_calibration import HouseholdCalibration, calibrate_household_parameters
     from .world import World
     fixed_calibration = calibration
+    if exposure_denominator not in {"initial_female_share", "dynamic_female_15_44"}:
+        raise ValueError("exposure_denominator 必须为 initial_female_share 或 dynamic_female_15_44")
+    if independent_scale_paths < 0:
+        raise ValueError("independent_scale_paths 不能为负")
+    if exposure_denominator == "dynamic_female_15_44" and independent_scale_paths < 1:
+        raise ValueError("dynamic_female_15_44 需要至少一条独立尺度轨迹")
+    scale_cache: dict[tuple[object, ...], float] = {}
+
+    def dynamic_rate(world, stat) -> float:
+        female_15_44 = sum(
+            person.sex == "F" and 15 <= person.age <= 44
+            for person in world.living_people
+        )
+        return stat.births / max(1, female_15_44) * 1000.0
+
+    def stable_entity_offset(entity: str) -> int:
+        return int.from_bytes(hashlib.sha256(entity.encode("utf-8")).digest()[:4], "big")
 
     def run(train: list[Mapping[str, object]], years: list[int], seed: int) -> list[dict[str, object]]:
         if not use_household_mechanisms:
@@ -296,16 +317,61 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                 regions=(RegionConfig("state", entity, 1.0),),
             )
             world = World(scenario)
-            history = {stat.year: stat for stat in world.run()}
+            if exposure_denominator == "dynamic_female_15_44":
+                history = {world.year: world.history[-1]}
+                dynamic_rates = {}
+                for _ in range(scenario.simulation.years):
+                    stat = world.step()
+                    history[stat.year] = stat
+                    dynamic_rates[stat.year] = dynamic_rate(world, stat)
+            else:
+                history = {stat.year: stat for stat in world.run()}
+                dynamic_rates = {}
             future_stats = [history[y] for y in sorted(history) if y > start]
             baseline_stat = future_stats[0] if future_stats else None
             # World does not expose an age-sex denominator yet; use its seeded
             # female share as an explicit exposure approximation and calibrate
             # the scale only on the last training observation.
-            simulated_asfr = ((baseline_stat.births / (initial_people * 0.5)) * 1000.0
-                               if baseline_stat else 0.0)
-            scale = (float(last[metric]) / simulated_asfr
-                     if simulated_asfr > 1e-9 else 1.0)
+            if independent_scale_paths > 0:
+                cache_key = (
+                    entity, start, float(last[metric]), housing,
+                    calibration.housing_elasticity, calibration.reference_housing_burden,
+                    calibration.partnership_exposure, calibration.tfr_conversion_years,
+                    exposure_denominator, independent_scale_paths, independent_scale_seed,
+                )
+                if cache_key not in scale_cache:
+                    rates = []
+                    offset = stable_entity_offset(entity)
+                    for calibration_index in range(independent_scale_paths):
+                        calibration_scenario = Scenario(
+                            name=f"household_adapter_scale_{entity}",
+                            simulation=SimulationConfig(
+                                start_year=start, years=1,
+                                initial_people=initial_people,
+                                random_seed=independent_scale_seed + offset + calibration_index,
+                                baseline_tfr=scenario.simulation.baseline_tfr,
+                            ),
+                            policy=scenario.policy,
+                            regions=scenario.regions,
+                        )
+                        calibration_world = World(calibration_scenario)
+                        calibration_stat = calibration_world.step()
+                        if exposure_denominator == "dynamic_female_15_44":
+                            rates.append(dynamic_rate(calibration_world, calibration_stat))
+                        else:
+                            rates.append(
+                                calibration_stat.births / (initial_people * 0.5) * 1000.0
+                            )
+                    mean_rate = sum(rates) / len(rates)
+                    scale_cache[cache_key] = (
+                        float(last[metric]) / mean_rate if mean_rate > 1e-9 else 1.0
+                    )
+                scale = scale_cache[cache_key]
+            else:
+                simulated_asfr = ((baseline_stat.births / (initial_people * 0.5)) * 1000.0
+                                   if baseline_stat else 0.0)
+                scale = (float(last[metric]) / simulated_asfr
+                         if simulated_asfr > 1e-9 else 1.0)
             for year in years:
                 # When provided, use the exogenous state-year housing series
                 # for each forecast year. Outcomes are never read here.
@@ -321,17 +387,27 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                                             fertility_multiplier=calibration.housing_multiplier(year_housing)),
                         regions=(RegionConfig("state", entity, 1.0),),
                     )
-                    year_history = {s.year: s for s in World(one_year).run()}
-                    stat = year_history.get(year)
+                    if exposure_denominator == "dynamic_female_15_44":
+                        year_world = World(one_year)
+                        stat = year_world.step()
+                        dynamic_rates[year] = dynamic_rate(year_world, stat)
+                    else:
+                        year_history = {s.year: s for s in World(one_year).run()}
+                        stat = year_history.get(year)
                 else:
                     stat = history.get(year)
-                rate = ((stat.births / (initial_people * 0.5)) * 1000.0 * scale
-                        if stat else float(last[metric]))
-                raw_rate = ((stat.births / (initial_people * 0.5)) * 1000.0
-                            if stat else 0.0)
-                output.append({"entity": entity, "year": year, metric: max(0.0, rate),
-                               "world_asfr_unscaled": max(0.0, raw_rate),
-                               "asfr_scaled": max(0.0, rate)})
+                if stat and exposure_denominator == "dynamic_female_15_44":
+                    raw_rate = dynamic_rates.get(year, 0.0)
+                else:
+                    raw_rate = ((stat.births / (initial_people * 0.5)) * 1000.0
+                                if stat else 0.0)
+                rate = raw_rate * scale if stat else float(last[metric])
+                record = {"entity": entity, "year": year, metric: max(0.0, rate),
+                          "world_asfr_unscaled": max(0.0, raw_rate),
+                          "asfr_scaled": max(0.0, rate)}
+                if exposure_denominator != "initial_female_share":
+                    record["exposure_denominator"] = exposure_denominator
+                output.append(record)
         return output
     return run
 

@@ -1,0 +1,327 @@
+{
+  "kind": "fixed_2017_dynamic_exposure_candidate_diagnostic",
+  "evaluation_design": "fixed 2010-2017 calibration; previously inspected 2018, 2019, 2021 evaluation",
+  "calibration_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "evaluation_years": [
+    2018,
+    2019,
+    2021
+  ],
+  "calendar_horizons": [
+    1,
+    2,
+    4
+  ],
+  "replicates": 20,
+  "independent_scale_paths": 100,
+  "future_observed_housing_used": false,
+  "future_observed_female_exposure_used_by_models": false,
+  "observed_female_exposure_role": "constructs observed GFR and is used only in post-prediction diagnostics",
+  "reports": {
+    "naive_trend": {
+      "overall": {
+        "n": 150,
+        "bias": -1.420708295891131,
+        "mae": 1.8263905754011758,
+        "rmse": 2.987990980359535,
+        "mape_percent": 3.0726304344309456
+      },
+      "by_year": {
+        "2018": {
+          "n": 50,
+          "bias": -0.45542641731472144,
+          "mae": 0.7900895390021,
+          "rmse": 1.0895015793209957,
+          "mape_percent": 1.2815141842375553
+        },
+        "2019": {
+          "n": 50,
+          "bias": -1.1733981830817508,
+          "mae": 1.4812396645286758,
+          "rmse": 2.132064467707876,
+          "mape_percent": 2.4188201524834425
+        },
+        "2021": {
+          "n": 50,
+          "bias": -2.6333002872769207,
+          "mae": 3.207842522672751,
+          "rmse": 4.588197653798754,
+          "mape_percent": 5.517556966571839
+        }
+      },
+      "crps": 1.8263905754011758,
+      "interval": {
+        "n": 150,
+        "coverage": 0.0,
+        "mean_interval_width": 0.0
+      },
+      "descriptive_association": {
+        "prediction_observation_level_correlation": 0.8891866285845297,
+        "prediction_observation_change_from_2017_correlation": 0.7796041580707762,
+        "forecast_error_observed_exposure_growth_correlation": -0.3049922570417411,
+        "note": "descriptive predictive association, not a causal relationship"
+      }
+    },
+    "damped_trend_proxy": {
+      "overall": {
+        "n": 150,
+        "bias": 1.5580371821962316,
+        "mae": 1.6046663785163147,
+        "rmse": 2.030068857004049,
+        "mape_percent": 2.7615589609302313
+      },
+      "by_year": {
+        "2018": {
+          "n": 50,
+          "bias": 0.8211787875798627,
+          "mae": 0.8815024591047772,
+          "rmse": 1.0193141538967023,
+          "mape_percent": 1.4740579694203158
+        },
+        "2019": {
+          "n": 50,
+          "bias": 1.379812226707417,
+          "mae": 1.4247949382257616,
+          "rmse": 1.6636952373581524,
+          "mape_percent": 2.4343874178694924
+        },
+        "2021": {
+          "n": 50,
+          "bias": 2.473120532301415,
+          "mae": 2.507701738218405,
+          "rmse": 2.9251761494636237,
+          "mape_percent": 4.376231495500886
+        }
+      },
+      "crps": 1.6046663785163147,
+      "interval": {
+        "n": 150,
+        "coverage": 0.0,
+        "mean_interval_width": 0.0
+      },
+      "descriptive_association": {
+        "prediction_observation_level_correlation": 0.9727570101327212,
+        "prediction_observation_change_from_2017_correlation": 0.7005272032333679,
+        "forecast_error_observed_exposure_growth_correlation": 0.2950674557939163,
+        "note": "descriptive predictive association, not a causal relationship"
+      }
+    },
+    "reduced_form": {
+      "overall": {
+        "n": 150,
+        "bias": -0.9473789936649514,
+        "mae": 2.0087837609671846,
+        "rmse": 2.9029844250972556,
+        "mape_percent": 3.405075224959239
+      },
+      "by_year": {
+        "2018": {
+          "n": 50,
+          "bias": 0.017902884911458302,
+          "mae": 1.14607986014617,
+          "rmse": 1.3451768234726555,
+          "mape_percent": 1.887125429311413
+        },
+        "2019": {
+          "n": 50,
+          "bias": -0.7000688808555712,
+          "mae": 1.6672000514222234,
+          "rmse": 2.108829634349978,
+          "mape_percent": 2.7712693047939503
+        },
+        "2021": {
+          "n": 50,
+          "bias": -2.159970985050741,
+          "mae": 3.213071371333161,
+          "rmse": 4.3617992392992,
+          "mape_percent": 5.556830940772353
+        }
+      },
+      "crps": 2.0087837609671846,
+      "interval": {
+        "n": 150,
+        "coverage": 0.0,
+        "mean_interval_width": 0.0
+      },
+      "descriptive_association": {
+        "prediction_observation_level_correlation": 0.8964816828039169,
+        "prediction_observation_change_from_2017_correlation": 0.7521845215555718,
+        "forecast_error_observed_exposure_growth_correlation": -0.2743177963605822,
+        "note": "descriptive predictive association, not a causal relationship"
+      }
+    },
+    "household_legacy_same_path_fixed_denominator": {
+      "overall": {
+        "n": 150,
+        "bias": -3.1178890146077536,
+        "mae": 6.278166705945988,
+        "rmse": 8.51299374166322,
+        "mape_percent": 10.935089027382785
+      },
+      "by_year": {
+        "2018": {
+          "n": 50,
+          "bias": 1.2775792106085837,
+          "mae": 1.2860121732634913,
+          "rmse": 1.512697525045031,
+          "mape_percent": 2.1419714275657107
+        },
+        "2019": {
+          "n": 50,
+          "bias": 2.180382317080381,
+          "mae": 4.736859373062247,
+          "rmse": 5.520206652689606,
+          "mape_percent": 8.357478962191646
+        },
+        "2021": {
+          "n": 50,
+          "bias": -12.811628571512225,
+          "mae": 12.811628571512225,
+          "rmse": 13.588681026726452,
+          "mape_percent": 22.305816692390998
+        }
+      },
+      "crps": 4.7760843010347696,
+      "interval": {
+        "n": 150,
+        "coverage": 0.6666666666666666,
+        "mean_interval_width": 28.378170896413284
+      },
+      "descriptive_association": {
+        "prediction_observation_level_correlation": 0.5361949273493561,
+        "prediction_observation_change_from_2017_correlation": 0.6501453008018974,
+        "forecast_error_observed_exposure_growth_correlation": -0.40263066285193855,
+        "note": "descriptive predictive association, not a causal relationship"
+      }
+    },
+    "household_fixed_denominator_independent_scale": {
+      "overall": {
+        "n": 150,
+        "bias": -4.986722926189443,
+        "mae": 6.725883492252323,
+        "rmse": 9.232445011159834,
+        "mape_percent": 11.768358433617937
+      },
+      "by_year": {
+        "2018": {
+          "n": 50,
+          "bias": -0.5223979952476456,
+          "mae": 2.715307699841577,
+          "rmse": 3.4229851230620403,
+          "mape_percent": 4.612113769672003
+        },
+        "2019": {
+          "n": 50,
+          "bias": 0.6075156884145997,
+          "mae": 2.4170563051801097,
+          "rmse": 3.0755412082920044,
+          "mape_percent": 4.2576489664201675
+        },
+        "2021": {
+          "n": 50,
+          "bias": -15.045286471735283,
+          "mae": 15.045286471735283,
+          "rmse": 15.314644683297882,
+          "mape_percent": 26.435312564761638
+        }
+      },
+      "crps": 5.652123011965537,
+      "interval": {
+        "n": 150,
+        "coverage": 0.8666666666666667,
+        "mean_interval_width": 31.26911448144079
+      },
+      "descriptive_association": {
+        "prediction_observation_level_correlation": 0.6719459069167308,
+        "prediction_observation_change_from_2017_correlation": 0.635590837060803,
+        "forecast_error_observed_exposure_growth_correlation": -0.4380798489813461,
+        "note": "descriptive predictive association, not a causal relationship"
+      }
+    },
+    "household_dynamic_exposure_independent_scale": {
+      "overall": {
+        "n": 150,
+        "bias": -3.943388502755953,
+        "mae": 6.113596752567624,
+        "rmse": 8.160818530734979,
+        "mape_percent": 10.695910498391918
+      },
+      "by_year": {
+        "2018": {
+          "n": 50,
+          "bias": -0.21502219759991748,
+          "mae": 2.7379389793975903,
+          "rmse": 3.672314848693567,
+          "mape_percent": 4.66723888698637
+        },
+        "2019": {
+          "n": 50,
+          "bias": 1.2220634323436579,
+          "mae": 2.765644535293682,
+          "rmse": 3.3527603224338125,
+          "mape_percent": 4.89509869791527
+        },
+        "2021": {
+          "n": 50,
+          "bias": -12.837206743011599,
+          "mae": 12.837206743011599,
+          "rmse": 13.231401254105345,
+          "mape_percent": 22.52539391027411
+        }
+      },
+      "crps": 4.949495785848696,
+      "interval": {
+        "n": 150,
+        "coverage": 0.9733333333333334,
+        "mean_interval_width": 31.135644283834015
+      },
+      "descriptive_association": {
+        "prediction_observation_level_correlation": 0.6952301318637236,
+        "prediction_observation_change_from_2017_correlation": 0.6161117107123669,
+        "forecast_error_observed_exposure_growth_correlation": -0.40178371444783334,
+        "note": "descriptive predictive association, not a causal relationship"
+      }
+    }
+  },
+  "paired_dynamic_vs_legacy": {
+    "delta_definition": "dynamic candidate MAPE - household_legacy_same_path_fixed_denominator MAPE; negative favors dynamic",
+    "draws": 2000,
+    "cluster": "state, preserving all three evaluation years",
+    "mean": -0.2437438368798393,
+    "lower_95": -0.9374845027576661,
+    "upper_95": 0.4818640162011487,
+    "candidate_better_probability": 0.76
+  },
+  "paired_dynamic_vs_fixed_independent": {
+    "delta_definition": "dynamic candidate MAPE - household_fixed_denominator_independent_scale MAPE; negative favors dynamic",
+    "draws": 2000,
+    "cluster": "state, preserving all three evaluation years",
+    "mean": -1.0734136441724038,
+    "lower_95": -1.4333347329898203,
+    "upper_95": -0.7448396986229291,
+    "candidate_better_probability": 1.0
+  },
+  "limitations": [
+    "evaluation outcomes have been inspected previously; not a fresh untouched test",
+    "only three historical target years and overlapping national shocks",
+    "household adapter is simplified World, not full FamilyWorld",
+    "dynamic exposure is generated internally and is not calibrated to state age-sex structure",
+    "association diagnostics are descriptive and not causal",
+    "dynamic-versus-fixed-independent comparison isolates denominator choice within the candidate scaling design"
+  ],
+  "source_sha256": {
+    "data/observed/us_2021/us_research_panel_2010_2021_comparable.csv": "ca8667f34aac57a146fe6f03c1e8f89c12bd2c515ac0ba7413dc2d27d4ddd844",
+    "scripts/evaluate_dynamic_exposure_holdout.py": "65f39c83afe92c8d6b441080a1997064d1265f4e8d5847c54bc98965b486ada4",
+    "src/population_simu/benchmarks.py": "0cf443452328664a65f801a40e1b74022b0b9b85466a0c0c477ae215845f19f3",
+    "src/population_simu/world.py": "6688ed7309baa1e8e67f662b4b12101aa4f61cdf6be3e817d2230d2b85d07d09"
+  }
+}
