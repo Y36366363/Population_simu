@@ -132,6 +132,13 @@
     }
   },
   "files": {
+    "data/observed/us_2021/acs_b01001_2017_initialization.json": {
+      "dataset": "census_acs",
+      "recorded_on": "2026-10-25",
+      "date_basis": "downloaded",
+      "transformation": "2017 ACS 1-year B01001 estimates and margins retrieved from https://api.census.gov/data/2017/acs/acs1?get=NAME,group(B01001)&for=state:*; JSON formatted without changing cells. All response rows retained; experiments exclude DC and Puerto Rico and use only 2017 estimates. No test-period population data downloaded.",
+      "sha256": "9d637bc1fc98e61f409d0e6d18f0d6cb072adbada22308b72c8f1bb51b988326"
+    },
     "data/observed/owid_age_sex_death_rates_sample.csv": {
       "dataset": "owid_mortality",
       "recorded_on": "2026-08-15",

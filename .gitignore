@@ -8,4 +8,10 @@
 outputs/
 __pycache__/
 *.pyc
+# Personal academic goals and future planning stay local.
+/research/academic_*.md
+/research/*roadmap*.md
+/docs/academic_*.md
+/docs/*roadmap*.md
+/research/local_planning/
 data/observed/us_2021/wonder_births_partial_*.csv

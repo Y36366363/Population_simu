@@ -256,7 +256,8 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                                future_housing: Mapping[tuple[str, int], float] | None = None,
                                exposure_denominator: str = "initial_female_share",
                                independent_scale_paths: int = 0,
-                               independent_scale_seed: int = 700_000) -> Runner:
+                               independent_scale_seed: int = 700_000,
+                               initial_population_transform: Callable | None = None) -> Runner:
     """Adapt the frozen household World to the state-year forecast contract.
 
     The adapter uses only existing World mechanisms.  It calibrates a scale
@@ -275,6 +276,8 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
     if exposure_denominator == "dynamic_female_15_44" and independent_scale_paths < 1:
         raise ValueError("dynamic_female_15_44 需要至少一条独立尺度轨迹")
     scale_cache: dict[tuple[object, ...], float] = {}
+    if initial_population_transform is not None and future_housing is not None:
+        raise ValueError("training initialization requires continuous forecast paths")
 
     def dynamic_rate(world, stat) -> float:
         female_15_44 = sum(
@@ -317,6 +320,8 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                 regions=(RegionConfig("state", entity, 1.0),),
             )
             world = World(scenario)
+            if initial_population_transform is not None:
+                initial_population_transform(world, entity, start)
             if exposure_denominator == "dynamic_female_15_44":
                 history = {world.year: world.history[-1]}
                 dynamic_rates = {}
@@ -355,6 +360,8 @@ def household_simulator_runner(metric: str = "asfr_15_44", calibration=None,
                             regions=scenario.regions,
                         )
                         calibration_world = World(calibration_scenario)
+                        if initial_population_transform is not None:
+                            initial_population_transform(calibration_world, entity, start)
                         calibration_stat = calibration_world.step()
                         if exposure_denominator == "dynamic_female_15_44":
                             rates.append(dynamic_rate(calibration_world, calibration_stat))
